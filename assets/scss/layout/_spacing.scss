@@ -4,22 +4,23 @@
 // --{root}-sign custom property (--marginTop-sign, ...; base uses the shared --margin-sign), flipped
 // to -1 by that direction's own Negative flag (mgBlNegative, mgTpNegative, ...) and read with a
 // plain `, 1)` fallback, so mgTpNegative negates only margin-top even when combined with a
-// base-level mgTexts/mgElements/etc in the same bracket. Padding has no negative variant at all,
-// since negative padding isn't a real thing. The scale is the same one gap uses: texts (smallest,
-// also the default), elements (base size), groups (double), sections (viewport-based, biggest).
+// base-level mgParagraphs/mgElements/etc in the same bracket. Padding has no negative variant at all,
+// since negative padding isn't a real thing. The scale is the same one gap uses: details (smallest, a quarter),
+// paragraphs (half, also the default), elements (base size), groups (double), sections (viewport-based, biggest).
 //# MARGIN
 // each direction has its own root (marginBlock, marginTop, ...) with a short
-// direction-prefixed scale flag inside each (mgBlTexts, mgTpPage, ...) instead of folded into
-// margin's own bracket. Base margin keeps the short "mg" prefix (mgTexts, ...); direction roots
+// direction-prefixed scale flag inside each (mgBlParagraphs, mgTpPage, ...) instead of folded into
+// margin's own bracket. Base margin keeps the short "mg" prefix (mgParagraphs, ...); direction roots
 // add a direction letter (mgBl, mgIn, mgTp, mgRt, mgBt, mgLt).
 :is([pgs~="margin"], [pgs*="margin\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --margin-sign: 1;
-    margin: calc(var(--margin-texts) * var(--margin-sign, 1));
+    margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1));
 
-    &[pgs*="'mg'"] { margin: calc(var(--margin-texts) * var(--margin-sign, 1)); }
+    &[pgs*="'mg'"] { margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1)); }
     &[pgs*="'mgNegative'"] { --margin-sign: -1; }
-    &[pgs*="'mgTexts'"] { margin: calc(var(--margin-texts) * var(--margin-sign, 1)); }
+    &[pgs*="'mgDetails'"] { margin: calc(var(--margin-details) * var(--margin-sign, 1)); }
+    &[pgs*="'mgParagraphs'"] { margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1)); }
     &[pgs*="'mgElements'"] { margin: calc(var(--margin-elements) * var(--margin-sign, 1)); }
     &[pgs*="'mgGroups'"] { margin: calc(var(--margin-groups) * var(--margin-sign, 1)); }
     &[pgs*="'mgSections'"] { margin: calc(var(--margin-sections) * var(--margin-sign, 1)); }
@@ -32,11 +33,12 @@
 :is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --marginBlock-sign: 1;
-    margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
+    margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1));
 
-    &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBl'"] { margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1)); }
     &[pgs*="'mgBlNegative'"] { --marginBlock-sign: -1; }
-    &[pgs*="'mgBlTexts'"] { margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlDetails'"] { margin-block: calc(var(--margin-details) * var(--marginBlock-sign, 1)); }
+    &[pgs*="'mgBlParagraphs'"] { margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1)); }
     &[pgs*="'mgBlElements'"] { margin-block: calc(var(--margin-elements) * var(--marginBlock-sign, 1)); }
     &[pgs*="'mgBlGroups'"] { margin-block: calc(var(--margin-groups) * var(--marginBlock-sign, 1)); }
     &[pgs*="'mgBlSections'"] { margin-block: calc(var(--margin-sections) * var(--marginBlock-sign, 1)); }
@@ -49,11 +51,12 @@
 :is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --marginInline-sign: 1;
-    margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
+    margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1));
 
-    &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgIn'"] { margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1)); }
     &[pgs*="'mgInNegative'"] { --marginInline-sign: -1; }
-    &[pgs*="'mgInTexts'"] { margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInDetails'"] { margin-inline: calc(var(--margin-details) * var(--marginInline-sign, 1)); }
+    &[pgs*="'mgInParagraphs'"] { margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1)); }
     &[pgs*="'mgInElements'"] { margin-inline: calc(var(--margin-elements) * var(--marginInline-sign, 1)); }
     &[pgs*="'mgInGroups'"] { margin-inline: calc(var(--margin-groups) * var(--marginInline-sign, 1)); }
     &[pgs*="'mgInSections'"] { margin-inline: calc(var(--margin-sections) * var(--marginInline-sign, 1)); }
@@ -66,11 +69,12 @@
 :is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --marginTop-sign: 1;
-    margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
+    margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1));
 
-    &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTp'"] { margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1)); }
     &[pgs*="'mgTpNegative'"] { --marginTop-sign: -1; }
-    &[pgs*="'mgTpTexts'"] { margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpDetails'"] { margin-top: calc(var(--margin-details) * var(--marginTop-sign, 1)); }
+    &[pgs*="'mgTpParagraphs'"] { margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1)); }
     &[pgs*="'mgTpElements'"] { margin-top: calc(var(--margin-elements) * var(--marginTop-sign, 1)); }
     &[pgs*="'mgTpGroups'"] { margin-top: calc(var(--margin-groups) * var(--marginTop-sign, 1)); }
     &[pgs*="'mgTpSections'"] { margin-top: calc(var(--margin-sections) * var(--marginTop-sign, 1)); }
@@ -83,11 +87,12 @@
 :is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --marginRight-sign: 1;
-    margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
+    margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1));
 
-    &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRt'"] { margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1)); }
     &[pgs*="'mgRtNegative'"] { --marginRight-sign: -1; }
-    &[pgs*="'mgRtTexts'"] { margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtDetails'"] { margin-right: calc(var(--margin-details) * var(--marginRight-sign, 1)); }
+    &[pgs*="'mgRtParagraphs'"] { margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1)); }
     &[pgs*="'mgRtElements'"] { margin-right: calc(var(--margin-elements) * var(--marginRight-sign, 1)); }
     &[pgs*="'mgRtGroups'"] { margin-right: calc(var(--margin-groups) * var(--marginRight-sign, 1)); }
     &[pgs*="'mgRtSections'"] { margin-right: calc(var(--margin-sections) * var(--marginRight-sign, 1)); }
@@ -100,11 +105,12 @@
 :is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --marginBottom-sign: 1;
-    margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
+    margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1));
 
-    &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBt'"] { margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1)); }
     &[pgs*="'mgBtNegative'"] { --marginBottom-sign: -1; }
-    &[pgs*="'mgBtTexts'"] { margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtDetails'"] { margin-bottom: calc(var(--margin-details) * var(--marginBottom-sign, 1)); }
+    &[pgs*="'mgBtParagraphs'"] { margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1)); }
     &[pgs*="'mgBtElements'"] { margin-bottom: calc(var(--margin-elements) * var(--marginBottom-sign, 1)); }
     &[pgs*="'mgBtGroups'"] { margin-bottom: calc(var(--margin-groups) * var(--marginBottom-sign, 1)); }
     &[pgs*="'mgBtSections'"] { margin-bottom: calc(var(--margin-sections) * var(--marginBottom-sign, 1)); }
@@ -117,11 +123,12 @@
 :is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
     // reset on every element, so a negative parent does not flip its descendants
     --marginLeft-sign: 1;
-    margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
+    margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1));
 
-    &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLt'"] { margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1)); }
     &[pgs*="'mgLtNegative'"] { --marginLeft-sign: -1; }
-    &[pgs*="'mgLtTexts'"] { margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtDetails'"] { margin-left: calc(var(--margin-details) * var(--marginLeft-sign, 1)); }
+    &[pgs*="'mgLtParagraphs'"] { margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1)); }
     &[pgs*="'mgLtElements'"] { margin-left: calc(var(--margin-elements) * var(--marginLeft-sign, 1)); }
     &[pgs*="'mgLtGroups'"] { margin-left: calc(var(--margin-groups) * var(--marginLeft-sign, 1)); }
     &[pgs*="'mgLtSections'"] { margin-left: calc(var(--margin-sections) * var(--marginLeft-sign, 1)); }
@@ -133,14 +140,15 @@
 //# PADDING
 // each direction has its own root (paddingBlock, paddingTop, ...) instead of being
 // folded into padding's own bracket, with a short direction-prefixed scale flag inside each
-// (pdBlTexts, pdTpPage, ...). Base padding also uses the short "pd" prefix (pdTexts, ...), matching
-// the direction roots below. Same scale as margin and gap: texts (smallest, also the default),
+// (pdBlParagraphs, pdTpPage, ...). Base padding also uses the short "pd" prefix (pdParagraphs, ...), matching
+// the direction roots below. Same scale as margin and gap: details (smallest), paragraphs (also the default),
 // elements (base size), groups (double), sections (viewport-based, biggest).
 :is([pgs~="padding"], [pgs*="padding\5B"]) {
-    padding: var(--padding-texts);
+    padding: var(--padding-paragraphs);
 
-    &[pgs*="'pd'"] { padding: var(--padding-texts); }
-    &[pgs*="'pdTexts'"] { padding: var(--padding-texts); }
+    &[pgs*="'pd'"] { padding: var(--padding-paragraphs); }
+    &[pgs*="'pdDetails'"] { padding: var(--padding-details); }
+    &[pgs*="'pdParagraphs'"] { padding: var(--padding-paragraphs); }
     &[pgs*="'pdElements'"] { padding: var(--padding-elements); }
     &[pgs*="'pdGroups'"] { padding: var(--padding-groups); }
     &[pgs*="'pdSections'"] { padding: var(--padding-sections); }
@@ -150,10 +158,11 @@
 
 //## BLOCK
 :is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
-    padding-block: var(--padding-texts);
+    padding-block: var(--padding-paragraphs);
 
-    &[pgs*="'pdBl'"] { padding-block: var(--padding-texts); }
-    &[pgs*="'pdBlTexts'"] { padding-block: var(--padding-texts); }
+    &[pgs*="'pdBl'"] { padding-block: var(--padding-paragraphs); }
+    &[pgs*="'pdBlDetails'"] { padding-block: var(--padding-details); }
+    &[pgs*="'pdBlParagraphs'"] { padding-block: var(--padding-paragraphs); }
     &[pgs*="'pdBlElements'"] { padding-block: var(--padding-elements); }
     &[pgs*="'pdBlGroups'"] { padding-block: var(--padding-groups); }
     &[pgs*="'pdBlSections'"] { padding-block: var(--padding-sections); }
@@ -163,10 +172,11 @@
 
 //## INLINE
 :is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
-    padding-inline: var(--padding-texts);
+    padding-inline: var(--padding-paragraphs);
 
-    &[pgs*="'pdIn'"] { padding-inline: var(--padding-texts); }
-    &[pgs*="'pdInTexts'"] { padding-inline: var(--padding-texts); }
+    &[pgs*="'pdIn'"] { padding-inline: var(--padding-paragraphs); }
+    &[pgs*="'pdInDetails'"] { padding-inline: var(--padding-details); }
+    &[pgs*="'pdInParagraphs'"] { padding-inline: var(--padding-paragraphs); }
     &[pgs*="'pdInElements'"] { padding-inline: var(--padding-elements); }
     &[pgs*="'pdInGroups'"] { padding-inline: var(--padding-groups); }
     &[pgs*="'pdInSections'"] { padding-inline: var(--padding-sections); }
@@ -176,10 +186,11 @@
 
 //## TOP
 :is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
-    padding-top: var(--padding-texts);
+    padding-top: var(--padding-paragraphs);
 
-    &[pgs*="'pdTp'"] { padding-top: var(--padding-texts); }
-    &[pgs*="'pdTpTexts'"] { padding-top: var(--padding-texts); }
+    &[pgs*="'pdTp'"] { padding-top: var(--padding-paragraphs); }
+    &[pgs*="'pdTpDetails'"] { padding-top: var(--padding-details); }
+    &[pgs*="'pdTpParagraphs'"] { padding-top: var(--padding-paragraphs); }
     &[pgs*="'pdTpElements'"] { padding-top: var(--padding-elements); }
     &[pgs*="'pdTpGroups'"] { padding-top: var(--padding-groups); }
     &[pgs*="'pdTpSections'"] { padding-top: var(--padding-sections); }
@@ -189,10 +200,11 @@
 
 //## RIGHT
 :is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
-    padding-right: var(--padding-texts);
+    padding-right: var(--padding-paragraphs);
 
-    &[pgs*="'pdRt'"] { padding-right: var(--padding-texts); }
-    &[pgs*="'pdRtTexts'"] { padding-right: var(--padding-texts); }
+    &[pgs*="'pdRt'"] { padding-right: var(--padding-paragraphs); }
+    &[pgs*="'pdRtDetails'"] { padding-right: var(--padding-details); }
+    &[pgs*="'pdRtParagraphs'"] { padding-right: var(--padding-paragraphs); }
     &[pgs*="'pdRtElements'"] { padding-right: var(--padding-elements); }
     &[pgs*="'pdRtGroups'"] { padding-right: var(--padding-groups); }
     &[pgs*="'pdRtSections'"] { padding-right: var(--padding-sections); }
@@ -202,10 +214,11 @@
 
 //## BOTTOM
 :is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
-    padding-bottom: var(--padding-texts);
+    padding-bottom: var(--padding-paragraphs);
 
-    &[pgs*="'pdBt'"] { padding-bottom: var(--padding-texts); }
-    &[pgs*="'pdBtTexts'"] { padding-bottom: var(--padding-texts); }
+    &[pgs*="'pdBt'"] { padding-bottom: var(--padding-paragraphs); }
+    &[pgs*="'pdBtDetails'"] { padding-bottom: var(--padding-details); }
+    &[pgs*="'pdBtParagraphs'"] { padding-bottom: var(--padding-paragraphs); }
     &[pgs*="'pdBtElements'"] { padding-bottom: var(--padding-elements); }
     &[pgs*="'pdBtGroups'"] { padding-bottom: var(--padding-groups); }
     &[pgs*="'pdBtSections'"] { padding-bottom: var(--padding-sections); }
@@ -215,10 +228,11 @@
 
 //## LEFT
 :is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
-    padding-left: var(--padding-texts);
+    padding-left: var(--padding-paragraphs);
 
-    &[pgs*="'pdLt'"] { padding-left: var(--padding-texts); }
-    &[pgs*="'pdLtTexts'"] { padding-left: var(--padding-texts); }
+    &[pgs*="'pdLt'"] { padding-left: var(--padding-paragraphs); }
+    &[pgs*="'pdLtDetails'"] { padding-left: var(--padding-details); }
+    &[pgs*="'pdLtParagraphs'"] { padding-left: var(--padding-paragraphs); }
     &[pgs*="'pdLtElements'"] { padding-left: var(--padding-elements); }
     &[pgs*="'pdLtGroups'"] { padding-left: var(--padding-groups); }
     &[pgs*="'pdLtSections'"] { padding-left: var(--padding-sections); }

@@ -4,7 +4,7 @@
 //# CARD
 :is([pgs~="card"], [pgs*="card\5B"]) {
     --card-padding: var(--padding-elements);
-    --card-borderRadius: calc(var(--borderRadius-texts) + var(--card-padding));
+    --card-borderRadius: calc(var(--borderRadius-paragraphs) + var(--card-padding));
     --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
     --card-background: var(--color-box-transparent);
     --card-img-padding: 0;
@@ -79,7 +79,7 @@
 
     //+ card Mini
     // options are prefixed with the component name (cardMini) so they never clash
-    &:where([pgs*="'cardMini'"]) { --card-padding: var(--padding-texts); }
+    &:where([pgs*="'cardMini'"]) { --card-padding: var(--padding-paragraphs); }
 
     //## Horizontal
     // the children of the row layout shared by cardHorizontal and cardHorizontalFixed
@@ -136,8 +136,8 @@
     //+ mini
     // options are prefixed with the component name (boxMini) so they never clash
     &:where([pgs*="'boxMini'"]) {
-        --box-padding: var(--padding-texts);
-        --box-borderRadius: var(--borderRadius-texts);
+        --box-padding: var(--padding-paragraphs);
+        --box-borderRadius: var(--borderRadius-paragraphs);
     }
 
     //+ navSmart

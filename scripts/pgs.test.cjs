@@ -54,8 +54,8 @@ test('bracket flags stay in the matching bracket and do not collide with longer 
     // operation); turning one on needs the base add(), naming the owning component directly
     options.toggle('icon-moon', false);
     pgs(el).add("icon['icon-sun']");
-    pgs(el).add("button['btnStrong']", "flex['gapTexts']");
-    assert.equal(el.getAttribute('pgs'), "button['btnMini' 'btnStrong'] icon['icon-sun'] flex['columnReverse' 'gapTexts']");
+    pgs(el).add("button['btnStrong']", "flex['gapParagraphs']");
+    assert.equal(el.getAttribute('pgs'), "button['btnMini' 'btnStrong'] icon['icon-sun'] flex['columnReverse' 'gapParagraphs']");
     assert.equal(el.getAttribute('pgs-data'), null);
     assert.equal(el.getAttribute('pgs-option'), null);
 });

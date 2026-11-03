@@ -6,7 +6,7 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 
 ## PGS
 
-- `grid`: creates a grid layout with the text gap and the full width of its container.
+- `grid`: creates a grid layout with the paragraph gap and the full width of its container.
 - `gridChild`: the grid counterpart of flexChild, for one item inside a grid['column-N']: its col* options set how many columns the item spans. Separate from flexChild because flex's own sizing (grow, basis) means nothing inside a grid.
 
 ## PGS Options (component brackets)
@@ -21,7 +21,8 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `colSpanL`: inside gridChild's own bracket, spans 3 columns (--gridChild-colSpan-l): three of a column-4, and the full row where the breakpoint leaves only two.
 - `colSpanXl`: inside gridChild's own bracket, spans 4 columns (--gridChild-colSpan-xl).
 - `colSpanXxl`: inside gridChild's own bracket, spans 5 columns (--gridChild-colSpan-xxl).
-- `gapTexts`: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
+- `gapDetails`: the detail gap between the items (a quarter of the base size, for small pieces of text in a row: icon and label, meta info); also sets --gap.
+- `gapParagraphs`: the paragraph gap between the items; also sets --gap, the gap a column-N row computes its widths with.
 - `gapElements`: the element gap between the items, and --gap with it.
 - `gapGroups`: the double gap between the items, and --gap with it.
 - `gapSections`: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.
@@ -106,13 +107,13 @@ gridNotDefault keeps only display: grid: the gap and the width are the element's
 
 ### Gap
 
-The three smaller gap scales between grid items, from the text gap to the group gap, plus gapNone; gapSections, the page-block scale, is too large to show here. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
+The three smaller gap scales between grid items, from the paragraph gap to the group gap, plus gapNone; gapSections, the page-block scale, is too large to show here. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
 
 ```html
-<div pgs="grid['column-4' 'gapTexts']">
-    <span pgs="box">gapTexts</span>
-    <span pgs="box">gapTexts</span>
-    <span pgs="box">gapTexts</span>
+<div pgs="grid['column-4' 'gapParagraphs']">
+    <span pgs="box">gapParagraphs</span>
+    <span pgs="box">gapParagraphs</span>
+    <span pgs="box">gapParagraphs</span>
 </div>
 <div pgs="grid['column-4' 'gapElements']">
     <span pgs="box">gapElements</span>

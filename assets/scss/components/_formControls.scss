@@ -5,7 +5,7 @@
 // The form, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
 //# RANGE
 [pgs~="range"] {
-    --range-size: var(--borderRadius-texts);
+    --range-size: var(--borderRadius-paragraphs);
     --range-thumbWidth: calc(var(--range-size) * 2);
     --range-background: var(--clickable-background);
     --range-background-progress: var(--twoState-background);
@@ -87,8 +87,8 @@
     cursor: pointer;
 
     &::file-selector-button {
-        margin-right: var(--gap-texts);
-        padding: var(--SIZE-texts) calc(var(--SIZE-texts) * 2);
+        margin-right: var(--gap-paragraphs);
+        padding: var(--SIZE-paragraphs) calc(var(--SIZE-paragraphs) * 2);
         font-family: var(--font);
         font-size: var(--font-size-text);
         font-weight: var(--font-weight-bold);
@@ -121,7 +121,7 @@
     width: var(--inputColor-width);
     height: var(--inputColor-height);
     border: var(--border-width) var(--border-color) var(--border-style);
-    border-radius: var(--borderRadius-texts);
+    border-radius: var(--borderRadius-paragraphs);
     cursor: pointer;
 
     &::-webkit-color-swatch-wrapper { padding: 0; }
@@ -156,12 +156,12 @@
     &[multiple] {
         optgroup {
             color: var(--color-black);
-            @include column(calc(var(--gap-texts)/2));
+            @include column(calc(var(--gap-paragraphs)/2));
         }
 
         option {
             padding: var(--select-padding);
-            border-radius: calc(var(--borderRadius-texts) - var(--select-padding));
+            border-radius: calc(var(--borderRadius-paragraphs) - var(--select-padding));
             background-color: transparent;
             font-weight: var(--font-weight-text);
             color: var(--color-black);

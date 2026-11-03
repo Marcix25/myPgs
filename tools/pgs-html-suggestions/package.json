@@ -1,8 +1,8 @@
 {
   "name": "pgs-html-suggestions",
   "displayName": "PGS HTML Suggestions",
-  "description": "Autocomplete for pgs and pgs-data in HTML/PHP, read from reference/pgs-map.json — the options offered inside component[...] are always only those of that component.",
-  "version": "0.1.0",
+  "description": "Autocomplete for pgs and pgs-data in HTML/PHP/JSX, read from reference/pgs-map.json — the options offered inside component[...] are always only those of that component.",
+  "version": "0.2.3",
   "publisher": "marcoferrari",
   "icon": "icon.png",
   "engines": {
@@ -23,6 +23,14 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configurationDefaults": {
+      "[javascriptreact]": {
+        "editor.quickSuggestions": { "other": "on", "comments": "off", "strings": "on" }
+      },
+      "[typescriptreact]": {
+        "editor.quickSuggestions": { "other": "on", "comments": "off", "strings": "on" }
+      }
+    },
     "configuration": {
       "title": "PGS HTML Suggestions",
       "properties": {

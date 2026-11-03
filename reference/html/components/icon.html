@@ -29,7 +29,7 @@
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: stacks the groups of examples.
  * - row: lays each group out in a row.
- * - gapTexts: spaces the icons inside a group.
+ * - gapParagraphs: spaces the icons inside a group.
  * - wrap: lets the full set flow onto more rows.
  * - textColor: provides the text-color utility used here, to show that a glyph follows the text color.
  * - txtPrimary: inside textColor's own bracket, recolors one example.
@@ -43,7 +43,7 @@
 <demo demo-h3="The set" demo-description="The glyphs the library carries because its own components draw them. The token marks the element, the option names the glyph. The rest of the set is in the myIcons pack, written the same way."></demo>
 
 <section demo="component">
-    <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
+    <div pgs="flex['row' 'gapParagraphs' 'wrap']" demo="wrapper">
         <i pgs="icon['icon-chevronDown']"></i>
         <i pgs="icon['icon-check']"></i>
         <i pgs="icon['icon-close']"></i>
@@ -61,18 +61,18 @@
 </section>
 
 <demo demo-h3="Size and color" demo-description="A glyph is drawn at the font size of its element and painted in the text color, so it needs no settings of its own: size it and color it the way you would the text around it. iconMedium and iconLarge are presets for a bigger glyph."></demo>
-<section pgs="flex['column' 'gapTexts']" demo="component">
-    <div pgs="flex['row' 'gapTexts']" demo="wrapper">
+<section pgs="flex['column' 'gapParagraphs']" demo="component">
+    <div pgs="flex['row' 'gapParagraphs']" demo="wrapper">
         <p><i pgs="icon['icon-circleInfo']"></i> Inside a paragraph, matching the text.</p>
     </div>
 
-    <div pgs="flex['row' 'gapTexts']" demo="wrapper">
+    <div pgs="flex['row' 'gapParagraphs']" demo="wrapper">
         <i pgs="icon['iconLarge' 'icon-circleCheck']"></i>
         <i pgs="icon['iconMedium' 'icon-circleCheck']"></i>
         <i pgs="icon['icon-circleCheck']"></i>
     </div>
 
-    <div pgs="flex['row' 'gapTexts']" demo="wrapper">
+    <div pgs="flex['row' 'gapParagraphs']" demo="wrapper">
         <i pgs="icon['icon-triangleExclamation'] textColor['txtPrimary']"></i>
         <i pgs="icon['icon-triangleExclamation'] textColor['txtError']"></i>
         <i pgs="icon['icon-triangleExclamation']"></i>
@@ -80,8 +80,8 @@
 </section>
 
 <demo demo-h3="Inside a surface" demo-description="A glyph placed in iconBoxed, the circular surface that holds one icon."></demo>
-<section pgs="flex['column' 'gapTexts']" demo="component">
-    <div pgs="flex['row' 'gapTexts']" demo="wrapper">
+<section pgs="flex['column' 'gapParagraphs']" demo="component">
+    <div pgs="flex['row' 'gapParagraphs']" demo="wrapper">
         <i pgs="icon['iconBoxed' 'icon-check']"></i>
         <i pgs="icon['iconBoxed' 'icon-close']"></i>
     </div>

@@ -1,0 +1,84 @@
+//= DEPRECATED
+// names kept only so projects written before the rename keep working; removed in version 6.
+// The texts step was renamed paragraphs, because "texts" led to it being used for the space
+// between small pieces of text, which is what the details step is for. Every alias reads the
+// new value, so it renders exactly as paragraphs does. Overriding an old --*-texts variable no
+// longer changes the library: override --*-paragraphs instead. These rules load after every
+// other file, so an old option wins over a new one written in the same element when both set
+// the same property (marginBlock['mgBlTexts'] next to marginTop['mgTpElements'], for example)
+
+//# VARIABLES
+:where([pgs~="htmlBase"]) {
+    &:root {
+        --SIZE-texts: var(--SIZE-paragraphs);
+        --padding-texts: var(--padding-paragraphs);
+        --margin-texts: var(--margin-paragraphs);
+        --gap-texts: var(--gap-paragraphs);
+        --borderRadius-texts: var(--borderRadius-paragraphs);
+    }
+}
+
+//# OPTIONS
+:is([pgs~="margin"], [pgs*="margin\5B"]) {
+    &[pgs*="'mgTexts'"] { margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1)); }
+}
+
+:is([pgs~="marginBlock"], [pgs*="marginBlock\5B"]) {
+    &[pgs*="'mgBlTexts'"] { margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1)); }
+}
+
+:is([pgs~="marginInline"], [pgs*="marginInline\5B"]) {
+    &[pgs*="'mgInTexts'"] { margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1)); }
+}
+
+:is([pgs~="marginTop"], [pgs*="marginTop\5B"]) {
+    &[pgs*="'mgTpTexts'"] { margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1)); }
+}
+
+:is([pgs~="marginRight"], [pgs*="marginRight\5B"]) {
+    &[pgs*="'mgRtTexts'"] { margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1)); }
+}
+
+:is([pgs~="marginBottom"], [pgs*="marginBottom\5B"]) {
+    &[pgs*="'mgBtTexts'"] { margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1)); }
+}
+
+:is([pgs~="marginLeft"], [pgs*="marginLeft\5B"]) {
+    &[pgs*="'mgLtTexts'"] { margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1)); }
+}
+
+:is([pgs~="padding"], [pgs*="padding\5B"]) {
+    &[pgs*="'pdTexts'"] { padding: var(--padding-paragraphs); }
+}
+
+:is([pgs~="paddingBlock"], [pgs*="paddingBlock\5B"]) {
+    &[pgs*="'pdBlTexts'"] { padding-block: var(--padding-paragraphs); }
+}
+
+:is([pgs~="paddingInline"], [pgs*="paddingInline\5B"]) {
+    &[pgs*="'pdInTexts'"] { padding-inline: var(--padding-paragraphs); }
+}
+
+:is([pgs~="paddingTop"], [pgs*="paddingTop\5B"]) {
+    &[pgs*="'pdTpTexts'"] { padding-top: var(--padding-paragraphs); }
+}
+
+:is([pgs~="paddingRight"], [pgs*="paddingRight\5B"]) {
+    &[pgs*="'pdRtTexts'"] { padding-right: var(--padding-paragraphs); }
+}
+
+:is([pgs~="paddingBottom"], [pgs*="paddingBottom\5B"]) {
+    &[pgs*="'pdBtTexts'"] { padding-bottom: var(--padding-paragraphs); }
+}
+
+:is([pgs~="paddingLeft"], [pgs*="paddingLeft\5B"]) {
+    &[pgs*="'pdLtTexts'"] { padding-left: var(--padding-paragraphs); }
+}
+
+:is([pgs~="grid"], [pgs*="grid\5B"], [pgs~="flex"], [pgs*="flex\5B"], [pgs~="gap"], [pgs*="gap\5B"]) {
+    &[pgs*="'gapTexts'"] { --gap: var(--gap-paragraphs); gap: var(--gap); }
+}
+
+:is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
+    &[pgs*="'radTexts'"] { border-radius: var(--borderRadius-paragraphs); }
+}

@@ -7,7 +7,7 @@
     display: grid; 
 
     &:not([pgs*="'gridNotDefault'"]) {
-        --gap: var(--gap-texts);
+        --gap: var(--gap-paragraphs);
         gap: var(--gap);
         width: 100%;
     }

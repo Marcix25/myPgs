@@ -2,7 +2,7 @@
 
 # Spacing
 
-Margin and padding utilities based on the same spacing scale gap uses: texts (smallest, also the default), elements (base size), groups (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgTexts, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlTexts, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap has a root of its own too, with the same scales plus gapNone: it only takes effect on a flex or grid container, and Flex and Grid take the same options in their own bracket.
+Margin and padding utilities based on the same spacing scale gap uses: details (smallest, a quarter of the base size, between small pieces of text in a row), paragraphs (half, between paragraphs and blocks of text, also the default), elements (base size), groups (double), sections (viewport-based, biggest). A shared base root for each property (margin, padding) covers all four sides at once, with the direction folded into a short prefix (mgParagraphs, pdPage, ...) instead of a separate root token per direction. Each direction also has its own root component (marginBlock, paddingTop, ...), using the same short direction-prefixed flags (mgBlParagraphs, pdTpPage, ...) — a physical side always wins over its logical shorthand when both are written, because CSS resolves that by which one comes later in the cascade, not by specificity. The gap has a root of its own too, with the same scales plus gapNone: it only takes effect on a flex or grid container, and Flex and Grid take the same options in their own bracket.
 
 ## PGS
 
@@ -25,7 +25,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 ## PGS Options (component brackets)
 
 - `mg`: inside margin's own bracket, an explicit way to write the same default a bare margin with no bracket already gets.
-- `mgTexts`: inside margin's own bracket, the text spacing scale, on every side; also the default with no option at all.
+- `mgDetails`: inside margin's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on every side.
+- `mgParagraphs`: inside margin's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on every side; also the default with no option at all.
 - `mgElements`: inside margin's own bracket, the element spacing scale, on every side.
 - `mgGroups`: inside margin's own bracket, the double scale, on every side.
 - `mgSections`: inside margin's own bracket, the section spacing scale, on every side.
@@ -34,7 +35,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgUnset`: inside margin's own bracket, resets every side to its initial value.
 - `mgNegative`: inside margin's own bracket, negates the base (all four sides) value it's combined with, or the default margin on its own — every direction below has its own Negative instead, independent of this one.
 - `mgBl`: inside marginBlock's own bracket, an explicit way to write the same default a bare marginBlock with no bracket already gets.
-- `mgBlTexts`: inside marginBlock's own bracket, the text spacing scale, on the block axis only; also the default with no option at all.
+- `mgBlDetails`: inside marginBlock's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the block axis only.
+- `mgBlParagraphs`: inside marginBlock's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the block axis only; also the default with no option at all.
 - `mgBlElements`: inside marginBlock's own bracket, the element spacing scale, on the block axis only.
 - `mgBlGroups`: inside marginBlock's own bracket, the double scale, on the block axis only.
 - `mgBlSections`: inside marginBlock's own bracket, the section spacing scale, on the block axis only.
@@ -43,7 +45,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgBlUnset`: inside marginBlock's own bracket, resets the block axis to its initial value.
 - `mgBlNegative`: inside marginBlock's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
 - `mgIn`: inside marginInline's own bracket, an explicit way to write the same default a bare marginInline with no bracket already gets.
-- `mgInTexts`: inside marginInline's own bracket, the text spacing scale, on the inline axis only; also the default with no option at all.
+- `mgInDetails`: inside marginInline's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the inline axis only.
+- `mgInParagraphs`: inside marginInline's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the inline axis only; also the default with no option at all.
 - `mgInElements`: inside marginInline's own bracket, the element spacing scale, on the inline axis only.
 - `mgInGroups`: inside marginInline's own bracket, the double scale, on the inline axis only.
 - `mgInSections`: inside marginInline's own bracket, the section spacing scale, on the inline axis only.
@@ -52,7 +55,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgInUnset`: inside marginInline's own bracket, resets the inline axis to its initial value.
 - `mgInNegative`: inside marginInline's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
 - `mgTp`: inside marginTop's own bracket, an explicit way to write the same default a bare marginTop with no bracket already gets.
-- `mgTpTexts`: inside marginTop's own bracket, the text spacing scale, on the top only; also the default with no option at all.
+- `mgTpDetails`: inside marginTop's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the top only.
+- `mgTpParagraphs`: inside marginTop's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the top only; also the default with no option at all.
 - `mgTpElements`: inside marginTop's own bracket, the element spacing scale, on the top only.
 - `mgTpGroups`: inside marginTop's own bracket, the double scale, on the top only.
 - `mgTpSections`: inside marginTop's own bracket, the section spacing scale, on the top only.
@@ -61,7 +65,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgTpUnset`: inside marginTop's own bracket, resets the top to its initial value.
 - `mgTpNegative`: inside marginTop's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
 - `mgRt`: inside marginRight's own bracket, an explicit way to write the same default a bare marginRight with no bracket already gets.
-- `mgRtTexts`: inside marginRight's own bracket, the text spacing scale, on the right only; also the default with no option at all.
+- `mgRtDetails`: inside marginRight's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the right only.
+- `mgRtParagraphs`: inside marginRight's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the right only; also the default with no option at all.
 - `mgRtElements`: inside marginRight's own bracket, the element spacing scale, on the right only.
 - `mgRtGroups`: inside marginRight's own bracket, the double scale, on the right only.
 - `mgRtSections`: inside marginRight's own bracket, the section spacing scale, on the right only.
@@ -70,7 +75,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgRtUnset`: inside marginRight's own bracket, resets the right to its initial value.
 - `mgRtNegative`: inside marginRight's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
 - `mgBt`: inside marginBottom's own bracket, an explicit way to write the same default a bare marginBottom with no bracket already gets.
-- `mgBtTexts`: inside marginBottom's own bracket, the text spacing scale, on the bottom only; also the default with no option at all.
+- `mgBtDetails`: inside marginBottom's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the bottom only.
+- `mgBtParagraphs`: inside marginBottom's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the bottom only; also the default with no option at all.
 - `mgBtElements`: inside marginBottom's own bracket, the element spacing scale, on the bottom only.
 - `mgBtGroups`: inside marginBottom's own bracket, the double scale, on the bottom only.
 - `mgBtSections`: inside marginBottom's own bracket, the section spacing scale, on the bottom only.
@@ -79,7 +85,8 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgBtUnset`: inside marginBottom's own bracket, resets the bottom to its initial value.
 - `mgBtNegative`: inside marginBottom's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
 - `mgLt`: inside marginLeft's own bracket, an explicit way to write the same default a bare marginLeft with no bracket already gets.
-- `mgLtTexts`: inside marginLeft's own bracket, the text spacing scale, on the left only; also the default with no option at all.
+- `mgLtDetails`: inside marginLeft's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the left only.
+- `mgLtParagraphs`: inside marginLeft's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the left only; also the default with no option at all.
 - `mgLtElements`: inside marginLeft's own bracket, the element spacing scale, on the left only.
 - `mgLtGroups`: inside marginLeft's own bracket, the double scale, on the left only.
 - `mgLtSections`: inside marginLeft's own bracket, the section spacing scale, on the left only.
@@ -88,55 +95,63 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 - `mgLtUnset`: inside marginLeft's own bracket, resets the left to its initial value.
 - `mgLtNegative`: inside marginLeft's own bracket, negates whatever value is combined with it in the same bracket, independently of the base mgNegative sign.
 - `pd`: inside padding's own bracket, an explicit way to write the same default a bare padding with no bracket already gets.
-- `pdTexts`: inside padding's own bracket, the text spacing scale, on every side; also the default with no option at all.
+- `pdDetails`: inside padding's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on every side.
+- `pdParagraphs`: inside padding's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on every side; also the default with no option at all.
 - `pdElements`: inside padding's own bracket, the element spacing scale, on every side.
 - `pdGroups`: inside padding's own bracket, the double scale, on every side.
 - `pdSections`: inside padding's own bracket, the section spacing scale, on every side.
 - `pdPage`: inside padding's own bracket, the page padding token, on every side.
 - `pdUnset`: inside padding's own bracket, resets every side to its initial value.
 - `pdBl`: inside paddingBlock's own bracket, an explicit way to write the same default a bare paddingBlock with no bracket already gets.
-- `pdBlTexts`: inside paddingBlock's own bracket, the text spacing scale, on the block axis only; also the default with no option at all.
+- `pdBlDetails`: inside paddingBlock's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the block axis only.
+- `pdBlParagraphs`: inside paddingBlock's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the block axis only; also the default with no option at all.
 - `pdBlElements`: inside paddingBlock's own bracket, the element spacing scale, on the block axis only.
 - `pdBlGroups`: inside paddingBlock's own bracket, the double scale, on the block axis only.
 - `pdBlSections`: inside paddingBlock's own bracket, the section spacing scale, on the block axis only.
 - `pdBlPage`: inside paddingBlock's own bracket, the page padding token, on the block axis only.
 - `pdBlUnset`: inside paddingBlock's own bracket, resets the block axis to its initial value.
 - `pdIn`: inside paddingInline's own bracket, an explicit way to write the same default a bare paddingInline with no bracket already gets.
-- `pdInTexts`: inside paddingInline's own bracket, the text spacing scale, on the inline axis only; also the default with no option at all.
+- `pdInDetails`: inside paddingInline's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the inline axis only.
+- `pdInParagraphs`: inside paddingInline's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the inline axis only; also the default with no option at all.
 - `pdInElements`: inside paddingInline's own bracket, the element spacing scale, on the inline axis only.
 - `pdInGroups`: inside paddingInline's own bracket, the double scale, on the inline axis only.
 - `pdInSections`: inside paddingInline's own bracket, the section spacing scale, on the inline axis only.
 - `pdInPage`: inside paddingInline's own bracket, the page padding token, on the inline axis only.
 - `pdInUnset`: inside paddingInline's own bracket, resets the inline axis to its initial value.
 - `pdTp`: inside paddingTop's own bracket, an explicit way to write the same default a bare paddingTop with no bracket already gets.
-- `pdTpTexts`: inside paddingTop's own bracket, the text spacing scale, on the top only; also the default with no option at all.
+- `pdTpDetails`: inside paddingTop's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the top only.
+- `pdTpParagraphs`: inside paddingTop's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the top only; also the default with no option at all.
 - `pdTpElements`: inside paddingTop's own bracket, the element spacing scale, on the top only.
 - `pdTpGroups`: inside paddingTop's own bracket, the double scale, on the top only.
 - `pdTpSections`: inside paddingTop's own bracket, the section spacing scale, on the top only.
 - `pdTpPage`: inside paddingTop's own bracket, the page padding token, on the top only.
 - `pdTpUnset`: inside paddingTop's own bracket, resets the top to its initial value.
 - `pdRt`: inside paddingRight's own bracket, an explicit way to write the same default a bare paddingRight with no bracket already gets.
-- `pdRtTexts`: inside paddingRight's own bracket, the text spacing scale, on the right only; also the default with no option at all.
+- `pdRtDetails`: inside paddingRight's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the right only.
+- `pdRtParagraphs`: inside paddingRight's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the right only; also the default with no option at all.
 - `pdRtElements`: inside paddingRight's own bracket, the element spacing scale, on the right only.
 - `pdRtGroups`: inside paddingRight's own bracket, the double scale, on the right only.
 - `pdRtSections`: inside paddingRight's own bracket, the section spacing scale, on the right only.
 - `pdRtPage`: inside paddingRight's own bracket, the page padding token, on the right only.
 - `pdRtUnset`: inside paddingRight's own bracket, resets the right to its initial value.
 - `pdBt`: inside paddingBottom's own bracket, an explicit way to write the same default a bare paddingBottom with no bracket already gets.
-- `pdBtTexts`: inside paddingBottom's own bracket, the text spacing scale, on the bottom only; also the default with no option at all.
+- `pdBtDetails`: inside paddingBottom's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the bottom only.
+- `pdBtParagraphs`: inside paddingBottom's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the bottom only; also the default with no option at all.
 - `pdBtElements`: inside paddingBottom's own bracket, the element spacing scale, on the bottom only.
 - `pdBtGroups`: inside paddingBottom's own bracket, the double scale, on the bottom only.
 - `pdBtSections`: inside paddingBottom's own bracket, the section spacing scale, on the bottom only.
 - `pdBtPage`: inside paddingBottom's own bracket, the page padding token, on the bottom only.
 - `pdBtUnset`: inside paddingBottom's own bracket, resets the bottom to its initial value.
 - `pdLt`: inside paddingLeft's own bracket, an explicit way to write the same default a bare paddingLeft with no bracket already gets.
-- `pdLtTexts`: inside paddingLeft's own bracket, the text spacing scale, on the left only; also the default with no option at all.
+- `pdLtDetails`: inside paddingLeft's own bracket, the detail spacing scale (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), on the left only.
+- `pdLtParagraphs`: inside paddingLeft's own bracket, the paragraph spacing scale (half the base size, the space between paragraphs and blocks of text), on the left only; also the default with no option at all.
 - `pdLtElements`: inside paddingLeft's own bracket, the element spacing scale, on the left only.
 - `pdLtGroups`: inside paddingLeft's own bracket, the double scale, on the left only.
 - `pdLtSections`: inside paddingLeft's own bracket, the section spacing scale, on the left only.
 - `pdLtPage`: inside paddingLeft's own bracket, the page padding token, on the left only.
 - `pdLtUnset`: inside paddingLeft's own bracket, resets the left to its initial value.
-- `gapTexts`: inside gap's own bracket, the text gap between the children; also sets --gap.
+- `gapDetails`: inside gap's own bracket, the detail gap between the children (a quarter of the base size, for small pieces of text in a row: icon and label, meta info), and --gap with it.
+- `gapParagraphs`: inside gap's own bracket, the paragraph gap between the children; also sets --gap.
 - `gapElements`: inside gap's own bracket, the element gap between the children, and --gap with it.
 - `gapGroups`: inside gap's own bracket, the double gap between the children, and --gap with it.
 - `gapSections`: inside gap's own bracket, the section gap between the children, and --gap with it.
@@ -147,14 +162,14 @@ Margin and padding utilities based on the same spacing scale gap uses: texts (sm
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `box`: makes the padding and the centered margin example visible, so pdTexts/mgInAuto are actually observable.
+- `box`: makes the padding and the centered margin example visible, so pdParagraphs/mgInAuto are actually observable.
 
 ### PGS Options (component brackets)
 
 - `column`: arranges the spacing groups vertically.
 - `row`: arranges the scale examples in a row.
 - `wrap`: lets the scale examples flow onto a second row.
-- `gapTexts`: separates the examples inside a group.
+- `gapParagraphs`: separates the examples inside a group.
 
 ## Output
 
@@ -163,10 +178,11 @@ Margin and padding usage examples using all available directions and spacing sca
 
 ### Padding scales
 
-The four spacing scales, from smallest to biggest, plus the page padding and unset, shown with padding and box so the size difference is visible on the page. Texts is also the default with no option at all — margin uses the exact same scale, just on the outside of the box instead of the inside.
+The five spacing scales, from smallest to biggest, plus the page padding and unset, shown with padding and box so the size difference is visible on the page. Paragraphs is also the default with no option at all — margin uses the exact same scale, just on the outside of the box instead of the inside.
 
 ```html
-<span pgs="box padding['pdTexts']">pdTexts</span>
+<span pgs="box padding['pdDetails']">pdDetails</span>
+<span pgs="box padding['pdParagraphs']">pdParagraphs</span>
 <span pgs="box padding['pdElements']">pdElements</span>
 <span pgs="box padding['pdGroups']">pdGroups</span>
 <span pgs="box padding['pdSections']">pdSections</span>
@@ -189,7 +205,7 @@ Margin adds two options padding doesn't have: mgAuto pushes the element away to 
 
 ### Margin directions
 
-Each side of the margin is its own root component; bare, with no bracket, it already carries the default text scale shown above, on that side only.
+Each side of the margin is its own root component; bare, with no bracket, it already carries the default paragraph scale shown above, on that side only.
 
 ```html
 <p pgs="marginLeft">Spacing on the left.</p>
@@ -205,7 +221,7 @@ Each side of the margin is its own root component; bare, with no bracket, it alr
 
 ### Padding directions
 
-Each side of the padding is its own root component; bare, with no bracket, it already carries the default text scale shown above, on that side only.
+Each side of the padding is its own root component; bare, with no bracket, it already carries the default paragraph scale shown above, on that side only.
 
 ```html
 <p pgs="box paddingLeft">Spacing on the left.</p>
@@ -224,9 +240,9 @@ Each side of the padding is its own root component; bare, with no bracket, it al
 gap is a root of its own for the gap options: an element that is already a flex container by other means takes a gap without being written as flex. Here the containers are plain elements made flex with an inline style, to show the gap root alone.
 
 ```html
-<div pgs="gap['gapTexts']" style="display: flex">
-    <span pgs="box">gapTexts</span>
-    <span pgs="box">gapTexts</span>
+<div pgs="gap['gapParagraphs']" style="display: flex">
+    <span pgs="box">gapParagraphs</span>
+    <span pgs="box">gapParagraphs</span>
 </div>
 <div pgs="gap['gapElements']" style="display: flex">
     <span pgs="box">gapElements</span>

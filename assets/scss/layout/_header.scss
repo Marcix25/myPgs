@@ -94,22 +94,22 @@
     &[pgs-data~="headerCompactFrom[]"] {}
 
     &[pgs*="'headerBottom'"] {
-        bottom: var(--margin-texts);
+        bottom: var(--margin-paragraphs);
         top: unset;
         align-items: center;
 
         :where([pgs~="header-element"]) {
-            gap: var(--gap-texts);
+            gap: var(--gap-paragraphs);
             width: max-content;
             background-color: var(--color-box-transparent);
-            border-radius: calc(var(--borderRadius-elements) + var(--padding-texts));
-            padding: var(--padding-texts);
+            border-radius: calc(var(--borderRadius-elements) + var(--padding-paragraphs));
+            padding: var(--padding-paragraphs);
         }
     }
 
     //## compact
     &[pgs-state~="compact"] {
-        --header-gap: var(--gap-texts);
+        --header-gap: var(--gap-paragraphs);
 
         :where([pgs~="header-element"]) {
             padding-inline: var(--header-paddingBlock);

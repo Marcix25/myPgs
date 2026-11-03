@@ -21,7 +21,7 @@ Responsive header that measures available space, switches between its full and c
 - `headerCompactTablet`: forces the compact layout from the tablet width down, even when the content still fits.
 - `headerCompactNotebook`: forces the compact layout from the notebook width down, even when the content still fits.
 - `headerCompactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
-- `headerBottom`: pins the header to the bottom of the viewport instead of the top, at the text margin from the edge. Each header-element becomes a frosted rounded box as wide as its content, with the text gap between its items.
+- `headerBottom`: pins the header to the bottom of the viewport instead of the top, at the paragraph margin from the edge. Each header-element becomes a frosted rounded box as wide as its content, with the paragraph gap between its items.
 - `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
 - `headerMain`: marks the header that owns --_header-height and --_header-heightScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
 

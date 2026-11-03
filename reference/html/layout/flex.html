@@ -4,15 +4,15 @@
  * @description Flex layouts: direction, wrapping, centering, a responsive column-N row that drops to fewer columns at each breakpoint, and flexChild to size or order one item inside it. The gap and alignment options are shared with Grid.
  *
  * @pgs
- * - flex: makes the element a flex container and nothing else: the direction, the wrap and the gap come from its options (row, column, wrap, the gap options…), so write flex['row'] for a horizontal wrapping row spaced by the text gap.
+ * - flex: makes the element a flex container and nothing else: the direction, the wrap and the gap come from its options (row, column, wrap, the gap options…), so write flex['row'] for a horizontal wrapping row spaced by the paragraph gap.
  * - flexChild: sizes or orders one item inside a flex container, the option in its bracket picking how; a separate component from flex itself, so it stands on its own without needing a flex/flex[...] ancestor. A grid item uses gridChild instead.
  *
  * @pgs-options
  * - inlineFlex: uses inline-flex for the flex container.
- * - flexPlaceCenter: centers items on both axes of a flex container, with gapTexts as its default gap.
+ * - flexPlaceCenter: centers items on both axes of a flex container, with gapParagraphs as its default gap.
  * - flexCenter: centers items on both axes of a flex container, with no gap of its own.
- * - column: configures a flex layout to stack items vertically, spaced by the text gap.
- * - row: configures a flex layout to arrange items horizontally and wrapping, spaced by the text gap.
+ * - column: configures a flex layout to stack items vertically, spaced by the paragraph gap.
+ * - row: configures a flex layout to arrange items horizontally and wrapping, spaced by the paragraph gap.
  * - columnReverse: configures a flex layout to stack items vertically in reverse order.
  * - rowReverse: configures a flex layout to arrange items horizontally in reverse order.
  * - wrap: allows flex items to wrap.
@@ -39,7 +39,8 @@
  * - colSpanXxl: inside flexChild's own bracket, takes 5 columns (--flexChild-colSpan-xxl) of a column-N row.
  * - flexOrderFirst: inside flexChild's own bracket, places a flex child before its siblings.
  * - flexOrderLast: inside flexChild's own bracket, places a flex child after its siblings.
- * - gapTexts: the text gap between the items; also sets --gap, the gap a column-N row computes its widths with.
+ * - gapDetails: the detail gap between the items (a quarter of the base size, for small pieces of text in a row: icon and label, meta info); also sets --gap.
+ * - gapParagraphs: the paragraph gap between the items; also sets --gap, the gap a column-N row computes its widths with.
  * - gapElements: the element gap between the items, and --gap with it.
  * - gapGroups: the double gap between the items, and --gap with it.
  * - gapSections: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.
@@ -100,11 +101,11 @@
         </div>
     </section>
 
-    <demo demo-h3="Gap" demo-description="The four gap scales between flex items, from the text gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing."></demo>
+    <demo demo-h3="Gap" demo-description="The four gap scales between flex items, from the paragraph gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing."></demo>
     <section pgs="flex['column' 'gapElements']" demo="component">
-        <div pgs="flex['row' 'gapTexts']">
-            <span pgs="box">gapTexts</span>
-            <span pgs="box">gapTexts</span>
+        <div pgs="flex['row' 'gapParagraphs']">
+            <span pgs="box">gapParagraphs</span>
+            <span pgs="box">gapParagraphs</span>
         </div>
         <div pgs="flex['row' 'gapElements']">
             <span pgs="box">gapElements</span>
@@ -125,23 +126,23 @@
     </section>
 
     <demo demo-h3="Wrap" demo-description="Flex items wrapping onto multiple rows versus staying on a single non-wrapping row."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
+    <section pgs="flex['column' 'gapParagraphs']" demo="component">
         <strong>Wrap</strong>
-        <div pgs="flex['row' 'gapTexts' 'wrap']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap']">
             <span pgs="box">Wrapping item</span>
             <span pgs="box">Wrapping item</span>
             <span pgs="box">Wrapping item</span>
         </div>
-        <div pgs="flex['row' 'gapTexts' 'nowrap']">
+        <div pgs="flex['row' 'gapParagraphs' 'nowrap']">
             <span pgs="box">Non-wrapping item</span>
             <span pgs="box">Non-wrapping item</span>
         </div>
-        <div pgs="flex['row' 'gapTexts' 'wrapReverse']" style="height: 12rem;">
+        <div pgs="flex['row' 'gapParagraphs' 'wrapReverse']" style="height: 12rem;">
             <span pgs="box">Reverse wrapping item</span>
             <span pgs="box">Reverse wrapping item</span>
             <span pgs="box">Reverse wrapping item</span>
         </div>
-        <div pgs="flex['row' 'gapTexts' 'wrapBalance']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrapBalance']">
             <span pgs="box">Balanced item</span>
             <span pgs="box">Balanced item</span>
             <span pgs="box">Balanced item</span>
@@ -151,22 +152,22 @@
     </section>
 
     <demo demo-h3="Direction" demo-description="Reversing the visual order of flex items on the row axis and on the column axis."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
+    <section pgs="flex['column' 'gapParagraphs']" demo="component">
         <strong>Direction</strong>
-        <div pgs="flex['rowReverse' 'gapTexts']">
+        <div pgs="flex['rowReverse' 'gapParagraphs']">
             <span pgs="box">First in markup</span>
             <span pgs="box">Second in markup</span>
         </div>
-        <div pgs="flex['columnReverse' 'gapTexts']">
+        <div pgs="flex['columnReverse' 'gapParagraphs']">
             <span pgs="box">First in markup</span>
             <span pgs="box">Second in markup</span>
         </div>
     </section>
 
     <demo demo-h3="Alignment" demo-description="Aligning and justifying flex items, including overriding a single child's alignment with selfEnd."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
+    <section pgs="flex['column' 'gapParagraphs']" demo="component">
         <strong>Alignment</strong>
-        <div pgs="flex['row' 'gapTexts' 'itemCenter' 'justifyBetween' 'contentCenter']">
+        <div pgs="flex['row' 'gapParagraphs' 'itemCenter' 'justifyBetween' 'contentCenter']">
             <span pgs="box">Short item</span>
             <span pgs="box">Taller item<br>with two lines</span>
             <span pgs="box flexChild['selfEnd']">Self-aligned item</span>
@@ -174,9 +175,9 @@
     </section>
 
     <demo demo-h3="Flex children" demo-description="Sizing behavior of individual flex children: initial, none, grow, full width, and reordering."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
+    <section pgs="flex['column' 'gapParagraphs']" demo="component">
         <strong>Flex children</strong>
-        <div pgs="flex['row' 'gapTexts' 'wrap']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap']">
             <span pgs="box flexChild['flexInitial']">Initial</span>
             <span pgs="box flexChild['flexNone']">None</span>
             <span pgs="box flexChild['flex1']">Grow</span>
@@ -188,22 +189,22 @@
     </section>
 
     <demo demo-h3="Flex child sizes" demo-description="flexS to flexXxl grow in proportion 1:2:3:4:5 on a zero basis, so each row splits by weight whatever the content."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
-        <div pgs="flex['row' 'gapTexts']">
+    <section pgs="flex['column' 'gapParagraphs']" demo="component">
+        <div pgs="flex['row' 'gapParagraphs']">
             <span pgs="box flexChild['flexS']">S</span>
             <span pgs="box flexChild['flexM']">M</span>
             <span pgs="box flexChild['flexL']">L</span>
             <span pgs="box flexChild['flexXl']">XL</span>
             <span pgs="box flexChild['flexXxl']">XXL</span>
         </div>
-        <div pgs="flex['row' 'gapTexts']">
+        <div pgs="flex['row' 'gapParagraphs']">
             <span pgs="box flexChild['flexS']">S — 1/4</span>
             <span pgs="box flexChild['flexL']">L — 3/4</span>
         </div>
     </section>
 
     <demo demo-h3="Column spans" demo-description="colSpanS to colSpanXxl take 1 to 5 columns of a column-N row, capped by the columns each breakpoint leaves."></demo>
-    <section pgs="flex['column' 'gapTexts']" demo="component">
+    <section pgs="flex['column' 'gapParagraphs']" demo="component">
         <div pgs="flex['column-4']">
             <span pgs="box flexChild['colSpanS']">colSpanS — 1 of 4</span>
             <span pgs="box flexChild['colSpanL']">colSpanL — 3 of 4</span>

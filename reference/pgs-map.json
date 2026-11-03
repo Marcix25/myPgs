@@ -78,7 +78,13 @@
             "_alert-dismiss",
             "_alert-icon"
         ],
-        "pgs-options": [],
+        "pgs-options": [
+            "alertError",
+            "alertInfo",
+            "alertNeutral",
+            "alertSuccess",
+            "alertWarning"
+        ],
         "pgs-data": []
     },
     "alertContainer": {
@@ -281,12 +287,17 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "radDetails",
             "radElements",
             "radGroups",
-            "radTexts",
+            "radParagraphs",
+            "radSections",
             "radUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "radTexts": "radParagraphs"
+        }
     },
     "borderRight": {
         "pgs": [],
@@ -476,11 +487,12 @@
             "contentStart",
             "flexCenter",
             "flexPlaceCenter",
+            "gapDetails",
             "gapElements",
             "gapGroups",
             "gapNone",
+            "gapParagraphs",
             "gapSections",
-            "gapTexts",
             "inlineFlex",
             "itemBaseline",
             "itemCenter",
@@ -501,7 +513,10 @@
             "wrapBalance",
             "wrapReverse"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "gapTexts": "gapParagraphs"
+        }
     },
     "flexChild": {
         "pgs": [],
@@ -577,13 +592,17 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "gapDetails",
             "gapElements",
             "gapGroups",
             "gapNone",
-            "gapSections",
-            "gapTexts"
+            "gapParagraphs",
+            "gapSections"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "gapTexts": "gapParagraphs"
+        }
     },
     "grid": {
         "pgs": [],
@@ -604,11 +623,12 @@
             "contentEnd",
             "contentEvenly",
             "contentStart",
+            "gapDetails",
             "gapElements",
             "gapGroups",
             "gapNone",
+            "gapParagraphs",
             "gapSections",
-            "gapTexts",
             "gridDense",
             "gridNotDefault",
             "itemBaseline",
@@ -624,7 +644,10 @@
             "justifyStart",
             "m2e"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "gapTexts": "gapParagraphs"
+        }
     },
     "gridChild": {
         "pgs": [],
@@ -899,15 +922,19 @@
         "pgs-options": [
             "mg",
             "mgAuto",
+            "mgDetails",
             "mgElements",
             "mgGroups",
             "mgNegative",
             "mgPage",
+            "mgParagraphs",
             "mgSections",
-            "mgTexts",
             "mgUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgTexts": "mgParagraphs"
+        }
     },
     "marginBlock": {
         "pgs": [],
@@ -915,15 +942,19 @@
         "pgs-options": [
             "mgBl",
             "mgBlAuto",
+            "mgBlDetails",
             "mgBlElements",
             "mgBlGroups",
             "mgBlNegative",
             "mgBlPage",
+            "mgBlParagraphs",
             "mgBlSections",
-            "mgBlTexts",
             "mgBlUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgBlTexts": "mgBlParagraphs"
+        }
     },
     "marginBottom": {
         "pgs": [],
@@ -931,15 +962,19 @@
         "pgs-options": [
             "mgBt",
             "mgBtAuto",
+            "mgBtDetails",
             "mgBtElements",
             "mgBtGroups",
             "mgBtNegative",
             "mgBtPage",
+            "mgBtParagraphs",
             "mgBtSections",
-            "mgBtTexts",
             "mgBtUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgBtTexts": "mgBtParagraphs"
+        }
     },
     "marginInline": {
         "pgs": [],
@@ -947,15 +982,19 @@
         "pgs-options": [
             "mgIn",
             "mgInAuto",
+            "mgInDetails",
             "mgInElements",
             "mgInGroups",
             "mgInNegative",
             "mgInPage",
+            "mgInParagraphs",
             "mgInSections",
-            "mgInTexts",
             "mgInUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgInTexts": "mgInParagraphs"
+        }
     },
     "marginLeft": {
         "pgs": [],
@@ -963,15 +1002,19 @@
         "pgs-options": [
             "mgLt",
             "mgLtAuto",
+            "mgLtDetails",
             "mgLtElements",
             "mgLtGroups",
             "mgLtNegative",
             "mgLtPage",
+            "mgLtParagraphs",
             "mgLtSections",
-            "mgLtTexts",
             "mgLtUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgLtTexts": "mgLtParagraphs"
+        }
     },
     "marginRight": {
         "pgs": [],
@@ -979,15 +1022,19 @@
         "pgs-options": [
             "mgRt",
             "mgRtAuto",
+            "mgRtDetails",
             "mgRtElements",
             "mgRtGroups",
             "mgRtNegative",
             "mgRtPage",
+            "mgRtParagraphs",
             "mgRtSections",
-            "mgRtTexts",
             "mgRtUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgRtTexts": "mgRtParagraphs"
+        }
     },
     "marginTop": {
         "pgs": [],
@@ -995,15 +1042,19 @@
         "pgs-options": [
             "mgTp",
             "mgTpAuto",
+            "mgTpDetails",
             "mgTpElements",
             "mgTpGroups",
             "mgTpNegative",
             "mgTpPage",
+            "mgTpParagraphs",
             "mgTpSections",
-            "mgTpTexts",
             "mgTpUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "mgTpTexts": "mgTpParagraphs"
+        }
     },
     "menu": {
         "pgs": [
@@ -1151,98 +1202,126 @@
         "pgs-generated": [],
         "pgs-options": [
             "pd",
+            "pdDetails",
             "pdElements",
             "pdGroups",
             "pdPage",
+            "pdParagraphs",
             "pdSections",
-            "pdTexts",
             "pdUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdTexts": "pdParagraphs"
+        }
     },
     "paddingBlock": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "pdBl",
+            "pdBlDetails",
             "pdBlElements",
             "pdBlGroups",
             "pdBlPage",
+            "pdBlParagraphs",
             "pdBlSections",
-            "pdBlTexts",
             "pdBlUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdBlTexts": "pdBlParagraphs"
+        }
     },
     "paddingBottom": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "pdBt",
+            "pdBtDetails",
             "pdBtElements",
             "pdBtGroups",
             "pdBtPage",
+            "pdBtParagraphs",
             "pdBtSections",
-            "pdBtTexts",
             "pdBtUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdBtTexts": "pdBtParagraphs"
+        }
     },
     "paddingInline": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "pdIn",
+            "pdInDetails",
             "pdInElements",
             "pdInGroups",
             "pdInPage",
+            "pdInParagraphs",
             "pdInSections",
-            "pdInTexts",
             "pdInUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdInTexts": "pdInParagraphs"
+        }
     },
     "paddingLeft": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "pdLt",
+            "pdLtDetails",
             "pdLtElements",
             "pdLtGroups",
             "pdLtPage",
+            "pdLtParagraphs",
             "pdLtSections",
-            "pdLtTexts",
             "pdLtUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdLtTexts": "pdLtParagraphs"
+        }
     },
     "paddingRight": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "pdRt",
+            "pdRtDetails",
             "pdRtElements",
             "pdRtGroups",
             "pdRtPage",
+            "pdRtParagraphs",
             "pdRtSections",
-            "pdRtTexts",
             "pdRtUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdRtTexts": "pdRtParagraphs"
+        }
     },
     "paddingTop": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
             "pdTp",
+            "pdTpDetails",
             "pdTpElements",
             "pdTpGroups",
             "pdTpPage",
+            "pdTpParagraphs",
             "pdTpSections",
-            "pdTpTexts",
             "pdTpUnset"
         ],
-        "pgs-data": []
+        "pgs-data": [],
+        "pgs-deprecated": {
+            "pdTpTexts": "pdTpParagraphs"
+        }
     },
     "pageNav": {
         "pgs": [
@@ -1549,7 +1628,12 @@
     "toast": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "toastBottom",
+            "toastCenter",
+            "toastLeft",
+            "toastRight"
+        ],
         "pgs-data": [
             "toast"
         ]

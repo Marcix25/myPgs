@@ -11,6 +11,15 @@ Autocomplete for `pgs="..."` and `pgs-data="..."` in HTML/PHP, read directly fro
   never receives these options — only `pgs-data`, if the root documents any, is still suggested there too.
 - It also recognizes `pgs(el).option.*(...)` and `pgs(el).data.*(...)` in JS/TS, without scoping (there
   is no element to infer the component from).
+- `pgs="..."` and `pgs-data="..."` are recognized in JS/JSX/TS/TSX too (React, HTML in template strings),
+  also written as an expression: `pgs={"..."}` or ``pgs={`...`}``. In JSX/TSX the extension turns on
+  suggestions while typing inside strings (`editor.quickSuggestions.strings`).
+- Typing `[` inside `pgs` or `pgs-data` writes the closing `]` too, with the cursor between them.
+- Picking a suggestion while the cursor is inside a value already written replaces the whole value,
+  quotes included (`flex['column-|']` + `'column-2'` gives `flex['column-2']`).
+- Deprecated options (`pgs-deprecated` in the map, from `assets/scss/base/_deprecated.scss`) are offered
+  struck through after the current ones, with the option to write instead. In the files they are struck
+  through too, with a quick fix (`Ctrl+.`) that writes the replacement.
 
 ## Development
 

@@ -38,7 +38,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 
 - `column`: stacks the groups of examples.
 - `row`: lays each group out in a row.
-- `gapTexts`: spaces the icons inside a group.
+- `gapParagraphs`: spaces the icons inside a group.
 - `wrap`: lets the full set flow onto more rows.
 - `txtPrimary`: inside textColor's own bracket, recolors one example.
 - `txtError`: inside textColor's own bracket, recolors another the same way.

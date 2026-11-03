@@ -3,7 +3,7 @@
 
 //# FLEX
 //## column
-@mixin column($gap: var(--gap-texts)) {
+@mixin column($gap: var(--gap-paragraphs)) {
     display: flex;
     gap: $gap;
     --gap: #{$gap};
@@ -11,7 +11,7 @@
 }
 
 //## row
-@mixin row($wrap: wrap, $gap: var(--gap-texts)) {
+@mixin row($wrap: wrap, $gap: var(--gap-paragraphs)) {
     display: flex;
     gap: $gap;
     --gap: #{$gap};
@@ -20,7 +20,7 @@
 }
 
 //## center
-@mixin center($gap: var(--gap-texts)) {
+@mixin center($gap: var(--gap-paragraphs)) {
     display: flex;
     gap: $gap;
     --gap: #{$gap};
@@ -39,12 +39,12 @@
 
 //## Column
 // the real gap and the one the bases are computed with come from the same --gap, so they can never
-// drift apart: the default matches the plain flex's own gap (--gap-texts), and the gap* options
+// drift apart: the default matches the plain flex's own gap (--gap-paragraphs), and the gap* options
 // set --gap rather than gap alone. The bases are worked out in the items, so they read --_flex-gap,
 // which the row publishes from its own --gap: an item that is itself a flex row or column sets its
 // own --gap, and reading that one would size the columns for a gap the row does not have
 @mixin columnFlex($columns) {
-    --gap: var(--gap-texts);
+    --gap: var(--gap-paragraphs);
     --_flex-gap: var(--gap);
     $gap: var(--_flex-gap);
     gap: var(--gap);

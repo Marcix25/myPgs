@@ -93,7 +93,7 @@ Width and height utilities, each driven by its own custom property: --width-size
 - `row`: places the column and viewport examples side by side.
 - `ovAuto`: inside overflow's own bracket, adds scrolling only when content overflows.
 - `mgInAuto`: inside marginInline's own bracket, pairs with auto to center a constrained element.
-- `gapTexts`: separates the examples inside a group.
+- `gapParagraphs`: separates the examples inside a group.
 - `gapElements`: separates the side by side examples.
 - `flexCenter`: centers the label inside each measured block.
 

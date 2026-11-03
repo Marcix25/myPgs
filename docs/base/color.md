@@ -150,7 +150,7 @@ Interactive palette of the current MyPGS background and text color utilities.
 - `btnIconOnly`: makes each background color trigger a compact circular button.
 - `drpHover`: opens each background color's name while its circle is hovered.
 - `gapElements`: spaces the background and text color groups.
-- `gapTexts`: spaces individual palette entries.
+- `gapParagraphs`: spaces individual palette entries.
 - `wrap`: lets palette entries wrap on narrow viewports.
 - `column`: stacks palette groups vertically.
 - `row`: arranges palette entries in flexible rows.

@@ -40,7 +40,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 1. **`pgs-option` is gone.** A boolean flag goes into the bracket of the component that owns it, a
    `key[payload]` value into the new `pgs-data` attribute, and most flags took a short prefix of their
    component on the way (`buttonStrong` is `btnStrong`, `dropdownHover` is `drpHover`,
-   `marginTexts` is `mgTexts`). Project CSS selectors, PHP templates and scripts that build `pgs` strings
+   `marginTexts` is `mgParagraphs`). Project CSS selectors, PHP templates and scripts that build `pgs` strings
    change with it. See [Core](#part-1-core-attribute-grammar-javascript-packaging).
 2. **Utility tokens are brackets.** `bgPrimary` is `background['bgPrimary']`, `colorPrimary` is
    `textColor['txtPrimary']`, `brPrimary` is `borderColor['bdPrimary']`, margins, paddings, overflow,
@@ -77,6 +77,14 @@ Reading the tables: a flag is written inside the bracket of the component that o
     each other, a card image needs `card-img`, a clickable card is the `<a>` itself, the slides arrows sit
     above the slides, alerts, toasts and notifications are one card, the side modals are no longer 400px.
     See [Content components](#part-7-content-components) and [Overlays and feedback](#part-6-overlays-and-feedback).
+
+**The `texts` step is now `paragraphs`.** Wherever a "now" column of this guide writes the `texts` step
+(`gapTexts`, `mgTexts`, `mgTpTexts`, `pdTexts`, `radTexts`, `--gap-texts`, `--padding-texts`, `--margin-texts`,
+`--borderRadius-texts`, `--SIZE-texts`), write `paragraphs` instead (`gapParagraphs`, `--gap-paragraphs`, ...):
+same value (1.5rem), new name. The old names still work as deprecated aliases (`base/_deprecated.scss`) and are
+removed in version 6; overriding an old `--*-texts` property no longer changes the library, override the
+`--*-paragraphs` one. Use the new `details` step (0.75rem: `gapDetails`, `pdDetails`, `radDetails`, ...) for the
+space between small pieces of text in a row, such as an icon and its label.
 
 ## Parts
 
@@ -521,7 +529,7 @@ Removed without replacement:
 Kept, default changed (visible): `--color-primary`, `--color-secondary`, `--color-tertiary`, `--color-quaternary`, all their `-soft/-light/-strong/-dark`, `--color-link` (light), `--color-link-soft`, `--color-background` (light), `--color-box`, `--color-boxDark`, `--color-white-transparent`, `--color-black-transparent`, `--border-color`, `--border-complete`, `--backdrop`, `--gap-texts`, `--gap-elements`, `--gap-sections`, `--page-top`, `--page-topScroll` (values in A).
 Kept, same default: `--font` (`'Urbanist', sans-serif`), `--page-width` (1280px), `--box-shadow`, `--text-shadow`, `--blur`, `--focus-visible` (`3px solid var(--color-focus)`), `--color-text`, `--color-black`, `--color-white`, `--color-whiteFixed`, `--color-blackFixed`, `--color-gray`, `--color-focus`, `--color-error/-warning/-success` and their `-soft`, `--color-info`, `--color-info-soft` (now = `--color-link-soft`, which changed). Light and dark values were compared for every shared token; the list above is every difference.
 
-New (opt-in tuning, all on `:root`): the `--SIZE` scale (`--SIZE` 3rem, `--SIZE-texts` 1.5rem, `--SIZE-groups` 6rem, `--SIZE-sections`), `--padding-*`, `--margin-*`, `--gap-*` (steps texts / elements / groups / sections), `--borderRadius-*` (texts / elements / groups), `--border-width`, `--border-style`, `--outline-width/-style/-color`, `--font-heading`, `--font-weight-title` 800 / `-bold` 600 / `-text` 500, `--font-size-text` 1.6rem, `--font-rem-base`, `--heading-{color,family,weight,lineHeight,letterSpacing}` and the same with `-h1` ... `-h6`, `--heading-size-h1` ... `-h6`, `--text-{color,family,size,lineHeight,overflowWrap}`, `--color-{primary,secondary,tertiary,quaternary}-text`, `--clickable-*`, `--hover-*`, `--current-*`, `--twoState-*`, `--zIndex-{skipLink 9999, dropdown 1000, search 1000, header 100, navSmart 100, toast 98, modal 90}` (same numbers master hard-coded), `--icon-glyph-<key>`, `--icon`, `--icon-color`, `--icon-size`, `--icon-before/-after`, `--boxed-*`, `--darkmode-label-toDark/-toLight`, `--logo-filter`.
+New (opt-in tuning, all on `:root`): the `--SIZE` scale (`--SIZE` 3rem, `--SIZE-details` 0.75rem, `--SIZE-paragraphs` 1.5rem, `--SIZE-groups` 6rem, `--SIZE-sections`), `--padding-*`, `--margin-*`, `--gap-*` (steps details / paragraphs / elements / groups / sections), `--borderRadius-*` (details / paragraphs / elements / groups / sections), `--border-width`, `--border-style`, `--outline-width/-style/-color`, `--font-heading`, `--font-weight-title` 800 / `-bold` 600 / `-text` 500, `--font-size-text` 1.6rem, `--font-rem-base`, `--heading-{color,family,weight,lineHeight,letterSpacing}` and the same with `-h1` ... `-h6`, `--heading-size-h1` ... `-h6`, `--text-{color,family,size,lineHeight,overflowWrap}`, `--color-{primary,secondary,tertiary,quaternary}-text`, `--clickable-*`, `--hover-*`, `--current-*`, `--twoState-*`, `--zIndex-{skipLink 9999, dropdown 1000, search 1000, header 100, navSmart 100, toast 98, modal 90}` (same numbers master hard-coded), `--icon-glyph-<key>`, `--icon`, `--icon-color`, `--icon-size`, `--icon-before/-after`, `--boxed-*`, `--darkmode-label-toDark/-toLight`, `--logo-filter`.
 
 ### D. Sass
 
@@ -781,12 +789,12 @@ No JS module belongs to this area. Notes a script can notice:
 
 ### F. New (opt-in)
 
-- `margin` / `padding` (all four sides) as roots of their own: flags `mg`/`pd`, `mgTexts`, `mgElements`, `mgGroups`, `mgSections`, `mgPage`, `mgUnset`, `mgAuto` (margin only), `mgNegative` (margin only; each side root has its own `mgBlNegative`, `mgInNegative`, `mgTpNegative`, `mgRtNegative`, `mgBtNegative`, `mgLtNegative`, read through `--margin-sign`, `--marginTop-sign`, ...). Every side root also gets `Groups`, `Page` (= `--page-padding`) and `Unset` flags: `mgTpGroups`, `mgTpPage`, `mgTpUnset`, `pdBlPage`, ...
-- `gap` root (standalone, only effective on a flex/grid container) with `gapTexts`, `gapElements`, `gapGroups`, `gapSections`, `gapNone`; each also sets `--gap`.
-- `--margin-texts|elements|groups|sections`, `--padding-*`, `--gap-groups`, `--SIZE`, `--SIZE-texts|groups|sections`: one size ladder (`--SIZE` 3.0rem), all three scales read it.
+- `margin` / `padding` (all four sides) as roots of their own: flags `mg`/`pd`, `mgDetails`, `mgParagraphs`, `mgElements`, `mgGroups`, `mgSections`, `mgPage`, `mgUnset`, `mgAuto` (margin only), `mgNegative` (margin only; each side root has its own `mgBlNegative`, `mgInNegative`, `mgTpNegative`, `mgRtNegative`, `mgBtNegative`, `mgLtNegative`, read through `--margin-sign`, `--marginTop-sign`, ...). Every side root also gets `Details`, `Groups`, `Page` (= `--page-padding`) and `Unset` flags: `mgTpGroups`, `mgTpPage`, `mgTpUnset`, `pdBlPage`, ...
+- `gap` root (standalone, only effective on a flex/grid container) with `gapDetails`, `gapParagraphs`, `gapElements`, `gapGroups`, `gapSections`, `gapNone`; each also sets `--gap`.
+- `--margin-details|paragraphs|elements|groups|sections`, `--padding-*`, `--gap-groups`, `--SIZE`, `--SIZE-details|paragraphs|groups|sections`: one size ladder (`--SIZE` 3.0rem), all three scales read it.
 - Border family: `border` (default width bare; flags `bd`, `bdThin` 1px, `bdThick` 3px, `bdThicker` 4.5px, `bdUnset`), per side `borderBlock` / `borderInline` / `borderTop` / `borderRight` / `borderBottom` / `borderLeft` with `bdBl*`, `bdIn*`, `bdTp*`, `bdRt*`, `bdBt*`, `bdLt*` (`...`, `Thin`, `Thick`, `Thicker`, `Unset`). Variables `--border-width`, `--border-style`, `--border-color`.
 - `borderColor[...]`: `bdTransparent` (new), then the 14 palette flags in B.
-- `borderRadius[...]`: `radTexts`, `radElements`, `radGroups`, `radUnset`; variables `--borderRadius-texts|elements|groups`.
+- `borderRadius[...]`: `radDetails`, `radParagraphs`, `radElements`, `radGroups`, `radSections`, `radUnset`; variables `--borderRadius-details|paragraphs|elements|groups|sections`.
 - `outline`: bare = `--outline-width` / `--outline-style` / `--outline-color`; flags `otlThin`, `otlThick`, `otlThicker`, `otlUnset`, colours `otlPrimary`, `otlSecondary`, `otlTertiary`, `otlQuaternary`, `otlWhite`, `otlBlack`, `otlBox`, `otlBoxDark`, `otlLink`, `otlInfo`, `otlError`, `otlWarning`, `otlSuccess`, `otlGray`.
 - `background['bgTransparent']`; `textColor['txtInherit']`; `textColor['txtPrimaryText']`, `['txtSecondaryText']`, `['txtTertiaryText']`, `['txtQuaternaryText']` (`--color-*-text` = `contrast-color()` of the palette colour, the text for a `bgPrimary` surface).
 - Size family: `width` / `widthMax` / `widthMin` (`min(100%, --width-size)`; flags `widthFull`, `widthPage`, `widthPageHalf`/`Third`/`Quarter`/`Fifth`/`Sixth`/`Seventh`/`Eighth`, `widthText` = 65ch, `widthFillAvailable`, plus `widthAuto`, `widthMaxNone`, `widthMinAuto`) and `height` / `heightMax` / `heightMin` (flags `heightFull`, `height100svh`, `height100dvh`, `height100lvh`, `height50svh`, `heightUnderHeader`, `heightUnderMain`, `heightAuto`; `heightMaxNone` / `heightMaxAuto`). Names of the viewport-height flags: `height100svh`, `100dvh`, `100lvh`, `50svh` (with the `Max`/`Min` infix on the other two roots). Inline overrides: `--width-size`, `--widthMax-size`, `--widthMin-size`, `--height-size`, `--heightMax-size`, `--heightMin-size`. Full list: `layout/_size.scss`.

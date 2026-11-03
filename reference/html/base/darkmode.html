@@ -22,7 +22,7 @@
  * - button: presents the switch as a button.
  * - btnIconOnly: presents the switch as an icon-only button.
  * - column: stacks the example and its notes vertically.
- * - gapTexts: spaces the example content.
+ * - gapParagraphs: spaces the example content.
  * - lightmode: pins a subtree to the light scheme, ignoring this switch; see General.
  * - darkmode: pins a subtree to the dark scheme, ignoring this switch; see General.
  * - icon: draws the glyph of each theme's icon here, when it comes from the built-in set; an icon from another set is written with its own markup.
@@ -35,7 +35,7 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Theme switch" demo-description="A switch holds one icon per theme, toggleDarkmode-light and toggleDarkmode-dark: the stylesheet shows the one of the current theme and hides the other, so the icon is yours, from any set. Here the moon is the light theme's and the sun the dark theme's, so each one shows the theme the click leads to. Several switches can coexist: they all read and write the same stored value."></demo>
-<div pgs="flex['column' 'gapTexts']" demo="component">
+<div pgs="flex['column' 'gapParagraphs']" demo="component">
 
     <button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
         <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>

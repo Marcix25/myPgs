@@ -16,7 +16,7 @@
  * @related
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: stacks the example and its notes vertically.
- * - gapTexts: spaces the example content.
+ * - gapParagraphs: spaces the example content.
  *
  * @return An external SVG marked for recoloring, with the color pairs it reads from the document.
  */
@@ -25,14 +25,14 @@
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Theme-aware SVG" demo-description="Colors are declared on the document as pairs, light value first and dark value second, and every --svg-color-N from 0 to 19 is read. The file must be same-origin, because the pass rewrites the fill and stroke attributes inside its document. The same svgChangeColor token also recolors every lottie-player on the page, from these same pairs."></demo>
 
-<div pgs="flex['column' 'gapTexts']" demo="component">
+<div pgs="flex['column' 'gapParagraphs']" demo="component">
 
     <object demo="component codeNone" pgs="svgChangeColor" type="image/svg+xml" data="../assets/img/svg-logo.svg" width="200" height="200">
         Theme-aware logo
     </object>
 
 </div>
-<div pgs="flex['column' 'gapTexts']" demo="component">
+<div pgs="flex['column' 'gapParagraphs']" demo="component">
     <style demo="component">
         /* The pairs live on the document, so a single declaration serves every file.
            Each value must match the attribute exactly as written in the file: #000 is

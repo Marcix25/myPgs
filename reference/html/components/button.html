@@ -30,7 +30,7 @@
  * - row: arranges the button examples in a flexible row.
  * - form: wraps the checked example, so the control is shown where a form actually puts it.
  * - wrap: lets that row break instead of overflowing.
- * - gapTexts: spaces the two buttons that share the text-only example, and the three two-state buttons.
+ * - gapParagraphs: spaces the two buttons that share the text-only example, and the three two-state buttons.
  * - icon: draws the glyphs this example shows; see Icon for the whole set.
  * - icon-arrowRight: the glyph that points forward.
  * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
@@ -156,7 +156,7 @@
 
 <demo demo-h3="Checked" demo-description="A label marked as a button wrapping its own checkbox or radio: the input carries the semantics and the keyboard behavior, the button draws the state. Retune the checked look with --button-background-twoState, --button-color-twoState and --button-borderColor-twoState (or, for every button at once, --twoState-background, --twoState-color and --twoState-borderColor)."></demo>
 <section demo="component">
-    <form pgs="form flex['row' 'gapTexts' 'wrap']" demo="wrapper">
+    <form pgs="form flex['row' 'gapParagraphs' 'wrap']" demo="wrapper">
         <label pgs="button['btnTwoState']">
             <input type="checkbox" name="favorite" value="yes">
             <i pgs="icon['icon-star']"></i>

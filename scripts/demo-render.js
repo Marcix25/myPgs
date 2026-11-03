@@ -437,7 +437,7 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
 // the <ul> itself, since there is nothing else between it and the accordion root
 function renderDocListHtml(items, isPanel = false) {
     const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${escapeHtml(item.description)}</li>`).join("");
-    return `<ul pgs="flex['column' 'gapTexts']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
+    return `<ul pgs="flex['column' 'gapParagraphs']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
 }
 
 // the two lists a reader opens a reference for; the rest stay closed so the doc block does not
@@ -466,7 +466,7 @@ function renderDocAccordionHtml(label, panelHtml, className = "") {
 function renderDocGroupHtml(label, items, level) {
     if (!items.length) return "";
     if (level === "h4") return renderDocAccordionHtml(label, renderDocListHtml(items, true));
-    return `<div pgs="flex['column' 'gapTexts']"><${level} class="demoContent-doc-subheading">${escapeHtml(label)}</${level}>${renderDocListHtml(items)}</div>`;
+    return `<div pgs="flex['column' 'gapParagraphs']"><${level} class="demoContent-doc-subheading">${escapeHtml(label)}</${level}>${renderDocListHtml(items)}</div>`;
 }
 
 function renderRelatedGroupHtml(items, markup) {
@@ -487,7 +487,7 @@ function renderRelatedGroupHtml(items, markup) {
     buckets.push(["Other", items.filter(item => !grouped.has(item))]);
 
     const groupsHtml = buckets.map(([label, groupItems]) => renderDocGroupHtml(label, groupItems, "h5")).join("");
-    const panel = `<div pgs="flex['column' 'gapTexts'] accordion-content" hidden>${groupsHtml}</div>`;
+    const panel = `<div pgs="flex['column' 'gapParagraphs'] accordion-content" hidden>${groupsHtml}</div>`;
     return renderDocAccordionHtml("Related elements", panel, "demoContent-doc-related");
 }
 
@@ -495,7 +495,7 @@ function renderCssVariablesGroupHtml(basename, cssText) {
     const variables = extractCssVariables(basename, cssText);
     if (!variables.length) return "";
     const items = variables.map(name => `<li><code>${escapeHtml(name)}</code></li>`).join("");
-    const panel = `<ul pgs="flex['column' 'gapTexts'] accordion-content" hidden>${items}</ul>`;
+    const panel = `<ul pgs="flex['column' 'gapParagraphs'] accordion-content" hidden>${items}</ul>`;
     return renderDocAccordionHtml("CSS Variables", panel, "demoContent-doc-cssVariables");
 }
 
@@ -519,7 +519,7 @@ function renderHeadingBlockHtml(title, description, level) {
     if (!title && !description) return "";
     const heading = title ? `<${level} class="demoContent-heading demoContent-heading-${level}">${escapeHtml(title)}</${level}>` : "";
     const desc = description ? `<p>${escapeHtml(description)}</p>` : "";
-    return `<div class="demoContent-heading" pgs="flex['column' 'gapTexts']">${heading}${desc}</div>`;
+    return `<div class="demoContent-heading" pgs="flex['column' 'gapParagraphs']">${heading}${desc}</div>`;
 }
 
 function renderExampleSourceHtml(markup, title = "Example HTML", kind = "html") {

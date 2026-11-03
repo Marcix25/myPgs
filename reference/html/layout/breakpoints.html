@@ -39,7 +39,7 @@
  * - row: arranges the examples in a row.
  * - box: makes each example visible as a surface.
  * - wrap: allows the examples to wrap onto several rows.
- * - gapTexts: separates the examples inside a group.
+ * - gapParagraphs: separates the examples inside a group.
  *
  * @return One example per query type, resizing with the viewport and with a local container.
  */
@@ -47,8 +47,8 @@
 
 <demo demo-h2="Examples"></demo>
 <demo demo-h3="Viewport visibility" demo-description="mediaDown* and mediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear."></demo>
-<section pgs="flex['column' 'gapTexts']" demo="component">
-    <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
+<section pgs="flex['column' 'gapParagraphs']" demo="component">
+    <div pgs="flex['row' 'gapParagraphs' 'wrap']" demo="wrapper">
         <span pgs="box hide['hideMediaDownMobile']">hide['hideMediaDownMobile']</span>
         <span pgs="box hide['hideMediaDownTablet']">hide['hideMediaDownTablet']</span>
         <span pgs="box hide['hideMediaUpTablet']">hide['hideMediaUpTablet']</span>
@@ -57,9 +57,9 @@
 </section>
 
 <demo demo-h3="Container visibility" demo-description="containerDown* and containerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match."></demo>
-<section pgs="flex['column' 'gapTexts']" demo="component">
+<section pgs="flex['column' 'gapParagraphs']" demo="component">
     <div pgs="container">
-        <div pgs="flex['row' 'gapTexts' 'wrap']" demo="wrapper">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap']" demo="wrapper">
             <span pgs="box hide['hideContainerDownMobile']">hide['hideContainerDownMobile']</span>
             <span pgs="box hide['hideContainerDownTablet']">hide['hideContainerDownTablet']</span>
             <span pgs="box hide['hideContainerUpTablet']">hide['hideContainerUpTablet']</span>

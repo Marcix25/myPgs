@@ -6,32 +6,39 @@
     //# SETTINGS
     &:root {
         --SIZE: 3.0rem;
-        --SIZE-texts: calc(var(--SIZE) / 2);
+        --SIZE-details: calc(var(--SIZE) / 4);
+        --SIZE-paragraphs: calc(var(--SIZE) / 2);
         --SIZE-groups: calc(var(--SIZE) * 2);
         --SIZE-sections: calc(var(--SIZE-groups) + 10svh);
         $SIZE: var(--SIZE);
-        $SIZE-texts: var(--SIZE-texts);
+        $SIZE-details: var(--SIZE-details);
+        $SIZE-paragraphs: var(--SIZE-paragraphs);
         $SIZE-groups: var(--SIZE-groups);
         $SIZE-sections: var(--SIZE-sections);
         // Padding
-        --padding-texts: #{$SIZE-texts};
+        --padding-details: #{$SIZE-details};
+        --padding-paragraphs: #{$SIZE-paragraphs};
         --padding-elements: #{$SIZE};
         --padding-groups: #{$SIZE-groups};
         --padding-sections: #{$SIZE-sections};
         // Margin
-        --margin-texts: #{$SIZE-texts};
+        --margin-details: #{$SIZE-details};
+        --margin-paragraphs: #{$SIZE-paragraphs};
         --margin-elements: #{$SIZE};
         --margin-groups: #{$SIZE-groups};
         --margin-sections: #{$SIZE-sections};
         // Gap
-        --gap-texts: #{$SIZE-texts};
+        --gap-details: #{$SIZE-details};
+        --gap-paragraphs: #{$SIZE-paragraphs};
         --gap-elements: #{$SIZE};
         --gap-groups: #{$SIZE-groups};
         --gap-sections: #{$SIZE-sections};
         // Border radius
-        --borderRadius-texts: #{$SIZE-texts};
+        --borderRadius-details: #{$SIZE-details};
+        --borderRadius-paragraphs: #{$SIZE-paragraphs};
         --borderRadius-elements: #{$SIZE};
         --borderRadius-groups: #{$SIZE-groups};
+        --borderRadius-sections: #{$SIZE-sections};
         // Font
         --font: 'Urbanist', sans-serif;
         --font-heading: var(--font);

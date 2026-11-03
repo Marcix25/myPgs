@@ -34,7 +34,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 - `btnIconOnly`: presents the switch as an icon-only button.
 - `column`: stacks the example and its notes vertically.
-- `gapTexts`: spaces the example content.
+- `gapParagraphs`: spaces the example content.
 - `icon-sun`: the glyph of the dark theme in the examples.
 - `icon-moon`: the glyph of the light theme in the examples.
 

@@ -269,7 +269,7 @@ body {
     }
 
     >p {
-        margin-bottom: calc((var(--gap-elements) * -1) + var(--gap-texts));
+        margin-bottom: calc((var(--gap-elements) * -1) + var(--gap-paragraphs));
     }
 }
 

@@ -3,9 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = activate;
 exports.deactivate = deactivate;
 const vscode = require("vscode");
+function rootInfo(name, entry) {
+    return { name, options: entry["pgs-options"] ?? [], data: entry["pgs-data"] ?? [], deprecated: entry["pgs-deprecated"] ?? {} };
+}
+//+ the markup languages pgs="..." is written in, and the script ones where it is written too (JSX,
+//+ HTML in template strings) next to the pgs(el).option / .data calls
+const MARKUP_LANGUAGES = ["html", "php", "twig", "vue"].map((language) => ({ language, scheme: "file" }));
+const SCRIPT_LANGUAGES = ["javascript", "javascriptreact", "typescript", "typescriptreact"].map((language) => ({ language, scheme: "file" }));
+function isSupported(document) {
+    return vscode.languages.match([...MARKUP_LANGUAGES, ...SCRIPT_LANGUAGES], document) > 0;
+}
 class PgsMapIndex {
     constructor() {
         this.map = {};
+        this.loaded = new vscode.EventEmitter();
+        this.onDidLoad = this.loaded.event;
         //+ every generated child (modal-dialog, _toast-element, ...) points back at the root that
         //+ documents pgs-data written on it directly — used for pgs-data scoping only, never for
         //+ bracket completion (see resolveOwnBracket): no generated child carries its own bracket
@@ -45,6 +57,7 @@ class PgsMapIndex {
             }
         }
         void vscode.commands.executeCommand("setContext", "pgsHtmlSuggestions.hasValues", Object.keys(this.map).length > 0);
+        this.loaded.fire();
     }
     //+ resolves a written token (root or a generated child, e.g. slides-next) to the RootInfo
     //+ that documents its data — undefined when the token is unknown. Used to scope pgs-data
@@ -52,12 +65,12 @@ class PgsMapIndex {
     resolveRoot(token) {
         const direct = this.map[token];
         if (direct)
-            return { name: token, options: direct["pgs-options"] ?? [], data: direct["pgs-data"] ?? [] };
+            return rootInfo(token, direct);
         const viaGenerated = this.generatedToRoot.get(token);
         if (viaGenerated) {
             const entry = this.map[viaGenerated];
             if (entry)
-                return { name: viaGenerated, options: entry["pgs-options"] ?? [], data: entry["pgs-data"] ?? [] };
+                return rootInfo(viaGenerated, entry);
         }
         return undefined;
     }
@@ -67,7 +80,7 @@ class PgsMapIndex {
     //+ a bracket on a token that can never actually use it
     resolveOwnBracket(token) {
         const direct = this.map[token];
-        return direct ? { name: token, options: direct["pgs-options"] ?? [], data: direct["pgs-data"] ?? [] } : undefined;
+        return direct ? rootInfo(token, direct) : undefined;
     }
     //+ every bare word that is valid on its own inside pgs="...": a root, one of its declared
     //+ children, or one of its generated tokens that can still legitimately be hand-written
@@ -119,6 +132,23 @@ class PgsMapIndex {
         }
         return [...keys].sort((a, b) => a.localeCompare(b));
     }
+    //+ every deprecated option of every root, with its replacement: the JS-side fallback and the
+    //+ list the diagnostics strike through
+    allDeprecated() {
+        const deprecated = new Map();
+        for (const entry of Object.values(this.map)) {
+            for (const [option, replacement] of Object.entries(entry["pgs-deprecated"] ?? {}))
+                deprecated.set(option, replacement);
+        }
+        return deprecated;
+    }
+    //+ the roots whose own bracket accepts this option, current or deprecated: named in the error
+    //+ an option written in the wrong bracket gets
+    ownersOf(option) {
+        return Object.entries(this.map)
+            .filter(([, entry]) => (entry["pgs-options"] ?? []).includes(option) || option in (entry["pgs-deprecated"] ?? {}))
+            .map(([root]) => root);
+    }
     setupWatcher(context) {
         this.watcher?.dispose();
         const folders = vscode.workspace.workspaceFolders;
@@ -158,9 +188,11 @@ function linePrefix(document, position) {
 }
 //+ true only right after an unescaped pgs="... — the project always double-quotes pgs itself and
 //+ single-quotes the flags inside a bracket, so anchoring on " is enough to never misfire on a
-//+ flag's own quotes
-const PGS_ATTRIBUTE_OPEN = /\bpgs\s*=\s*"([^"]*)$/;
-const PGS_DATA_ATTRIBUTE_OPEN = /\bpgs-data\s*=\s*"([^"]*)$/;
+//+ flag's own quotes. JSX can also write the value as an expression, pgs={"..."} or pgs={`...`},
+//+ so an optional { and a backtick are accepted too; the value runs up to the same quote
+const PGS_ATTRIBUTE_OPEN = /\bpgs\s*=\s*\{?\s*(["`])((?:(?!\1).)*)$/;
+const PGS_DATA_ATTRIBUTE_OPEN = /\bpgs-data\s*=\s*\{?\s*(["`])((?:(?!\1).)*)$/;
+const PGS_ATTRIBUTE_CLOSED = /\bpgs\s*=\s*\{?\s*(["`])(.*?)\1/;
 //+ matches when the cursor sits inside an UNCLOSED component['...' — the bracket owner is
 //+ whatever identifier sits right before the "[", and nothing after it is a "]" yet
 const OPEN_BRACKET = /([A-Za-z][\w-]*)\[([^\]]*)$/;
@@ -168,7 +200,7 @@ function getPgsAttributeState(document, position) {
     const match = PGS_ATTRIBUTE_OPEN.exec(linePrefix(document, position));
     if (!match)
         return undefined;
-    const valueSoFar = match[1];
+    const valueSoFar = match[2];
     const bracket = OPEN_BRACKET.exec(valueSoFar);
     if (!bracket)
         return { valueSoFar };
@@ -234,8 +266,8 @@ function currentTagTextBeforeCursor(document, position) {
 //+ in, so a pgs-data completion can be scoped to the components actually on this element
 function getSiblingPgsValue(document, position) {
     const tagText = currentTagTextBeforeCursor(document, position);
-    const match = /\bpgs\s*=\s*"([^"]*)"/.exec(tagText);
-    return match?.[1];
+    const match = PGS_ATTRIBUTE_CLOSED.exec(tagText);
+    return match?.[2];
 }
 function rootNamesFromPgsValue(index, pgsValue) {
     const infos = [];
@@ -255,25 +287,66 @@ function getJsCallKind(document, position) {
     const match = JS_CALL_OPEN.exec(linePrefix(document, position));
     return match ? match[1] : undefined;
 }
-function makeFlagCompletion(flag, detail, alreadyPicked) {
+//+ the whole name the cursor sits in, on both sides of it, so picking a suggestion while editing
+//+ an existing value replaces that value instead of being written next to it ('column-2' picked
+//+ inside 'column-|' gives 'column-2', not 'column-'column-2'' nor ''column-2'')
+function nameRangeAround(document, position) {
+    const text = document.lineAt(position.line).text;
+    let start = position.character;
+    let end = position.character;
+    while (start > 0 && /[\w-]/.test(text[start - 1]))
+        start--;
+    while (end < text.length && /[\w-]/.test(text[end]))
+        end++;
+    return new vscode.Range(position.line, start, position.line, end);
+}
+//+ the same range for a flag inside a bracket, widened to its own quotes when the cursor is
+//+ inside an opened one: an odd number of ' before the name means the last one opens it, so the
+//+ closing quote of the flag before ('row'|) is never taken for an opening one
+function flagRangeAround(document, position, bracketPartial) {
+    const name = nameRangeAround(document, position);
+    const beforeName = bracketPartial.slice(0, bracketPartial.length - (position.character - name.start.character));
+    const insideQuote = (beforeName.match(/'/g) ?? []).length % 2 === 1;
+    if (!insideQuote)
+        return name;
+    const text = document.lineAt(position.line).text;
+    const end = text[name.end.character] === "'" ? name.end.character + 1 : name.end.character;
+    return new vscode.Range(position.line, name.start.character - 1, position.line, end);
+}
+function makeFlagCompletion(flag, detail, alreadyPicked, range, startsWithQuote, separator) {
     const item = new vscode.CompletionItem(`'${flag}'`, vscode.CompletionItemKind.EnumMember);
-    item.insertText = `'${flag}'`;
-    item.filterText = flag;
+    item.insertText = `${separator}'${flag}'`;
+    //== the filter compares the text from the start of the range, so it carries the quote only
+    //== when the range does
+    item.filterText = startsWithQuote ? `'${flag}'` : flag;
+    item.range = range;
     item.detail = detail;
     item.sortText = alreadyPicked ? `z_${flag}` : `a_${flag}`;
     item.preselect = !alreadyPicked;
     return item;
 }
-function makeDataCompletion(key, detail) {
+//+ an old option base/_deprecated.scss still renders: offered struck through and after every
+//+ current one, naming the option to write instead
+function markDeprecated(item, flag, replacement) {
+    item.tags = [vscode.CompletionItemTag.Deprecated];
+    item.detail = replacement ? `deprecated: use '${replacement}' (removed in version 6)` : "deprecated (removed in version 6)";
+    item.sortText = `y_${flag}`;
+    item.preselect = false;
+    return item;
+}
+function makeDataCompletion(key, detail, range, hasBracket) {
     const item = new vscode.CompletionItem(key, vscode.CompletionItemKind.EnumMember);
-    item.insertText = dataKeyInsertText(key);
+    //== editing the key of a key[...] already written keeps its bracket instead of adding a second one
+    item.insertText = hasBracket ? key : dataKeyInsertText(key);
     item.filterText = key;
+    item.range = range;
     item.detail = detail;
     return item;
 }
-function makeBareTokenCompletion(token, kind, alreadyUsed) {
+function makeBareTokenCompletion(token, kind, alreadyUsed, range) {
     const item = new vscode.CompletionItem(token, vscode.CompletionItemKind.Value);
     item.insertText = token;
+    item.range = range;
     item.detail = alreadyUsed
         ? "already present"
         : kind === "root"
@@ -306,7 +379,9 @@ function activate(context) {
                     ? [...new Set(roots.flatMap((r) => r.data))].sort((a, b) => a.localeCompare(b))
                     : index.allDataKeys();
                 const scopeLabel = roots.length ? roots.map((r) => r.name).join(", ") : "all components";
-                return keys.map((key) => makeDataCompletion(key, `pgs-data of ${scopeLabel}`));
+                const range = nameRangeAround(document, position);
+                const hasBracket = document.lineAt(position.line).text[range.end.character] === "[";
+                return keys.map((key) => makeDataCompletion(key, `pgs-data of ${scopeLabel}`, range, hasBracket));
             }
             const pgsState = getPgsAttributeState(document, position);
             if (!pgsState)
@@ -316,12 +391,20 @@ function activate(context) {
                 if (!root)
                     return [];
                 const already = flagsAlreadyInBracket(pgsState.bracketPartial ?? "");
-                return root.options.map((flag) => makeFlagCompletion(flag, `option of ${root.name}`, already.has(flag)));
+                const range = flagRangeAround(document, position, pgsState.bracketPartial ?? "");
+                const startsWithQuote = document.getText(range).startsWith("'");
+                //== right after the closing quote of the flag before ('row'|) the new one needs a space
+                const separator = !startsWithQuote && document.lineAt(position.line).text[range.start.character - 1] === "'" ? " " : "";
+                return [
+                    ...root.options.map((flag) => makeFlagCompletion(flag, `option of ${root.name}`, already.has(flag), range, startsWithQuote, separator)),
+                    ...Object.entries(root.deprecated).map(([flag, replacement]) => markDeprecated(makeFlagCompletion(flag, "", already.has(flag), range, startsWithQuote, separator), flag, replacement))
+                ];
             }
             //== bare word: offer every root/child/generated token, ranking whatever is already
             //== on this pgs value lower rather than hiding it, in case the author wants to see it
             const alreadyUsed = new Set(tokenizeBracketAware(pgsState.valueSoFar).map((t) => t.split("[")[0]));
-            return index.allBareTokens().map(({ token, kind }) => makeBareTokenCompletion(token, kind, alreadyUsed.has(token)));
+            const range = nameRangeAround(document, position);
+            return index.allBareTokens().map(({ token, kind }) => makeBareTokenCompletion(token, kind, alreadyUsed.has(token), range));
         }
     };
     const jsProvider = {
@@ -329,34 +412,152 @@ function activate(context) {
             const kind = getJsCallKind(document, position);
             if (!kind)
                 return [];
+            const range = nameRangeAround(document, position);
             if (kind === "data") {
                 return index.allDataKeys().map((key) => {
                     const item = new vscode.CompletionItem(key, vscode.CompletionItemKind.EnumMember);
                     item.insertText = key;
+                    item.range = range;
                     item.detail = "pgs-data key (of any component — there is no element to infer it from here)";
                     return item;
                 });
             }
-            return index.allOptionFlags().map((flag) => {
+            const flagItem = (flag) => {
                 const item = new vscode.CompletionItem(flag, vscode.CompletionItemKind.EnumMember);
                 item.insertText = flag;
+                item.range = range;
                 item.detail = "flag (of any component — there is no element to infer it from here)";
+                item.sortText = `a_${flag}`;
                 return item;
-            });
+            };
+            return [
+                ...index.allOptionFlags().map(flagItem),
+                ...[...index.allDeprecated()].map(([flag, replacement]) => markDeprecated(flagItem(flag), flag, replacement))
+            ];
         }
     };
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider([
-        { language: "html", scheme: "file" },
-        { language: "php", scheme: "file" },
-        { language: "twig", scheme: "file" },
-        { language: "vue", scheme: "file" }
-    ], markupProvider, '"', "'", "[", " ", "-"));
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider([
-        { language: "javascript", scheme: "file" },
-        { language: "javascriptreact", scheme: "file" },
-        { language: "typescript", scheme: "file" },
-        { language: "typescriptreact", scheme: "file" }
-    ], jsProvider, '"', "'", "`"));
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider([...MARKUP_LANGUAGES, ...SCRIPT_LANGUAGES], 
+    //== no "[": the list a "[" opens is opened by registerBracketAutoClose, after the "]"
+    markupProvider, '"', "'", " ", "-"));
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(SCRIPT_LANGUAGES, jsProvider, '"', "'", "`"));
+    registerBracketAutoClose(context);
+    registerDiagnostics(context, index);
+}
+//+ a "[" typed inside pgs="..." or pgs-data="..." gets its "]" right away, cursor between the two:
+//+ the editor's own auto-closing is off inside attribute strings. Only then is the list opened: a
+//+ list already open when the "]" lands takes it for text typed after the cursor and overwrites it
+//+ on accept, which is why "[" is not a trigger character. A language that closed it itself sends
+//+ "[]" as one change, and only gets the list
+function registerBracketAutoClose(context) {
+    context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => {
+        if (event.contentChanges.length !== 1)
+            return;
+        const change = event.contentChanges[0];
+        if ((change.text !== "[" && change.text !== "[]") || change.rangeLength !== 0)
+            return;
+        const editor = vscode.window.activeTextEditor;
+        if (!editor || editor.document !== event.document || !isSupported(event.document))
+            return;
+        const position = change.range.start.translate(0, 1);
+        const prefix = linePrefix(event.document, position);
+        if (!PGS_ATTRIBUTE_OPEN.test(prefix) && !PGS_DATA_ATTRIBUTE_OPEN.test(prefix))
+            return;
+        const openList = () => vscode.commands.executeCommand("editor.action.triggerSuggest");
+        if (event.document.lineAt(position.line).text[position.character] === "]") {
+            void openList();
+            return;
+        }
+        void editor
+            .insertSnippet(new vscode.SnippetString("$0]"), position, { undoStopBefore: false, undoStopAfter: false })
+            .then(openList);
+    }));
+}
+//+ every deprecated option written in a supported file is struck through, with a quick fix that
+//+ writes its replacement, and every option written in a bracket that does not accept it is an error. A deprecated name is matched only between quotes, the way a flag is
+//+ always written (in a bracket or in a pgs(el).option call), so plain prose never matches
+const DIAGNOSTIC_SOURCE = "pgs";
+//+ an option written in the bracket of a root that does not accept it (marginInline['mgBlAuto'])
+//+ renders nothing, so it is an error. Only a root the map knows is checked, and only a flag that
+//+ is a plain name: a value built by PHP or JS ('<?= $gap ?>', '${gap}') can't be judged here. The
+//+ glyphs are an open set (myIcons and every project add their own), so a root that takes an
+//+ icon-<key> takes any of them
+const PGS_ATTRIBUTE_VALUE = /\bpgs\s*=\s*\{?\s*(["`])((?:(?!\1)[\s\S])*)\1/g;
+function foreignOptionDiagnostics(document, text, index) {
+    const diagnostics = [];
+    for (const attribute of text.matchAll(PGS_ATTRIBUTE_VALUE)) {
+        const valueStart = (attribute.index ?? 0) + attribute[0].indexOf(attribute[1]) + 1;
+        for (const bracket of attribute[2].matchAll(/([A-Za-z_][\w-]*)\[([^\]]*)\]/g)) {
+            const root = index.resolveOwnBracket(bracket[1]);
+            if (!root)
+                continue;
+            const contentStart = valueStart + (bracket.index ?? 0) + bracket[1].length + 1;
+            for (const flag of bracket[2].matchAll(/'([^']*)'/g)) {
+                const option = flag[1];
+                if (!/^[\w-]+$/.test(option) || root.options.includes(option) || option in root.deprecated)
+                    continue;
+                if (option.startsWith("icon-") && root.options.some((known) => known.startsWith("icon-")))
+                    continue;
+                const start = document.positionAt(contentStart + (flag.index ?? 0) + 1);
+                const owners = index.ownersOf(option);
+                const diagnostic = new vscode.Diagnostic(new vscode.Range(start, start.translate(0, option.length)), owners.length
+                    ? `'${option}' is not an option of ${root.name}: it belongs to ${owners.join(", ")}.`
+                    : `'${option}' is not an option of ${root.name}.`, vscode.DiagnosticSeverity.Error);
+                diagnostic.source = DIAGNOSTIC_SOURCE;
+                diagnostics.push(diagnostic);
+            }
+        }
+    }
+    return diagnostics;
+}
+function registerDiagnostics(context, index) {
+    const collection = vscode.languages.createDiagnosticCollection(DIAGNOSTIC_SOURCE);
+    context.subscriptions.push(collection);
+    const refresh = (document) => {
+        if (!isSupported(document))
+            return;
+        const deprecated = index.allDeprecated();
+        const diagnostics = [];
+        const text = document.getText();
+        diagnostics.push(...foreignOptionDiagnostics(document, text, index));
+        for (const match of text.matchAll(/(['"`])([\w-]+)\1/g)) {
+            const replacement = deprecated.get(match[2]);
+            if (replacement === undefined)
+                continue;
+            const start = document.positionAt((match.index ?? 0) + 1);
+            const range = new vscode.Range(start, start.translate(0, match[2].length));
+            const diagnostic = new vscode.Diagnostic(range, replacement ? `'${match[2]}' is deprecated: use '${replacement}' (removed in version 6).` : `'${match[2]}' is deprecated (removed in version 6).`, vscode.DiagnosticSeverity.Hint);
+            diagnostic.tags = [vscode.DiagnosticTag.Deprecated];
+            diagnostic.source = DIAGNOSTIC_SOURCE;
+            diagnostic.code = replacement;
+            diagnostics.push(diagnostic);
+        }
+        collection.set(document.uri, diagnostics);
+    };
+    //== typing fires a change per keystroke: wait for a pause before rescanning the file
+    const timers = new Map();
+    const schedule = (document) => {
+        const key = document.uri.toString();
+        clearTimeout(timers.get(key));
+        timers.set(key, setTimeout(() => { timers.delete(key); refresh(document); }, 300));
+    };
+    vscode.workspace.textDocuments.forEach(refresh);
+    context.subscriptions.push(vscode.workspace.onDidOpenTextDocument(refresh), vscode.workspace.onDidChangeTextDocument((event) => schedule(event.document)), vscode.workspace.onDidCloseTextDocument((document) => collection.delete(document.uri)), 
+    //== the map loads asynchronously and can change: rescan whatever is open when it does
+    index.onDidLoad(() => vscode.workspace.textDocuments.forEach(refresh)), vscode.languages.registerCodeActionsProvider([...MARKUP_LANGUAGES, ...SCRIPT_LANGUAGES], {
+        provideCodeActions(document, _range, codeContext) {
+            return codeContext.diagnostics
+                .filter((diagnostic) => diagnostic.source === DIAGNOSTIC_SOURCE && diagnostic.code)
+                .map((diagnostic) => {
+                const replacement = String(diagnostic.code);
+                const action = new vscode.CodeAction(`Replace with '${replacement}'`, vscode.CodeActionKind.QuickFix);
+                action.edit = new vscode.WorkspaceEdit();
+                action.edit.replace(document.uri, diagnostic.range, replacement);
+                action.diagnostics = [diagnostic];
+                action.isPreferred = true;
+                return action;
+            });
+        }
+    }, { providedCodeActionKinds: [vscode.CodeActionKind.QuickFix] }));
 }
 function deactivate() {
     // subscriptions are disposed by VS Code.

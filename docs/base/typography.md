@@ -23,7 +23,7 @@ The six heading levels, and one look for body copy — size (or font-size for te
 ### PGS Options (component brackets)
 
 - `column`: stacks the examples vertically.
-- `gapTexts`: spaces the examples.
+- `gapParagraphs`: spaces the examples.
 
 ## Output
 

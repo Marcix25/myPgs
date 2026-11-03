@@ -141,7 +141,7 @@
  * - btnIconOnly: makes each background color trigger a compact circular button.
  * - drpHover: opens each background color's name while its circle is hovered.
  * - gapElements: spaces the background and text color groups.
- * - gapTexts: spaces individual palette entries.
+ * - gapParagraphs: spaces individual palette entries.
  * - wrap: lets palette entries wrap on narrow viewports.
  * - column: stacks palette groups vertically.
  * - row: arranges palette entries in flexible rows.
@@ -156,7 +156,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Primary colors</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-primary" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgPrimary']" type="button"></button>
                     <span pgs="dropdown-content">background['bgPrimary']</span>
@@ -178,7 +178,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Primary variants</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-primary-soft" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgPrimarySoft']" type="button"></button>
                     <span pgs="dropdown-content">background['bgPrimarySoft']</span>
@@ -200,7 +200,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Secondary variants</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-secondary-soft" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgSecondarySoft']" type="button"></button>
                     <span pgs="dropdown-content">background['bgSecondarySoft']</span>
@@ -222,7 +222,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Tertiary variants</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-tertiary-soft" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgTertiarySoft']" type="button"></button>
                     <span pgs="dropdown-content">background['bgTertiarySoft']</span>
@@ -244,7 +244,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Quaternary variants</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-quaternary-soft" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgQuaternarySoft']" type="button"></button>
                     <span pgs="dropdown-content">background['bgQuaternarySoft']</span>
@@ -266,7 +266,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Base colors</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-link" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgLink']" type="button"></button>
                     <span pgs="dropdown-content">background['bgLink']</span>
@@ -308,7 +308,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>White colors</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-white" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgWhite']" type="button"></button>
                     <span pgs="dropdown-content">background['bgWhite']</span>
@@ -326,7 +326,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Black colors</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-black" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgBlack']" type="button"></button>
                     <span pgs="dropdown-content">background['bgBlack']</span>
@@ -344,7 +344,7 @@
 
         <div pgs="flex['column'] box['boxMini']">
             <p>Status</p>
-            <div pgs="flex['row' 'gapTexts' 'wrap']">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']">
                 <span pgs="dropdown['drpHover']">
                     <button aria-label="--color-info" pgs="dropdown-button button['btnMini' 'btnIconOnly'] background['bgInfo']" type="button"></button>
                     <span pgs="dropdown-content">background['bgInfo']</span>
@@ -384,7 +384,7 @@
     <section pgs="flex['column']">
         <strong pgs="flexChild['flexFull']">Text on a color</strong>
         <p>Each <code>--color-*-text</code> is the reading color that belongs to its own background, so a colored surface gets legible text without anyone picking a contrast by hand. Retheme the background and the pair follows.</p>
-        <div pgs="flex['row' 'gapTexts' 'wrap']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap']">
             <div pgs="box['boxMini'] background['bgPrimary'] textColor['txtPrimaryText']">background['bgPrimary'] + textColor['txtPrimaryText']</div>
             <div pgs="box['boxMini'] background['bgSecondary'] textColor['txtSecondaryText']">background['bgSecondary'] + textColor['txtSecondaryText']</div>
             <div pgs="box['boxMini'] background['bgTertiary'] textColor['txtTertiaryText']">background['bgTertiary'] + textColor['txtTertiaryText']</div>
@@ -394,7 +394,7 @@
 
     <section pgs="flex['column']">
         <strong pgs="flexChild['flexFull']">Text colors</strong>
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgWhite']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap'] box['boxMini'] background['bgWhite']">
             <strong pgs="flexChild['flexFull']">Color</strong>
             <span pgs="textColor['txtPrimary']">textColor['txtPrimary']</span>
             <span pgs="textColor['txtSecondary']">textColor['txtSecondary']</span>
@@ -415,7 +415,7 @@
             <span pgs="textColor['txtBoxDark']">textColor['txtBoxDark']</span>
         </div>
         
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgBlack']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap'] box['boxMini'] background['bgBlack']">
             <strong pgs="textColor['txtWhite'] flexChild['flexFull']">Color for dark</strong>
             <span pgs="textColor['txtPrimarySoft']">textColor['txtPrimarySoft']</span>
             <span pgs="textColor['txtSecondarySoft']">textColor['txtSecondarySoft']</span>
@@ -430,7 +430,7 @@
             <span pgs="textColor['txtBox']">textColor['txtBox']</span>
         </div>
         
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgWhiteFixed']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap'] box['boxMini'] background['bgWhiteFixed']">
             <strong pgs="textColor['txtBlackFixed'] flexChild['flexFull']">Color for light</strong>
             <span pgs="textColor['txtPrimaryDark']">textColor['txtPrimaryDark']</span>
             <span pgs="textColor['txtSecondaryDark']">textColor['txtSecondaryDark']</span>
@@ -439,7 +439,7 @@
             <span pgs="textColor['txtBlackFixed']">textColor['txtBlackFixed']</span>
         </div>
 
-        <div pgs="flex['row' 'gapTexts' 'wrap'] box['boxMini'] background['bgBlackFixed']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap'] box['boxMini'] background['bgBlackFixed']">
             <strong pgs="textColor['txtWhiteFixed'] flexChild['flexFull']">Color for dark</strong>
             <span pgs="textColor['txtPrimaryLight']">textColor['txtPrimaryLight']</span>
             <span pgs="textColor['txtSecondaryLight']">textColor['txtSecondaryLight']</span>
@@ -452,7 +452,7 @@
 
     <section pgs="flex['column']">
         <strong pgs="flexChild['flexFull']">Border colors</strong>
-        <div pgs="flex['row' 'gapTexts' 'wrap']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap']">
             <span pgs="box['boxMini'] border borderColor['bdPrimary']">borderColor['bdPrimary']</span>
             <span pgs="box['boxMini'] border borderColor['bdSecondary']">borderColor['bdSecondary']</span>
             <span pgs="box['boxMini'] border borderColor['bdTertiary']">borderColor['bdTertiary']</span>
@@ -472,7 +472,7 @@
 
     <section pgs="flex['column']">
         <strong pgs="flexChild['flexFull']">Outline colors</strong>
-        <div pgs="flex['row' 'gapTexts' 'wrap']">
+        <div pgs="flex['row' 'gapParagraphs' 'wrap']">
             <span pgs="box['boxMini'] outline outline['otlPrimary']">outline['otlPrimary']</span>
             <span pgs="box['boxMini'] outline outline['otlSecondary']">outline['otlSecondary']</span>
             <span pgs="box['boxMini'] outline outline['otlTertiary']">outline['otlTertiary']</span>

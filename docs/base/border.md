@@ -88,8 +88,10 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `otlSuccess`: inside outline's own bracket, recolors it with the success color.
 - `otlGray`: inside outline's own bracket, recolors it gray.
 - `radElements`: inside borderRadius's own bracket, uses the standard radius of an element (--borderRadius-elements), the one borderRadius gives on its own.
-- `radTexts`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
+- `radDetails`: inside borderRadius's own bracket, uses the smallest radius (a quarter of the base size), for tiny details such as badges or chips.
+- `radParagraphs`: inside borderRadius's own bracket, uses the smaller radius used by form controls instead of the standard one.
 - `radGroups`: inside borderRadius's own bracket, uses the wider radius used by outer containers instead of the standard one.
+- `radSections`: inside borderRadius's own bracket, uses the widest radius, read from the section scale (viewport-based).
 - `radUnset`: inside borderRadius's own bracket, squares the corners off an element that has a radius of its own.
 
 ## Related elements
@@ -106,7 +108,7 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `row`: arranges the examples in a row.
 - `pdSections`: inside padding's own bracket, uses the section spacing scale for the radius example's padding.
 - `wrap`: lets the border and outline examples flow onto a second row.
-- `gapTexts`: spaces the examples inside a group.
+- `gapParagraphs`: spaces the examples inside a group.
 
 ## CSS Variables
 
@@ -158,10 +160,12 @@ The same line drawn outside the box, so it takes no space and never moves what s
 
 ### Border radius
 
-Three radius tokens: the standard one, the smaller one used by form controls and the wider one for outer containers.
+Five radius tokens: the widest one read from the section scale, the wider one for outer containers, the standard one, the smaller one used by form controls and the smallest one for tiny details.
 
 ```html
+<span pgs="padding['pdSections'] border borderRadius['radSections']">borderRadius['radSections']</span>
 <span pgs="padding['pdSections'] border borderRadius['radGroups']">borderRadius['radGroups']</span>
 <span pgs="padding['pdSections'] border borderRadius">borderRadius</span>
-<span pgs="padding['pdSections'] border borderRadius['radTexts']">borderRadius['radTexts']</span>
+<span pgs="padding['pdSections'] border borderRadius['radParagraphs']">borderRadius['radParagraphs']</span>
+<span pgs="padding['pdSections'] border borderRadius['radDetails']">borderRadius['radDetails']</span>
 ```

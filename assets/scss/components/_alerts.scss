@@ -15,8 +15,8 @@
     --alert-background: var(--color-box);
     --alert-color: var(--color-text);
     --alert-content-title-color: var(--alert-accent);
-    --alert-padding: var(--padding-texts);
-    --alert-gap: var(--gap-texts);
+    --alert-padding: var(--padding-paragraphs);
+    --alert-gap: var(--gap-paragraphs);
     --alert-iconSize: 3.5rem;
     // the countdown bar is a dormant feature of the card itself, not something Toast draws on
     // top of it: it only switches on wherever the JS is given a timeout (see _alerts.js), which
@@ -38,7 +38,7 @@
     color: var(--alert-color);
     overflow: hidden;
     position: relative;
-    margin-block: calc(var(--gap-texts) / 2);
+    margin-block: calc(var(--gap-paragraphs) / 2);
 
     // every real child sits above the card's own countdown bar (the ::before below), which has no
     // z-index of its own so it stays behind these without needing to know about it

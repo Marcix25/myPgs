@@ -9,24 +9,30 @@
 */
 :where([pgs~=htmlBase]):root {
   --SIZE: 3.0rem;
-  --SIZE-texts: calc(var(--SIZE) / 2);
+  --SIZE-details: calc(var(--SIZE) / 4);
+  --SIZE-paragraphs: calc(var(--SIZE) / 2);
   --SIZE-groups: calc(var(--SIZE) * 2);
   --SIZE-sections: calc(var(--SIZE-groups) + 10svh);
-  --padding-texts: var(--SIZE-texts);
+  --padding-details: var(--SIZE-details);
+  --padding-paragraphs: var(--SIZE-paragraphs);
   --padding-elements: var(--SIZE);
   --padding-groups: var(--SIZE-groups);
   --padding-sections: var(--SIZE-sections);
-  --margin-texts: var(--SIZE-texts);
+  --margin-details: var(--SIZE-details);
+  --margin-paragraphs: var(--SIZE-paragraphs);
   --margin-elements: var(--SIZE);
   --margin-groups: var(--SIZE-groups);
   --margin-sections: var(--SIZE-sections);
-  --gap-texts: var(--SIZE-texts);
+  --gap-details: var(--SIZE-details);
+  --gap-paragraphs: var(--SIZE-paragraphs);
   --gap-elements: var(--SIZE);
   --gap-groups: var(--SIZE-groups);
   --gap-sections: var(--SIZE-sections);
-  --borderRadius-texts: var(--SIZE-texts);
+  --borderRadius-details: var(--SIZE-details);
+  --borderRadius-paragraphs: var(--SIZE-paragraphs);
   --borderRadius-elements: var(--SIZE);
   --borderRadius-groups: var(--SIZE-groups);
+  --borderRadius-sections: var(--SIZE-sections);
   --font: 'Urbanist', sans-serif;
   --font-heading: var(--font);
   --font-weight-title: 800;
@@ -188,7 +194,7 @@
 }
 
 :where([pgs*="body["]):where([pgs*="'bodyBase'"]) hr {
-  margin: var(--gap-texts);
+  margin: var(--gap-paragraphs);
   border-style: solid;
   border-color: var(--color-box);
   align-self: stretch;
@@ -475,7 +481,7 @@
 */
 :is([pgs~=card], [pgs*="card["]) {
   --card-padding: var(--padding-elements);
-  --card-borderRadius: calc(var(--borderRadius-texts) + var(--card-padding));
+  --card-borderRadius: calc(var(--borderRadius-paragraphs) + var(--card-padding));
   --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
   --card-background: var(--color-box-transparent);
   --card-img-padding: 0;
@@ -547,7 +553,7 @@
 }
 
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardMini'"]) {
-  --card-padding: var(--padding-texts);
+  --card-padding: var(--padding-paragraphs);
 }
 
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) {
@@ -604,7 +610,7 @@
 
 :is([pgs~=box], [pgs*="box["]) {
   --box-padding: var(--padding-elements);
-  --box-borderRadius: calc(var(--borderRadius-texts) + var(--box-padding));
+  --box-borderRadius: calc(var(--borderRadius-paragraphs) + var(--box-padding));
   --box-background: var(--color-box-transparent);
   padding: var(--box-padding);
   background: var(--box-background);
@@ -632,8 +638,8 @@
   }
 }
 :is([pgs~=box], [pgs*="box["]):where([pgs*="'boxMini'"]) {
-  --box-padding: var(--padding-texts);
-  --box-borderRadius: var(--borderRadius-texts);
+  --box-padding: var(--padding-paragraphs);
+  --box-borderRadius: var(--borderRadius-paragraphs);
 }
 
 :is([pgs~=box], [pgs*="box["]):where([pgs*="'boxNavSmart'"]) {
@@ -651,9 +657,9 @@
 [pgs~=textarea] {
   resize: vertical;
   overflow-x: hidden;
-  --input-padding: var(--padding-texts);
+  --input-padding: var(--padding-paragraphs);
   --input-border: var(--border-width) var(--border-color) var(--border-style);
-  --input-borderRadius: var(--borderRadius-texts);
+  --input-borderRadius: var(--borderRadius-paragraphs);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -693,9 +699,9 @@
 }
 
 [pgs~=input] {
-  --input-padding: var(--padding-texts);
+  --input-padding: var(--padding-paragraphs);
   --input-border: var(--border-width) var(--border-color) var(--border-style);
-  --input-borderRadius: var(--borderRadius-texts);
+  --input-borderRadius: var(--borderRadius-paragraphs);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -747,10 +753,10 @@
 }
 
 :where([pgs~=label], [pgs*="label["]) {
-  --label-borderRadius: var(--borderRadius-texts);
+  --label-borderRadius: var(--borderRadius-paragraphs);
   --label-left: var(--label-borderRadius);
-  --label-paddingInline: var(--padding-texts);
-  --label-paddingBlock: calc(var(--padding-texts)/2);
+  --label-paddingInline: var(--padding-paragraphs);
+  --label-paddingBlock: calc(var(--padding-paragraphs)/2);
   --label-color: var(--color-black);
   --label-background: var(--color-white);
   --label-border: var(--border-color) var(--border-style);
@@ -806,9 +812,9 @@
 }
 
 [pgs~=legend] {
-  --label-borderRadius: var(--borderRadius-texts);
-  --label-paddingInline: var(--padding-texts);
-  --label-paddingBlock: calc(var(--padding-texts)/2);
+  --label-borderRadius: var(--borderRadius-paragraphs);
+  --label-paddingInline: var(--padding-paragraphs);
+  --label-paddingBlock: calc(var(--padding-paragraphs)/2);
   --label-color: var(--color-black);
   --label-background: var(--color-white);
   --label-border: var(--border-color) var(--border-style);
@@ -837,7 +843,7 @@
   --radio-size: 2.0rem;
   --radio-isChecked: 0;
   --radio-dot-size: calc(var(--radio-size) / 1.5);
-  --radio-gap: calc(var(--gap-texts) /2);
+  --radio-gap: calc(var(--gap-paragraphs) /2);
   --radio-borderStyleWidth: var(--border-style) var(--border-width);
   --radio-background: var(--clickable-background);
   --radio-background-hover: var(--hover-background);
@@ -862,8 +868,8 @@
   height: var(--radio-size);
   cursor: pointer;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   align-items: center;
   justify-content: center;
   display: inline-flex;
@@ -973,7 +979,7 @@
   --checkbox-icon: var(--icon-glyph-check);
   --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
   --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
-  --checkbox-gap: calc(var(--gap-texts) /2);
+  --checkbox-gap: calc(var(--gap-paragraphs) /2);
   --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
   --checkbox-background: var(--clickable-background);
   --checkbox-background-hover: var(--hover-background);
@@ -999,8 +1005,8 @@
   height: var(--checkbox-size);
   cursor: pointer;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   align-items: center;
   justify-content: center;
   display: inline-flex;
@@ -1120,14 +1126,14 @@
 [pgs~=fieldset] {
   border: unset;
   display: flex;
-  gap: var(--form-gap, var(--gap-texts));
-  --gap: var(--form-gap, var(--gap-texts));
+  gap: var(--form-gap, var(--gap-paragraphs));
+  --gap: var(--form-gap, var(--gap-paragraphs));
   flex-direction: column;
-  padding-top: var(--form-gap, var(--gap-texts));
+  padding-top: var(--form-gap, var(--gap-paragraphs));
 }
 
 [pgs~=form] {
-  --form-gap: var(--gap-texts);
+  --form-gap: var(--gap-paragraphs);
   display: flex;
   gap: var(--form-gap);
   --gap: var(--form-gap);
@@ -1162,7 +1168,7 @@
 }
 
 [pgs~=range] {
-  --range-size: var(--borderRadius-texts);
+  --range-size: var(--borderRadius-paragraphs);
   --range-thumbWidth: calc(var(--range-size) * 2);
   --range-background: var(--clickable-background);
   --range-background-progress: var(--twoState-background);
@@ -1238,9 +1244,9 @@
 }
 
 [pgs~=file] {
-  --input-padding: var(--padding-texts);
+  --input-padding: var(--padding-paragraphs);
   --input-border: var(--border-width) var(--border-color) var(--border-style);
-  --input-borderRadius: var(--borderRadius-texts);
+  --input-borderRadius: var(--borderRadius-paragraphs);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -1279,8 +1285,8 @@
 }
 
 [pgs~=file]::file-selector-button {
-  margin-right: var(--gap-texts);
-  padding: var(--SIZE-texts) calc(var(--SIZE-texts) * 2);
+  margin-right: var(--gap-paragraphs);
+  padding: var(--SIZE-paragraphs) calc(var(--SIZE-paragraphs) * 2);
   font-family: var(--font);
   font-size: var(--font-size-text);
   font-weight: var(--font-weight-bold);
@@ -1312,7 +1318,7 @@
   width: var(--inputColor-width);
   height: var(--inputColor-height);
   border: var(--border-width) var(--border-color) var(--border-style);
-  border-radius: var(--borderRadius-texts);
+  border-radius: var(--borderRadius-paragraphs);
   cursor: pointer;
 }
 
@@ -1326,9 +1332,9 @@
 
 :is([pgs~=select], [pgs*="select["]) {
   --select-padding: calc(var(--field-padding, var(--input-padding)) / 2);
-  --input-padding: var(--padding-texts);
+  --input-padding: var(--padding-paragraphs);
   --input-border: var(--border-width) var(--border-color) var(--border-style);
-  --input-borderRadius: var(--borderRadius-texts);
+  --input-borderRadius: var(--borderRadius-paragraphs);
   --input-background: var(--color-white);
   appearance: none;
   width: 100%;
@@ -1379,14 +1385,14 @@
 :is([pgs~=select], [pgs*="select["])[multiple] optgroup {
   color: var(--color-black);
   display: flex;
-  gap: calc(var(--gap-texts) / 2);
-  --gap: calc(var(--gap-texts) / 2);
+  gap: calc(var(--gap-paragraphs) / 2);
+  --gap: calc(var(--gap-paragraphs) / 2);
   flex-direction: column;
 }
 
 :is([pgs~=select], [pgs*="select["])[multiple] option {
   padding: var(--select-padding);
-  border-radius: calc(var(--borderRadius-texts) - var(--select-padding));
+  border-radius: calc(var(--borderRadius-paragraphs) - var(--select-padding));
   background-color: transparent;
   font-weight: var(--font-weight-text);
   color: var(--color-black);
@@ -1433,7 +1439,7 @@
   --button-borderWidth: var(--border-width);
   --button-borderStyle: var(--border-style);
   --button-borderRadius: var(--borderRadius-elements);
-  --button-size: var(--SIZE-texts);
+  --button-size: var(--SIZE-paragraphs);
   --button-gap: calc(var(--button-size) / 3);
   --button-fontSize: var(--font-size-text);
   --button-paddingBlock: var(--button-size);
@@ -1856,8 +1862,8 @@
 }
 
 [pgs~=checkboxBackground] {
-  --checkboxBackground-padding: calc(var(--padding-texts) / 2);
-  --checkboxBackground-paddingRight: var(--padding-texts);
+  --checkboxBackground-padding: calc(var(--padding-paragraphs) / 2);
+  --checkboxBackground-paddingRight: var(--padding-paragraphs);
   --checkboxBackground-borderRadius: var(--borderRadius-elements);
   --checkboxBackground-background: var(--clickable-background);
   --checkboxBackground-background-hover: var(--hover-background);
@@ -1915,8 +1921,8 @@
   --toggle-thumb-background-checked: var(--twoState-color);
   isolation: isolate;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
   --checkboxRadio-labelColor: var(--color-black);
@@ -1982,13 +1988,13 @@
   background: var(--toggle-rail-background);
   color: var(--toggle-thumb-background);
   border-color: var(--toggle-rail-borderColor);
-  border-radius: var(--borderRadius-texts);
+  border-radius: var(--borderRadius-paragraphs);
 }
 
 [pgs~=toggle] :where(input)::after, [pgs~=toggle] :where(input)::before {
   content: "";
   display: block;
-  border-radius: var(--borderRadius-texts);
+  border-radius: var(--borderRadius-paragraphs);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -2057,8 +2063,8 @@
 [pgs~=chips] {
   border: unset;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -2211,8 +2217,8 @@
 
 :is([pgs~=field], [pgs*="field["]) {
   --field-gap: 0.9rem;
-  --field-padding: var(--padding-texts);
-  --field-borderRadius: var(--borderRadius-texts);
+  --field-padding: var(--padding-paragraphs);
+  --field-borderRadius: var(--borderRadius-paragraphs);
   --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
   --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
   --field-background: var(--color-white);
@@ -2317,10 +2323,10 @@
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
-  --dropdown-borderRadius: calc(var(--borderRadius-texts) + var(--dropdown-padding));
+  --dropdown-borderRadius: calc(var(--borderRadius-paragraphs) + var(--dropdown-padding));
   --dropdown-background: var(--color-box);
   --dropdown-display: flex;
 }
@@ -2370,8 +2376,8 @@
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -2464,8 +2470,8 @@
   all: unset;
   cursor: pointer;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
   box-shadow: none;
@@ -2509,8 +2515,8 @@
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
   visibility: hidden;
   opacity: 0;
@@ -2531,8 +2537,8 @@
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
   background: var(--accordion-background-open);
 }
@@ -2737,8 +2743,8 @@
   --modal-background: var(--color-background);
   --modal-color: var(--color-black);
   --modal-content-padding: var(--padding-elements);
-  --modal-offset: var(--gap-texts);
-  --modal-borderRadius: calc(var(--borderRadius-texts) + var(--modal-content-padding));
+  --modal-offset: var(--gap-paragraphs);
+  --modal-borderRadius: calc(var(--borderRadius-paragraphs) + var(--modal-content-padding));
   --modal-animation-timing: 333ms;
   --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
@@ -2804,8 +2810,8 @@
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
   z-index: 1;
@@ -3104,8 +3110,8 @@
 }
 :is([pgs~=slides], [pgs*="slides["]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
   position: relative;
@@ -3119,7 +3125,7 @@
   --slides-width-tablet: 100%;
   --slides-width-mobile: 100%;
   --slides-arrowSize: 3.6rem;
-  --slides-arrowsSpace: calc(var(--slides-arrowSize) + var(--gap-texts));
+  --slides-arrowsSpace: calc(var(--slides-arrowSize) + var(--gap-paragraphs));
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) {
@@ -3132,8 +3138,8 @@
   -webkit-user-select: none;
   user-select: none;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
 }
@@ -3198,7 +3204,7 @@
   right: 10px;
   z-index: 4;
   display: flex;
-  gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
 }
 
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-prev]),
@@ -3227,7 +3233,7 @@
   z-index: 3;
   position: absolute;
   bottom: 0;
-  transform: translateY(calc(100% + var(--gap-texts)));
+  transform: translateY(calc(100% + var(--gap-paragraphs)));
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -3348,8 +3354,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]) {
 
 ol[pgs~=steps] :where([pgs~=steps-step]) :where([pgs~=steps-step-content]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
   margin-bottom: calc(var(--gap-elements) / 2 - 8px);
   padding-bottom: calc(var(--gap-elements) / 2);
@@ -3435,7 +3441,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   table-layout: auto;
   border-collapse: collapse;
   color: var(--color-text);
-  border-radius: var(--borderRadius-texts);
+  border-radius: var(--borderRadius-paragraphs);
   border: var(--border-width) var(--border-color) var(--border-style);
   overflow: hidden;
 }
@@ -3502,15 +3508,15 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   position: relative;
   margin-inline: 10%;
-  margin-block: var(--gap-texts);
+  margin-block: var(--gap-paragraphs);
   isolation: isolate;
 }
 
@@ -3550,8 +3556,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --summary-lines: 3;
   position: relative;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
   isolation: isolate;
 }
@@ -3588,7 +3594,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   cursor: pointer;
   background-color: transparent;
   border: unset;
-  margin-top: calc(var(--gap-texts) * -1);
+  margin-top: calc(var(--gap-paragraphs) * -1);
   z-index: 1;
   color: var(--color-primary-strong);
   font-family: var(--font);
@@ -3614,7 +3620,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   max-width: 100%;
   min-height: calc(var(--badge-size) * 2.2);
   padding: var(--badge-size);
-  border-radius: var(--borderRadius-texts);
+  border-radius: var(--borderRadius-paragraphs);
   background: var(--badge-background);
   color: var(--badge-color);
   font-size: var(--badge-textSize);
@@ -3687,8 +3693,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --alert-background: var(--color-box);
   --alert-color: var(--color-text);
   --alert-content-title-color: var(--alert-accent);
-  --alert-padding: var(--padding-texts);
-  --alert-gap: var(--gap-texts);
+  --alert-padding: var(--padding-paragraphs);
+  --alert-gap: var(--gap-paragraphs);
   --alert-iconSize: 3.5rem;
   --_alert-timeout: initial;
   --_alert-timer: color-mix(in srgb, var(--alert-background) 95%, var(--color-black) 5%);
@@ -3706,7 +3712,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   color: var(--alert-color);
   overflow: hidden;
   position: relative;
-  margin-block: calc(var(--gap-texts) / 2);
+  margin-block: calc(var(--gap-paragraphs) / 2);
 }
 
 :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]),
@@ -3883,9 +3889,9 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=_notification] :where([pgs~=_notification-empty]) {
   margin: 0;
-  padding: var(--padding-texts);
+  padding: var(--padding-paragraphs);
   color: var(--color-white);
-  border-radius: var(--borderRadius-texts);
+  border-radius: var(--borderRadius-paragraphs);
   font-size: small;
   text-align: center;
   background-color: var(--color-black-transparent);
@@ -3933,8 +3939,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=search], [pgs*="search["]) {
   --search-height: var(--font-size-text);
-  --search-paddingBlock: var(--borderRadius-texts);
-  --search-borderRadius: calc(var(--borderRadius-texts) + (var(--search-height) /2));
+  --search-paddingBlock: var(--borderRadius-paragraphs);
+  --search-borderRadius: calc(var(--borderRadius-paragraphs) + (var(--search-height) /2));
   --search-background: var(--color-box);
   --search-color: var(--color-black);
   --search-border: var(--border-width) var(--border-color) var(--border-style);
@@ -4264,15 +4270,15 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"] {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'row'"] {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -4283,8 +4289,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'flexPlaceCenter'"] {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   align-items: center;
   justify-content: center;
 }
@@ -4339,7 +4345,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4385,7 +4391,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-1'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4431,7 +4437,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-2'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4477,7 +4483,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-3'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4523,7 +4529,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-4'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4569,7 +4575,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-5'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4615,7 +4621,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-6'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4661,7 +4667,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-7'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4707,7 +4713,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   }
 }
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-8'"] {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
 }
@@ -4836,7 +4842,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=grid], [pgs*="grid["]):not([pgs*="'gridNotDefault'"]) {
-  --gap: var(--gap-texts);
+  --gap: var(--gap-paragraphs);
   gap: var(--gap);
   width: 100%;
 }
@@ -5238,8 +5244,13 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   --_gridChild-col: var(--gridChild-colSpan-xxl, 5);
 }
 
-:is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["], [pgs~=gap], [pgs*="gap["])[pgs*="'gapTexts'"] {
-  --gap: var(--gap-texts);
+:is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["], [pgs~=gap], [pgs*="gap["])[pgs*="'gapDetails'"] {
+  --gap: var(--gap-details);
+  gap: var(--gap);
+}
+
+:is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["], [pgs~=gap], [pgs*="gap["])[pgs*="'gapParagraphs'"] {
+  --gap: var(--gap-paragraphs);
   gap: var(--gap);
 }
 
@@ -5631,19 +5642,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=margin], [pgs*="margin["]) {
   --margin-sign: 1;
-  margin: calc(var(--margin-texts) * var(--margin-sign, 1));
+  margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1));
 }
 
 :is([pgs~=margin], [pgs*="margin["])[pgs*="'mg'"] {
-  margin: calc(var(--margin-texts) * var(--margin-sign, 1));
+  margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1));
 }
 
 :is([pgs~=margin], [pgs*="margin["])[pgs*="'mgNegative'"] {
   --margin-sign: -1;
 }
 
-:is([pgs~=margin], [pgs*="margin["])[pgs*="'mgTexts'"] {
-  margin: calc(var(--margin-texts) * var(--margin-sign, 1));
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'mgDetails'"] {
+  margin: calc(var(--margin-details) * var(--margin-sign, 1));
+}
+
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'mgParagraphs'"] {
+  margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1));
 }
 
 :is([pgs~=margin], [pgs*="margin["])[pgs*="'mgElements'"] {
@@ -5672,19 +5687,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["]) {
   --marginBlock-sign: 1;
-  margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
+  margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBl'"] {
-  margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
+  margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlNegative'"] {
   --marginBlock-sign: -1;
 }
 
-:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlTexts'"] {
-  margin-block: calc(var(--margin-texts) * var(--marginBlock-sign, 1));
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlDetails'"] {
+  margin-block: calc(var(--margin-details) * var(--marginBlock-sign, 1));
+}
+
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlParagraphs'"] {
+  margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1));
 }
 
 :is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlElements'"] {
@@ -5713,19 +5732,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=marginInline], [pgs*="marginInline["]) {
   --marginInline-sign: 1;
-  margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
+  margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgIn'"] {
-  margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
+  margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInNegative'"] {
   --marginInline-sign: -1;
 }
 
-:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInTexts'"] {
-  margin-inline: calc(var(--margin-texts) * var(--marginInline-sign, 1));
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInDetails'"] {
+  margin-inline: calc(var(--margin-details) * var(--marginInline-sign, 1));
+}
+
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInParagraphs'"] {
+  margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1));
 }
 
 :is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInElements'"] {
@@ -5754,19 +5777,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=marginTop], [pgs*="marginTop["]) {
   --marginTop-sign: 1;
-  margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
+  margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTp'"] {
-  margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
+  margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpNegative'"] {
   --marginTop-sign: -1;
 }
 
-:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpTexts'"] {
-  margin-top: calc(var(--margin-texts) * var(--marginTop-sign, 1));
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpDetails'"] {
+  margin-top: calc(var(--margin-details) * var(--marginTop-sign, 1));
+}
+
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpParagraphs'"] {
+  margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1));
 }
 
 :is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpElements'"] {
@@ -5795,19 +5822,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=marginRight], [pgs*="marginRight["]) {
   --marginRight-sign: 1;
-  margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
+  margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRt'"] {
-  margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
+  margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtNegative'"] {
   --marginRight-sign: -1;
 }
 
-:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtTexts'"] {
-  margin-right: calc(var(--margin-texts) * var(--marginRight-sign, 1));
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtDetails'"] {
+  margin-right: calc(var(--margin-details) * var(--marginRight-sign, 1));
+}
+
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtParagraphs'"] {
+  margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1));
 }
 
 :is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtElements'"] {
@@ -5836,19 +5867,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["]) {
   --marginBottom-sign: 1;
-  margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
+  margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBt'"] {
-  margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
+  margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtNegative'"] {
   --marginBottom-sign: -1;
 }
 
-:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtTexts'"] {
-  margin-bottom: calc(var(--margin-texts) * var(--marginBottom-sign, 1));
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtDetails'"] {
+  margin-bottom: calc(var(--margin-details) * var(--marginBottom-sign, 1));
+}
+
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtParagraphs'"] {
+  margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1));
 }
 
 :is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtElements'"] {
@@ -5877,19 +5912,23 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["]) {
   --marginLeft-sign: 1;
-  margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
+  margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLt'"] {
-  margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
+  margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtNegative'"] {
   --marginLeft-sign: -1;
 }
 
-:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtTexts'"] {
-  margin-left: calc(var(--margin-texts) * var(--marginLeft-sign, 1));
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtDetails'"] {
+  margin-left: calc(var(--margin-details) * var(--marginLeft-sign, 1));
+}
+
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtParagraphs'"] {
+  margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1));
 }
 
 :is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtElements'"] {
@@ -5917,15 +5956,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=padding], [pgs*="padding["]) {
-  padding: var(--padding-texts);
+  padding: var(--padding-paragraphs);
 }
 
 :is([pgs~=padding], [pgs*="padding["])[pgs*="'pd'"] {
-  padding: var(--padding-texts);
+  padding: var(--padding-paragraphs);
 }
 
-:is([pgs~=padding], [pgs*="padding["])[pgs*="'pdTexts'"] {
-  padding: var(--padding-texts);
+:is([pgs~=padding], [pgs*="padding["])[pgs*="'pdDetails'"] {
+  padding: var(--padding-details);
+}
+
+:is([pgs~=padding], [pgs*="padding["])[pgs*="'pdParagraphs'"] {
+  padding: var(--padding-paragraphs);
 }
 
 :is([pgs~=padding], [pgs*="padding["])[pgs*="'pdElements'"] {
@@ -5949,15 +5992,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=paddingBlock], [pgs*="paddingBlock["]) {
-  padding-block: var(--padding-texts);
+  padding-block: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'pdBl'"] {
-  padding-block: var(--padding-texts);
+  padding-block: var(--padding-paragraphs);
 }
 
-:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'pdBlTexts'"] {
-  padding-block: var(--padding-texts);
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'pdBlDetails'"] {
+  padding-block: var(--padding-details);
+}
+
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'pdBlParagraphs'"] {
+  padding-block: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'pdBlElements'"] {
@@ -5981,15 +6028,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=paddingInline], [pgs*="paddingInline["]) {
-  padding-inline: var(--padding-texts);
+  padding-inline: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingInline], [pgs*="paddingInline["])[pgs*="'pdIn'"] {
-  padding-inline: var(--padding-texts);
+  padding-inline: var(--padding-paragraphs);
 }
 
-:is([pgs~=paddingInline], [pgs*="paddingInline["])[pgs*="'pdInTexts'"] {
-  padding-inline: var(--padding-texts);
+:is([pgs~=paddingInline], [pgs*="paddingInline["])[pgs*="'pdInDetails'"] {
+  padding-inline: var(--padding-details);
+}
+
+:is([pgs~=paddingInline], [pgs*="paddingInline["])[pgs*="'pdInParagraphs'"] {
+  padding-inline: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingInline], [pgs*="paddingInline["])[pgs*="'pdInElements'"] {
@@ -6013,15 +6064,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=paddingTop], [pgs*="paddingTop["]) {
-  padding-top: var(--padding-texts);
+  padding-top: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingTop], [pgs*="paddingTop["])[pgs*="'pdTp'"] {
-  padding-top: var(--padding-texts);
+  padding-top: var(--padding-paragraphs);
 }
 
-:is([pgs~=paddingTop], [pgs*="paddingTop["])[pgs*="'pdTpTexts'"] {
-  padding-top: var(--padding-texts);
+:is([pgs~=paddingTop], [pgs*="paddingTop["])[pgs*="'pdTpDetails'"] {
+  padding-top: var(--padding-details);
+}
+
+:is([pgs~=paddingTop], [pgs*="paddingTop["])[pgs*="'pdTpParagraphs'"] {
+  padding-top: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingTop], [pgs*="paddingTop["])[pgs*="'pdTpElements'"] {
@@ -6045,15 +6100,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=paddingRight], [pgs*="paddingRight["]) {
-  padding-right: var(--padding-texts);
+  padding-right: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingRight], [pgs*="paddingRight["])[pgs*="'pdRt'"] {
-  padding-right: var(--padding-texts);
+  padding-right: var(--padding-paragraphs);
 }
 
-:is([pgs~=paddingRight], [pgs*="paddingRight["])[pgs*="'pdRtTexts'"] {
-  padding-right: var(--padding-texts);
+:is([pgs~=paddingRight], [pgs*="paddingRight["])[pgs*="'pdRtDetails'"] {
+  padding-right: var(--padding-details);
+}
+
+:is([pgs~=paddingRight], [pgs*="paddingRight["])[pgs*="'pdRtParagraphs'"] {
+  padding-right: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingRight], [pgs*="paddingRight["])[pgs*="'pdRtElements'"] {
@@ -6077,15 +6136,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=paddingBottom], [pgs*="paddingBottom["]) {
-  padding-bottom: var(--padding-texts);
+  padding-bottom: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingBottom], [pgs*="paddingBottom["])[pgs*="'pdBt'"] {
-  padding-bottom: var(--padding-texts);
+  padding-bottom: var(--padding-paragraphs);
 }
 
-:is([pgs~=paddingBottom], [pgs*="paddingBottom["])[pgs*="'pdBtTexts'"] {
-  padding-bottom: var(--padding-texts);
+:is([pgs~=paddingBottom], [pgs*="paddingBottom["])[pgs*="'pdBtDetails'"] {
+  padding-bottom: var(--padding-details);
+}
+
+:is([pgs~=paddingBottom], [pgs*="paddingBottom["])[pgs*="'pdBtParagraphs'"] {
+  padding-bottom: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingBottom], [pgs*="paddingBottom["])[pgs*="'pdBtElements'"] {
@@ -6109,15 +6172,19 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=paddingLeft], [pgs*="paddingLeft["]) {
-  padding-left: var(--padding-texts);
+  padding-left: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingLeft], [pgs*="paddingLeft["])[pgs*="'pdLt'"] {
-  padding-left: var(--padding-texts);
+  padding-left: var(--padding-paragraphs);
 }
 
-:is([pgs~=paddingLeft], [pgs*="paddingLeft["])[pgs*="'pdLtTexts'"] {
-  padding-left: var(--padding-texts);
+:is([pgs~=paddingLeft], [pgs*="paddingLeft["])[pgs*="'pdLtDetails'"] {
+  padding-left: var(--padding-details);
+}
+
+:is([pgs~=paddingLeft], [pgs*="paddingLeft["])[pgs*="'pdLtParagraphs'"] {
+  padding-left: var(--padding-paragraphs);
 }
 
 :is([pgs~=paddingLeft], [pgs*="paddingLeft["])[pgs*="'pdLtElements'"] {
@@ -6728,21 +6795,21 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs*="'headerBottom'"] {
-  bottom: var(--margin-texts);
+  bottom: var(--margin-paragraphs);
   top: unset;
   align-items: center;
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs*="'headerBottom'"] :where([pgs~=header-element]) {
-  gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
   width: max-content;
   background-color: var(--color-box-transparent);
-  border-radius: calc(var(--borderRadius-elements) + var(--padding-texts));
-  padding: var(--padding-texts);
+  border-radius: calc(var(--borderRadius-elements) + var(--padding-paragraphs));
+  padding: var(--padding-paragraphs);
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs-state~=compact] {
-  --header-gap: var(--gap-texts);
+  --header-gap: var(--gap-paragraphs);
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs-state~=compact] :where([pgs~=header-element]) {
@@ -6795,7 +6862,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   align-items: stretch;
   pointer-events: auto;
   --box-padding: var(--padding-elements);
-  --box-borderRadius: calc(var(--borderRadius-texts) + var(--box-padding));
+  --box-borderRadius: calc(var(--borderRadius-paragraphs) + var(--box-padding));
   --box-background: var(--color-box-transparent);
   padding: var(--box-padding);
   background: var(--box-background);
@@ -6854,8 +6921,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where(li, [pgs~=modal], [pgs*="modal["]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
-  width: var(--navSmart-itemMinWidth);
-  min-width: min-content;
+  width: auto;
+  min-width: var(--navSmart-itemMinWidth);
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where(li, [pgs~=modal], [pgs*="modal["]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
@@ -6907,8 +6974,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-brand]) {
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
 
@@ -6963,8 +7030,8 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
   padding-block: 60px;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -7586,8 +7653,12 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
   border-radius: var(--borderRadius-elements);
 }
 
-:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radTexts'"] {
-  border-radius: var(--borderRadius-texts);
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radDetails'"] {
+  border-radius: var(--borderRadius-details);
+}
+
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radParagraphs'"] {
+  border-radius: var(--borderRadius-paragraphs);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radElements'"] {
@@ -7596,6 +7667,10 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radGroups'"] {
   border-radius: var(--borderRadius-groups);
+}
+
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radSections'"] {
+  border-radius: var(--borderRadius-sections);
 }
 
 :is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radUnset'"] {
@@ -7964,7 +8039,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=list] :is(ul) > li > ul > li, [pgs~=list]:is(ul) > li > ul > li {
   list-style: circle;
-  margin-top: var(--gap-texts);
+  margin-top: var(--gap-paragraphs);
 }
 
 [pgs~=list] :is(ul) > li > ul > li ul > li, [pgs~=list]:is(ul) > li > ul > li ul > li {
@@ -7982,15 +8057,15 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=list] li {
   display: list-item;
-  margin-top: calc(var(--gap-texts) / 2);
+  margin-top: calc(var(--gap-paragraphs) / 2);
   color: var(--text-color);
 }
 
 [pgs~=textBlock] {
   align-items: flex-start;
   display: flex;
-  gap: var(--gap-texts);
-  --gap: var(--gap-texts);
+  gap: var(--gap-paragraphs);
+  --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
 
@@ -8005,7 +8080,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=textBlock] :is(ul) > li > ul > li, [pgs~=textBlock]:is(ul) > li > ul > li {
   list-style: circle;
-  margin-top: var(--gap-texts);
+  margin-top: var(--gap-paragraphs);
 }
 
 [pgs~=textBlock] :is(ul) > li > ul > li ul > li, [pgs~=textBlock]:is(ul) > li > ul > li ul > li {
@@ -8023,7 +8098,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=textBlock] li {
   display: list-item;
-  margin-top: calc(var(--gap-texts) / 2);
+  margin-top: calc(var(--gap-paragraphs) / 2);
   color: var(--text-color);
 }
 
@@ -8071,11 +8146,11 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs~=skipLink]:focus-visible {
   position: fixed;
-  top: var(--gap-texts);
-  left: var(--gap-texts);
+  top: var(--gap-paragraphs);
+  left: var(--gap-paragraphs);
   z-index: var(--zIndex-skipLink);
-  padding: var(--padding-texts);
-  border-radius: var(--borderRadius-texts);
+  padding: var(--padding-paragraphs);
+  border-radius: var(--borderRadius-paragraphs);
   background-color: var(--color-background);
   color: var(--color-link);
   outline: var(--focus-visible);
@@ -8101,6 +8176,84 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 [pgs*="img["][pgs*="'imgFill'"] {
   object-fit: fill;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Deprecated (removed in version 6)
+|--------------------------------------------------------------------------
+*/
+:where([pgs~=htmlBase]):root {
+  --SIZE-texts: var(--SIZE-paragraphs);
+  --padding-texts: var(--padding-paragraphs);
+  --margin-texts: var(--margin-paragraphs);
+  --gap-texts: var(--gap-paragraphs);
+  --borderRadius-texts: var(--borderRadius-paragraphs);
+}
+
+:is([pgs~=margin], [pgs*="margin["])[pgs*="'mgTexts'"] {
+  margin: calc(var(--margin-paragraphs) * var(--margin-sign, 1));
+}
+
+:is([pgs~=marginBlock], [pgs*="marginBlock["])[pgs*="'mgBlTexts'"] {
+  margin-block: calc(var(--margin-paragraphs) * var(--marginBlock-sign, 1));
+}
+
+:is([pgs~=marginInline], [pgs*="marginInline["])[pgs*="'mgInTexts'"] {
+  margin-inline: calc(var(--margin-paragraphs) * var(--marginInline-sign, 1));
+}
+
+:is([pgs~=marginTop], [pgs*="marginTop["])[pgs*="'mgTpTexts'"] {
+  margin-top: calc(var(--margin-paragraphs) * var(--marginTop-sign, 1));
+}
+
+:is([pgs~=marginRight], [pgs*="marginRight["])[pgs*="'mgRtTexts'"] {
+  margin-right: calc(var(--margin-paragraphs) * var(--marginRight-sign, 1));
+}
+
+:is([pgs~=marginBottom], [pgs*="marginBottom["])[pgs*="'mgBtTexts'"] {
+  margin-bottom: calc(var(--margin-paragraphs) * var(--marginBottom-sign, 1));
+}
+
+:is([pgs~=marginLeft], [pgs*="marginLeft["])[pgs*="'mgLtTexts'"] {
+  margin-left: calc(var(--margin-paragraphs) * var(--marginLeft-sign, 1));
+}
+
+:is([pgs~=padding], [pgs*="padding["])[pgs*="'pdTexts'"] {
+  padding: var(--padding-paragraphs);
+}
+
+:is([pgs~=paddingBlock], [pgs*="paddingBlock["])[pgs*="'pdBlTexts'"] {
+  padding-block: var(--padding-paragraphs);
+}
+
+:is([pgs~=paddingInline], [pgs*="paddingInline["])[pgs*="'pdInTexts'"] {
+  padding-inline: var(--padding-paragraphs);
+}
+
+:is([pgs~=paddingTop], [pgs*="paddingTop["])[pgs*="'pdTpTexts'"] {
+  padding-top: var(--padding-paragraphs);
+}
+
+:is([pgs~=paddingRight], [pgs*="paddingRight["])[pgs*="'pdRtTexts'"] {
+  padding-right: var(--padding-paragraphs);
+}
+
+:is([pgs~=paddingBottom], [pgs*="paddingBottom["])[pgs*="'pdBtTexts'"] {
+  padding-bottom: var(--padding-paragraphs);
+}
+
+:is([pgs~=paddingLeft], [pgs*="paddingLeft["])[pgs*="'pdLtTexts'"] {
+  padding-left: var(--padding-paragraphs);
+}
+
+:is([pgs~=grid], [pgs*="grid["], [pgs~=flex], [pgs*="flex["], [pgs~=gap], [pgs*="gap["])[pgs*="'gapTexts'"] {
+  --gap: var(--gap-paragraphs);
+  gap: var(--gap);
+}
+
+:is([pgs~=borderRadius], [pgs*="borderRadius["])[pgs*="'radTexts'"] {
+  border-radius: var(--borderRadius-paragraphs);
 }
 
 /*# sourceMappingURL=index.css.map*/

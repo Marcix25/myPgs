@@ -103,8 +103,10 @@ function stripConditions(text) {
 }
 
 // every component the flag is checked against: the ones in the last compound selector before it,
-// inside the innermost group it sits in, so :is([pgs~="grid"], [pgs~="flex"])[pgs*="'gapTexts'"]
+// inside the innermost group it sits in, so :is([pgs~="grid"], [pgs~="flex"])[pgs*="'gapParagraphs'"]
 // belongs to both grid and flex. Quote-aware, since [pgs*="grid["] carries a bracket of its own
+// A flag that opens a group of its own, :is(alert, _alert):where([pgs*="'alertInfo'"]), names no
+// component inside it, so the search steps out of that group to the compound it is attached to
 function ownersBefore(selector) {
     let quote = null;
     const parens = [];
@@ -116,11 +118,18 @@ function ownersBefore(selector) {
         else if (char === ")") parens.pop();
     }
 
-    const scope = selector.slice(parens.length ? parens.at(-1) + 1 : 0);
+    const owners = ownersInLastCompound(selector.slice(parens.length ? parens.at(-1) + 1 : 0));
+    if (owners.length) return owners;
+    if (parens.length) return ownersBefore(selector.slice(0, parens.at(-1)));
+    const all = [...componentsIn(selector)];
+    return all.length ? [all.at(-1)] : [];
+}
+
+function ownersInLastCompound(scope) {
+    let quote = null;
     let square = 0;
     let depth = 0;
     let start = 0;
-    quote = null;
     for (let i = 0; i < scope.length; i++) {
         const char = scope[i];
         if (quote) { if (char === quote) quote = null; continue; }
@@ -132,10 +141,7 @@ function ownersBefore(selector) {
         else if (!square && !depth && /[\s>+~,]/.test(char)) start = i + 1;
     }
 
-    const last = [...componentsIn(stripConditions(scope.slice(start)))];
-    if (last.length) return last;
-    const all = [...componentsIn(selector)];
-    return all.length ? [all.at(-1)] : [];
+    return [...componentsIn(stripConditions(scope.slice(start)))];
 }
 
 // options are attached to the component whose selector they appear in, so the compiled CSS
@@ -184,16 +190,16 @@ function optionsFromScss(files) {
             const flags = [...selector.matchAll(/\[pgs\*="'([A-Za-z_][\w-]*)'"\]/g)];
             if (!dataKeys.size && !flags.length) continue;
 
-            // the owner is the last component named before the flag, never one written after it
-            // (&[pgs*="'btnReverse'"] :where([pgs~="icon"]) is a button flag styling an icon)
-            const ownerOf = cut => [...stack, cut]
-                .flatMap(level => [...componentsIn(level)])
-                .pop();
-            const dataOwner = ownerOf(selector);
-            if (dataOwner) for (const key of dataKeys) pairs.push([dataOwner, key, "pgs-data"]);
+            // the owners are the components of the innermost level that names any, before the flag
+            // and never after it (&[pgs*="'btnReverse'"] :where([pgs~="icon"]) is a button flag
+            // styling an icon), all of them when that level is a group (:is(alert, _alert))
+            const ownersOf = cut => [...stack, cut]
+                .map(level => componentsIn(level).size ? ownersBefore(level) : [])
+                .filter(owners => owners.length)
+                .pop() ?? [];
+            for (const owner of ownersOf(selector)) for (const key of dataKeys) pairs.push([owner, key, "pgs-data"]);
             for (const flag of flags) {
-                const flagOwner = ownerOf(selector.slice(0, flag.index));
-                if (flagOwner) pairs.push([flagOwner, flag[1], "pgs-options"]);
+                for (const owner of ownersOf(selector.slice(0, flag.index))) pairs.push([owner, flag[1], "pgs-options"]);
             }
         }
     }
@@ -242,10 +248,31 @@ for (const token of allTokens) {
     map.get(root)[generated.has(token) ? "pgs-generated" : "pgs"].add(token);
 }
 
-const cssPairs = optionsFromCompiledCss();
+// the options base/_deprecated.scss keeps alive still work, but they are listed apart, under
+// pgs-deprecated, each with the option that replaces it: the one written elsewhere with the very
+// same declarations, since every alias is a copy of the rule it points to
+const DEPRECATED_SCSS = path.join(SCSS_DIR, "base/_deprecated.scss");
+const OPTION_RULE = /&\[pgs\*="'(\w+)'"\]\s*\{([^}]*)\}/g;
+const deprecated = new Map();
+if (fs.existsSync(DEPRECATED_SCSS)) {
+    const replacements = new Map(scssFiles
+        .filter(file => file !== DEPRECATED_SCSS)
+        .flatMap(file => [...fs.readFileSync(file, "utf8").matchAll(OPTION_RULE)])
+        .map(([, option, declarations]) => [declarations.trim(), option]));
+    let owners = [];
+    for (const line of fs.readFileSync(DEPRECATED_SCSS, "utf8").split("\n")) {
+        if (/^:(is|where)\(/.test(line)) owners = [...line.matchAll(/pgs~="([\w-]+)"/g)].map(match => match[1]);
+        for (const [, option, declarations] of line.matchAll(OPTION_RULE)) {
+            deprecated.set(option, { owners, replacement: replacements.get(declarations.trim()) ?? "" });
+        }
+    }
+}
+const notDeprecated = ([, option]) => !deprecated.has(option);
+
+const cssPairs = optionsFromCompiledCss().filter(notDeprecated);
 const cssOptions = new Set(cssPairs.map(([, option]) => option));
 
-const scssPairs = optionsFromScss(scssFiles);
+const scssPairs = optionsFromScss(scssFiles).filter(notDeprecated);
 const knownOptions = new Set([...cssPairs, ...scssPairs].map(([, option]) => option));
 
 // a last resort, for a flag only the JavaScript reads: the file name is a guess at the owner
@@ -303,6 +330,10 @@ for (const root of [...map.keys()].sort(sortTokens)) {
         "pgs-options": [...map.get(root)["pgs-options"]].sort(sortTokens),
         "pgs-data": [...map.get(root)["pgs-data"]].sort(sortTokens),
     };
+    const ownDeprecated = [...deprecated].filter(([, { owners }]) => owners.includes(root)).sort(([a], [b]) => sortTokens(a, b));
+    if (ownDeprecated.length) {
+        output[root]["pgs-deprecated"] = Object.fromEntries(ownDeprecated.map(([option, { replacement }]) => [option, replacement]));
+    }
 }
 
 fs.writeFileSync(OUTPUT, JSON.stringify(output, null, 4) + "\n");

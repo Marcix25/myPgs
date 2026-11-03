@@ -40,7 +40,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 - `row`: arranges the button examples in a flexible row.
 - `wrap`: lets that row break instead of overflowing.
-- `gapTexts`: spaces the two buttons that share the text-only example, and the three two-state buttons.
+- `gapParagraphs`: spaces the two buttons that share the text-only example, and the three two-state buttons.
 - `icon-arrowRight`: the glyph that points forward.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 

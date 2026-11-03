@@ -15,7 +15,7 @@
 
             >ul>li {
                 list-style: circle;
-                margin-top: var(--gap-texts);
+                margin-top: var(--gap-paragraphs);
 
                 ul>li { list-style: "-"; }
             }
@@ -32,7 +32,7 @@
 
     li {
         display: list-item;
-        margin-top: calc(var(--gap-texts)/2);
+        margin-top: calc(var(--gap-paragraphs)/2);
         color: var(--text-color);
     }
 }

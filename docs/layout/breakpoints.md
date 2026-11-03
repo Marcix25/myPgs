@@ -48,7 +48,7 @@ Responsive visibility built on the shared breakpoint scale: watch 315px, mobile 
 - `column`: stacks the groups vertically.
 - `row`: arranges the examples in a row.
 - `wrap`: allows the examples to wrap onto several rows.
-- `gapTexts`: separates the examples inside a group.
+- `gapParagraphs`: separates the examples inside a group.
 
 ## Output
 

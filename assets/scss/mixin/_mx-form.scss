@@ -30,10 +30,10 @@
 //### LABEL - input
 // the label of a text-like input, a range, a file, a color input, a select or a textarea: a box above the control; with labelTab a tab
 @mixin label() {
-    --label-borderRadius: var(--borderRadius-texts);
+    --label-borderRadius: var(--borderRadius-paragraphs);
     --label-left: var(--label-borderRadius);
-    --label-paddingInline: var(--padding-texts);
-    --label-paddingBlock: calc(var(--padding-texts)/2);
+    --label-paddingInline: var(--padding-paragraphs);
+    --label-paddingBlock: calc(var(--padding-paragraphs)/2);
     --label-color: var(--color-black);
     --label-background: var(--color-white);
     --label-border: var(--border-color) var(--border-style);
@@ -166,9 +166,9 @@
 
 //## INPUT
 @mixin input() {
-    --input-padding: var(--padding-texts);
+    --input-padding: var(--padding-paragraphs);
     --input-border: var(--border-width) var(--border-color) var(--border-style);
-    --input-borderRadius: var(--borderRadius-texts);
+    --input-borderRadius: var(--borderRadius-paragraphs);
     --input-background: var(--color-white);
     @include inputBase(60%);
     border: var(--input-border);
@@ -196,7 +196,7 @@
     --checkbox-icon: var(--icon-glyph-check);
     --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
     --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
-    --checkbox-gap: calc(var(--gap-texts) /2);
+    --checkbox-gap: calc(var(--gap-paragraphs) /2);
     --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
     //
     --checkbox-background: var(--clickable-background);
@@ -295,7 +295,7 @@
     --radio-size: 2.0rem;
     --radio-isChecked: 0;
     --radio-dot-size: calc(var(--radio-size) / 1.5);
-    --radio-gap: calc(var(--gap-texts) /2);
+    --radio-gap: calc(var(--gap-paragraphs) /2);
     --radio-borderStyleWidth: var(--border-style) var(--border-width);
     //
     --radio-background: var(--clickable-background);
@@ -385,8 +385,8 @@
 //## FIELDSET
 @mixin fieldset() {
     border: unset;
-    @include column(var(--form-gap, var(--gap-texts)));
-    padding-top: var(--form-gap, var(--gap-texts));
+    @include column(var(--form-gap, var(--gap-paragraphs)));
+    padding-top: var(--form-gap, var(--gap-paragraphs));
 }
 
 //## LEGEND
@@ -394,9 +394,9 @@
 // not joined to anything. --label-color, --label-background and --label-border (color and style, the
 // width is --label-borderWidth) are the ones formValidate changes when the group fails
 @mixin legend() {
-    --label-borderRadius: var(--borderRadius-texts);
-    --label-paddingInline: var(--padding-texts);
-    --label-paddingBlock: calc(var(--padding-texts)/2);
+    --label-borderRadius: var(--borderRadius-paragraphs);
+    --label-paddingInline: var(--padding-paragraphs);
+    --label-paddingBlock: calc(var(--padding-paragraphs)/2);
     --label-color: var(--color-black);
     --label-background: var(--color-white);
     --label-border: var(--border-color) var(--border-style);
@@ -420,7 +420,7 @@
 //## FORM
 // a column, spaced by --form-gap: the form styles none of its controls
 @mixin form() {
-    --form-gap: var(--gap-texts);
+    --form-gap: var(--gap-paragraphs);
     @include column(var(--form-gap));
 }
 

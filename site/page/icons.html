@@ -3,18 +3,18 @@
 
     <!-- = INTRO AND THE SET -->
     <section pgs="section['sctMax'] flex['column' 'gapElements']">
-        <div pgs="flex['column' 'gapTexts']">
+        <div pgs="flex['column' 'gapParagraphs']">
             <h1 class="demoContent-heading">Icons</h1>
             <p>Every glyph is inline SVG painted as a mask, so it takes the text color and the font size of the element around it and needs no icon font. The token says "this is an icon", the option says which one: <code>pgs="icon['icon-name']"</code>.</p>
         </div>
 
         <!-- = THE SET -->
-        <div pgs="flex['column' 'gapTexts']">
+        <div pgs="flex['column' 'gapParagraphs']">
             <h2>The set</h2>
             <p>Click a glyph to copy its HTML tag, its CSS or its SVG code.</p>
         </div>
 
-        <div class="icons-toolbar" pgs="flex['row' 'gapTexts' 'wrap' 'itemCenter']">
+        <div class="icons-toolbar" pgs="flex['row' 'gapParagraphs' 'wrap' 'itemCenter']">
             <form class="icons-search" pgs="search" role="search" autocomplete="off" action="" method="get">
                 <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Filter the glyphs">
                     <i pgs="icon['icon-magnifyingGlass']"></i>
@@ -22,14 +22,14 @@
                 <input id="icons-filter" type="search" name="s" placeholder="Filter by name" aria-label="Filter the glyphs by name" value="">
                 <ul pgs="search-suggestions"></ul>
             </form>
-            <div pgs="flex['row' 'gapTexts' 'wrap']" role="group" aria-label="Which glyphs to show">
+            <div pgs="flex['row' 'gapParagraphs' 'wrap']" role="group" aria-label="Which glyphs to show">
                 <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="all" aria-pressed="true">All (282)</button>
                 <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="core" aria-pressed="false">Core (13)</button>
                 <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="pack" aria-pressed="false">Pack only (269)</button>
             </div>
         </div>
 
-        <div class="icons-grid" pgs="grid['column-8' 'm2e' 'gapTexts']">
+        <div class="icons-grid" pgs="grid['column-8' 'm2e' 'gapParagraphs']">
             <!-- icons:grid:start (written by scripts/sync-icons-page.js: do not edit by hand) -->
             <button class="icons-item" pgs="button['btnVertical']" type="button" data-icon="alignCenter" data-core="false" title="Show the code of icon-alignCenter">
                 <i pgs="icon['iconLarge' 'icon-alignCenter']" aria-hidden="true"></i>
@@ -1188,15 +1188,15 @@
 
     <!-- = IMPORT -->
     <section pgs="section['sctMax'] flex['column' 'gapElements'] background['bgPrimarySoft'] mainChild['mainRemoveGap']">
-        <div pgs="flex['column' 'gapTexts']">
+        <div pgs="flex['column' 'gapParagraphs']">
             <h2 pgs="textColor['txtPrimaryStrong']">Import the pack</h2>
             <p>The pack is one stylesheet, <code>@marcix/myicons/dist/icons.min.css</code>. Load it <strong>after</strong> mypgs: the glyphs that are in both draw the same either way, but the pack is written to sit on top of the library's own icon component. Without it only the core glyphs draw.</p>
         </div>
 
         <div class="icons-cards" pgs="flex['column-3' 'gapElements']">
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
-                <div pgs="flex['column' 'gapTexts']">
-                    <div pgs="flex['row' 'gapTexts' 'itemCenter']">
+                <div pgs="flex['column' 'gapParagraphs']">
+                    <div pgs="flex['row' 'gapParagraphs' 'itemCenter']">
                         <span pgs="badge['badgeSoft']">HTML</span>
                         <strong>In HTML</strong>
                     </div>
@@ -1212,8 +1212,8 @@
                 </div>
             </div>
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
-                <div pgs="flex['column' 'gapTexts']">
-                    <div pgs="flex['row' 'gapTexts' 'itemCenter']">
+                <div pgs="flex['column' 'gapParagraphs']">
+                    <div pgs="flex['row' 'gapParagraphs' 'itemCenter']">
                         <span pgs="badge['badgeSoft']">JS</span>
                         <strong>In JavaScript</strong>
                     </div>
@@ -1229,8 +1229,8 @@
                 </div>
             </div>
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
-                <div pgs="flex['column' 'gapTexts']">
-                    <div pgs="flex['row' 'gapTexts' 'itemCenter']">
+                <div pgs="flex['column' 'gapParagraphs']">
+                    <div pgs="flex['row' 'gapParagraphs' 'itemCenter']">
                         <span pgs="badge['badgeSoft']">CSS</span>
                         <strong>In CSS or SCSS</strong>
                     </div>
@@ -1250,7 +1250,7 @@
 
     <!-- = USE -->
     <section pgs="section['sctMax'] flex['column' 'gapElements'] mainChild['mainRemoveGap']">
-        <div pgs="flex['column' 'gapTexts']">
+        <div pgs="flex['column' 'gapParagraphs']">
             <h2>Use</h2>
             <p>Write the token on an <code>&lt;i&gt;</code> (or any element), pick the glyph in its bracket, and add the options you need next to it.</p>
         </div>
@@ -1258,20 +1258,20 @@
         <div class="icons-cards" pgs="flex['column-3' 'gapElements']">
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
                 <div class="icons-preview" pgs="">
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['icon-heart']"></i>
                         <small>1em</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconMedium' 'icon-heart']"></i>
                         <small>iconMedium</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconLarge' 'icon-heart']"></i>
                         <small>iconLarge</small>
                     </div>
                 </div>
-                <div pgs="flex['column' 'gapTexts']">
+                <div pgs="flex['column' 'gapParagraphs']">
                     <strong>Size</strong>
                     <small>The font size of the element, or iconMedium and iconLarge. --icon-size sets any other.</small>
                 </div>
@@ -1288,24 +1288,24 @@
             </div>
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
                 <div class="icons-preview" pgs="">
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconLarge' 'icon-bell'] textColor['txtPrimary']"></i>
                         <small>Primary</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconLarge' 'icon-bell'] textColor['txtSecondary']"></i>
                         <small>Secondary</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconLarge' 'icon-bell'] textColor['txtTertiary']"></i>
                         <small>Tertiary</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconLarge' 'icon-bell'] textColor['txtQuaternary']"></i>
                         <small>Quaternary</small>
                     </div>
                 </div>
-                <div pgs="flex['column' 'gapTexts']">
+                <div pgs="flex['column' 'gapParagraphs']">
                     <strong>Color</strong>
                     <small>The text color, or --icon-color. Use a text color utility to recolor one.</small>
                 </div>
@@ -1323,20 +1323,20 @@
             </div>
             <div pgs="box background['bgWhite'] flex['column' 'gapElements']">
                 <div class="icons-preview" pgs="">
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconBoxed' 'icon-user']"></i>
                         <small>icon-user</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconBoxed' 'icon-gear']"></i>
                         <small>icon-gear</small>
                     </div>
-                    <div pgs="flex['column' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['column' 'gapParagraphs' 'itemCenter']">
                         <i pgs="icon['iconBoxed' 'icon-home']"></i>
                         <small>icon-home</small>
                     </div>
                 </div>
-                <div pgs="flex['column' 'gapTexts']">
+                <div pgs="flex['column' 'gapParagraphs']">
                     <strong>Surface</strong>
                     <small>iconBoxed is the circular surface a glyph sits inside. It belongs to mypgs.</small>
                 </div>
@@ -1387,7 +1387,7 @@
         <dialog aria-labelledby="icons-modal-title">
             <div pgs="modal-dialog-content">
                 <div pgs="modal-dialog-content-header">
-                    <div pgs="flex['row' 'gapTexts' 'itemCenter']">
+                    <div pgs="flex['row' 'gapParagraphs' 'itemCenter']">
                         <i id="icons-modal-glyph" pgs="icon['iconBoxed' 'iconLarge']" aria-hidden="true"></i>
                         <h3 id="icons-modal-title"></h3>
                     </div>
@@ -1397,7 +1397,7 @@
                     <div pgs="flex['column' 'gapElements']">
                         <p id="icons-modal-origin"></p>
 
-                        <div pgs="card flex['column' 'gapTexts']">
+                        <div pgs="card flex['column' 'gapParagraphs']">
                             <strong>HTML tag</strong>
                             <div class="icons-copy">
                                 <pre pgs="overflow['ovAutoX']"><code id="icons-copy-html"></code></pre>
@@ -1409,7 +1409,7 @@
                             </div>
                         </div>
 
-                        <div pgs="card flex['column' 'gapTexts']">
+                        <div pgs="card flex['column' 'gapParagraphs']">
                             <strong>CSS</strong>
                             <small>Variable</small>
                             <div class="icons-copy">
@@ -1431,7 +1431,7 @@
                             </div>
                         </div>
 
-                        <div pgs="card flex['column' 'gapTexts']">
+                        <div pgs="card flex['column' 'gapParagraphs']">
                             <strong>SVG code</strong>
                             <div class="icons-copy">
                                 <pre pgs="overflow['ovAutoX']"><code id="icons-copy-svg"></code></pre>

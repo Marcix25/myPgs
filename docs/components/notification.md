@@ -46,7 +46,7 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 - `column`: stacks the examples vertically.
 - `row`: lays the bells of the position examples side by side.
-- `gapTexts`: spaces the content inside each example.
+- `gapParagraphs`: spaces the content inside each example.
 - `btnIconOnly`: presents notificationBell, and the generated dismiss button, as icon buttons.
 - `dialogRight`: where the panel opens by default, against the right edge; also a flag a notificationBell can carry to open it there. See Modal.
 - `dialogLeft`: a flag a notificationBell can carry to open the panel against the left edge; see Modal.

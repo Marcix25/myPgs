@@ -5,8 +5,8 @@
 
 //# checkboxBackground
 @mixin checkboxBackground() {
-    --checkboxBackground-padding: calc(var(--padding-texts) / 2);
-    --checkboxBackground-paddingRight: var(--padding-texts);
+    --checkboxBackground-padding: calc(var(--padding-paragraphs) / 2);
+    --checkboxBackground-paddingRight: var(--padding-paragraphs);
     --checkboxBackground-borderRadius: var(--borderRadius-elements);
     //
     --checkboxBackground-background: var(--clickable-background);
@@ -99,13 +99,13 @@
         background: var(--toggle-rail-background);
         color: var(--toggle-thumb-background);
         border-color: var(--toggle-rail-borderColor);
-        border-radius: var(--borderRadius-texts);
+        border-radius: var(--borderRadius-paragraphs);
 
         &::after,
         &::before {
             content: "";
             display: block;
-            border-radius: var(--borderRadius-texts);
+            border-radius: var(--borderRadius-paragraphs);
 
             @media (prefers-reduced-motion: no-preference) { transition: all 250ms; }
         }
@@ -249,8 +249,8 @@
 //# FIELD
 @mixin field() {
     --field-gap: 0.9rem;
-    --field-padding: var(--padding-texts);
-    --field-borderRadius: var(--borderRadius-texts);
+    --field-padding: var(--padding-paragraphs);
+    --field-borderRadius: var(--borderRadius-paragraphs);
     --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
     --field-label-paddingTop: calc(var(--border-width) + var(--field-padding) + (var(--font-size-text) + var(--field-gap)) / 2);
     --field-background: var(--color-white);

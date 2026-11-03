@@ -57,13 +57,13 @@
 .icons-copy {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--gap-texts);
+    gap: var(--gap-paragraphs);
     align-items: center;
 }
 
 .icons-copy pre {
     margin: 0;
-    padding: var(--padding-texts);
+    padding: var(--padding-paragraphs);
     max-block-size: 10rem;
     border-radius: var(--borderRadius-elements);
     /* the card around it is already the box color: the code sits on the page color to stand out */
@@ -126,7 +126,7 @@
 .icons-snippet {
     position: relative;
     border-radius: var(--borderRadius-elements);
-    padding: var(--padding-texts);
+    padding: var(--padding-paragraphs);
 }
 
 .icons-snippet pre {

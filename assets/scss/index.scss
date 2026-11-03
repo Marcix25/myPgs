@@ -63,3 +63,9 @@
 @include meta.load-css("base/border");
 @include meta.load-css("base/typography");
 @include meta.load-css("base/general");
+/*
+|--------------------------------------------------------------------------
+| Deprecated (removed in version 6)
+|--------------------------------------------------------------------------
+*/
+@include meta.load-css("base/deprecated");

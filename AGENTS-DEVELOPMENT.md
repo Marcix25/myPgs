@@ -41,7 +41,7 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
 - A flag with no payload always lives in `pgs`, bare or bracketed. `pgs-data` holds only a genuine `key[payload]` value; `tabsHistory` is the one flag that can be either, and its bare form is set through `.data.value` directly (`.data` has no `contains`/`add`/`remove`/`toggle`), since there is no owner to derive for it and it never belongs in the `pgs` bracket.
 - Components use a stable root token and consistently prefixed child tokens.
 - Naming is normally camelCase for compound root/options and component-prefixed naming for child tokens.
-- Every bracket flag carries a prefix of its own component, so two components on the same element can never match each other's flag (`[pgs*="'btnMini'"]` cannot be mistaken for card's `[pgs*="'cardMini'"]`). A short component name is written in full (`alertInfo`, `badgeDot`, `cardMini`, `headerScroll`, `iconLarge`, `menuVertical`, `slidesSingleScroll`); a long one is abbreviated, as the table below lists. Once a component has a prefix, every new flag of it uses the same one. The documented exceptions are flex/grid's layout flags (`column`, `row`, `wrap`, `gapTexts`, `itemCenter`, `justifyBetween`, and the child flags `flexM`, `colL`, ...), which are the one family still bare, the `icon-*` glyphs, which keep their `icon-` form (`icon['icon-check']`), and `noInput`, the option of `field` (`field['noInput']`).
+- Every bracket flag carries a prefix of its own component, so two components on the same element can never match each other's flag (`[pgs*="'btnMini'"]` cannot be mistaken for card's `[pgs*="'cardMini'"]`). A short component name is written in full (`alertInfo`, `badgeDot`, `cardMini`, `headerScroll`, `iconLarge`, `menuVertical`, `slidesSingleScroll`); a long one is abbreviated, as the table below lists. Once a component has a prefix, every new flag of it uses the same one. The documented exceptions are flex/grid's layout flags (`column`, `row`, `wrap`, `gapParagraphs`, `itemCenter`, `justifyBetween`, and the child flags `flexM`, `colL`, ...), which are the one family still bare, the `icon-*` glyphs, which keep their `icon-` form (`icon['icon-check']`), and `noInput`, the option of `field` (`field['noInput']`).
 
   The abbreviated prefixes, derived from `reference/pgs-map.json` and `assets/scss` (a flag that starts with its component's own full name, such as `badgeDot`, `bodyBase`, `boxMini`, `gridDense`, `hideMediaUpTablet`, `imgCover`, `logoDarkmode`, `searchMinWidth`, `toastLeft` or the `height*`/`width*` families, needs no row):
 
@@ -60,10 +60,10 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
   | `mg` | `margin`, `marginTop` and the other sides | `mgAuto`, `mgElements`, `mgTpElements` |
   | `otl` | `outline` | `otlPrimary`, `otlThin` |
   | `ov` | `overflow` | `ovHidden`, `ovAutoY` |
-  | `pd` | `padding`, `paddingTop` and the other sides | `pdPage`, `pdBlTexts` |
+  | `pd` | `padding`, `paddingTop` and the other sides | `pdPage`, `pdBlParagraphs` |
   | `pe` | `pointerEvents` | `peNone` |
   | `pos` | `position` | `posRelative`, `posSticky` |
-  | `rad` | `borderRadius` | `radTexts`, `radGroups` |
+  | `rad` | `borderRadius` | `radParagraphs`, `radGroups` |
   | `rot` | `rotate` | `rot90`, `rot180` |
   | `sct` | `section` | `sctFull`, `sctMax` |
   | `sel` | `userSelect` | `selNone`, `selText` |

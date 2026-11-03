@@ -70,8 +70,8 @@
         // size. The button fills what holds it
         :where(li, [pgs~="modal"], [pgs*="modal\5B"]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
         >[pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
-            width: var(--navSmart-itemMinWidth);
-            min-width: min-content;
+            width: auto;
+            min-width: var(--navSmart-itemMinWidth);
         }
 
         :where(li, [pgs~="modal"], [pgs*="modal\5B"])>[pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) { flex: 1 1 auto; }

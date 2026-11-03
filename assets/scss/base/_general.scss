@@ -69,11 +69,11 @@
 
 [pgs~="skipLink"]:focus-visible {
     position: fixed;
-    top: var(--gap-texts);
-    left: var(--gap-texts);
+    top: var(--gap-paragraphs);
+    left: var(--gap-paragraphs);
     z-index: var(--zIndex-skipLink);
-    padding: var(--padding-texts);
-    border-radius: var(--borderRadius-texts);
+    padding: var(--padding-paragraphs);
+    border-radius: var(--borderRadius-paragraphs);
     background-color: var(--color-background);
     color: var(--color-link);
     @include focusRing();

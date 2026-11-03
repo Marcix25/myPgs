@@ -26,7 +26,7 @@ Recolors external SVG and Lottie files when the theme changes, swapping each dec
 ### PGS Options (component brackets)
 
 - `column`: stacks the example and its notes vertically.
-- `gapTexts`: spaces the example content.
+- `gapParagraphs`: spaces the example content.
 
 ## CSS Variables
 

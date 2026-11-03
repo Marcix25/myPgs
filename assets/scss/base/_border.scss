@@ -109,9 +109,11 @@
 :is([pgs~="borderRadius"], [pgs*="borderRadius\5B"]) {
     border-radius: var(--borderRadius-elements);
 
-    &[pgs*="'radTexts'"] { border-radius: var(--borderRadius-texts); }
+    &[pgs*="'radDetails'"] { border-radius: var(--borderRadius-details); }
+    &[pgs*="'radParagraphs'"] { border-radius: var(--borderRadius-paragraphs); }
     &[pgs*="'radElements'"] { border-radius: var(--borderRadius-elements); }
     &[pgs*="'radGroups'"] { border-radius: var(--borderRadius-groups); }
+    &[pgs*="'radSections'"] { border-radius: var(--borderRadius-sections); }
     &[pgs*="'radUnset'"] { border-radius: 0; }
 }
 

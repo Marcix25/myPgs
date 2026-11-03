@@ -60,9 +60,9 @@
 
     :where([pgs~="_notification-empty"]) {
         margin: 0;
-        padding: var(--padding-texts);
+        padding: var(--padding-paragraphs);
         color: var(--color-white);
-        border-radius: var(--borderRadius-texts);
+        border-radius: var(--borderRadius-paragraphs);
         font-size: small;
         text-align: center;
         background-color: var(--color-black-transparent);

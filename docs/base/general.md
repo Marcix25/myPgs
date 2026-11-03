@@ -40,7 +40,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `column`: stacks the utility groups vertically.
 - `row`: arranges the examples in a row.
 - `bgWhiteFixed`: inside background's own bracket, the fixed light background used here.
-- `gapTexts`: spaces the examples inside a group.
+- `gapParagraphs`: spaces the examples inside a group.
 
 ## Output
 
