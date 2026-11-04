@@ -18,7 +18,7 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 ## PGS States
 
-- `open`: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state.
+- `open`: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state. The divider lines above and below an open accordion fade out, so its background is not cut by a line.
 
 ## JavaScript API
 

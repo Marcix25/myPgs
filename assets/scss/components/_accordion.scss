@@ -44,6 +44,15 @@ $accordionGap: 1.0rem;
 
     &:first-child::after { content: none; }
 
+    // no line on either side of an open accordion: its background takes the place of the lines that would
+    // touch it. The line above is its own, the line below is the next accordion's
+    @media (prefers-reduced-motion: no-preference) {
+        &::after { transition: opacity var(--accordion-timing); }
+    }
+
+    &[pgs-state~="open"]::after,
+    &[pgs-state~="open"] + &::after { opacity: 0; }
+
     //## BUTTON
     :where([pgs~="accordion-button"]) {
         all: unset;

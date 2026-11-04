@@ -2519,6 +2519,15 @@
   content: none;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=accordion], [pgs*="accordion["])::after {
+    transition: opacity var(--accordion-timing);
+  }
+}
+:is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open]::after, :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] + :is([pgs~=accordion], [pgs*="accordion["])::after {
+  opacity: 0;
+}
+
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button]) {
   all: unset;
   cursor: pointer;

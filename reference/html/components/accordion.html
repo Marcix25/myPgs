@@ -14,7 +14,7 @@
  * - accMultiOpen: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behavior, so the option only means something on the container.
  *
  * @pgs-state
- * - open: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state.
+ * - open: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state. The divider lines above and below an open accordion fade out, so its background is not cut by a line.
  *
  * @api
  * - pgs.accordion.init(root): initializes unregistered accordions within the specified Document or Element, including the element itself when it is an accordion. An accordion without a direct accordion-button and a direct accordion-content child is skipped, with a warning in the console.
