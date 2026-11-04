@@ -32,6 +32,7 @@
                 width: -moz-available;
                 width: stretch;
             }
+
             &[pgs-state~=open]>:where(ul) { display: flex; }
         }
 
@@ -46,14 +47,17 @@
 
     //## submenuButton
     // the generated toggle and the one written by hand look and sit the same
-    :where([pgs~="menu-submenuButton"]), :where([pgs~="_menu-submenuButton"]) {
+    :where([pgs~="menu-submenuButton"]),
+    :where([pgs~="_menu-submenuButton"]) {
         --button-size: 0.2rem;
         margin-right: -5px;
         translate: -5px;
         margin-block: auto;
 
         // the icon is whatever the toggle holds: an <i>, an svg, or any element marked as an icon
-        @media (prefers-reduced-motion: no-preference) { :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { transition: all 300ms; } }
+        @media (prefers-reduced-motion: no-preference) {
+            :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { transition: all 300ms; }
+        }
 
         &[aria-expanded="true"] {
             :where(i, svg, [pgs~="icon"], [pgs*="icon\5B"]) { rotate: 180deg; }
@@ -118,6 +122,49 @@
                 }
 
                 &:not([pgs-state~=open]) :where(ul) { display: none; }
+            }
+        }
+    }
+
+    //+ GROUPED
+    // the top-level list sits on a background of its own, with a hairline between the items in the middle of
+    // the gap: horizontal lines in a vertical menu (the default), vertical ones in a menuHorizontal. A menu
+    // that wraps onto a second row would carry a line at the start of that row, so keep it on a single row
+    &:where([pgs*="'menuGrouped'"]) {
+        --menu-grouped-background: var(--color-box);
+        --menu-grouped-padding: var(--padding-details);
+        --menu-grouped-gap: var(--gap-details);
+        --menu-grouped-borderRadius: calc(var(--borderRadius-elements) + var(--menu-grouped-padding));
+
+        >:where(ul) {
+            background: var(--menu-grouped-background);
+            padding: var(--menu-grouped-padding);
+            border-radius: var(--menu-grouped-borderRadius);
+            gap: var(--menu-grouped-gap);
+
+            >:where(li)+:where(li) {
+                position: relative;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    pointer-events: none;
+                    border: 0;
+                    border-block-start: var(--border-complete);
+                    inset-block: auto;
+                    inset-block-start: calc(var(--menu-grouped-gap) / -2);
+                    inset-inline: var(--menu-grouped-padding);
+                }
+            }
+        }
+
+        &:where([pgs*="'menuHorizontal'"])>:where(ul)>:where(li)+:where(li) {
+            &::before {
+                border: 0;
+                border-inline-start: var(--border-complete);
+                inset-block: var(--menu-grouped-padding);
+                inset-inline: auto;
+                inset-inline-start: calc(var(--menu-grouped-gap) / -2);
             }
         }
     }

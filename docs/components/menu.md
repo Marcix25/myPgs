@@ -20,6 +20,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `menuVertical`: identifies the vertical element used by Menu.
 - `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
 - `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
+- `menuGrouped`: puts the top-level list on a background of its own (--menu-grouped-background, the box color), with padding, rounded corners and a hairline between the items, in the middle of the gap (--menu-grouped-gap): horizontal lines in a vertical menu, vertical ones with menuHorizontal. The submenus keep their own look. With menuHorizontal keep the list on one row, or a wrapped row would carry a line at its start.
 
 ## PGS States
 
@@ -64,6 +65,10 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 - `--menu-gap-column`
 - `--menu-gap-row`
+- `--menu-grouped-background`
+- `--menu-grouped-borderRadius`
+- `--menu-grouped-gap`
+- `--menu-grouped-padding`
 
 ## Output
 
@@ -208,6 +213,64 @@ Top-level navigation with short, overlapping the horizontal spacing between adja
             <a pgs="button['btnTransparent']" href="/about">
                 <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
                 <span>about</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+```
+
+### Grouped menu
+
+The list sits on a background with a hairline between the items, using pgs=&quot;menu['menuGrouped']&quot;: horizontal lines in a vertical menu, the default.
+
+```html
+<nav pgs="menu['menuGrouped']" aria-label="Grouped vertical menu">
+    <ul>
+        <li>
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button['btnTransparent']" href="/services">
+                <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                <span>Services</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button['btnTransparent']" href="/about">
+                <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                <span>About</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+```
+
+### Grouped menu - horizontal
+
+With menuHorizontal the hairlines are vertical, using pgs=&quot;menu['menuHorizontal' 'menuGrouped']&quot;. Keep it on a single row.
+
+```html
+<nav pgs="menu['menuHorizontal' 'menuGrouped']" aria-label="Grouped horizontal menu">
+    <ul>
+        <li>
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button['btnTransparent']" href="/services">
+                <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                <span>Services</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button['btnTransparent']" href="/about">
+                <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                <span>About</span>
             </a>
         </li>
     </ul>

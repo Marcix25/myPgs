@@ -1065,6 +1065,7 @@
             "_menu-submenuButton"
         ],
         "pgs-options": [
+            "menuGrouped",
             "menuHorizontal",
             "menuIconOnlyCurrent",
             "menuShort",

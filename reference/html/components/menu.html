@@ -16,6 +16,7 @@
  * - menuVertical: identifies the vertical element used by Menu.
  * - menuIconOnlyCurrent: displays link icons only when the link has an active aria-current value.
  * - menuShort: compacts adjacent menu links by overlapping their horizontal spacing.
+ * - menuGrouped: puts the top-level list on a background of its own (--menu-grouped-background, the box color), with padding, rounded corners and a hairline between the items, in the middle of the gap (--menu-grouped-gap): horizontal lines in a vertical menu, vertical ones with menuHorizontal. The submenus keep their own look. With menuHorizontal keep the list on one row, or a wrapped row would carry a line at its start.
  *
  * @pgs-state
  * - open: written on an item whose submenu is open: the module toggles it from the item's own toggle button, and for a floating submenu the dropdown writes it.
@@ -177,6 +178,58 @@
                 <a pgs="button['btnTransparent']" href="/about">
                     <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
                     <span>about</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+<demo demo-h3="Grouped menu" demo-description="The list sits on a background with a hairline between the items, using pgs=&quot;menu['menuGrouped']&quot;: horizontal lines in a vertical menu, the default."></demo>
+<section demo="component">
+    <nav pgs="menu['menuGrouped']" aria-label="Grouped vertical menu">
+        <ul>
+            <li>
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                    <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">
+                    <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/about">
+                    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+<demo demo-h3="Grouped menu - horizontal" demo-description="With menuHorizontal the hairlines are vertical, using pgs=&quot;menu['menuHorizontal' 'menuGrouped']&quot;. Keep it on a single row."></demo>
+<section demo="component">
+    <nav pgs="menu['menuHorizontal' 'menuGrouped']" aria-label="Grouped horizontal menu">
+        <ul>
+            <li>
+                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                    <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/services">
+                    <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a pgs="button['btnTransparent']" href="/about">
+                    <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                    <span>About</span>
                 </a>
             </li>
         </ul>

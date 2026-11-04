@@ -203,10 +203,7 @@
 
 //# HEADER & NAVSMART
 //## HEADER
-@mixin buttonForHeader() {
-    overflow-wrap: break-word;
-    --button-borderStyle: unset;
-}
+@mixin buttonForHeader() { overflow-wrap: break-word; }
 
 //## NAV SMART
 // an item of the floating navSmart bar: the icon above its label inside a pill, with no background
