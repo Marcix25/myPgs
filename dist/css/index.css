@@ -2430,6 +2430,20 @@
   inset-inline: var(--menu-grouped-padding);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li) + :where(li)::before {
+    transition: opacity 150ms;
+  }
+}
+:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):is([aria-current=page], [aria-selected=true], :focus-visible))::before, :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):is([aria-current=page], [aria-selected=true], :focus-visible)) + :where(li)::before {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):hover)::before, :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):hover) + :where(li)::before {
+    opacity: 0;
+  }
+}
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]):where([pgs*="'menuHorizontal'"]) > :where(ul) > :where(li) + :where(li)::before {
   border: 0;
   border-inline-start: var(--border-complete);
@@ -6725,7 +6739,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
 
 @container (max-width: 900px) {
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] > *:first-child {
-    padding-top: var(--pageShell-offsetTop);
+    margin-top: var(--pageShell-offsetTop);
   }
 }
 @container (min-width: 900px) {
@@ -6742,7 +6756,7 @@ ol[pgs~=steps] :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-lin
     scrollbar-color: var(--color-gray) transparent;
   }
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-content]) {
-    padding-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
+    margin-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
   }
 }
 @container (min-width: 900px) {

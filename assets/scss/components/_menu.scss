@@ -156,6 +156,25 @@
                     inset-inline: var(--menu-grouped-padding);
                 }
             }
+
+            // no line on either side of the item that is the current page (aria-current, aria-selected), hovered
+            // or focused: the background its button draws takes the place of the hairlines that would touch it.
+            // The line above is the item's own, the line below is the next item's
+            @media (prefers-reduced-motion: no-preference) {
+                >:where(li)+:where(li)::before { transition: opacity 150ms; }
+            }
+
+            >:where(li):has(> :where(a, button, [pgs~="button"]):is([aria-current=page], [aria-selected=true], :focus-visible)) {
+                &::before,
+                &+:where(li)::before { opacity: 0; }
+            }
+
+            @media (hover: hover) and (pointer: fine) {
+                >:where(li):has(> :where(a, button, [pgs~="button"]):hover) {
+                    &::before,
+                    &+:where(li)::before { opacity: 0; }
+                }
+            }
         }
 
         &:where([pgs*="'menuHorizontal'"])>:where(ul)>:where(li)+:where(li) {

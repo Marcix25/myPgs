@@ -189,10 +189,11 @@
     &[pgs*="'shellAsideScroll'"] {
         padding-top: 0;
 
-        // vertical: the shell's top padding is zeroed above, so the first child takes it instead
+        // vertical: the shell's top padding is zeroed above, so the first child takes it instead, as a
+        // margin: the child's own padding and background stay its own and do not cancel the offset
         //-( notebook
         @container (max-width: #{$notebook}) {
-            >*:first-child { padding-top: var(--pageShell-offsetTop); }
+            >*:first-child { margin-top: var(--pageShell-offsetTop); }
         }
 
         //+( notebook
@@ -210,8 +211,9 @@
             }
 
             // the content never starts above the header height, which is where the sidebar sticks: a
-            // smaller --pageShell-offsetTop would otherwise leave the sidebar lower than the content
-            :where([pgs~="pageShell-content"]) { padding-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top)); }
+            // smaller --pageShell-offsetTop would otherwise leave the sidebar lower than the content. A margin,
+            // like the sidebar's: a padding of the content's own would win over this one and drop the offset
+            :where([pgs~="pageShell-content"]) { margin-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top)); }
         }
     }
 
