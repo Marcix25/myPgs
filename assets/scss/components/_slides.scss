@@ -129,7 +129,9 @@
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: var(--gap-details);
+
+        :where([pgs~="_slides-dots-dot"]) { cursor: pointer; }
     }
 
     // the module tags every child of the row, a hand-written one included, with _slides-dots-dot

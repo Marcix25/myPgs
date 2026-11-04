@@ -38,7 +38,7 @@
     --button-borderRadius: var(--borderRadius-elements);
     /// size
     --button-size: var(--SIZE-paragraphs);
-    --button-gap: calc(var(--button-size) / 3);
+    --button-gap: calc(var(--button-size) / 2);
     --button-fontSize: var(--font-size-text);
     --button-paddingBlock: var(--button-size);
     --button-paddingInline: calc(var(--button-size) * 2);

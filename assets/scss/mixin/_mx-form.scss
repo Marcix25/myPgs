@@ -63,7 +63,9 @@
     &:has([hidden], + [hidden], [pgs~="hidden"], + [pgs~="hidden"], [type="hidden"], + [type="hidden"]) { display: none !important; }
     
     //## required
-    &:where(:has(~ :required, ~ * :required)) { @include required(); }
+    // only the control right after the label, or inside the element right after it: a required control
+    // further down, the one of another label, does not mark this one
+    &:where(:has(+ :required, + * :required)) { @include required(); }
     
     //+ labelTab
     // the top corners only, and no bottom border: the label opens into the control it sits on

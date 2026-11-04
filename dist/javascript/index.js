@@ -2400,7 +2400,9 @@ function initializeModal(MODAL) {
         pressTarget = null;
         if (e.target == DIALOG && pressedOnBackdrop && !dialogDisableBackdropClose) closeModal(e);
     }, { signal });
-    BUTTON_CLOSE?.addEventListener("click", e => closeModal(e), { signal });
+    // a modal-button that is also the modal-close is a toggle: its open handler already closes an open
+    // dialog, and a second listener on it would close the dialog it has just opened
+    if (BUTTON_CLOSE && BUTTON_CLOSE !== BUTTON_OPEN) BUTTON_CLOSE.addEventListener("click", e => closeModal(e), { signal });
 
     //# DRAG CLOSE
     // touchmove is not passive: once a drag has started it has to stop the page from scrolling

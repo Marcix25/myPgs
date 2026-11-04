@@ -789,7 +789,7 @@
   display: none !important;
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(~ :required, ~ * :required)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(:has(~ :required, ~ * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
+:where([pgs~=label], [pgs*="label["]):where(:has(+ :required, + * :required)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(:has(+ :required, + * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: " *";
   color: var(--color-error);
   line-height: 1;
@@ -1440,7 +1440,7 @@
   --button-borderStyle: var(--border-style);
   --button-borderRadius: var(--borderRadius-elements);
   --button-size: var(--SIZE-paragraphs);
-  --button-gap: calc(var(--button-size) / 3);
+  --button-gap: calc(var(--button-size) / 2);
   --button-fontSize: var(--font-size-text);
   --button-paddingBlock: var(--button-size);
   --button-paddingInline: calc(var(--button-size) * 2);
@@ -3223,7 +3223,12 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--gap-details);
+}
+
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot]),
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]) {
+  cursor: pointer;
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) {
