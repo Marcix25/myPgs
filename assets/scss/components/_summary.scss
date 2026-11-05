@@ -37,7 +37,7 @@
     }
 
     :where([pgs~="summary-button"]) {
-        padding: 5px;
+        padding: var(--padding-details);
         cursor: pointer;
         background-color: transparent;
         border: unset;

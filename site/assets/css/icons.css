@@ -24,7 +24,7 @@
     aspect-ratio: 1;
     --button-height: auto;
     /* the same on every side: a button with an icon would otherwise take a shorter left padding */
-    padding: 0.4rem;
+    padding: var(--padding-details);
 }
 
 /* the display of the button would win over the hidden attribute the filter sets */

@@ -7,7 +7,7 @@
 // the items inside it are plain buttons of the button component, with btnForNavSmart
 //# NAVSMART
 :is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
-    --navSmart-gap: .8rem;
+    --navSmart-gap: var(--gap-details);
     --navSmart-edgePWA: 2.0rem;
     --navSmart-edge: calc(var(--page-padding) / 2);
     --navSmart-itemMinWidth: 7.2rem;

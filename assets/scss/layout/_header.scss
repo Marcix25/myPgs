@@ -1,8 +1,8 @@
 @use "../mixin/mixin" as *;
 
 :is([pgs~="header"], [pgs*="header\5B"]) {
-    --header-paddingInline: 30px;
-    --header-paddingBlock: 10px;
+    --header-paddingInline: var(--padding-elements);
+    --header-paddingBlock: var(--padding-details);
     --header-gap: var(--gap-elements);
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);

@@ -38,7 +38,7 @@
         :where([pgs~="footer-content"]) {
             nav {
                 li {
-                    margin-top: 5px;
+                    margin-top: var(--margin-details);
 
                     // an icon in the link keeps its own size and color, and sits where it is written
                     a {
@@ -57,7 +57,7 @@
 
         :where([pgs~="footer-legal-content"]) {
             border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
-            padding-block: 60px;
+            padding-block: var(--padding-groups);
             @include row();
             justify-content: center;
             align-items: center;

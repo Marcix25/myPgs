@@ -34,7 +34,7 @@
     @include list;
 
     :where(hr) { align-self: stretch; }
-    :where(h1, h2, h3) { margin-top: 25px; }
+    :where(h1, h2, h3) { margin-top: var(--margin-elements); }
 }
 
 //# TEXT SHADOW & BOX SHADOW

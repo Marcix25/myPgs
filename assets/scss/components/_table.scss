@@ -23,7 +23,7 @@
         color: var(--color-text);
 
         :where(th, td) {
-            padding: 12px;
+            padding: var(--padding-paragraphs);
             border-bottom: var(--border-width) var(--border-color) var(--border-style);
             text-align: left;
             min-width: 100px;

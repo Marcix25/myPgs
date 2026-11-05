@@ -18,7 +18,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         //## CONTENT
         :where([pgs~="steps-step-content"]) {
             @include column();
-            margin-bottom: calc(var(--gap-elements) / 2 - 8px);
+            margin-bottom: var(--margin-details);
             padding-bottom: calc(var(--gap-elements) / 2);
             // only the room the line needs to show between this circle and the next one
             min-height: calc(var(--steps-circle-size) + 5rem);
@@ -36,7 +36,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
+            margin-right: var(--gap-paragraphs);
             border-radius: var(--borderRadius-elements);
             font-weight: var(--font-weight-bold);
             text-align: center;

@@ -41,11 +41,11 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-paragraphs);
     background: var(--color-box-transparent);
     color: var(--color-black);
-    border-radius: 24px;
-    padding: 28px 32px;
+    border-radius: var(--borderRadius-elements);
+    padding: var(--padding-elements);
 
     pre {
         display: block;
@@ -97,8 +97,8 @@ body {
     /* the look is the button's (pgs="button['btnIconOnly']"): only where it sits is written here */
     .exampleSource-copy {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: var(--padding-paragraphs);
+        right: var(--padding-paragraphs);
     }
 
     /* Prism tokenizes the markup, the colors here just theme it to match the pill's own
@@ -186,7 +186,7 @@ body {
     color: var(--color-primary);
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: var(--gap-elements);
     text-transform: capitalize;
 
     &::before {
@@ -246,7 +246,7 @@ body {
     [pgs~=navSmart], [pgs*="navSmart["] {
         position: relative;
         inset: auto;
-        padding-block: 2rem;
+        padding-block: var(--padding-paragraphs);
         z-index: 0;
     }
 }

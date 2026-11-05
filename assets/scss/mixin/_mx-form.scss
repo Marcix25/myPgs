@@ -179,7 +179,7 @@
             font-size: 1.3em;
             cursor: pointer;
             margin: 0px;
-            margin-right: 10px;
+            margin-right: var(--gap-details);
         }
     }
 }

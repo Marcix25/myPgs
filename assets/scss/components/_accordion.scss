@@ -88,7 +88,7 @@ $accordionGap: 1.0rem;
     }
 
     //## Accordion insert
-    :where([pgs~="accordion"], [pgs*="accordion\5B"]) { padding-inline: 10px; }
+    :where([pgs~="accordion"], [pgs*="accordion\5B"]) { padding-inline: var(--padding-details); }
 
     //+ OPTION
     //+ accAutoOpen

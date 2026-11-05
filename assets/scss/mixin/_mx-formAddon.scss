@@ -248,7 +248,7 @@
 
 //# FIELD
 @mixin field() {
-    --field-gap: 0.9rem;
+    --field-gap: var(--gap-details);
     --field-padding: var(--padding-paragraphs);
     --field-borderRadius: var(--borderRadius-paragraphs);
     --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));

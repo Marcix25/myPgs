@@ -8,7 +8,7 @@
     --breadcrumb-color-current: var(--current-color);
     --breadcrumb-separator-type: "/";
     --breadcrumb-separator-color: var(--color-primary-soft);
-    --breadcrumb-separator-gap: 0.8rem;
+    --breadcrumb-separator-gap: var(--gap-details);
     font-size: var(--breadcrumb-size);
     line-height: 1;
     list-style: none;

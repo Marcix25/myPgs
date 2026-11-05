@@ -13,7 +13,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `appearanceNone`: strips every inherited style and the native appearance, to build a control from scratch.
 - `img`: fits or crops an image depending on the option in its bracket; written bare it does nothing.
 - `list`: styles a plain ul or ol with the shared marker and spacing.
-- `textBlock`: a column of running text: its items start at the left, its lists take the list markers, a rule spans the whole width and the first three headings have 25px above them.
+- `textBlock`: a column of running text: its items start at the left, its lists take the list markers, a rule spans the whole width and the first three headings have --margin-elements above them.
 - `lightmode`: forces the light color scheme on a subtree, whatever the page theme is.
 - `darkmode`: forces the dark color scheme on a subtree, whatever the page theme is.
 

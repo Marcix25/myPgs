@@ -10,9 +10,9 @@
     --search-borderWidth: 0rem;
     --search-borderColor: var(--border-color);
     --search-suggestions-offset: 0rem;
-    --search-suggestions-padding: .5rem;
+    --search-suggestions-padding: var(--padding-details);
     --search-suggestions-maxHeight: 70vh;
-    --search-suggestions-item-padding: 1rem;
+    --search-suggestions-item-padding: var(--padding-paragraphs);
     --search-suggestions-item-background-selected: var(--current-background);
     --search-suggestions-item-color-selected: var(--current-color);
     --search-suggestions-item-background-hover: var(--hover-background);

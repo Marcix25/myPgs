@@ -3,8 +3,8 @@
 //= MENU
 :is([pgs~="menu"], [pgs*="menu\5B"]) {
     // Only the gap tokens are menu's own (--menu-gap-*); the colors come from the button tokens.
-    --menu-gap-column: .5rem;
-    --menu-gap-row: 1.0rem;
+    --menu-gap-column: var(--gap-details);
+    --menu-gap-row: var(--gap-paragraphs);
 
     :where(ul) {
         display: flex;
@@ -76,7 +76,7 @@
             //### Sub menu
             >:where(li):has(ul) {
                 display: flex;
-                gap: 0.2rem;
+                gap: var(--gap-details);
                 flex-wrap: nowrap;
             }
         }
@@ -114,8 +114,8 @@
 
                 >:where(ul) {
                     flex-basis: 100%;
-                    padding-left: .5rem;
-                    margin-left: 1.5rem;
+                    padding-left: var(--padding-details);
+                    margin-left: var(--margin-paragraphs);
                     border-left: var(--border-width) var(--border-color) var(--border-style);
                 }
 

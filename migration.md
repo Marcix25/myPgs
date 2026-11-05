@@ -462,7 +462,7 @@ Values below are the compiled defaults (`dist/css/index.css` of each side, `:roo
 | `pgs="imgCover"` | `pgs="img['imgCover']"` | `img` is the token, the flag lives in its bracket. A bare `img` does nothing. |
 | `pgs="imgContain"` | `pgs="img['imgContain']"` | |
 | (none) | `img['imgFill']` | new: `object-fit: fill`, to undo the `contain` that `bodyImg` now sets |
-| `pgs="textarea"` on a block of running text | `pgs="textBlock"` (`base/_general.scss`) | same look: column, items at start, list markers, stretched `hr`, 25px above h1-h3 (`:where`, so a project rule wins) |
+| `pgs="textarea"` on a block of running text | `pgs="textBlock"` (`base/_general.scss`) | same look: column, items at start, list markers, stretched `hr`, `--margin-elements` (30px, was 25px) above h1-h3 (`:where`, so a project rule wins) |
 | `pgs="blur"`, `textShadow`, `boxShadow` | unchanged bare; each also takes a bracket with `blrUnset`, `txsUnset`, `bxsUnset` | |
 | `pgs="skipLink"`, `visuallyHidden`, `visuallyHiddenFocusable`, `focusRing`, `motionReduce`, `pointer`, `appearanceNone`, `hidden`, `lightmode`, `darkmode` | unchanged | `skipLink` focus box uses `--gap-texts` (now 1.5rem), `--padding-texts`, `--borderRadius-texts`, `--zIndex-skipLink` (9999) |
 
@@ -553,7 +553,7 @@ Mixins and variables of this area:
 |---|---|
 | `hover()` (+ private `_hoverColor`, `_hoverContent1`) | removed. Write the rule from the global tokens (B Hover) |
 | `heading($size)` | `heading($size, $tag: "", $weight: 900)`: output is `var(--heading-*-hN, fallback)`; `$size` is only the fallback (the `:root` block of `base/_typography.scss` is the source). `h1()`-`h4()` same call; `h5()` weight 700 and size `$h5 - 0.1rem`; new `h6()` and `$h6` (1.7rem) in `_settings.scss` |
-| `list()` | `list()` in `_mx-elements.scss`: `ul`/`ol` get `margin-left: 25px`; `li` loses `padding-left: 5px` and `margin-left: 21px`; text colour is `var(--text-color)` (was `--color-text`) |
+| `list()` | `list()` in `_mx-elements.scss`: `ul`/`ol` get `margin-left: var(--margin-elements)` (30px); `li` loses `padding-left: 5px` and `margin-left: 21px`; text colour is `var(--text-color)` (was `--color-text`) |
 | `textarea()` (a column + `list()` + stretched `hr` + 25px above h1-h3) | removed. `textarea()` now exists in `_mx-form.scss` with another meaning (the form field; replaces `formTextarea()`). For the old behaviour write `@include column(); @include list();` or use `pgs="textBlock"` |
 | `icon()` (round surface, no arguments) | `icon($icon, $on: "::before")`: draws glyph `$icon` (a `url(...)` or `var(--icon-glyph-x)`) on the pseudo-element, or on the element itself with `$on: ""`. `icon()` with no argument is a Sass error. The round surface is `boxed()` |
 | `iconSvgBase64($url, $size: 2.0rem, $color: var(--color-primary-strong))` | `svgBase64($url)` (mask only) + `iconBase()` (box: `--icon-size`/1em, `--icon-color`/currentColor), or `icon($url)`. The fixed 2rem size and the primary-strong colour are gone |
@@ -1550,7 +1550,7 @@ Kept, default changed (value visible):
 | `--alert-padding` | `var(--padding-2)` | `var(--padding-texts)` |
 | `--search-suggestions-offset` | `.5rem` | `0rem` |
 | `--search-suggestions-maxHeight` | `32rem` | `70vh` |
-| `--search-suggestions-item-padding`, `--search-suggestions-padding` | `1rem`, `.5rem` | unchanged |
+| `--search-suggestions-item-padding`, `--search-suggestions-padding` | `1rem`, `.5rem` | `var(--padding-paragraphs)`, `var(--padding-details)` |
 | `--dropdown-*` (background, color, padding `1rem`, inline-size, display) | | unchanged values |
 
 ### D. Sass

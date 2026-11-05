@@ -743,7 +743,7 @@
   font-size: 1.3em;
   cursor: pointer;
   margin: 0px;
-  margin-right: 10px;
+  margin-right: var(--gap-details);
 }
 
 :where([pgs~=label], [pgs*="label["]) {
@@ -2219,7 +2219,7 @@
 }
 
 :is([pgs~=field], [pgs*="field["]) {
-  --field-gap: 0.9rem;
+  --field-gap: var(--gap-details);
   --field-padding: var(--padding-paragraphs);
   --field-borderRadius: var(--borderRadius-paragraphs);
   --field-paddingTop: calc(var(--field-padding) + var(--font-size-text) + var(--field-gap));
@@ -2291,8 +2291,8 @@
 }
 
 :is([pgs~=menu], [pgs*="menu["]) {
-  --menu-gap-column: .5rem;
-  --menu-gap-row: 1.0rem;
+  --menu-gap-column: var(--gap-details);
+  --menu-gap-row: var(--gap-paragraphs);
 }
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) {
@@ -2359,7 +2359,7 @@
 
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuHorizontal'"]) > :where(ul) > :where(li):has(ul) {
   display: flex;
-  gap: 0.2rem;
+  gap: var(--gap-details);
   flex-wrap: nowrap;
 }
 
@@ -2392,8 +2392,8 @@
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul) > :where(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul) > :where(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) > :where(ul) {
   flex-basis: 100%;
-  padding-left: 0.5rem;
-  margin-left: 1.5rem;
+  padding-left: var(--padding-details);
+  margin-left: var(--margin-paragraphs);
   border-left: var(--border-width) var(--border-color) var(--border-style);
 }
 
@@ -2584,7 +2584,7 @@
   }
 }
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion], [pgs*="accordion["]) {
-  padding-inline: 10px;
+  padding-inline: var(--padding-details);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -2625,7 +2625,7 @@
   --breadcrumb-color-current: var(--current-color);
   --breadcrumb-separator-type: "/";
   --breadcrumb-separator-color: var(--color-primary-soft);
-  --breadcrumb-separator-gap: 0.8rem;
+  --breadcrumb-separator-gap: var(--gap-details);
   font-size: var(--breadcrumb-size);
   line-height: 1;
   list-style: none;
@@ -2682,7 +2682,7 @@
   --dropdown-borderColor: var(--border-color);
   --dropdown-border: var(--dropdown-borderWidth) var(--dropdown-borderColor) var(--border-style);
   --dropdown-borderRadius: var(--dropdown-padding);
-  --dropdown-padding: 1rem;
+  --dropdown-padding: var(--padding-paragraphs);
   --dropdown-inline-size: max-content;
   --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
   --dropdown-maxBlockSize: calc(100dvh - 2rem);
@@ -3256,7 +3256,7 @@
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-prev]):where([pgs~=_slides-next]),
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-next]):where([pgs~=_slides-next]) {
-  margin-right: 10px;
+  margin-right: var(--padding-details);
 }
 
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=slides-container]) {
@@ -3266,7 +3266,7 @@
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows]) {
   position: absolute;
   top: 0;
-  right: 10px;
+  right: var(--padding-details);
   z-index: 4;
   display: flex;
   gap: var(--gap-paragraphs);
@@ -3427,7 +3427,7 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=step
   gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
-  margin-bottom: calc(var(--gap-elements) / 2 - 8px);
+  margin-bottom: var(--margin-details);
   padding-bottom: calc(var(--gap-elements) / 2);
   min-height: calc(var(--steps-circle-size) + 5rem);
   width: 100%;
@@ -3441,7 +3441,7 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_ste
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
+  margin-right: var(--gap-paragraphs);
   border-radius: var(--borderRadius-elements);
   font-weight: var(--font-weight-bold);
   text-align: center;
@@ -3515,7 +3515,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=table], [pgs*="table["]):is(table) :where(th, td),
 :is([pgs~=table], [pgs*="table["]) :where(table) :where(th, td) {
-  padding: 12px;
+  padding: var(--padding-paragraphs);
   border-bottom: var(--border-width) var(--border-color) var(--border-style);
   text-align: left;
   min-width: 100px;
@@ -3673,7 +3673,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 [pgs~=summary] :where([pgs~=summary-button]) {
-  padding: 5px;
+  padding: var(--padding-details);
   cursor: pointer;
   background-color: transparent;
   border: unset;
@@ -4030,9 +4030,9 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --search-borderWidth: 0rem;
   --search-borderColor: var(--border-color);
   --search-suggestions-offset: 0rem;
-  --search-suggestions-padding: .5rem;
+  --search-suggestions-padding: var(--padding-details);
   --search-suggestions-maxHeight: 70vh;
-  --search-suggestions-item-padding: 1rem;
+  --search-suggestions-item-padding: var(--padding-paragraphs);
   --search-suggestions-item-background-selected: var(--current-background);
   --search-suggestions-item-color-selected: var(--current-color);
   --search-suggestions-item-background-hover: var(--hover-background);
@@ -6805,8 +6805,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   }
 }
 :is([pgs~=header], [pgs*="header["]) {
-  --header-paddingInline: 30px;
-  --header-paddingBlock: 10px;
+  --header-paddingInline: var(--padding-elements);
+  --header-paddingBlock: var(--padding-details);
   --header-gap: var(--gap-elements);
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
@@ -6929,7 +6929,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) {
-  --navSmart-gap: .8rem;
+  --navSmart-gap: var(--gap-details);
   --navSmart-edgePWA: 2.0rem;
   --navSmart-edge: calc(var(--page-padding) / 2);
   --navSmart-itemMinWidth: 7.2rem;
@@ -7080,7 +7080,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 [pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-content]) nav li {
-  margin-top: 5px;
+  margin-top: var(--margin-details);
 }
 
 [pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-content]) nav li a {
@@ -7095,7 +7095,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=footer] :where([pgs~=footer-legal]) :where([pgs~=footer-legal-content]) {
   border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
-  padding-block: 60px;
+  padding-block: var(--padding-groups);
   display: flex;
   gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
@@ -8092,7 +8092,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=list] :is(ul), [pgs~=list]:is(ul) {
   list-style: disc;
-  margin-left: 25px;
+  margin-left: var(--margin-elements);
 }
 
 [pgs~=list] :is(ul) > li, [pgs~=list]:is(ul) > li {
@@ -8110,7 +8110,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=list] :is(ol), [pgs~=list]:is(ol) {
   list-style: decimal;
-  margin-left: 25px;
+  margin-left: var(--margin-elements);
 }
 
 [pgs~=list] :is(ol) li, [pgs~=list]:is(ol) li {
@@ -8133,7 +8133,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=textBlock] :is(ul), [pgs~=textBlock]:is(ul) {
   list-style: disc;
-  margin-left: 25px;
+  margin-left: var(--margin-elements);
 }
 
 [pgs~=textBlock] :is(ul) > li, [pgs~=textBlock]:is(ul) > li {
@@ -8151,7 +8151,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=textBlock] :is(ol), [pgs~=textBlock]:is(ol) {
   list-style: decimal;
-  margin-left: 25px;
+  margin-left: var(--margin-elements);
 }
 
 [pgs~=textBlock] :is(ol) li, [pgs~=textBlock]:is(ol) li {
@@ -8169,7 +8169,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 [pgs~=textBlock] :where(h1, h2, h3) {
-  margin-top: 25px;
+  margin-top: var(--margin-elements);
 }
 
 :is([pgs~=textShadow], [pgs*="textShadow["]) {

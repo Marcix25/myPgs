@@ -87,7 +87,7 @@
         order: -1;
 
         &:where([pgs~="_slides-prev"]) { margin-left: auto; }
-        &:where([pgs~="_slides-next"]) { margin-right: 10px; }
+        &:where([pgs~="_slides-next"]) { margin-right: var(--padding-details); }
     }
 
     // the generated arrows are built by the module after the page has loaded, so a line of their own
@@ -101,7 +101,7 @@
         :where([pgs~="_slides-arrows"]) {
             position: absolute;
             top: 0;
-            right: 10px;
+            right: var(--padding-details);
             z-index: 4;
             display: flex;
             gap: var(--gap-paragraphs);
