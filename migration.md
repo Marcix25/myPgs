@@ -1239,7 +1239,7 @@ Kept, default changed:
 | `--checkboxBackground-padding` | `--padding-2` (15px) | `calc(var(--padding-texts)/2)` (.75rem); right side is the new `--checkboxBackground-paddingRight` (1.5rem) |
 | `--checkboxBackground-borderRadius` | `--border-radius-input` | `--borderRadius-elements` |
 | `--toggle-size` | `--border-radius-input` (2.25rem) | `2.0rem` |
-| `--range-size` | `--border-radius-input` | `--borderRadius-texts` |
+| `--range-size` | `--border-radius-input` | `2.0rem`, the size of `--toggle-size`: the track is as tall as the rail of a toggle and the thumb is the toggle's (inside the track, `--range-background-thumb-hover` under the pointer, grows 20% on hover); the toggle thumb grows 20% too (was 40%) |
 | `--formValidate-outline` | a whole shorthand, `solid 3px var(--color-error)` | width and style only (`var(--border-width) var(--border-style)`); the color is the new `--formValidate-outlineColor` (an `outline-color` rule overrides a color written in `--formValidate-outline`) |
 | `--hover-background`, `--hover-color` (as read by buttons) | primary strong, white | -> see [Foundation](#part-2-foundation-tokens-palette-base-icons) (secondary soft, secondary strong) |
 
@@ -1550,7 +1550,7 @@ Kept, default changed (value visible):
 | `--alert-padding` | `var(--padding-2)` | `var(--padding-texts)` |
 | `--search-suggestions-offset` | `.5rem` | `0rem` |
 | `--search-suggestions-maxHeight` | `32rem` | `70vh` |
-| `--search-suggestions-item-padding`, `--search-suggestions-padding` | `1rem`, `.5rem` | `var(--padding-paragraphs)`, `var(--padding-details)` |
+| `--search-suggestions-item-padding`, `--search-suggestions-padding` | `1rem`, `.5rem` | `var(--padding-details)` for both |
 | `--dropdown-*` (background, color, padding `1rem`, inline-size, display) | | unchanged values |
 
 ### D. Sass

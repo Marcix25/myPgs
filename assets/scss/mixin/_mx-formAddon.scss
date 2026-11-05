@@ -125,13 +125,10 @@
         //### thumb
         // it slides: `left` is the one position that both states give as a length, so the move between them
         // is animated. Checked, its right edge sits $space from the right edge of the rail
+        // the same thumb as range (formThumb)
         &::after {
+            @include formThumb(var(--toggle-size), $space);
             opacity: 1;
-            background-color: currentColor;
-            height: calc(var(--toggle-size) - ($space * 2));
-            width: calc(var(--toggle-size) + $space);
-            border: var(--toggle-borderStyleWidth);
-            border-color: currentColor;
             top: $space;
             left: $space;
             z-index: 1;
@@ -140,16 +137,14 @@
 
         //## HOVER COLORS
         // on the switch itself or on the label that holds it, not a disabled one, as in checkbox() and radio();
-        // the checked ones below come after and win. The thumb grows only where motion is welcome
+        // the checked ones below come after and win. The thumb grows as the one of range does
         @media (hover: hover) and (pointer: fine) {
             &:is(:hover, :where(label):hover *):where(:not(:disabled)) {
                 background: var(--toggle-rail-background-hover);
                 border-color: var(--toggle-rail-borderColor-hover);
                 color: var(--toggle-thumb-background-hover);
 
-                @media (prefers-reduced-motion: no-preference) {
-                    &::after { scale: 1.4; }
-                }
+                &::after { @include formThumbHover(); }
             }
         }
 

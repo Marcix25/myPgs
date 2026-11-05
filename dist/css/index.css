@@ -1172,74 +1172,83 @@
 }
 
 [pgs~=range] {
-  --range-size: var(--borderRadius-paragraphs);
-  --range-thumbWidth: calc(var(--range-size) * 2);
+  --range-size: 2.0rem;
+  --range-thumbWidth: calc(var(--range-size) + 2px + var(--border-width) * 2);
   --range-background: var(--clickable-background);
   --range-background-progress: var(--twoState-background);
   --range-background-thumb: var(--twoState-color);
+  --range-background-thumb-hover: var(--hover-color);
   --_range-progress: 0;
-  --_range-fill: calc(var(--_range-progress) * (100% - var(--range-thumbWidth)) + var(--range-thumbWidth) / 2);
+  --_range-inset: calc(2px - var(--border-width));
+  --_range-fill: calc(var(--_range-inset) + var(--_range-progress) * (100% - var(--range-thumbWidth) - var(--_range-inset) * 2) + var(--range-thumbWidth) / 2);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   width: 100%;
-  height: var(--range-size);
+  height: calc(var(--range-size) + var(--border-width) * 2);
+  padding-inline: var(--_range-inset);
+  color: var(--range-background-thumb);
   background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
   border: var(--border-width) var(--border-style) var(--clickable-borderColor);
   outline: none;
-  border-radius: var(--range-size);
+  border-radius: var(--borderRadius-paragraphs);
   z-index: 1;
   position: relative;
+  cursor: pointer;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=range]:hover:where(:not(:disabled)) {
+    color: var(--range-background-thumb-hover);
+  }
+}
 [pgs~=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: var(--range-thumbWidth);
-  height: calc(var(--range-size) * 1.2);
-  border-radius: var(--range-size);
-  background: var(--range-background-thumb);
-  border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-  cursor: pointer;
+  box-sizing: content-box;
+  width: calc(var(--range-size) + 2px);
+  height: calc(var(--range-size) - 2px * 2);
+  border-radius: var(--borderRadius-paragraphs);
+  background-color: currentColor;
+  border: var(--border-width) var(--border-style) currentColor;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   [pgs~=range]::-webkit-slider-thumb {
-    transition: scale 0.2s;
-  }
-}
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=range]::-webkit-slider-thumb:hover {
-    scale: 1.2;
-    background: var(--hover-background);
+    transition: all 250ms;
   }
 }
 [pgs~=range]::-moz-range-thumb {
-  -webkit-appearance: none;
   appearance: none;
-  width: var(--range-thumbWidth);
-  height: calc(var(--range-size) * 1.2);
-  border-radius: var(--range-size);
-  background: var(--range-background-thumb);
-  border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-  cursor: pointer;
+  box-sizing: content-box;
+  width: calc(var(--range-size) + 2px);
+  height: calc(var(--range-size) - 2px * 2);
+  border-radius: var(--borderRadius-paragraphs);
+  background-color: currentColor;
+  border: var(--border-width) var(--border-style) currentColor;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   [pgs~=range]::-moz-range-thumb {
-    transition: scale 0.2s;
+    transition: all 250ms;
   }
 }
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=range]::-moz-range-thumb:hover {
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [pgs~=range]:hover:where(:not(:disabled))::-webkit-slider-thumb {
     scale: 1.2;
-    background: var(--hover-background);
   }
 }
-[pgs~=range]:focus-visible::-webkit-slider-thumb, [pgs~=range]:focus-visible::-moz-range-thumb {
-  outline: var(--focus-visible) !important;
-  background-color: var(--color-focus) !important;
-  scale: 1.2;
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [pgs~=range]:hover:where(:not(:disabled))::-moz-range-thumb {
+    scale: 1.2;
+  }
+}
+[pgs~=range]:focus-visible::-webkit-slider-thumb {
+  outline: var(--focus-visible);
+}
+
+[pgs~=range]:focus-visible::-moz-range-thumb {
+  outline: var(--focus-visible);
 }
 
 [pgs~=range]:disabled {
@@ -2017,12 +2026,13 @@
 }
 
 [pgs~=toggle] :where(input)::after {
-  opacity: 1;
-  background-color: currentColor;
-  height: calc(var(--toggle-size) - 4px);
+  box-sizing: content-box;
   width: calc(var(--toggle-size) + 2px);
-  border: var(--toggle-borderStyleWidth);
-  border-color: currentColor;
+  height: calc(var(--toggle-size) - 2px * 2);
+  border-radius: var(--borderRadius-paragraphs);
+  background-color: currentColor;
+  border: var(--border-width) var(--border-style) currentColor;
+  opacity: 1;
   top: 2px;
   left: 2px;
   z-index: 1;
@@ -2038,7 +2048,7 @@
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   [pgs~=toggle] :where(input):is(:hover, :where(label):hover *):where(:not(:disabled))::after {
-    scale: 1.4;
+    scale: 1.2;
   }
 }
 [pgs~=toggle] :where(input):checked {
@@ -4032,7 +4042,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --search-suggestions-offset: 0rem;
   --search-suggestions-padding: var(--padding-details);
   --search-suggestions-maxHeight: 70vh;
-  --search-suggestions-item-padding: var(--padding-paragraphs);
+  --search-suggestions-item-padding: var(--padding-details);
   --search-suggestions-item-background-selected: var(--current-background);
   --search-suggestions-item-color-selected: var(--current-color);
   --search-suggestions-item-background-hover: var(--hover-background);

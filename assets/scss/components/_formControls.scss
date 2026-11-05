@@ -4,75 +4,67 @@
 // The secondary tokens of a form, each one with its own: range, file, inputColor and select.
 // The form, the label, the legend, the input, the textarea, the checkbox, the radio and the fieldset are in form.
 //# RANGE
+// the thumb is the one of toggle (formThumb): inside the track, $space from its edges, in the color of the
+// slider, which the states set; the track is as tall as the rail of toggle
 [pgs~="range"] {
-    --range-size: var(--borderRadius-paragraphs);
-    --range-thumbWidth: calc(var(--range-size) * 2);
+    $space: 2px;
+    --range-size: 2.0rem;
+    // the whole width of the thumb, its border included
+    --range-thumbWidth: calc(var(--range-size) + #{$space} + var(--border-width) * 2);
     --range-background: var(--clickable-background);
     --range-background-progress: var(--twoState-background);
     --range-background-thumb: var(--twoState-color);
-    // where the thumb is, from 0 to 1: written on the slider by pgs.range (components/_range.js) as the value moves, 0 until it has run. The painted part stops at the middle of the thumb, which travels the track less its own width
+    --range-background-thumb-hover: var(--hover-color);
+    // where the thumb is, from 0 to 1: written on the slider by pgs.range (components/_range.js) as the value moves, 0 until it has run. The thumb travels the track less its own width and the space on both sides, and the painted part stops at its middle
     --_range-progress: 0;
-    --_range-fill: calc(var(--_range-progress) * (100% - var(--range-thumbWidth)) + var(--range-thumbWidth) / 2);
+    // the thumb sits $space from the outer edge of the track, that is inside its border
+    --_range-inset: calc(#{$space} - var(--border-width));
+    --_range-fill: calc(var(--_range-inset) + var(--_range-progress) * (100% - var(--range-thumbWidth) - var(--_range-inset) * 2) + var(--range-thumbWidth) / 2);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    height: var(--range-size);
+    // as tall as the rail of toggle, which draws its border outside its size
+    height: calc(var(--range-size) + var(--border-width) * 2);
+    padding-inline: var(--_range-inset);
+    color: var(--range-background-thumb);
     background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
     border: var(--border-width) var(--border-style) var(--clickable-borderColor);
     outline: none;
-    border-radius: var(--range-size);
+    border-radius: var(--borderRadius-paragraphs);
     z-index: 1;
     position: relative;
+    cursor: pointer;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:where(:not(:disabled)) { color: var(--range-background-thumb-hover); }
+    }
 
     //## thumb (WebKit) (Firefox)
+    // the two prefixed pseudo-elements are written apart: a browser drops a whole rule with one it does not know
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: var(--range-thumbWidth);
-        height: calc(var(--range-size) * 1.2);
-        border-radius: var(--range-size);
-        background: var(--range-background-thumb);
-        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-        cursor: pointer;
+        @include formThumb(var(--range-size), $space);
 
-        @media (prefers-reduced-motion: no-preference) { transition: scale 0.2s; }
-
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
-                scale: 1.2;
-                background: var(--hover-background);
-            }
-        }
+        @media (prefers-reduced-motion: no-preference) { transition: all 250ms; }
     }
 
     &::-moz-range-thumb {
-        -webkit-appearance: none;
         appearance: none;
-        width: var(--range-thumbWidth);
-        height: calc(var(--range-size) * 1.2);
-        border-radius: var(--range-size);
-        background: var(--range-background-thumb);
-        border: var(--border-width) var(--border-style) var(--clickable-borderColor);
-        cursor: pointer;
+        @include formThumb(var(--range-size), $space);
 
-        @media (prefers-reduced-motion: no-preference) { transition: scale 0.2s; }
+        @media (prefers-reduced-motion: no-preference) { transition: all 250ms; }
+    }
 
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
-                scale: 1.2;
-                background: var(--hover-background);
-            }
-        }
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:where(:not(:disabled))::-webkit-slider-thumb { @include formThumbHover(); }
+        &:hover:where(:not(:disabled))::-moz-range-thumb { @include formThumbHover(); }
     }
 
     //## focus
-    &:focus-visible::-webkit-slider-thumb,
-    &:focus-visible::-moz-range-thumb {
-        outline: var(--focus-visible) !important;
-        background-color: var(--color-focus) !important;
-        scale: 1.2;
-    }
+    &:focus-visible::-webkit-slider-thumb { outline: var(--focus-visible); }
+    &:focus-visible::-moz-range-thumb { outline: var(--focus-visible); }
 
     //## disabled
     &:disabled { @include disabled(); }

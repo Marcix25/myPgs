@@ -207,6 +207,25 @@
     appearance: none;
 }
 
+//# THUMB
+// the thumb of toggle and range, the same in both: a pill inside the rail, $space from its edges, as tall
+// as the rail less that space on each side and a little wider than tall. Its color is the color of the
+// control (currentColor), which each one sets for its states
+// The border is outside the size (content-box), as on toggle's ::after, which htmlBase's box-sizing does not reach
+@mixin formThumb($railSize, $space: 2px) {
+    box-sizing: content-box;
+    width: calc(#{$railSize} + #{$space});
+    height: calc(#{$railSize} - (#{$space} * 2));
+    border-radius: var(--borderRadius-paragraphs);
+    background-color: currentColor;
+    border: var(--border-width) var(--border-style) currentColor;
+}
+
+// under a fine pointer the thumb grows a little, where motion is welcome
+@mixin formThumbHover() {
+    @media (prefers-reduced-motion: no-preference) { scale: 1.2; }
+}
+
 //# CHECKBOX & RADIO
 //## CHECKBOX
 @mixin checkbox() {
