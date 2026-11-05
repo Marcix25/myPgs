@@ -439,8 +439,8 @@
         ],
         "pgs-generated": [],
         "pgs-options": [
-            "drpHover",
-            "drpNotArrow"
+            "drpArrow",
+            "drpHover"
         ],
         "pgs-data": [
             "dropdownPosition"
@@ -867,6 +867,7 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
+            "labelBox",
             "labelTab",
             "labelTabNoGap"
         ],
@@ -875,7 +876,9 @@
     "legend": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "legendBox"
+        ],
         "pgs-data": []
     },
     "lightmode": {
@@ -898,7 +901,8 @@
         "pgs-generated": [],
         "pgs-options": [
             "logoDarkmode",
-            "logoDarkmodeFixed"
+            "logoDarkmodeFixed",
+            "logoFooter"
         ],
         "pgs-data": []
     },
@@ -1483,7 +1487,9 @@
             "_steps-step-circle",
             "_steps-step-line"
         ],
-        "pgs-options": [],
+        "pgs-options": [
+            "stepsLastHighlight"
+        ],
         "pgs-data": []
     },
     "stepTabs": {
@@ -1524,7 +1530,11 @@
     "table": {
         "pgs": [],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "tableBordered",
+            "tableHover",
+            "tableStriped"
+        ],
         "pgs-data": []
     },
     "tabs": {

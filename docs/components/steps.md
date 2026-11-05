@@ -17,6 +17,10 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 - `_steps-step-circle`: added at the start of the step when no steps-step-circle was written by hand.
 - `_steps-step-line`: added at the start of the step when no steps-step-line was written by hand.
 
+## PGS Options (component brackets)
+
+- `stepsLastHighlight`: the circle of the last step in the primary color, for the goal the steps lead to.
+
 ## JavaScript API
 
 - `pgs.steps.init(root)`: initializes unregistered step lists within the specified Document or Element.
@@ -36,12 +40,47 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 
 ## Output
 
-Ordered HTML list of numbered steps completed by the JavaScript module.
+Ordered HTML list of numbered steps completed by the JavaScript module, then the same list with stepsLastHighlight.
+## Examples
 
-## Example
+### Steps
+
+Every circle the same, joined by a line.
 
 ```html
 <ol pgs="steps">
+    <li pgs="steps-step">
+        <span pgs="steps-step-circle">1</span>
+        <div pgs="steps-step-content">
+            <h3>Lorem ipsum dolor</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </li>
+
+    <li pgs="steps-step">
+        <span pgs="steps-step-circle">2</span>
+        <div pgs="steps-step-content">
+            <h3>Sit amet consectetur</h3>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+    </li>
+
+    <li pgs="steps-step">
+        <span pgs="steps-step-circle">3</span>
+        <div pgs="steps-step-content">
+            <h3>Adipiscing elit sed</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+        </div>
+    </li>
+</ol>
+```
+
+### Last step highlighted (stepsLastHighlight)
+
+stepsLastHighlight gives the circle of the last step the primary color.
+
+```html
+<ol pgs="steps['stepsLastHighlight']">
     <li pgs="steps-step">
         <span pgs="steps-step-circle">1</span>
         <div pgs="steps-step-content">

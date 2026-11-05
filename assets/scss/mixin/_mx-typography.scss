@@ -59,10 +59,5 @@
             text-decoration: underline;
             text-underline-offset: 0.15em;
         }
-
-        &:where(:hover) {
-            background-color: var(--color-link-soft);
-            border-radius: 5px;
-        }
     }
 }

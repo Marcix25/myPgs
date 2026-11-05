@@ -1,6 +1,6 @@
 @use "../mixin/mixin" as *;
 
-ol[pgs~="steps"] {
+ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
     color: var(--color-black);
     // the connector line sits at z-index -1: its own stacking context keeps it from sliding behind the background of an ancestor
     isolation: isolate;
@@ -20,7 +20,8 @@ ol[pgs~="steps"] {
             @include column();
             margin-bottom: calc(var(--gap-elements) / 2 - 8px);
             padding-bottom: calc(var(--gap-elements) / 2);
-            min-height: 8.5rem;
+            // only the room the line needs to show between this circle and the next one
+            min-height: calc(var(--steps-circle-size) + 5rem);
             width: 100%;
         }
 
@@ -77,17 +78,24 @@ ol[pgs~="steps"] {
                 margin-bottom: 0;
             }
 
+            :where([pgs~="steps-step-line"]),
+            :where([pgs~="_steps-step-line"]) {
+                opacity: 0;
+            }
+        }
+    }
+
+    //+ OPTION
+    //+ stepsLastHighlight
+    // the circle of the last step in the primary color: the goal the steps lead to
+    &:where([pgs*="'stepsLastHighlight'"]) {
+        :where([pgs~="steps-step"]):last-child {
             :where([pgs~="steps-step-circle"]),
             :where([pgs~="_steps-step-circle"]) {
                 background-color: var(--color-primary);
                 color: var(--color-primary-text);
 
                 :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
-            }
-
-            :where([pgs~="steps-step-line"]),
-            :where([pgs~="_steps-step-line"]) {
-                opacity: 0;
             }
         }
     }

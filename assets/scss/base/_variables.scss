@@ -158,7 +158,7 @@
         --color-background: light-dark(#fcfcfc, #080808);
         --color-whiteFixed: #FFFFFF;
         --color-blackFixed: #000000;
-        // light: 6.0:1 on --color-background, 4.6:1 on its own --color-link-soft (hover of a link); dark keeps the brighter blue (7.0:1)
+        // light: 6.0:1 on --color-background, 4.6:1 on its own --color-link-soft; dark keeps the brighter blue (7.0:1)
         --color-link: light-dark(#0065a3, #009EFF);
         --color-link-soft: color-mix(in srgb, var(--color-link) 20%, var(--color-white) 80%);
         --color-gray: #a4a4a4;

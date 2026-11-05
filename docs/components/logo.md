@@ -14,6 +14,7 @@ Component for displaying a graphical or text logo, with image variants that supp
 
 - `logoDarkmode`: inverts the logo image when the global darkmode state is active.
 - `logoDarkmodeFixed`: keeps the image inversion enabled regardless of the current theme.
+- `logoFooter`: the big logo of a footer's brand column: --logo-height becomes 200px with the image in a square box, and --logo-textSize 4rem.
 
 ## PGS States
 
@@ -23,10 +24,11 @@ Component for displaying a graphical or text logo, with image variants that supp
 
 - `--logo-filter`
 - `--logo-height`
+- `--logo-textSize`
 
 ## Output
 
-HTML examples of the graphical logo, the same logo inverted in dark mode, the text logo and the always-inverted logo.
+HTML examples of the graphical logo, the same logo inverted in dark mode, the text logo, the always-inverted logo and the big footer logo.
 ## Examples
 
 ### Graphical logo
@@ -65,6 +67,16 @@ Image-based brand logo that stays inverted using logoDarkmodeFixed, regardless o
 
 ```html
 <a aria-label="Logo" pgs="logo['logoDarkmodeFixed']" href="/">
+    <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
+</a>
+```
+
+### Footer logo (logoFooter)
+
+logoFooter makes the logo big, for the brand column of a footer: the image 200px tall in a square box, the text at 4rem.
+
+```html
+<a aria-label="Logo" pgs="logo['logoFooter']" href="/">
     <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
 </a>
 ```

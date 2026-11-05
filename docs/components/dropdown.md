@@ -12,7 +12,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 ## PGS Options (component brackets)
 
-- `drpNotArrow`: removes the small arrow every dropdown draws on its content by default. The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-center.
+- `drpArrow`: draws a small arrow on the content, in its border and background colors (--dropdown-arrow-size). The arrow points back at the trigger on whichever side the content was placed, and follows it even when the viewport pushes the content off-center.
 - `drpHover`: opens the dropdown when the pointer enters its trigger and closes it after the pointer leaves; a click of the pointer does nothing, so it does not close what the hover just opened, and keyboard activation (Enter, Space) still toggles it.
 
 ## PGS Data
@@ -22,7 +22,7 @@ Popup component that connects a control to content positioned relative to its tr
 ## PGS States
 
 - `open`: indicates that the dropdown is open and its content is visible.
-- `sideTop`: written by the module on the dropdown-content when it places the content above its trigger; the arrow reads it to point back at the trigger. Never write it yourself.
+- `sideTop`: written by the module on the dropdown-content when it places the content above its trigger; drpArrow reads it to point the arrow back at the trigger. Never write it yourself.
 - `sideRight`: written on the dropdown-content in the same way, when the content is placed to the right of its trigger.
 - `sideBottom`: written on the dropdown-content in the same way, when the content is placed below its trigger, which is also where every dropdown falls back to.
 - `sideLeft`: written on the dropdown-content in the same way, when the content is placed to the left of its trigger.
@@ -105,19 +105,19 @@ Opens when the pointer enters the trigger and closes after it leaves.
 </span>
 ```
 
-### Without arrow
+### With arrow (drpArrow)
 
-drpNotArrow removes the arrow that points the content back at its trigger.
+drpArrow adds an arrow that points the content back at its trigger.
 
 ```html
-<span pgs="dropdown['drpNotArrow']">
+<span pgs="dropdown['drpArrow']">
     <button pgs="dropdown-button button['btnReverse']" type="button">
-        Without arrow
+        With arrow
         <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
     </button>
 
     <div pgs="dropdown-content">
-        content without arrow
+        content with arrow
     </div>
 </span>
 ```

@@ -7,18 +7,20 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ## PGS
 
 - `form`: identifies the form container: a column, spaced by --form-gap (the paragraph gap by default). It styles no control of its own: each label, input, select, textarea, checkbox, radio, legend and fieldset takes its token. It also draws the asterisk on the label or legend of a required control.
-- `label`: the label of a control. Outside a field it is a white box with a border and rounded corners on every side, laid over the top edge of the control by one border width (--label-borderRadius, --label-paddingInline, --label-paddingBlock, --label-color, --label-background, --label-border, --label-borderWidth), on the label itself or on a span inside the label that wraps the control. It is styled only when it sits right before its control, or wraps it: a label with a for that names a control further away is left plain. A label right after a checkbox or a radio is the text of that control instead, and it stays on its line. In a field it is the floating label: no box, one line, partly transparent, over the control. It also dims when its control is disabled, is hidden together with a hidden control and gets the asterisk when the control after it is required.
+- `label`: the label of a control. Outside a field it is plain text above the control, in --label-color (labelBox gives it a box), on the label itself or on a span inside the label that wraps the control. It is styled only when it sits right before its control, or wraps it: a label with a for that names a control further away is left plain. A label right after a checkbox or a radio is the text of that control instead, and it stays on its line. In a field it is the floating label: no box, one line, partly transparent, over the control. It also dims when its control is disabled, is hidden together with a hidden control and gets the asterisk when the control after it is required.
 - `input`: applies shared styling to an input. A password input uses the browser's own font; a search, number, date, time, datetime-local, month or week input is a row with the picker icon first. The look reads --input-padding, --input-border, --input-borderRadius and --input-background. In a field the input takes the padding of the field and room above for the label, and the label floats while the input is empty; the field adds the background and the radius around both, and no border.
 - `textarea`: applies shared styling to a <textarea>. In a field it also takes the token input, so that the label floats over it.
 - `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior. The box has --radio-background and --radio-borderColor, the dot of a checked radio is --radio-color, each with a -hover and a -checked one; a disabled radio is dimmed. --radio-gap is the space between the box and the text (half the paragraph gap). The label is a flex row: write its text in a <span>, and any link or <strong> inside that span, so the spaces around them are kept.
 - `checkbox`: styles a group of native checkbox inputs, sharing the presentation of the radio group. The box has --checkbox-background and --checkbox-borderColor and the check mark is --checkbox-color, each with a -hover and a -checked one; a disabled checkbox is dimmed. --checkbox-gap is the space between the box and the text (half the paragraph gap). The label is a flex row: write its text in a <span>, and any link or <strong> inside that span, so the spaces around them are kept.
-- `legend`: applies the group heading styling to the legend of a fieldset.
+- `legend`: the heading of a fieldset: plain text like a label, in --label-color (legendBox gives it a box).
 - `fieldset`: takes the browser's border off a fieldset and lays its options out in a column, spaced by --form-gap (the paragraph gap by default). It is for a group of radios or checkboxes that has no frame of its own, with the legend as its heading.
 - `form-requiredHere`: written inside a required label or legend, it puts the asterisk where the element sits instead of at the end of the label. Without it the asterisk is drawn on the label itself, which is what a label with plain text wants; a label ending in a link or a long sentence usually wants to say where the mark goes.
 
 ## PGS Options (component brackets)
 
-- `labelTab`: inside label's own bracket, `label['labelTab']`: a tab instead of a pill, rounded on the top corners only and with no border at the bottom, and the gap of the form left between it and the control.
+- `labelBox`: inside label's own bracket, `label['labelBox']`: the label in a white box with a border and rounded corners on every side, on one line, a text too long for it ending with an ellipsis (--label-borderRadius, --label-paddingInline, --label-paddingBlock, --label-background, --label-border, --label-borderWidth). In a failing form the box turns to the error colors.
+- `legendBox`: inside legend's own bracket, `legend['legendBox']`: the same box as labelBox on the heading of a fieldset.
+- `labelTab`: inside label's own bracket, `label['labelTab']`: the box of labelBox as a tab, which it does not need next to it, rounded on the top corners only and with no border at the bottom, and the gap of the form left between it and the control.
 - `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: the same tab as labelTab with the gap of the form taken away, so that it touches the control and opens into it. It does not need labelTab next to it. It is made for a label and a control that are siblings in the column of a `pgs="form"`, joined by `for` and `id`: it cancels the gap of that column. Inside a `<label>` wrapper there is no gap to cancel and the control would be pulled over the tab.
 
 ## PGS Data
@@ -65,7 +67,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 
 ## Output
 
-Complete HTML form with required fields and plain labels, an example script for a custom rule, validation, and a success message, then the labelTab and labelTabNoGap labels on their own.
+Complete HTML form with required fields and plain labels, an example script for a custom rule, validation, and a success message, then the labelBox and legendBox boxes and the labelTab and labelTabNoGap labels on their own.
 
 ## JavaScript Usage
 
@@ -185,9 +187,28 @@ A form with required fields, validated by formValidate: each control under a pla
 </form>
 ```
 
+### Box labels (labelBox)
+
+labelBox puts the label in a box with a border and rounded corners, and legendBox does the same for the heading of a fieldset.
+
+```html
+<form pgs="form" action="#" method="post">
+    <label>
+        <span pgs="label['labelBox']">Name</span>
+        <input pgs="input" type="text" name="boxName" placeholder=" ">
+    </label>
+
+    <fieldset pgs="fieldset radio">
+        <legend pgs="legend['legendBox']">Preferred contact method</legend>
+        <label pgs="radio"><input type="radio" name="boxContact" value="email"> <span>Email</span></label>
+        <label pgs="radio"><input type="radio" name="boxContact" value="phone"> <span>Phone</span></label>
+    </fieldset>
+</form>
+```
+
 ### Tab labels (labelTab)
 
-labelTab makes the label a tab instead of a pill, rounded on the top corners only, with the gap of the form left between it and the control.
+labelTab makes the label a tab instead of a box, rounded on the top corners only, with the gap of the form left between it and the control.
 
 ```html
 <form pgs="form" action="#" method="post">

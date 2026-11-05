@@ -27,50 +27,24 @@
         a {
             text-decoration: none;
             font-weight: var(--font-weight-title);
-            color: var(--color-primary-strong);
+            color: var(--footer-color);
 
             &:hover { text-decoration: underline; }
         }
 
-        :where([pgs~="footer-brand"]) {
-            @include column();
-
-            :where([pgs~="logo-image"]) {
-                aspect-ratio: 1;
-                height: 200px;
-                object-fit: contain;
-                object-position: left center;
-            }
-
-            :where([pgs~="logo-text"]) {
-                font-size: 4.0rem;
-                font-weight: var(--font-weight-title);
-                color: var(--footer-color);
-            }
-        }
+        // the big logo of a brand column is logo['logoFooter']
+        :where([pgs~="footer-brand"]) { @include column(); }
 
         :where([pgs~="footer-content"]) {
             nav {
                 li {
                     margin-top: 5px;
 
+                    // an icon in the link keeps its own size and color, and sits where it is written
                     a {
-                        color: var(--footer-color);
                         display: flex;
                         align-items: center;
-
-                        i,
-                        :is([pgs~="icon"], [pgs*="icon\5B"]) {
-                            order: -1;
-                            margin-right: 10px;
-                            display: block;
-                            width: 18px;
-                            text-align: center;
-                            font-size: 15px;
-
-                            &::before { color: var(--footer-color); }
-                            &::after { color: var(--footer-color); }
-                        }
+                        gap: var(--gap-details);
                     }
                 }
             }

@@ -9,7 +9,7 @@
 }
 
 :where([pgs~="label"], [pgs*="label\5B"]) { @include label(); }
-[pgs~="legend"] { @include legend(); }
+:is([pgs~="legend"], [pgs*="legend\5B"]) { @include legend(); }
 [pgs~="radio"] {
     @include radio();
     @include labelCheckboxAndRadio();

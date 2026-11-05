@@ -14,6 +14,9 @@
  * - _steps-step-circle: added at the start of the step when no steps-step-circle was written by hand.
  * - _steps-step-line: added at the start of the step when no steps-step-line was written by hand.
  *
+ * @pgs-options
+ * - stepsLastHighlight: the circle of the last step in the primary color, for the goal the steps lead to.
+ *
  * @api
  * - pgs.steps.init(root): initializes unregistered step lists within the specified Document or Element.
  * - pgs.steps.api(element): returns the instance associated with an initialized steps root.
@@ -23,32 +26,65 @@
  * - instance.destroy(): forgets the instance; the circles and lines the module generated stay in the markup, and a later init finds and reuses them.
  * - instance.refresh(): destroys the instance and builds a new one on the same list, adding the circle and line a step is still missing, and returns it.
  *
- * @return Ordered HTML list of numbered steps completed by the JavaScript module.
+ * @return Ordered HTML list of numbered steps completed by the JavaScript module, then the same list with stepsLastHighlight.
  */
 -->
 
-<ol pgs="steps">
-    <li pgs="steps-step">
-        <span pgs="steps-step-circle">1</span>
-        <div pgs="steps-step-content">
-            <h3>Lorem ipsum dolor</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-    </li>
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Steps" demo-description="Every circle the same, joined by a line."></demo>
+<section demo="component">
+    <ol pgs="steps">
+        <li pgs="steps-step">
+            <span pgs="steps-step-circle">1</span>
+            <div pgs="steps-step-content">
+                <h3>Lorem ipsum dolor</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </li>
 
-    <li pgs="steps-step">
-        <span pgs="steps-step-circle">2</span>
-        <div pgs="steps-step-content">
-            <h3>Sit amet consectetur</h3>
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
-        </div>
-    </li>
+        <li pgs="steps-step">
+            <span pgs="steps-step-circle">2</span>
+            <div pgs="steps-step-content">
+                <h3>Sit amet consectetur</h3>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            </div>
+        </li>
 
-    <li pgs="steps-step">
-        <span pgs="steps-step-circle">3</span>
-        <div pgs="steps-step-content">
-            <h3>Adipiscing elit sed</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        </div>
-    </li>
-</ol>
+        <li pgs="steps-step">
+            <span pgs="steps-step-circle">3</span>
+            <div pgs="steps-step-content">
+                <h3>Adipiscing elit sed</h3>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+            </div>
+        </li>
+    </ol>
+</section>
+
+<demo demo-h3="Last step highlighted (stepsLastHighlight)" demo-description="stepsLastHighlight gives the circle of the last step the primary color."></demo>
+<section demo="component">
+    <ol pgs="steps['stepsLastHighlight']">
+        <li pgs="steps-step">
+            <span pgs="steps-step-circle">1</span>
+            <div pgs="steps-step-content">
+                <h3>Lorem ipsum dolor</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </li>
+
+        <li pgs="steps-step">
+            <span pgs="steps-step-circle">2</span>
+            <div pgs="steps-step-content">
+                <h3>Sit amet consectetur</h3>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            </div>
+        </li>
+
+        <li pgs="steps-step">
+            <span pgs="steps-step-circle">3</span>
+            <div pgs="steps-step-content">
+                <h3>Adipiscing elit sed</h3>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+            </div>
+        </li>
+    </ol>
+</section>

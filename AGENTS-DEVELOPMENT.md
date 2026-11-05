@@ -56,7 +56,7 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
   | `bxs` | `boxShadow` | `bxsUnset` |
   | `cnt` | `container` | `cntNone` |
   | `dialog` | `modal`, `notificationBell` | `dialogRight`, `dialogAnimationZoom` (they act on the `<dialog>`, not on the wrapper) |
-  | `drp` | `dropdown` | `drpHover`, `drpNotArrow` |
+  | `drp` | `dropdown` | `drpHover`, `drpArrow` |
   | `mg` | `margin`, `marginTop` and the other sides | `mgAuto`, `mgElements`, `mgTpElements` |
   | `otl` | `outline` | `otlPrimary`, `otlThin` |
   | `ov` | `overflow` | `ovHidden`, `ovAutoY` |

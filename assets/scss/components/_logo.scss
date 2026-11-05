@@ -7,6 +7,7 @@
     background-color: transparent;
     color: var(--color-black);
     --logo-height: calc(var(--SIZE) + var(--font-size-text));
+    --logo-textSize: 20px;
     --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //## DARKMODE
@@ -38,9 +39,18 @@
 
         :where([pgs~="logo-text"]) {
             font-family: var(--font-heading);
-            font-size: 20px;
+            font-size: var(--logo-textSize);
             font-weight: var(--font-weight-bold);
             text-wrap: nowrap;
         }
+    }
+
+    //+ logoFooter
+    // the big logo of a footer's brand column: the image in a square box 200px tall, the text at 4rem
+    &:where([pgs*="'logoFooter'"]) {
+        --logo-height: 200px;
+        --logo-textSize: 4.0rem;
+
+        >:where([pgs~="logo-image"]) { aspect-ratio: 1; }
     }
 }

@@ -259,7 +259,7 @@
     border-radius: var(--field-borderRadius);
 
     //## LABEL
-    :where([pgs~="label"], [pgs*="label\5B"], [pgs~="legend"]) {
+    :where([pgs~="label"], [pgs*="label\5B"], [pgs~="legend"], [pgs*="legend\5B"]) {
         // the gray of the palette is 2.5:1 on white: light takes a darker one (5.1:1), dark keeps it (8.4:1)
         --label-color: light-dark(#6e6e6e, var(--color-gray));
         --label-border: unset;

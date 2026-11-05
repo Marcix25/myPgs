@@ -27,35 +27,41 @@
 }
 
 //# LABEL
-//### LABEL - input
-// the label of a text-like input, a range, a file, a color input, a select or a textarea: a box above the control; with labelTab a tab
-@mixin label() {
-    --label-borderRadius: var(--borderRadius-paragraphs);
-    --label-left: var(--label-borderRadius);
+//## LABEL BOX
+// the box of labelBox, labelTab and legendBox: a background, a border and rounded corners. --label-color,
+// --label-background and --label-border (color and style, the width is --label-borderWidth) are the ones
+// formValidate changes when the field fails; without the box only the color is read
+@mixin _labelBox() {
     --label-paddingInline: var(--padding-paragraphs);
     --label-paddingBlock: calc(var(--padding-paragraphs)/2);
-    --label-color: var(--color-black);
     --label-background: var(--color-white);
     --label-border: var(--border-color) var(--border-style);
     --label-borderWidth: var(--border-width);
+    background-color: var(--label-background);
+    border: var(--label-border) var(--label-borderWidth);
+    border-radius: var(--label-borderRadius);
+}
+
+//### LABEL - input
+// the label of a text-like input, a range, a file, a color input, a select or a textarea: plain text above
+// the control; with labelBox a box, with labelTab a tab joined to the control
+@mixin label() {
+    --label-borderRadius: var(--borderRadius-paragraphs);
+    --label-left: var(--label-borderRadius);
+    // the padding is read here too: a field sets it on its label, which has no box
+    --label-paddingInline: 0px;
+    --label-paddingBlock: 0px;
+    --label-color: var(--color-black);
     cursor: pointer;
     display: inline-block;
     vertical-align: top;
     color: var(--label-color);
-    background-color: var(--label-background);
     padding-block: var(--label-paddingBlock);
     padding-inline: var(--label-paddingInline);
-    border-radius: var(--label-borderRadius);
-    border: var(--label-border) var(--label-borderWidth);
     position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
     width: fit-content;
     max-width: 100%;
-    z-index: 1;
-    
+
     //## disabled
     &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
     
@@ -67,6 +73,18 @@
     // further down, the one of another label, does not mark this one
     &:where(:has(+ :required, + * :required)) { @include required(); }
     
+    //+ labelBox
+    // the label in a box of its own, on one line: a text too long for it ends with an ellipsis. labelTab
+    // and labelTabNoGap are the same box
+    &:where([pgs*="'labelBox'"], [pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+        @include _labelBox();
+        isolation: isolate;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+        z-index: 1;
+    }
+
     //+ labelTab
     // the top corners only, and no bottom border: the label opens into the control it sits on
     &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
@@ -186,7 +204,6 @@
     @include input();
     height: 120px;
     min-height: 100px;
-    border-bottom-right-radius: 40px;
     appearance: none;
 }
 
@@ -392,26 +409,22 @@
 }
 
 //## LEGEND
-// the same box as the tab of a label (same custom properties, same border), rounded on every corner and
-// not joined to anything. --label-color, --label-background and --label-border (color and style, the
-// width is --label-borderWidth) are the ones formValidate changes when the group fails
+// plain text like a label, with the same custom properties; legendBox gives it the box of labelBox,
+// rounded on every corner and not joined to anything. formValidate changes --label-color when the group fails
 @mixin legend() {
     --label-borderRadius: var(--borderRadius-paragraphs);
-    --label-paddingInline: var(--padding-paragraphs);
-    --label-paddingBlock: calc(var(--padding-paragraphs)/2);
+    --label-paddingInline: 0px;
+    --label-paddingBlock: 0px;
     --label-color: var(--color-black);
-    --label-background: var(--color-white);
-    --label-border: var(--border-color) var(--border-style);
-    --label-borderWidth: var(--border-width);
     display: inline-block;
     width: fit-content;
     max-width: 100%;
     color: var(--label-color);
-    background-color: var(--label-background);
     padding-block: var(--label-paddingBlock);
     padding-inline: var(--label-paddingInline);
-    border: var(--label-border) var(--label-borderWidth);
-    border-radius: var(--label-borderRadius);
+
+    //+ legendBox
+    &:where([pgs*="'legendBox'"]) { @include _labelBox(); }
 
     //## required
     // a required control after the legend, or inside one of the elements that follow it (the group it names)

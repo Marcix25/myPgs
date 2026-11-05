@@ -9,8 +9,8 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `footer`: identifies the main footer container.
 - `footer-top`: identifies the upper section containing the brand and content.
 - `footer-top-content`: identifies the responsive inner layout of the upper section.
-- `footer-brand`: identifies the group dedicated to the brand.
-- `footer-content`: identifies an informational footer column.
+- `footer-brand`: identifies the group dedicated to the brand, a column; the footer does not resize the logo inside it (logo['logoFooter'] makes it big).
+- `footer-content`: identifies an informational footer column. The links of the upper section take --footer-color, bold and underlined on hover; a link of its menu is a row, an icon in it keeps its own size and color.
 - `footer-legal`: identifies the lower section dedicated to legal information.
 - `footer-legal-content`: identifies the content of the legal section.
 
@@ -33,6 +33,7 @@ Complete footer with theme control, brand area, navigation, informational conten
 - `tglLabeled`: labels that control with the theme the click leads to; see Darkmode.
 - `row`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
+- `logoFooter`: the big logo of the brand column; belongs to the logo component.
 - `icon-moon`: the glyph of the theme control; belongs to the icon component.
 - `icon-sun`: the glyph of the dark theme on the theme control; belongs to the icon component.
 
@@ -57,7 +58,7 @@ Brand and navigation columns in the upper section, legal links in the lower one.
     <section pgs="footer-top section">
         <div pgs="footer-top-content flex['row' 'column-3']">
             <div pgs="footer-brand">
-                <a aria-label="Logo" pgs="logo" href="/">
+                <a aria-label="Logo" pgs="logo['logoFooter']" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
                 <button pgs="button toggleDarkmode['tglLabeled']" type="button" aria-label="Change theme">
