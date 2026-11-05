@@ -80,6 +80,12 @@
         }
     }
 
+    // no submit button (a button with no type submits too): the text would touch the edges of the
+    // form, so the input takes the same space on its sides as above and below
+    &:not(:has(> :is(button:not([type]), button[type="submit"], input[type="submit"]))) >:where(input) {
+        padding-inline: var(--search-paddingBlock);
+    }
+
     // the outline of the form (--search-borderWidth) goes on round the list: an absolute box is placed
     // inside the border of the form, so the list is pulled out by the same width on both sides and lies
     // over the bottom border, where its border-top (--search-border) is the line between the two

@@ -4,7 +4,7 @@
  * @description Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. An object item can carry its own icon, as icon: markup, shown before its label in place of searchIconSuggestion; that markup is inserted as HTML, so it must be written by the author, never taken from remote text. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions list as a direct child is left alone, with a warning in the console.
  *
  * @pgs
- * - search: identifies the search element used by Search.
+ * - search: identifies the search element used by Search. Without a submit button (a button of type submit, or with no type) the input takes --search-paddingBlock on its sides too, so the text does not touch the edges.
  * - search-suggestions: identifies the search-suggestions element used by Search.
  *
  * @pgs-generated

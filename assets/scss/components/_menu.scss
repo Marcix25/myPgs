@@ -32,8 +32,6 @@
                 width: -moz-available;
                 width: stretch;
             }
-
-            &[pgs-state~=open]>:where(ul) { display: flex; }
         }
 
         //## submenu

@@ -2320,10 +2320,6 @@
   width: stretch;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where(ul) > :where(li)[pgs-state~=open] > :where(ul) {
-  display: flex;
-}
-
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) {
   display: flex;
   gap: var(--gap-paragraphs);
@@ -4097,6 +4093,10 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 :is([pgs~=search], [pgs*="search["]) > :where(input)::-webkit-search-cancel-button, :is([pgs~=search], [pgs*="search["]) > :where(input)::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
+}
+
+:is([pgs~=search], [pgs*="search["]):not(:has(> :is(button:not([type]), button[type=submit], input[type=submit]))) > :where(input) {
+  padding-inline: var(--search-paddingBlock);
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) {
