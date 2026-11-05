@@ -75,6 +75,49 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 Horizontal and vertical menu examples, including recursively nested submenus.
 ## Examples
 
+### Menu
+
+The menu with no option: vertical, with recursively nested submenus, all of them opening in place. menuVertical writes the same layout explicitly.
+
+```html
+<nav pgs="menu" aria-label="Vertical menu">
+    <ul>
+        <li>
+            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <i pgs="icon['icon-circle']" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a pgs="button['btnTransparent']" href="/services">
+                <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                <span>Services</span>
+            </a>
+            <ul>
+                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+            </ul>
+        </li>
+        <li>
+            <a pgs="button['btnTransparent']" href="/about">
+                <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
+                <span>about</span>
+            </a>
+            <ul>
+                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                <li>
+                    <a pgs="button['btnTransparent']" href="/services/two">Second service</a>
+                    <ul>
+                        <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
+                        <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+```
+
 ### Horizontal menu
 
 Top-level navigation arranged horizontally: the submenus of the first level float as dropdowns, and a submenu nested inside one of them opens in place.
@@ -118,56 +161,13 @@ Top-level navigation arranged horizontally: the submenus of the first level floa
 </nav>
 ```
 
-### Vertical menu
+### Icon only on the current link
 
-Vertical navigation with recursively nested submenus, all of them opening in place.
+With menuIconOnlyCurrent only the link of the current page (aria-current) shows its icon.
 
 ```html
-<nav pgs="menu['menuVertical']" aria-label="Vertical menu">
+<nav pgs="menu['menuIconOnlyCurrent']" aria-label="Menu with the current icon only">
     <ul>
-        <li>
-            <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
-                <i pgs="icon['icon-circle']" aria-hidden="true"></i>
-                <span>Home</span>
-            </a>
-        </li>
-        <li>
-            <a pgs="button['btnTransparent']" href="/services">
-                <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
-                <span>Services</span>
-            </a>
-            <ul>
-                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
-                <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
-            </ul>
-        </li>
-        <li>
-            <a pgs="button['btnTransparent']" href="/about">
-                <i pgs="icon['icon-circleInfo']" aria-hidden="true"></i>
-                <span>about</span>
-            </a>
-            <ul>
-                <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
-                <li>
-                    <a pgs="button['btnTransparent']" href="/services/two">Second service</a>
-                    <ul>
-                        <li><a pgs="button['btnTransparent']" href="/services/one">First service</a></li>
-                        <li><a pgs="button['btnTransparent']" href="/services/two">Second service</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</nav>
-```
-
-### Horizontal menu - menu Icon Only Current
-
-Top-level navigation arranged horizontally, showing the icon of the active link only.
-
-```html
-<nav pgs="menu['menuHorizontal' 'menuIconOnlyCurrent']" aria-label="Horizontal menu">
-    <ul pgs="flex['row' 'wrap']">
         <li>
             <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
@@ -192,7 +192,7 @@ Top-level navigation arranged horizontally, showing the icon of the active link 
 
 ### Horizontal menu - short
 
-Top-level navigation with short, overlapping the horizontal spacing between adjacent links.
+menuShort overlaps the horizontal spacing between adjacent links, so it is meant for a horizontal menu and is written next to menuHorizontal.
 
 ```html
 <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Horizontal menu">
@@ -282,7 +282,7 @@ With menuHorizontal the hairlines are vertical, using pgs=&quot;menu['menuHorizo
 menu-submenuButton is the toggle written by hand: the item that holds it never gets the generated one, and what it draws is yours. Write the whole button, with the button's own look, and put the icon inside it; the module wires its click, its aria-expanded and its aria-controls like the generated one's, and turns the icon over while the submenu is open.
 
 ```html
-<nav pgs="menu['menuVertical']" aria-label="Menu with a toggle of its own">
+<nav pgs="menu" aria-label="Menu with a toggle of its own">
     <ul>
         <li>
             <a pgs="button['btnTransparent']" href="/services">Services</a>

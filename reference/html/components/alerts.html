@@ -46,12 +46,23 @@
  * - icon-triangleExclamation: the glyph of the warning type.
  * - icon-close: the cross the close button draws.
  *
- * @return Accessible HTML examples of the five severities and of a card without icon or title, plus live examples of what the JavaScript adds: a close button, a countdown to closing, and action buttons with the events they raise. The JavaScript methods return the alert's HTMLElement.
+ * @return Accessible HTML examples of the alert with no option, of the five severities and of a card without icon or title, plus live examples of what the JavaScript adds: a close button, a countdown to closing, and action buttons with the events they raise. The JavaScript methods return the alert's HTMLElement.
  */
 -->
 
 <demo demo-h2="Written in markup"></demo>
-<demo demo-h3="Neutral" demo-description="No severity of its own: a plain box surface, the same look a bare alert has with no option at all."></demo>
+<demo demo-h3="Alert" demo-description="The alert with no option: a plain box surface, an icon, a title and the message."></demo>
+<section demo="component">
+    <div pgs="alert" role="status">
+        <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+        <div pgs="alert-content">
+            <strong pgs="alert-content-title">Alert</strong>
+            <p>A message with no severity of its own.</p>
+        </div>
+    </div>
+</section>
+
+<demo demo-h3="Neutral" demo-description="alertNeutral writes the same plain surface as an option, for code that always sets a severity."></demo>
 <section demo="component">
     <div pgs="alert['alertNeutral']" role="status">
         <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>

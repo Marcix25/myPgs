@@ -65,7 +65,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 
 ## Output
 
-Complete HTML form with required fields and an example script for a custom rule, validation, and a success message.
+Complete HTML form with required fields and plain labels, an example script for a custom rule, validation, and a success message, then the labelTab and labelTabNoGap labels on their own.
 
 ## JavaScript Usage
 
@@ -97,52 +97,55 @@ formValidate.validator(event => {
 }, "submit");
 ```
 
+## Examples
 
-## Example
+### Form
+
+A form with required fields, validated by formValidate: each control under a plain label, a custom rule that compares the two passwords, and the alerts in the alertContainer.
 
 ```html
 <form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
 
     <label>
-        <span pgs="label['labelTab']">Name</span>
+        <span pgs="label">Name</span>
         <input pgs="input" pgs-data="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder=" " required>
     </label>
 
     <label>
-        <span pgs="label['labelTab']">Email</span>
+        <span pgs="label">Email</span>
         <input pgs="input" pgs-data="formMessage[Enter a valid email address]" type="email" name="email" placeholder=" " required>
     </label>
 
     <label>
-        <span pgs="label['labelTab']">Password</span>
+        <span pgs="label">Password</span>
         <input pgs="input" pgs-data="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" placeholder=" " required>
     </label>
 
     <label>
-        <span pgs="label['labelTab']">Confirm password</span>
+        <span pgs="label">Confirm password</span>
         <input pgs="input" pgs-data="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" placeholder=" " required>
     </label>
 
     <label>
-        <span pgs="label['labelTab']">Age</span>
+        <span pgs="label">Age</span>
         <input pgs="input" type="number" name="age" placeholder=" ">
     </label>
 
     <label>
-        <span pgs="label['labelTab']">Disabled</span>
+        <span pgs="label">Disabled</span>
         <input pgs="input" disabled type="text" name="Disabled" placeholder=" ">
     </label>
 
     <label>
-        <span pgs="label['labelTab']">Message</span>
+        <span pgs="label">Message</span>
         <textarea pgs="textarea" name="message" rows="5" placeholder=" " required></textarea>
     </label>
 
-    <label pgs="label['labelTabNoGap']" for="formNotes">Notes</label>
+    <label pgs="label" for="formNotes">Notes</label>
     <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
 
     <label>
-        <span pgs="label['labelTab']">Country</span>
+        <span pgs="label">Country</span>
         <select pgs="select" name="country" required>
             <option value="" selected disabled>Choose a country</option>
             <option value="it">Italy</option>
@@ -179,5 +182,34 @@ formValidate.validator(event => {
         Submit
     </button>
 
+</form>
+```
+
+### Tab labels (labelTab)
+
+labelTab makes the label a tab instead of a pill, rounded on the top corners only, with the gap of the form left between it and the control.
+
+```html
+<form pgs="form" action="#" method="post">
+    <label>
+        <span pgs="label['labelTab']">Name</span>
+        <input pgs="input" type="text" name="tabName" placeholder=" ">
+    </label>
+
+    <label>
+        <span pgs="label['labelTab']">Message</span>
+        <textarea pgs="textarea" name="tabMessage" rows="3" placeholder=" "></textarea>
+    </label>
+</form>
+```
+
+### Tab label without gap (labelTabNoGap)
+
+The same tab with labelTabNoGap, written on a label that is a sibling of its control: the gap of the form is taken away, so the tab touches the control.
+
+```html
+<form pgs="form" action="#" method="post">
+    <label pgs="label['labelTabNoGap']" for="formNotes">Notes</label>
+    <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
 </form>
 ```

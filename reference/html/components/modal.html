@@ -268,7 +268,7 @@
 <demo demo-h2="Modal Animation"></demo>
 <demo demo-h3="Zoom from the button" demo-description="The panel grows out of the button that opened it and shrinks back into it on close, using pgs=&quot;modal['dialogAnimationZoom']&quot;; it combines with every position and size option."></demo>
 <section demo="component">
-    <div pgs="modal['dialogAnimationZoom' 'dialogCenter' 'dialogMedium']">
+    <div pgs="modal['dialogAnimationZoom']">
         <button pgs="modal-button button" type="button">
             Open zoom modal
         </button>
@@ -289,7 +289,7 @@
 
 <demo demo-h3="Slide from left" demo-description="The panel slides in from the left edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationLeft']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal['dialogAnimationLeft' 'dialogLeft' 'dialogMedium']">
+    <div pgs="modal['dialogAnimationLeft']">
         <button pgs="modal-button button" type="button">
             Open modal from left
         </button>
@@ -310,7 +310,7 @@
 
 <demo demo-h3="Slide from right" demo-description="The panel slides in from the right edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationRight']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']">
+    <div pgs="modal['dialogAnimationRight']">
         <button pgs="modal-button button" type="button">
             Open modal from right
         </button>
@@ -331,7 +331,7 @@
 
 <demo demo-h3="Slide from top" demo-description="The panel slides in from the top edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationTop']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal['dialogAnimationTop' 'dialogCenter' 'dialogMedium']">
+    <div pgs="modal['dialogAnimationTop']">
         <button pgs="modal-button button" type="button">
             Open modal from top
         </button>
@@ -352,7 +352,7 @@
 
 <demo demo-h3="Slide from bottom" demo-description="The panel slides in from the bottom edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationBottom']&quot;."></demo>
 <section demo="component">
-    <div pgs="modal['dialogAnimationBottom' 'dialogCenter' 'dialogMedium']">
+    <div pgs="modal['dialogAnimationBottom']">
         <button pgs="modal-button button" type="button">
             Open modal from bottom
         </button>
@@ -372,9 +372,9 @@
 </section>
 
 <demo demo-h2="Modal Gesture"></demo>
-<demo demo-h3="Drag down to close" demo-description="On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialogDragClose']&quot;: it follows the finger, the backdrop fades, and a short drag springs back. Here it is a bottom sheet, with dialogBottom, dialogFull and dialogAnimationBottom."></demo>
+<demo demo-h3="Drag down to close" demo-description="On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialogDragClose']&quot;: it follows the finger, the backdrop fades, and a short drag springs back. For a bottom sheet that is pulled down, modalSheet sets it together with the position, the size and the animation."></demo>
 <section demo="component">
-    <div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']">
+    <div pgs="modal['dialogDragClose']">
         <button pgs="modal-button button" type="button">
             Open drag-to-close modal
         </button>
@@ -502,9 +502,9 @@
     </div>
 </section>
 
-<demo demo-h3="Top-level confirmation" demo-description="A confirmation with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot;: the dialog stays in its wrapper and opens on the browser's top layer, above everything else. btnStrong marks the primary action, and dialogDisableBackdropClose keeps the dialog open on an accidental click outside it."></demo>
+<demo demo-h3="Top-level confirmation" demo-description="A confirmation with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot;: the dialog stays in its wrapper and opens on the browser's top layer, above everything else. btnStrong marks the primary action."></demo>
 <section demo="component">
-    <div pgs="modal['dialogTopLevel' 'dialogDisableBackdropClose']">
+    <div pgs="modal['dialogTopLevel']">
         <button pgs="modal-button button" type="button">
             Confirmation
         </button>
@@ -522,6 +522,27 @@
                         <button pgs="button modal-close" type="button">Cancel</button>
                         <button pgs="button['btnStrong']" type="button">Save changes</button>
                     </div>
+                </div>
+            </div>
+        </dialog>
+    </div>
+</section>
+
+<demo demo-h3="Backdrop click does not close" demo-description="A click on the backdrop leaves the dialog open, using pgs=&quot;modal['dialogDisableBackdropClose']&quot;: it closes only through its own controls or its API, so an accidental click outside it does not lose what is inside."></demo>
+<section demo="component">
+    <div pgs="modal['dialogDisableBackdropClose']">
+        <button pgs="modal-button button" type="button">
+            Open modal
+        </button>
+
+        <dialog>
+            <div pgs="modal-dialog-content">
+                <div pgs="modal-dialog-content-header">
+                    <h3>Only the close button</h3>
+                </div>
+
+                <div pgs="modal-dialog-content-scroll">
+                    <p>Modal content with <code>pgs="modal['dialogDisableBackdropClose']"</code>: click outside it, it stays open.</p>
                 </div>
             </div>
         </dialog>

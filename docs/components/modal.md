@@ -327,7 +327,7 @@ Dialog content expanded to the full viewport width using pgs=&quot;modal['dialog
 The panel grows out of the button that opened it and shrinks back into it on close, using pgs=&quot;modal['dialogAnimationZoom']&quot;; it combines with every position and size option.
 
 ```html
-<div pgs="modal['dialogAnimationZoom' 'dialogCenter' 'dialogMedium']">
+<div pgs="modal['dialogAnimationZoom']">
     <button pgs="modal-button button" type="button">
         Open zoom modal
     </button>
@@ -351,7 +351,7 @@ The panel grows out of the button that opened it and shrinks back into it on clo
 The panel slides in from the left edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationLeft']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationLeft' 'dialogLeft' 'dialogMedium']">
+<div pgs="modal['dialogAnimationLeft']">
     <button pgs="modal-button button" type="button">
         Open modal from left
     </button>
@@ -375,7 +375,7 @@ The panel slides in from the left edge of the screen and goes back there on clos
 The panel slides in from the right edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationRight']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationRight' 'dialogRight' 'dialogMedium']">
+<div pgs="modal['dialogAnimationRight']">
     <button pgs="modal-button button" type="button">
         Open modal from right
     </button>
@@ -399,7 +399,7 @@ The panel slides in from the right edge of the screen and goes back there on clo
 The panel slides in from the top edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationTop']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationTop' 'dialogCenter' 'dialogMedium']">
+<div pgs="modal['dialogAnimationTop']">
     <button pgs="modal-button button" type="button">
         Open modal from top
     </button>
@@ -423,7 +423,7 @@ The panel slides in from the top edge of the screen and goes back there on close
 The panel slides in from the bottom edge of the screen and goes back there on close, using pgs=&quot;modal['dialogAnimationBottom']&quot;.
 
 ```html
-<div pgs="modal['dialogAnimationBottom' 'dialogCenter' 'dialogMedium']">
+<div pgs="modal['dialogAnimationBottom']">
     <button pgs="modal-button button" type="button">
         Open modal from bottom
     </button>
@@ -446,10 +446,10 @@ The panel slides in from the bottom edge of the screen and goes back there on cl
 
 ### Drag down to close
 
-On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialogDragClose']&quot;: it follows the finger, the backdrop fades, and a short drag springs back. Here it is a bottom sheet, with dialogBottom, dialogFull and dialogAnimationBottom.
+On a touch screen, pull the panel down to close it, using pgs=&quot;modal['dialogDragClose']&quot;: it follows the finger, the backdrop fades, and a short drag springs back. For a bottom sheet that is pulled down, modalSheet sets it together with the position, the size and the animation.
 
 ```html
-<div pgs="modal['dialogDragClose' 'dialogBottom' 'dialogFull' 'dialogAnimationBottom']">
+<div pgs="modal['dialogDragClose']">
     <button pgs="modal-button button" type="button">
         Open drag-to-close modal
     </button>
@@ -596,10 +596,10 @@ The dialog pushes a browser history entry when it opens, using pgs=&quot;modal['
 
 ### Top-level confirmation
 
-A confirmation with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot;: the dialog stays in its wrapper and opens on the browser's top layer, above everything else. btnStrong marks the primary action, and dialogDisableBackdropClose keeps the dialog open on an accidental click outside it.
+A confirmation with cancel and save actions, using pgs=&quot;modal['dialogTopLevel']&quot;: the dialog stays in its wrapper and opens on the browser's top layer, above everything else. btnStrong marks the primary action.
 
 ```html
-<div pgs="modal['dialogTopLevel' 'dialogDisableBackdropClose']">
+<div pgs="modal['dialogTopLevel']">
     <button pgs="modal-button button" type="button">
         Confirmation
     </button>
@@ -617,6 +617,30 @@ A confirmation with cancel and save actions, using pgs=&quot;modal['dialogTopLev
                     <button pgs="button modal-close" type="button">Cancel</button>
                     <button pgs="button['btnStrong']" type="button">Save changes</button>
                 </div>
+            </div>
+        </div>
+    </dialog>
+</div>
+```
+
+### Backdrop click does not close
+
+A click on the backdrop leaves the dialog open, using pgs=&quot;modal['dialogDisableBackdropClose']&quot;: it closes only through its own controls or its API, so an accidental click outside it does not lose what is inside.
+
+```html
+<div pgs="modal['dialogDisableBackdropClose']">
+    <button pgs="modal-button button" type="button">
+        Open modal
+    </button>
+
+    <dialog>
+        <div pgs="modal-dialog-content">
+            <div pgs="modal-dialog-content-header">
+                <h3>Only the close button</h3>
+            </div>
+
+            <div pgs="modal-dialog-content-scroll">
+                <p>Modal content with <code>pgs="modal['dialogDisableBackdropClose']"</code>: click outside it, it stays open.</p>
             </div>
         </div>
     </dialog>

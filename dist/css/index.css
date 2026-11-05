@@ -2502,7 +2502,6 @@
   -webkit-user-select: unset;
   user-select: unset;
   padding: var(--accordion-padding);
-  border-radius: var(--accordion-borderRadius);
   background: var(--accordion-background);
 }
 
@@ -2517,15 +2516,6 @@
 
 :is([pgs~=accordion], [pgs*="accordion["]):first-child::after {
   content: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :is([pgs~=accordion], [pgs*="accordion["])::after {
-    transition: opacity var(--accordion-timing);
-  }
-}
-:is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open]::after, :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] + :is([pgs~=accordion], [pgs*="accordion["])::after {
-  opacity: 0;
 }
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button]) {
@@ -2597,12 +2587,25 @@
   padding-inline: 10px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=accordion], [pgs*="accordion["]):is([pgs*="'accOpenBox'"], :is([pgs~=accordionContainer], [pgs*="accordionContainer["])[pgs*="'accOpenBox'"] > *)::after {
+    transition: opacity var(--accordion-timing);
+  }
+}
+:is([pgs~=accordion], [pgs*="accordion["]):is([pgs*="'accOpenBox'"], :is([pgs~=accordionContainer], [pgs*="accordionContainer["])[pgs*="'accOpenBox'"] > *)[pgs-state~=open] {
+  background: var(--accordion-background-open);
+  border-radius: var(--accordion-borderRadius);
+}
+
+:is([pgs~=accordion], [pgs*="accordion["]):is([pgs*="'accOpenBox'"], :is([pgs~=accordionContainer], [pgs*="accordionContainer["])[pgs*="'accOpenBox'"] > *)[pgs-state~=open]::after, :is([pgs~=accordion], [pgs*="accordion["]):is([pgs*="'accOpenBox'"], :is([pgs~=accordionContainer], [pgs*="accordionContainer["])[pgs*="'accOpenBox'"] > *)[pgs-state~=open] + :is([pgs~=accordion], [pgs*="accordion["])::after {
+  opacity: 0;
+}
+
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
   display: flex;
   gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
-  background: var(--accordion-background-open);
 }
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] > :where([pgs~=accordion-button])::after {

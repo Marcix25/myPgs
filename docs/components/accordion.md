@@ -15,10 +15,11 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 - `accAutoOpen`: written on an accordion, the module opens that panel by itself on load and leaves it open while the rest of its group is used, so opening a sibling does not take it down. That protection lasts until the reader works that panel themselves: the first time it is opened or closed by hand the module drops the token, and from there it is an ordinary panel of the group. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
 - `accMultiOpen`: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behavior, so the option only means something on the container.
+- `accOpenBox`: an open accordion becomes a box, with the open background (--accordion-background-open) and rounded corners (--accordion-borderRadius), and the divider lines above and below it fade out, so the box is not cut by a line. Written on an accordion it applies to that one; written on an accordionContainer it applies to every accordion of the group. Without it an open accordion keeps the lines and has no background.
 
 ## PGS States
 
-- `open`: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state. The divider lines above and below an open accordion fade out, so its background is not cut by a line.
+- `open`: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state.
 
 ## JavaScript API
 
@@ -42,9 +43,88 @@ Expandable panels with synchronized visibility, ARIA attributes and keyboard nav
 
 ## Output
 
-A group of accessible accordion items, each with its button and panel, the last one open on load and left open while the others are used.
+Three groups of accessible accordion items, each with its button and panel: the default divider lines, an open accordion as a box with accOpenBox, and a last panel open on load with accAutoOpen.
+## Examples
 
-## Example
+### Accordion
+
+The default look: a divider line between the accordions, which stays when one is open.
+
+```html
+<ul pgs="accordionContainer">
+    <li pgs="accordion">
+        <button pgs="accordion-button" type="button">
+            <span>Lorem ipsum dolor</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </li>
+
+    <li pgs="accordion">
+        <button pgs="accordion-button" type="button">
+            <span>Sit amet consectetur</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+    </li>
+
+    <li pgs="accordion">
+        <button pgs="accordion-button" type="button">
+            <span>Tempor incididunt</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+        </div>
+    </li>
+</ul>
+```
+
+### Open accordion as a box (accOpenBox)
+
+accOpenBox on the container: the open accordion takes a background and rounded corners, and the lines next to it fade out.
+
+```html
+<ul pgs="accordionContainer['accOpenBox']">
+    <li pgs="accordion">
+        <button pgs="accordion-button" type="button">
+            <span>Lorem ipsum dolor</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </li>
+
+    <li pgs="accordion">
+        <button pgs="accordion-button" type="button">
+            <span>Sit amet consectetur</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        </div>
+    </li>
+
+    <li pgs="accordion">
+        <button pgs="accordion-button" type="button">
+            <span>Tempor incididunt</span>
+        </button>
+
+        <div pgs="accordion-content" hidden>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+        </div>
+    </li>
+</ul>
+```
+
+### Open on load (accAutoOpen)
+
+accAutoOpen on an accordion: it is open when the page loads and stays open while the others of the group are used, until the reader opens or closes it by hand.
 
 ```html
 <ul pgs="accordionContainer">

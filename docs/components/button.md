@@ -166,8 +166,8 @@ Only the label shows at rest and it fills like any other button on hover; strong
 btnCurrent turns on the look of the button the page is on: aria-current=&quot;page&quot; (a link) or aria-selected=&quot;true&quot; (a tab). It is the flag that reads those attributes, so write it on every button that can be marked current.
 
 ```html
-<a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">Current page</a>
-<a pgs="button['btnTransparent' 'btnCurrent']" href="/other">Another page</a>
+<a pgs="button['btnCurrent']" href="/" aria-current="page">Current page</a>
+<a pgs="button['btnCurrent']" href="/other">Another page</a>
 ```
 
 ### Text only

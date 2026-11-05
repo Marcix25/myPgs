@@ -26,12 +26,22 @@ Component for displaying a graphical or text logo, with image variants that supp
 
 ## Output
 
-HTML examples of the theme-aware graphical logo and the text logo.
+HTML examples of the graphical logo, the same logo inverted in dark mode, the text logo and the always-inverted logo.
 ## Examples
 
 ### Graphical logo
 
-Image-based brand logo that inverts automatically when dark mode is active.
+Image-based brand logo, shown as it is in both themes.
+
+```html
+<a aria-label="Logo" pgs="logo" href="/">
+    <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
+</a>
+```
+
+### Dark mode logo
+
+The same logo with logoDarkmode: it inverts automatically when dark mode is active.
 
 ```html
 <a aria-label="Logo" pgs="logo['logoDarkmode']" href="/">

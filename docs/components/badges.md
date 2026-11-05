@@ -77,13 +77,23 @@ Light primary background with the strong primary text.
 </span>
 ```
 
-### Active
+### Dot
 
-Success badge combined with a dot indicator.
+badgeDot adds a dot indicator before the text.
 
 ```html
-<span pgs="badge['badgeSuccess' 'badgeDot']">
+<span pgs="badge['badgeDot']">
     Active
+</span>
+```
+
+### Success
+
+Badge representing a positive or completed state.
+
+```html
+<span pgs="badge['badgeSuccess']">
+    Completed
 </span>
 ```
 

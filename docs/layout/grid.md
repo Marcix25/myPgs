@@ -68,7 +68,33 @@ Grid layout, column spans with gridChild, gridDense and alignment.
 
 ### Grid layout
 
-Four-column grid layout using column-4 with m2e to collapse to two columns per row on mobile.
+Four columns with column-4, dropping to fewer columns at each breakpoint and to one on mobile.
+
+```html
+<strong>Grid</strong>
+<div pgs="grid['column-4']">
+    <article pgs="box flex['column']">
+        <strong>Do eiusmod tempor</strong>
+        <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Ut labore et</strong>
+        <p>Excepteur sint occaecat cupidatat non proident sunt.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Dolore magna aliqua</strong>
+        <p>Sunt in culpa qui officia deserunt mollit anim.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Enim ad minim</strong>
+        <p>Ut labore et dolore magna aliqua ut enim.</p>
+    </article>
+</div>
+```
+
+### Two per row on mobile (m2e)
+
+The same grid with m2e: at the mobile breakpoint it keeps two columns instead of one.
 
 ```html
 <strong>Grid</strong>

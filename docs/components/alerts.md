@@ -62,7 +62,7 @@ Feedback messages for information, success, warnings and errors. It is one compo
 
 ## Output
 
-Accessible HTML examples of the five severities and of a card without icon or title, plus live examples of what the JavaScript adds: a close button, a countdown to closing, and action buttons with the events they raise. The JavaScript methods return the alert's HTMLElement.
+Accessible HTML examples of the alert with no option, of the five severities and of a card without icon or title, plus live examples of what the JavaScript adds: a close button, a countdown to closing, and action buttons with the events they raise. The JavaScript methods return the alert's HTMLElement.
 
 ## JavaScript Usage
 
@@ -106,9 +106,23 @@ document.addEventListener("pgs:alert:buttonClick", event => {
 
 ## Written in markup
 
+### Alert
+
+The alert with no option: a plain box surface, an icon, a title and the message.
+
+```html
+<div pgs="alert" role="status">
+    <i pgs="icon['icon-circleInfo'] alert-icon" aria-hidden="true"></i>
+    <div pgs="alert-content">
+        <strong pgs="alert-content-title">Alert</strong>
+        <p>A message with no severity of its own.</p>
+    </div>
+</div>
+```
+
 ### Neutral
 
-No severity of its own: a plain box surface, the same look a bare alert has with no option at all.
+alertNeutral writes the same plain surface as an option, for code that always sets a severity.
 
 ```html
 <div pgs="alert['alertNeutral']" role="status">

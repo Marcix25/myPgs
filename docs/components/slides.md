@@ -85,8 +85,48 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 ## Output
 
-Complete HTML markup and usage example for Slides.
+Complete HTML markup and usage example for Slides: the slides with no option first, then one example for each option.
 ## Examples
+
+### Slides
+
+Slides with no option: the arrows the module builds move by the full visible width, and a dot for each slide sits under the track.
+
+```html
+<div pgs="slides">
+    <ul pgs="slides-container">
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                <div pgs="card-content">
+                    <h3>Lorem ipsum dolor</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <div pgs="card-content">
+                    <h3>Sit amet consectetur</h3>
+                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                </div>
+            </article>
+        </li>
+
+        <li pgs="slides-container-slide">
+            <article pgs="card">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                <div pgs="card-content">
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                </div>
+            </article>
+        </li>
+    </ul>
+</div>
+```
 
 ### Single scroll
 
@@ -237,10 +277,10 @@ The arrows the module builds sit at the top right above the slides, out of the f
 
         <li pgs="slides-container-slide">
             <article pgs="card">
-                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
                 <div pgs="card-content">
-                    <h3>Sit amet consectetur</h3>
-                    <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                    <h3>Adipiscing elit sed</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
                 </div>
             </article>
         </li>

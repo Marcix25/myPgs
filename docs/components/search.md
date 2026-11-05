@@ -70,6 +70,7 @@ Search markup, configuration, behavior, and usage example. Two custom events bub
 - `dialogSmall`: shrinks the dialog content to a third of the page width instead of filling the viewport.
 - `bgTransparent`: inside background's own bracket, sets a fully transparent background.
 - `row`: sets the horizontal direction inside the flex bracket.
+- `nowrap`: inside flex's own bracket, keeps the field and the button of the searchMinWidth example on one row.
 - `btnIconOnly`: presents search and close actions as icon buttons.
 - `btnTransparent`: keeps the submit button flat inside the field, so only the icon shows.
 - `icon-magnifyingGlass`: the glyph used there.
@@ -120,6 +121,21 @@ Search field with live suggestions embedded directly in the page.
     <input type="search" name="s" placeholder="Search" aria-label="Search" value="">
     <ul pgs="search-suggestions"></ul>
 </form>
+```
+
+### Minimum width (searchMinWidth)
+
+From the mobile breakpoint up the field keeps a minimum width, using pgs=&quot;search['searchMinWidth']&quot;, so it does not shrink to its placeholder inside a row that is short of room.
+
+```html
+<form pgs="search['searchMinWidth']" role="search" autocomplete="off" action="" method="get">
+    <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
+        <i pgs="icon['icon-magnifyingGlass']"></i>
+    </button>
+    <input type="search" name="s" placeholder="Search" aria-label="Search" value="">
+    <ul pgs="search-suggestions"></ul>
+</form>
+<button pgs="button" type="button">Filters</button>
 ```
 
 ### Mobile search overlay

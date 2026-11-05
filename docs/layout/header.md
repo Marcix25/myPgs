@@ -98,7 +98,7 @@ Responsive header that measures available space, switches between its full and c
 
 ## Output
 
-Complete header HTML with full navigation and a side compact panel.
+Complete header HTML with full navigation and a side compact panel, then the code of a header with each option: compact from a breakpoint, compact at the bottom, at the bottom, hidden while scrolling down.
 ## Examples
 
 ### Header
@@ -162,6 +162,182 @@ Full navigation on the left, always-visible controls on the right, and the same 
                         </div>
                     </dialog>
                 </div>
+            </div>
+        </div>
+    </div>
+</header>
+```
+
+### Compact from a breakpoint (headerCompactTablet)
+
+Code only, since a header is fixed to the viewport: headerCompactTablet turns the header compact from the tablet width down even when the full content still fits. headerCompactWatch, headerCompactMobile, headerCompactPhablet, headerCompactNotebook and headerCompactLaptop do the same from their own width, and pgs-data=&quot;headerCompactFrom[600]&quot; from a width of your own.
+
+```html
+<header pgs="header['headerCompactTablet']">
+    <div pgs="header-element blur">
+        <div pgs="header-element-alwaysOn">
+            <a aria-label="Logo" pgs="logo" href="/">
+                <span pgs="logo-text">MyPGS</span>
+            </a>
+        </div>
+
+        <div pgs="header-element-onlyFull">
+            <nav pgs="menu['menuHorizontal']" aria-label="Compact menu">
+                <ul>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div pgs="header-element-onlyCompact">
+            <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
+                <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
+                    <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
+                </button>
+
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <nav pgs="menu" aria-label="Compact compact menu">
+                            <ul>
+                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </dialog>
+            </div>
+        </div>
+    </div>
+</header>
+```
+
+### Compact at the bottom (headerCompactBottom)
+
+Code only: while the header is compact, headerCompactBottom moves header-element to the bottom of the viewport, within reach of the thumb; in the full layout it stays at the top.
+
+```html
+<header pgs="header['headerCompactBottom']">
+    <div pgs="header-element blur">
+        <div pgs="header-element-alwaysOn">
+            <a aria-label="Logo" pgs="logo" href="/">
+                <span pgs="logo-text">MyPGS</span>
+            </a>
+        </div>
+
+        <div pgs="header-element-onlyFull">
+            <nav pgs="menu['menuHorizontal']" aria-label="Bottom compact menu">
+                <ul>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div pgs="header-element-onlyCompact">
+            <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
+                <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
+                    <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
+                </button>
+
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <nav pgs="menu" aria-label="Bottom compact compact menu">
+                            <ul>
+                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </dialog>
+            </div>
+        </div>
+    </div>
+</header>
+```
+
+### Header at the bottom (headerBottom)
+
+Code only: headerBottom pins the header to the bottom of the viewport, at the paragraph margin from the edge, and each header-element becomes a frosted rounded box as wide as its content.
+
+```html
+<header pgs="header['headerBottom']">
+    <div pgs="header-element blur">
+        <div pgs="header-element-alwaysOn">
+            <a aria-label="Logo" pgs="logo" href="/">
+                <span pgs="logo-text">MyPGS</span>
+            </a>
+        </div>
+
+        <div pgs="header-element-onlyFull">
+            <nav pgs="menu['menuHorizontal']" aria-label="Bottom menu">
+                <ul>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div pgs="header-element-onlyCompact">
+            <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
+                <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
+                    <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
+                </button>
+
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <nav pgs="menu" aria-label="Bottom compact menu">
+                            <ul>
+                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </dialog>
+            </div>
+        </div>
+    </div>
+</header>
+```
+
+### Hidden while scrolling down (headerScroll)
+
+Code only: headerScroll hides the header while the page scrolls down and shows it again as soon as it scrolls up; the header carries hiddenByScroll while it is hidden.
+
+```html
+<header pgs="header['headerScroll']">
+    <div pgs="header-element blur">
+        <div pgs="header-element-alwaysOn">
+            <a aria-label="Logo" pgs="logo" href="/">
+                <span pgs="logo-text">MyPGS</span>
+            </a>
+        </div>
+
+        <div pgs="header-element-onlyFull">
+            <nav pgs="menu['menuHorizontal']" aria-label="Scroll menu">
+                <ul>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
+                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div pgs="header-element-onlyCompact">
+            <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
+                <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
+                    <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
+                </button>
+
+                <dialog>
+                    <div pgs="modal-dialog-content">
+                        <nav pgs="menu" aria-label="Scroll compact menu">
+                            <ul>
+                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </dialog>
             </div>
         </div>
     </div>

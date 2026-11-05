@@ -93,7 +93,33 @@ Flex layout, wrapping, direction, alignment, flex children, proportional sizes a
 
 ### Flex layout
 
-Four-column flex layout using column-4, with m2e to keep two columns per row on mobile instead of one.
+Four columns with column-4, dropping to fewer columns at each breakpoint and to one on mobile.
+
+```html
+<strong>Flex</strong>
+<div pgs="flex['row' 'column-4']">
+    <article pgs="box flex['column']">
+        <strong>Lorem ipsum dolor</strong>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Sit amet consectetur</strong>
+        <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Adipiscing elit sed</strong>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+    </article>
+    <article pgs="box flex['column']">
+        <strong>Do eiusmod tempor</strong>
+        <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
+    </article>
+</div>
+```
+
+### Two per row on mobile (m2e)
+
+The same row with m2e: at the mobile breakpoint it keeps two items per row instead of one.
 
 ```html
 <strong>Flex</strong>

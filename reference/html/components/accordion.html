@@ -12,9 +12,10 @@
  * @pgs-options
  * - accAutoOpen: written on an accordion, the module opens that panel by itself on load and leaves it open while the rest of its group is used, so opening a sibling does not take it down. That protection lasts until the reader works that panel themselves: the first time it is opened or closed by hand the module drops the token, and from there it is an ordinary panel of the group. It is the authored form of the open state: pgs-state belongs to the runtime, and the module writes it from here.
  * - accMultiOpen: written on an accordionContainer, it lifts the one-at-a-time rule for that group, so its panels can be open together. Without a container this is already the behavior, so the option only means something on the container.
+ * - accOpenBox: an open accordion becomes a box, with the open background (--accordion-background-open) and rounded corners (--accordion-borderRadius), and the divider lines above and below it fade out, so the box is not cut by a line. Written on an accordion it applies to that one; written on an accordionContainer it applies to every accordion of the group. Without it an open accordion keeps the lines and has no background.
  *
  * @pgs-state
- * - open: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state. The divider lines above and below an open accordion fade out, so its background is not cut by a line.
+ * - open: indicates the accordion element that is currently open and visible. It styles only that accordion's own button and content, so an accordion nested inside an open panel keeps its own closed state.
  *
  * @api
  * - pgs.accordion.init(root): initializes unregistered accordions within the specified Document or Element, including the element itself when it is an accordion. An accordion without a direct accordion-button and a direct accordion-content child is skipped, with a warning in the console.
@@ -27,38 +28,112 @@
  * - instance.isOpen(): returns true when the open state is active.
  *
  *
- * @return A group of accessible accordion items, each with its button and panel, the last one open on load and left open while the others are used.
+ * @return Three groups of accessible accordion items, each with its button and panel: the default divider lines, an open accordion as a box with accOpenBox, and a last panel open on load with accAutoOpen.
 */
 -->
 
-<ul pgs="accordionContainer">
-    <li pgs="accordion">
-        <button pgs="accordion-button" type="button">
-            <span>Lorem ipsum dolor</span>
-        </button>
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Accordion" demo-description="The default look: a divider line between the accordions, which stays when one is open."></demo>
+<section demo="component">
+    <ul pgs="accordionContainer">
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Lorem ipsum dolor</span>
+            </button>
 
-        <div pgs="accordion-content" hidden>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-    </li>
+            <div pgs="accordion-content" hidden>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </li>
 
-    <li pgs="accordion">
-        <button pgs="accordion-button" type="button">
-            <span>Sit amet consectetur</span>
-        </button>
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Sit amet consectetur</span>
+            </button>
 
-        <div pgs="accordion-content" hidden>
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
-        </div>
-    </li>
+            <div pgs="accordion-content" hidden>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            </div>
+        </li>
 
-    <li pgs="accordion['accAutoOpen']">
-        <button pgs="accordion-button" type="button">
-            <span>Tempor incididunt (accAutoOpen)</span>
-        </button>
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Tempor incididunt</span>
+            </button>
 
-        <div pgs="accordion-content" hidden>
-            <p>This panel is already open when the page loads, and stays open while the other two are used.</p>
-        </div>
-    </li>
-</ul>
+            <div pgs="accordion-content" hidden>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<demo demo-h3="Open accordion as a box (accOpenBox)" demo-description="accOpenBox on the container: the open accordion takes a background and rounded corners, and the lines next to it fade out."></demo>
+<section demo="component">
+    <ul pgs="accordionContainer['accOpenBox']">
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Lorem ipsum dolor</span>
+            </button>
+
+            <div pgs="accordion-content" hidden>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </li>
+
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Sit amet consectetur</span>
+            </button>
+
+            <div pgs="accordion-content" hidden>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            </div>
+        </li>
+
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Tempor incididunt</span>
+            </button>
+
+            <div pgs="accordion-content" hidden>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<demo demo-h3="Open on load (accAutoOpen)" demo-description="accAutoOpen on an accordion: it is open when the page loads and stays open while the others of the group are used, until the reader opens or closes it by hand."></demo>
+<section demo="component">
+    <ul pgs="accordionContainer">
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Lorem ipsum dolor</span>
+            </button>
+
+            <div pgs="accordion-content" hidden>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </li>
+
+        <li pgs="accordion">
+            <button pgs="accordion-button" type="button">
+                <span>Sit amet consectetur</span>
+            </button>
+
+            <div pgs="accordion-content" hidden>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            </div>
+        </li>
+
+        <li pgs="accordion['accAutoOpen']">
+            <button pgs="accordion-button" type="button">
+                <span>Tempor incididunt (accAutoOpen)</span>
+            </button>
+
+            <div pgs="accordion-content" hidden>
+                <p>This panel is already open when the page loads, and stays open while the other two are used.</p>
+            </div>
+        </li>
+    </ul>
+</section>

@@ -56,6 +56,7 @@
  * - bgTransparent: inside background's own bracket, sets a fully transparent background.
  * - blur: applies a backdrop blur behind the dialog for a frosted-glass effect.
  * - row: sets the horizontal direction inside the flex bracket.
+ * - nowrap: inside flex's own bracket, keeps the field and the button of the searchMinWidth example on one row.
  * - section: uses the related section component or utility in this example.
  * - modalContainerPGS: identifies the modalContainerPGS element used by Search.
  * - btnIconOnly: presents search and close actions as icon buttons.
@@ -79,6 +80,18 @@
         <input type="search" name="s" placeholder="Search" aria-label="Search" value="">
         <ul pgs="search-suggestions"></ul>
     </form>
+</section>
+
+<demo demo-h3="Minimum width (searchMinWidth)" demo-description="From the mobile breakpoint up the field keeps a minimum width, using pgs=&quot;search['searchMinWidth']&quot;, so it does not shrink to its placeholder inside a row that is short of room."></demo>
+<section pgs="flex['row' 'nowrap']" demo="component">
+    <form pgs="search['searchMinWidth']" role="search" autocomplete="off" action="" method="get">
+        <button pgs="button['btnIconOnly' 'btnTransparent']" type="submit" title="Search">
+            <i pgs="icon['icon-magnifyingGlass']"></i>
+        </button>
+        <input type="search" name="s" placeholder="Search" aria-label="Search" value="">
+        <ul pgs="search-suggestions"></ul>
+    </form>
+    <button pgs="button" type="button">Filters</button>
 </section>
 
 <demo demo-h3="Mobile search overlay" demo-description="Search opened from an icon button inside a small modal, intended for the mobile navigation."></demo>

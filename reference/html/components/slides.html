@@ -57,11 +57,48 @@
  * - rotate: rotates the chevron; the previous button uses its 90 option to point left, the next button its 270 option to point right.
  * - btnIconOnly: styles the previous and next actions generated at runtime; belongs to the button component.
  *
- * @return Complete HTML markup and usage example for Slides.
+ * @return Complete HTML markup and usage example for Slides: the slides with no option first, then one example for each option.
  */
 -->
 
 <demo demo-h2="Examples"></demo>
+<demo demo-h3="Slides" demo-description="Slides with no option: the arrows the module builds move by the full visible width, and a dot for each slide sits under the track."></demo>
+<section demo="component">
+    <div pgs="slides">
+        <ul pgs="slides-container">
+            <li pgs="slides-container-slide">
+                <article pgs="card">
+                    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 1">
+                    <div pgs="card-content">
+                        <h3>Lorem ipsum dolor</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                </article>
+            </li>
+
+            <li pgs="slides-container-slide">
+                <article pgs="card">
+                    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                    <div pgs="card-content">
+                        <h3>Sit amet consectetur</h3>
+                        <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                    </div>
+                </article>
+            </li>
+
+            <li pgs="slides-container-slide">
+                <article pgs="card">
+                    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
+                    <div pgs="card-content">
+                        <h3>Adipiscing elit sed</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                    </div>
+                </article>
+            </li>
+        </ul>
+    </div>
+</section>
+
 <demo demo-h3="Single scroll" demo-description="Scrolls to one slide at a time with the prev/next buttons, using pgs=&quot;slides['slidesSingleScroll']&quot;, instead of moving by the full visible width."></demo>
 <section demo="component">
     <div pgs="slides['slidesSingleScroll']">
@@ -199,10 +236,10 @@
 
             <li pgs="slides-container-slide">
                 <article pgs="card">
-                    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 2">
+                    <img pgs="card-img img['imgCover']" src="../assets/img/placeholder.jpg" alt="Slide 3">
                     <div pgs="card-content">
-                        <h3>Sit amet consectetur</h3>
-                        <p>Sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        <h3>Adipiscing elit sed</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation.</p>
                     </div>
                 </article>
             </li>

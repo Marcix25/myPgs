@@ -44,89 +44,116 @@
  * - button: provides the base styling for the primary submit action.
  * - btnStrong: presents form submission as the primary action.
  *
- * @return Complete HTML form with required fields and an example script for a custom rule, validation, and a success message.
+ * @return Complete HTML form with required fields and plain labels, an example script for a custom rule, validation, and a success message, then the labelTab and labelTabNoGap labels on their own.
  */
 -->
 
-<form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
+<demo demo-h2="Examples"></demo>
+<demo demo-h3="Form" demo-description="A form with required fields, validated by formValidate: each control under a plain label, a custom rule that compares the two passwords, and the alerts in the alertContainer."></demo>
+<section demo="component">
+    <form pgs="form" pgs-data="formFieldErrorTitle[Check the form] formFieldError[Complete this field] formFieldsError[Complete all required fields] formSuccessTitle[Submitted] formSuccess[Submitted successfully]" action="#" method="post">
 
-    <label>
-        <span pgs="label['labelTab']">Name</span>
-        <input pgs="input" pgs-data="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder=" " required>
-    </label>
+        <label>
+            <span pgs="label">Name</span>
+            <input pgs="input" pgs-data="formMessageTitle[Name required] formMessage[Enter your name]" type="text" name="name" placeholder=" " required>
+        </label>
 
-    <label>
-        <span pgs="label['labelTab']">Email</span>
-        <input pgs="input" pgs-data="formMessage[Enter a valid email address]" type="email" name="email" placeholder=" " required>
-    </label>
+        <label>
+            <span pgs="label">Email</span>
+            <input pgs="input" pgs-data="formMessage[Enter a valid email address]" type="email" name="email" placeholder=" " required>
+        </label>
 
-    <label>
-        <span pgs="label['labelTab']">Password</span>
-        <input pgs="input" pgs-data="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" placeholder=" " required>
-    </label>
+        <label>
+            <span pgs="label">Password</span>
+            <input pgs="input" pgs-data="formMessage[Enter a password]" type="password" name="password" autocomplete="new-password" placeholder=" " required>
+        </label>
 
-    <label>
-        <span pgs="label['labelTab']">Confirm password</span>
-        <input pgs="input" pgs-data="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" placeholder=" " required>
-    </label>
+        <label>
+            <span pgs="label">Confirm password</span>
+            <input pgs="input" pgs-data="formMessage[Confirm your password]" type="password" name="confirmPassword" autocomplete="new-password" placeholder=" " required>
+        </label>
 
-    <label>
-        <span pgs="label['labelTab']">Age</span>
-        <input pgs="input" type="number" name="age" placeholder=" ">
-    </label>
+        <label>
+            <span pgs="label">Age</span>
+            <input pgs="input" type="number" name="age" placeholder=" ">
+        </label>
 
-    <label>
-        <span pgs="label['labelTab']">Disabled</span>
-        <input pgs="input" disabled type="text" name="Disabled" placeholder=" ">
-    </label>
+        <label>
+            <span pgs="label">Disabled</span>
+            <input pgs="input" disabled type="text" name="Disabled" placeholder=" ">
+        </label>
 
-    <label>
-        <span pgs="label['labelTab']">Message</span>
-        <textarea pgs="textarea" name="message" rows="5" placeholder=" " required></textarea>
-    </label>
+        <label>
+            <span pgs="label">Message</span>
+            <textarea pgs="textarea" name="message" rows="5" placeholder=" " required></textarea>
+        </label>
 
-    <label pgs="label['labelTabNoGap']" for="formNotes">Notes</label>
-    <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
+        <label pgs="label" for="formNotes">Notes</label>
+        <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
 
-    <label>
-        <span pgs="label['labelTab']">Country</span>
-        <select pgs="select" name="country" required>
-            <option value="" selected disabled>Choose a country</option>
-            <option value="it">Italy</option>
-            <option value="fr">France</option>
-        </select>
-    </label>
+        <label>
+            <span pgs="label">Country</span>
+            <select pgs="select" name="country" required>
+                <option value="" selected disabled>Choose a country</option>
+                <option value="it">Italy</option>
+                <option value="fr">France</option>
+            </select>
+        </label>
 
-    <fieldset pgs="fieldset radio" pgs-data="formMessage[Choose a contact method]">
-        <legend pgs="legend">Preferred contact method</legend>
-        <label pgs="radio"><input type="radio" name="contactMethod" value="email" required> <span>Email</span></label>
-        <label pgs="radio"><input type="radio" name="contactMethod" value="phone" required> <span>Phone</span></label>
-        <label pgs="radio"><input type="radio" name="contactMethod" value="message" required> <span>Direct message</span></label>
-    </fieldset>
+        <fieldset pgs="fieldset radio" pgs-data="formMessage[Choose a contact method]">
+            <legend pgs="legend">Preferred contact method</legend>
+            <label pgs="radio"><input type="radio" name="contactMethod" value="email" required> <span>Email</span></label>
+            <label pgs="radio"><input type="radio" name="contactMethod" value="phone" required> <span>Phone</span></label>
+            <label pgs="radio"><input type="radio" name="contactMethod" value="message" required> <span>Direct message</span></label>
+        </fieldset>
 
-    <fieldset pgs="fieldset checkbox" pgs-data="formMessage[Choose at least one topic]">
-        <legend pgs="legend">Topics</legend>
-        <label pgs="checkbox"><input type="checkbox" name="topics" value="news" required> <span>News</span></label>
-        <label pgs="checkbox"><input type="checkbox" name="topics" value="offers" required> <span>Offers</span></label>
-    </fieldset>
+        <fieldset pgs="fieldset checkbox" pgs-data="formMessage[Choose at least one topic]">
+            <legend pgs="legend">Topics</legend>
+            <label pgs="checkbox"><input type="checkbox" name="topics" value="news" required> <span>News</span></label>
+            <label pgs="checkbox"><input type="checkbox" name="topics" value="offers" required> <span>Offers</span></label>
+        </fieldset>
 
-    <label pgs="checkbox">
-        <input type="checkbox" name="privacy" required>
-        <span>I accept the privacy policy</span>
-    </label>
+        <label pgs="checkbox">
+            <input type="checkbox" name="privacy" required>
+            <span>I accept the privacy policy</span>
+        </label>
 
-    <label pgs="checkbox">
-        <input type="checkbox" name="terms" required>
-        <span>I accept the <a href="#">terms of service</a><span pgs="form-requiredHere"></span></span>
-    </label>
+        <label pgs="checkbox">
+            <input type="checkbox" name="terms" required>
+            <span>I accept the <a href="#">terms of service</a><span pgs="form-requiredHere"></span></span>
+        </label>
 
-    <div pgs="alertContainer"></div>
+        <div pgs="alertContainer"></div>
 
-    <button pgs="button['btnStrong']" type="submit">
-        Submit
-    </button>
+        <button pgs="button['btnStrong']" type="submit">
+            Submit
+        </button>
 
-</form>
+    </form>
+</section>
+
+<demo demo-h3="Tab labels (labelTab)" demo-description="labelTab makes the label a tab instead of a pill, rounded on the top corners only, with the gap of the form left between it and the control."></demo>
+<section demo="component">
+    <form pgs="form" action="#" method="post">
+        <label>
+            <span pgs="label['labelTab']">Name</span>
+            <input pgs="input" type="text" name="tabName" placeholder=" ">
+        </label>
+
+        <label>
+            <span pgs="label['labelTab']">Message</span>
+            <textarea pgs="textarea" name="tabMessage" rows="3" placeholder=" "></textarea>
+        </label>
+    </form>
+</section>
+
+<demo demo-h3="Tab label without gap (labelTabNoGap)" demo-description="The same tab with labelTabNoGap, written on a label that is a sibling of its control: the gap of the form is taken away, so the tab touches the control."></demo>
+<section demo="component">
+    <form pgs="form" action="#" method="post">
+        <label pgs="label['labelTabNoGap']" for="formNotes">Notes</label>
+        <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
+    </form>
+</section>
 
 <script type="text/x-example-js">
     import { pgs } from "mypgs";

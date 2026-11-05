@@ -15,12 +15,19 @@
  * @pgs-state
  * - darkmode: global document state that activates the darkmode variant.
  *
- * @return HTML examples of the theme-aware graphical logo and the text logo.
+ * @return HTML examples of the graphical logo, the same logo inverted in dark mode, the text logo and the always-inverted logo.
  */
 -->
 
 <demo demo-h2="Examples"></demo>
-<demo demo-h3="Graphical logo" demo-description="Image-based brand logo that inverts automatically when dark mode is active."></demo>
+<demo demo-h3="Graphical logo" demo-description="Image-based brand logo, shown as it is in both themes."></demo>
+<section demo="component">
+    <a aria-label="Logo" pgs="logo" href="/">
+        <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
+    </a>
+</section>
+
+<demo demo-h3="Dark mode logo" demo-description="The same logo with logoDarkmode: it inverts automatically when dark mode is active."></demo>
 <section demo="component">
     <a aria-label="Logo" pgs="logo['logoDarkmode']" href="/">
         <img pgs="logo-image" src="../assets/img/logo.svg" alt="MyPGS">
