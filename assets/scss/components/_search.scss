@@ -7,7 +7,7 @@
     --search-background: var(--color-box);
     --search-color: var(--color-black);
     --search-border: var(--border-width) var(--border-color) var(--border-style);
-    --search-borderWidth: 0rem;
+    --search-borderWidth: var(--border-width);
     --search-borderColor: var(--border-color);
     --search-suggestions-offset: 0rem;
     --search-suggestions-padding: var(--padding-details);

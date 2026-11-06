@@ -133,6 +133,7 @@
         --menu-grouped-padding: var(--padding-details);
         --menu-grouped-gap: var(--gap-details);
         --menu-grouped-borderRadius: calc(var(--borderRadius-elements) + var(--menu-grouped-padding));
+        --menu-grouped-timing: 400ms ease-out;
 
         >:where(ul) {
             background: var(--menu-grouped-background);
@@ -157,9 +158,10 @@
 
             // no line on either side of the item that is the current page (aria-current, aria-selected), hovered
             // or focused: the background its button draws takes the place of the hairlines that would touch it.
-            // The line above is the item's own, the line below is the next item's
+            // The line above is the item's own, the line below is the next item's. The line fades with the same
+            // timing as the background of the button (--clickable-transition), so one takes the place of the other
             @media (prefers-reduced-motion: no-preference) {
-                >:where(li)+:where(li)::before { transition: opacity 150ms; }
+                >:where(li)+:where(li)::before { transition: opacity var(--menu-grouped-timing); }
             }
 
             >:where(li):has(> :where(a, button, [pgs~="button"]):is([aria-current=page], [aria-selected=true], :focus-visible)) {

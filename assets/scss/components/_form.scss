@@ -8,8 +8,8 @@
     @include inputPicker();
 }
 
-:where([pgs~="label"], [pgs*="label\5B"]) { @include label(); }
-:is([pgs~="legend"], [pgs*="legend\5B"]) { @include legend(); }
+// legend is the label of a fieldset: the same rules and options, under its own token
+:where([pgs~="label"], [pgs*="label\5B"], [pgs~="legend"], [pgs*="legend\5B"]) { @include label(); }
 [pgs~="radio"] {
     @include radio();
     @include labelCheckboxAndRadio();

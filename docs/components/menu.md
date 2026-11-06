@@ -20,7 +20,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `menuVertical`: identifies the vertical element used by Menu.
 - `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
 - `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
-- `menuGrouped`: puts the top-level list on a background of its own (--menu-grouped-background, the box color), with padding, rounded corners and a hairline between the items, in the middle of the gap (--menu-grouped-gap): horizontal lines in a vertical menu, vertical ones with menuHorizontal. The two lines that touch the item whose button is the current page (aria-current="page" or aria-selected="true"), hovered or focused with the keyboard fade out, so the background of that button is not cut by a hairline. The submenus keep their own look. With menuHorizontal keep the list on one row, or a wrapped row would carry a line at its start.
+- `menuGrouped`: puts the top-level list on a background of its own (--menu-grouped-background, the box color), with padding, rounded corners and a hairline between the items, in the middle of the gap (--menu-grouped-gap): horizontal lines in a vertical menu, vertical ones with menuHorizontal. The two lines that touch the item whose button is the current page (aria-current="page" or aria-selected="true"), hovered or focused with the keyboard fade out in --menu-grouped-timing (400ms ease-out, the timing of the background of a button), so the background of that button is not cut by a hairline. The submenus keep their own look. With menuHorizontal keep the list on one row, or a wrapped row would carry a line at its start.
 
 ## PGS States
 
@@ -69,6 +69,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `--menu-grouped-borderRadius`
 - `--menu-grouped-gap`
 - `--menu-grouped-padding`
+- `--menu-grouped-timing`
 
 ## Output
 

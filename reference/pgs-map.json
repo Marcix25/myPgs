@@ -877,7 +877,9 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "legendBox"
+            "labelBox",
+            "labelTab",
+            "labelTabNoGap"
         ],
         "pgs-data": []
     },

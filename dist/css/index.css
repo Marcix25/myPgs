@@ -746,14 +746,14 @@
   margin-right: var(--gap-details);
 }
 
-:where([pgs~=label], [pgs*="label["]) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]) {
   --label-borderRadius: var(--borderRadius-paragraphs);
   --label-left: var(--label-borderRadius);
-  --label-paddingInline: 0px;
+  --label-paddingInline: var(--padding-paragraphs);
   --label-paddingBlock: 0px;
   --label-color: var(--color-black);
   --label-size: 1.1em;
-  --label-weight: 600;
+  --label-weight: var(--font-weight-bold);
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
@@ -768,16 +768,16 @@
   font-weight: var(--label-weight);
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(+ [disabled], > [disabled])) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(:has(+ [disabled], > [disabled])) {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-:where([pgs~=label], [pgs*="label["]):has([hidden], + [hidden], [pgs~=hidden], + [pgs~=hidden], [type=hidden], + [type=hidden]) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):not(legend):has([hidden], + [hidden], [pgs~=hidden], + [pgs~=hidden], [type=hidden], + [type=hidden]) {
   display: none !important;
 }
 
-:where([pgs~=label], [pgs*="label["]):where(:has(+ :required, + * :required)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["]):where(:has(+ :required, + * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(:has(+ :required, + * :required)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(:has(+ :required, + * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
   content: " *";
   color: var(--color-error);
   line-height: 1;
@@ -786,7 +786,20 @@
   padding-left: 3px;
 }
 
-:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelBox'"], [pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(legend) {
+  cursor: auto;
+}
+
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(legend):where(:has(~ :required, ~ * :required)) :where([pgs~=form-requiredHere])::after, :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(legend):where(:has(~ :required, ~ * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
+  content: " *";
+  color: var(--color-error);
+  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  display: inline-block;
+  padding-left: 3px;
+}
+
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where([pgs*="'labelBox'"], [pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
   --label-paddingInline: var(--padding-paragraphs);
   --label-paddingBlock: calc(var(--padding-paragraphs)/2);
   --label-background: var(--color-white);
@@ -802,7 +815,7 @@
   z-index: 1;
 }
 
-:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
   max-width: calc(100% - var(--label-left) * 2);
   transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
   padding-bottom: 0;
@@ -812,41 +825,8 @@
   margin-bottom: 0;
 }
 
-:where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]):where([pgs*="'labelTabNoGap'"]) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]):where([pgs*="'labelTabNoGap'"]) {
   margin-bottom: calc(var(--form-gap, 0px) * -1);
-}
-
-:is([pgs~=legend], [pgs*="legend["]) {
-  --label-borderRadius: var(--borderRadius-paragraphs);
-  --label-paddingInline: 0px;
-  --label-paddingBlock: 0px;
-  --label-color: var(--color-black);
-  display: inline-block;
-  width: fit-content;
-  max-width: 100%;
-  color: var(--label-color);
-  padding-block: var(--label-paddingBlock);
-  padding-inline: var(--label-paddingInline);
-}
-
-:is([pgs~=legend], [pgs*="legend["]):where([pgs*="'legendBox'"]) {
-  --label-paddingInline: var(--padding-paragraphs);
-  --label-paddingBlock: calc(var(--padding-paragraphs)/2);
-  --label-background: var(--color-white);
-  --label-border: var(--border-color) var(--border-style);
-  --label-borderWidth: var(--border-width);
-  background-color: var(--label-background);
-  border: var(--label-border) var(--label-borderWidth);
-  border-radius: var(--label-borderRadius);
-}
-
-:is([pgs~=legend], [pgs*="legend["]):where(:has(~ :required, ~ * :required)) :where([pgs~=form-requiredHere])::after, :is([pgs~=legend], [pgs*="legend["]):where(:has(~ :required, ~ * :required)):not(:has(:where([pgs~=form-requiredHere])))::after {
-  content: " *";
-  color: var(--color-error);
-  line-height: 1;
-  font-weight: var(--font-weight-bold);
-  display: inline-block;
-  padding-left: 3px;
 }
 
 [pgs~=radio] {
@@ -2422,6 +2402,7 @@
   --menu-grouped-padding: var(--padding-details);
   --menu-grouped-gap: var(--gap-details);
   --menu-grouped-borderRadius: calc(var(--borderRadius-elements) + var(--menu-grouped-padding));
+  --menu-grouped-timing: 400ms ease-out;
 }
 
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) {
@@ -2448,7 +2429,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li) + :where(li)::before {
-    transition: opacity 150ms;
+    transition: opacity var(--menu-grouped-timing);
   }
 }
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):is([aria-current=page], [aria-selected=true], :focus-visible))::before, :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):is([aria-current=page], [aria-selected=true], :focus-visible)) + :where(li)::before {
@@ -4043,7 +4024,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --search-background: var(--color-box);
   --search-color: var(--color-black);
   --search-border: var(--border-width) var(--border-color) var(--border-style);
-  --search-borderWidth: 0rem;
+  --search-borderWidth: var(--border-width);
   --search-borderColor: var(--border-color);
   --search-suggestions-offset: 0rem;
   --search-suggestions-padding: var(--padding-details);

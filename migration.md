@@ -1117,7 +1117,7 @@ Global tokens the buttons and controls now read (`--clickable-*`, `--hover-*`, `
 | a bare `<button type="submit">` inside `pgs="form"` | styled by the form as a strong button with hover | no styling at all: write `pgs="button['btnStrong']"` on it |
 | `pgs="form"` | styled every `label`, `input`, `select`, `textarea`, checkbox, radio, range, file, color, `fieldset`, `legend`, submit button it held, plus disabled and hidden controls | only a column spaced by `--form-gap` (= `--gap-texts`, `1rem` -> `1.5rem`, see [Foundation](#part-2-foundation-tokens-palette-base-icons)): it styles no control. Every control takes its own token (`label`, `input`, `textarea`, `select`, `checkbox`, `radio`, `range`, `file`, `inputColor`, `legend`, `fieldset`, `button`); a bare control is the browser's |
 | `label` | tab-shaped (`1rem 1rem 0 0`), grey `--border-color` background, no border, shifted right by `--label-left` (`--border-radius-input`), `i` inside it got margin; inside `pgs="form"` any label right before an input/select/textarea got it automatically | plain text above the control in `--label-color`, no box, no shift, no `i` rule; `label['labelBox']` is a white box with a border and rounded on every corner (`--label-borderRadius`), on one line with an ellipsis. The master shape is `label['labelTab']` (top corners only, open at the bottom, shifted by `--label-left`); the master "touching the control" is `label['labelTabNoGap']` (cancels the form gap). The label needs the token: a bare `<label>` is plain |
-| `legend` | tab-like, `--color-box` background; a bare `legend` in a form got it | plain text like `label`; `legend['legendBox']` is the box of `labelBox` (white, border, all corners); needs `pgs="legend"` |
+| `legend` | tab-like, `--color-box` background; a bare `legend` in a form got it | the same as `label` under its own token, options included: plain text, `legend['labelBox']` for the box (white, border, all corners); needs `pgs="legend"` |
 | `input` (text-like) | padding 15px, radius `--border-radius-input`, margin-bottom `--gap-texts`, placeholder `opacity: 20%`, hover = `outline: solid --color-primary`; search/number/date/time/datetime-local/month/week were `width: clamp(50px,100%,300px)` with a grey rounded picker button; password `font-size: 1.74rem` | padding `--input-padding` (1.5rem), radius `--input-borderRadius` (`--borderRadius-texts`), no margin (the form's gap spaces it), placeholder `opacity: 60%`, hover = border color `--hover-borderColor` (no outline), those types are `width: 100%` (a flex row, picker icon first, plain), password keeps only `font-family: initial`. In a `field` the input also takes the field's padding |
 | `textarea` | the token `pgs="textarea"` was a *text block* (flex column, list markers, `hr` stretched, 25px above h1-h3); the `<textarea>` element itself was styled by `form()` | `pgs="textarea"` styles a `<textarea>` (input look, `resize: vertical`, `height: 120px`, `min-height: 100px`, the radius of an input on every corner) and nothing else; the old text block is `pgs="textBlock"` (base/_general.scss, same look) |
 | `select` | `input()` look plus option styling, no arrow (`appearance: none`) | same token; draws a chevron (two gradients, `--select-chevronSize`, `--select-chevronInset`) unless `multiple`; a `multiple` list is always open with spaced options colored by the current/hover tokens; a `field` first option `value=""` disabled is the placeholder |
@@ -1229,7 +1229,7 @@ Kept, default changed:
 | `--button-color-current` | `--color-whiteFixed` | `--current-color` (primary strong) |
 | `--button-background`, `--button-color` | `--color-box`, `--color-black` | `--clickable-background`, `--clickable-color` (same values by default) |
 | `--button-size` | `1.5rem` | `--SIZE-texts` (1.5rem, scales with `--SIZE`) |
-| `--label-background` | `--border-color` (grey) | `--color-white`, read only by `labelBox`, `labelTab*` and `legendBox` (the legend was `--color-box`) |
+| `--label-background` | `--border-color` (grey) | `--color-white`, read only by `labelBox` and `labelTab*`, on a label or a legend (the legend was `--color-box`) |
 | `--label-left` | `--border-radius-input` | `--label-borderRadius` (`--borderRadius-texts`); now read only by `labelTab` (translate) and the label's `max-width` |
 | `--input-padding` | `15px` | `--padding-texts` (1.5rem) |
 | `--checkbox-icon` | inline SVG data URI | `--icon-glyph-check` |
@@ -1269,7 +1269,7 @@ Partials: `mixin/_mx-button.scss`, `_mx-form.scss`, `_mx-formAddon.scss`, `compo
 | `icon()` (the round surface, in `mx-button`) | `icon($icon, $on)` in `mx-icons` | different signature and meaning -> see [Content components](#part-7-content-components) |
 | `input($padding: 15px)` | `input()` | no argument; `--input-padding` is the knob. `inputBase($opacityPlaceholder)` and `inputPicker()` are new |
 | `label($borderadius, $left)` | `label()` | no arguments; `--label-borderRadius`, `--label-left` |
-| `legend()` | `legend()` | no longer built from `label(1rem, 0)`: it declares the same `--label-*` itself |
+| `legend()` | gone | `[pgs~=legend]` takes `label()` itself, options included: a stylesheet that included `legend()` includes `label()` |
 | `required()` | `required()` | same name, new look (see A) |
 | `disabled()` | `disabled()` | unchanged |
 | `file()`, `rage()`, `select()`, `formTextarea()`, `inputcolor()` | gone | the rules sit in the token's own rule (`[pgs~=file]`, `[pgs~=range]`, `select`, `[pgs~=inputColor]`); a stylesheet that included one writes the token on the element or copies the rules. `textarea()` (the field) replaces `formTextarea()`; the master `textarea()` text block is `[pgs~=textBlock]` |
@@ -1307,7 +1307,7 @@ No `$variable` of these partials changed (`_settings.scss` only gained `$h6`).
 - `btnTwoState`: a `<label pgs="button['btnTwoState']">` around its own checkbox/radio; checked look from `--button-*-twoState`, focus ring on the label.
 - `btnVertical`, `btnPaddingEqual` (same padding on all sides), `btnForHeader`, `btnForNavSmart` (-> see [Layout](#part-4-layout)).
 - `field` and `field['noInput']`: wrapper with a floating label (needs `placeholder=" "` on the input and the label right before it); `noInput` for checkbox, radio group, range, color, toggle, chips. Reads `--field-background`, `--field-padding`, `--field-borderRadius`, `--field-gap`.
-- `label['labelBox']`, `legend['legendBox']`, `label['labelTab']`, `label['labelTabNoGap']`; `form-requiredHere`; `--form-gap`; tokens `fieldset`, `checkbox`, `radio`, `legend`, `range`, `file`, `inputColor`, `select` as stand-alone tokens usable outside a form.
+- `label['labelBox']` (also `legend['labelBox']`), `label['labelTab']`, `label['labelTabNoGap']`; `form-requiredHere`; `--form-gap`; tokens `fieldset`, `checkbox`, `radio`, `legend`, `range`, `file`, `inputColor`, `select` as stand-alone tokens usable outside a form.
 - `select` with `multiple` is an always-open list; a single select has a chevron.
 - `pgs.range` module and the filled range track.
 - `errorFieldset`, `errorLabel`, `formValidate.destroy()`, `alertContainer` outside the form.
