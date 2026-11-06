@@ -752,6 +752,8 @@
   --label-paddingInline: 0px;
   --label-paddingBlock: 0px;
   --label-color: var(--color-black);
+  --label-size: 1.1em;
+  --label-weight: 600;
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
@@ -761,6 +763,9 @@
   position: relative;
   width: fit-content;
   max-width: 100%;
+  margin-bottom: var(--gap-details);
+  font-size: var(--labrel-size);
+  font-weight: var(--label-weight);
 }
 
 :where([pgs~=label], [pgs*="label["]):where(:has(+ [disabled], > [disabled])) {
@@ -804,6 +809,7 @@
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: unset;
+  margin-bottom: 0;
 }
 
 :where([pgs~=label], [pgs*="label["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]):where([pgs*="'labelTabNoGap'"]) {

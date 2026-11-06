@@ -14,6 +14,9 @@
     // here fights a combined utility over `display`
     :where([pgs~="pageNav-panels"]) {
         :where([pgs~="pageNav-panels-content"]) {
+            //read by the JavaScript only, declared here so editors suggest it: the name of the panel in the URL hash
+            &[pgs-data~="pageNavHash[]"] {}
+
             display: none;
             &[pgs-state~="active"] { display: block; }
         }

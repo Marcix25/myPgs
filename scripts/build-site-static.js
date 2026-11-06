@@ -82,7 +82,7 @@ function buildNavAndPanels() {
 
     const welcomeSource = readIfExists(WELCOME_FILE);
     if (welcomeSource) {
-        panelsHtml += `<div id="${DemoRender.getSlug(DemoRender.WELCOME_ENTRY.path)}" pgs="pageNav-panels-content">${welcomeSource}</div>`;
+        panelsHtml += `<div pgs="pageNav-panels-content" pgs-data="pageNavHash[${DemoRender.getSlug(DemoRender.WELCOME_ENTRY.path)}]">${welcomeSource}</div>`;
         menuEntries.push(DemoRender.WELCOME_ENTRY);
     } else {
         console.warn(`[build-site-static] welcome.html not found in ${path.relative(PROJECT_ROOT, WELCOME_FILE)}`);

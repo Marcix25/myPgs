@@ -664,7 +664,8 @@ function renderReferencePanelHtml(path, rawFileText, cssText) {
     const section = `<${sectionTag} class="demoContent" data-reference="${escapeHtml(path)}"${sectionExtraAttrs}>${bodyHtml}</${sectionTag}>`;
     // no flex utility here: the section above already lays out its own content, and
     // pageNav-panels-content's own display is fully owned by _pageNav.scss (see there for why)
-    const panel = `<div id="${escapeHtml(getSlug(path))}" pgs="pageNav-panels-content">${section}</div>`;
+    // addressed by pageNavHash, not by an id: no element carries the name in the hash, so the browser never scrolls to the panel
+    const panel = `<div pgs="pageNav-panels-content" pgs-data="pageNavHash[${escapeHtml(getSlug(path))}]">${section}</div>`;
 
     return { title, panelHtml: panel };
 }
