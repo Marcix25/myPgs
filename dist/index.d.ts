@@ -363,6 +363,32 @@ declare global {
     update(): void;
   }
 
+  //== selectBox
+  interface PgsSelectBoxInstance extends PgsInstance<PgsSelectBoxInstance> {
+    /** The <select> the box stands in for: it keeps the value the form reads. */
+    select: HTMLSelectElement;
+    button: HTMLButtonElement;
+    list: HTMLUListElement;
+    open(): void;
+    close(): void;
+    toggle(): void;
+    isOpen(): boolean;
+    /** Reads the options and the value again, for changes a script made without raising change. */
+    update(): void;
+  }
+
+  interface PgsSelectBoxChangeDetail extends PgsEventDetail {
+    select: HTMLSelectElement;
+    /** The option just chosen, or turned on or off on a multiple select. */
+    option: HTMLOptionElement;
+    /** Whether that option is chosen now: always true on a single select. */
+    selected: boolean;
+    /** The value of the select (the first chosen one on a multiple select). */
+    value: string;
+    /** Every chosen value, one on a single select. */
+    values: string[];
+  }
+
   //== steps
   interface PgsStepsInstance extends PgsInstance<PgsStepsInstance> {
     steps(): Element[];
@@ -475,6 +501,7 @@ declare global {
     slides?: PgsModule<PgsSlidesInstance>;
     stepTabs?: PgsModule<PgsStepTabsInstance>;
     range?: PgsModule<PgsRangeInstance>;
+    selectBox?: PgsModule<PgsSelectBoxInstance>;
     steps?: PgsModule<PgsStepsInstance>;
     summary?: PgsSummaryModule;
     tabs?: PgsModule<PgsTabsInstance>;
@@ -491,6 +518,7 @@ declare global {
     "pgs:pageNav:change": CustomEvent<PgsPageNavChangeDetail>;
     "pgs:search:select": CustomEvent<PgsSearchSelectDetail>;
     "pgs:search:error": CustomEvent<PgsSearchErrorDetail>;
+    "pgs:selectBox:change": CustomEvent<PgsSelectBoxChangeDetail>;
     "pgs:stepTabs:change": CustomEvent<PgsStepTabsChangeDetail>;
     "pgs:svg:changeColor": CustomEvent<PgsSvgChangeColorDetail>;
     "pgs:tabs:change": CustomEvent<PgsTabsChangeDetail>;

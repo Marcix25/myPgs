@@ -1307,6 +1307,7 @@ No `$variable` of these partials changed (`_settings.scss` only gained `$h6`).
 - `btnTwoState`: a `<label pgs="button['btnTwoState']">` around its own checkbox/radio; checked look from `--button-*-twoState`, focus ring on the label.
 - `btnVertical`, `btnPaddingEqual` (same padding on all sides), `btnForHeader`, `btnForNavSmart` (-> see [Layout](#part-4-layout)).
 - `field` and `field['noInput']`: wrapper with a floating label (needs `placeholder=" "` on the input and the label right before it); `noInput` for checkbox, radio group, range, color, toggle, chips. Reads `--field-background`, `--field-padding`, `--field-borderRadius`, `--field-gap`.
+- `selectBox` (form add-on, `_selectBox.js`): a `<select>` wrapped in `pgs="selectBox"` gets a button and a list of its own (combobox / listbox, keys of a native select, typeahead, optgroups; a `<select multiple>` keeps the list open and toggles its options), the same in every browser; the select stays in the form and keeps the value. API `pgs.selectBox.init/api`, `open()`, `close()`, `toggle()`, `isOpen()`, `update()`, `destroy()`, `refresh()`; event `pgs:selectBox:change`; `--selectBox-*`.
 - `label['labelBox']` (also `legend['labelBox']`), `label['labelTab']`, `label['labelTabNoGap']`; `form-requiredHere`; `--form-gap`; tokens `fieldset`, `checkbox`, `radio`, `legend`, `range`, `file`, `inputColor`, `select` as stand-alone tokens usable outside a form.
 - `select` with `multiple` is an always-open list; a single select has a chevron.
 - `pgs.range` module and the filled range track.

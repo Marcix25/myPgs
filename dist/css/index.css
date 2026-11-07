@@ -1862,7 +1862,7 @@
 [pgs~=checkboxBackground] {
   --checkboxBackground-padding: calc(var(--padding-paragraphs) / 2);
   --checkboxBackground-paddingRight: var(--padding-paragraphs);
-  --checkboxBackground-borderRadius: var(--borderRadius-elements);
+  --checkboxBackground-borderRadius: var(--borderRadius-paragraphs);
   --checkboxBackground-background: var(--clickable-background);
   --checkboxBackground-background-hover: var(--hover-background);
   --checkboxBackground-background-checked: var(--twoState-background);
@@ -2059,6 +2059,205 @@
   outline: var(--focus-visible) !important;
 }
 
+[pgs~=selectBox] {
+  --selectBox-icon: var(--icon-glyph-chevronDown);
+  --selectBox-timing: 300ms;
+  --selectBox-list-background: var(--color-white);
+  --selectBox-list-color: var(--color-black);
+  --selectBox-list-border: var(--border-width) var(--border-color) var(--border-style);
+  --selectBox-list-borderRadius: var(--borderRadius-paragraphs);
+  --selectBox-list-padding: calc(var(--padding-details) / 2);
+  --selectBox-list-gap: var(--selectBox-list-padding);
+  --selectBox-list-offset: 0px;
+  --selectBox-list-maxHeight: 30rem;
+  --selectBox-option-padding: var(--padding-details) var(--padding-paragraphs);
+  --selectBox-option-background-active: var(--hover-background);
+  --selectBox-option-color-active: var(--hover-color);
+  --selectBox-option-background-selected: var(--current-background);
+  --selectBox-option-color-selected: var(--current-color);
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+[pgs~=selectBox]:has(> [pgs~=_selectBox-button]) > :where(select) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button]) {
+  --input-padding: var(--padding-paragraphs);
+  --input-border: var(--border-width) var(--border-color) var(--border-style);
+  --input-borderRadius: var(--borderRadius-paragraphs);
+  --input-background: var(--color-white);
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button])::placeholder {
+  color: var(--color-black);
+  opacity: 60%;
+  font-weight: var(--font-weight-text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=selectBox] > :where([pgs~=_selectBox-button]):hover:where(:not(:disabled, [disabled])) {
+    border-color: var(--hover-borderColor);
+  }
+}
+[pgs~=selectBox] > :where([pgs~=_selectBox-button])[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button]) {
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  padding: var(--input-padding);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-details);
+  text-align: left;
+  cursor: pointer;
+  --icon: var(--selectBox-icon);
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
+  line-height: 1;
+  font-size: var(--icon-size);
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
+    transition: rotate var(--selectBox-timing) ease;
+  }
+}
+[pgs~=selectBox] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) > * {
+  margin-right: var(--gap-details);
+  vertical-align: middle;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-button]):focus-visible {
+  outline: var(--focus-visible);
+}
+
+[pgs~=selectBox][pgs-state~=empty] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) {
+  opacity: 0.6;
+}
+
+[pgs~=selectBox][pgs-state~=open] > :where([pgs~=_selectBox-button])::after {
+  rotate: 180deg;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-list]) {
+  display: none;
+  flex-direction: column;
+  gap: var(--selectBox-list-gap);
+  position: absolute;
+  inset: calc(100% + var(--selectBox-list-offset)) 0 auto;
+  z-index: var(--zIndex-dropdown);
+  max-height: var(--selectBox-list-maxHeight);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: var(--selectBox-list-padding);
+  list-style: none;
+  background: var(--selectBox-list-background);
+  color: var(--selectBox-list-color);
+  border: var(--selectBox-list-border);
+  border-radius: var(--selectBox-list-borderRadius);
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option]) {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-details);
+  padding: var(--selectBox-option-padding);
+  border-radius: calc(var(--selectBox-list-borderRadius) - var(--selectBox-list-padding));
+  cursor: pointer;
+  transition: var(--clickable-transition);
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option])[pgs-state~=active] {
+  background: var(--selectBox-option-background-active);
+  color: var(--selectBox-option-color-active);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option]):not([aria-disabled=true]):hover {
+    background: var(--selectBox-option-background-active);
+    color: var(--selectBox-option-color-active);
+  }
+}
+[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option])[aria-selected=true] {
+  background: var(--selectBox-option-background-selected);
+  color: var(--selectBox-option-color-selected);
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option])[aria-disabled=true] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-group]) {
+  padding: var(--selectBox-option-padding);
+  font-size: 0.85em;
+  font-weight: var(--font-weight-bold);
+  opacity: 0.6;
+}
+
+[pgs~=selectBox][pgs-state~=open] > :where([pgs~=_selectBox-list]) {
+  display: flex;
+}
+
+[pgs~=selectBox][pgs-state~=openUp] > :where([pgs~=_selectBox-list]) {
+  inset: auto 0 calc(100% + var(--selectBox-list-offset));
+}
+
+[pgs~=selectBox]:has(> select[pgs-state~=errorField]) > :where([pgs~=_selectBox-button]) {
+  outline: var(--formValidate-outline, var(--border-width) var(--border-style));
+  outline-color: var(--formValidate-outlineColor, var(--color-error));
+  background-color: var(--color-error-soft);
+  color: var(--color-error);
+}
+
 [pgs~=chips] {
   border: unset;
   display: flex;
@@ -2235,6 +2434,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -2256,7 +2456,7 @@
   content: none;
 }
 
-:is([pgs~=field], [pgs*="field["]) :where([pgs~=input], [pgs~=select]) {
+:is([pgs~=field], [pgs*="field["]) :where([pgs~=input], [pgs~=select], [pgs~=_selectBox-button]) {
   --input-padding: var(--field-padding);
   padding-top: var(--field-paddingTop);
 }

@@ -3,6 +3,7 @@
 //= FORM ADDON
 [pgs~="checkboxBackground"] { @include checkboxBackground(); }
 [pgs~="toggle"] { @include toggle(); }
+[pgs~="selectBox"] { @include selectBox(); }
 [pgs~="chips"] { @include chips(); }
 [pgs~="chip"] { @include chip(); }
 :is([pgs~="field"], [pgs*="field\5B"]) { @include field(); }

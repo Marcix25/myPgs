@@ -1447,6 +1447,18 @@
         "pgs-options": [],
         "pgs-data": []
     },
+    "selectBox": {
+        "pgs": [],
+        "pgs-generated": [
+            "_selectBox-button",
+            "_selectBox-button-value",
+            "_selectBox-list",
+            "_selectBox-list-group",
+            "_selectBox-list-option"
+        ],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "skipLink": {
         "pgs": [],
         "pgs-generated": [],

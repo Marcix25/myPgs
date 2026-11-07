@@ -330,7 +330,15 @@ function associateSources(template, documentation, sources) {
     const exactMatches = sources.filter(source =>
         source.name === basename || singularName(source.name) === singularBasename);
 
-    if (exactMatches.length > 0) return exactMatches;
+    // a page that documents several tokens (formAddon.html) also owns the JavaScript module named after
+    // one of them (_selectBox.js for selectBox) when it documents what that module generates (_selectBox-*),
+    // so the declaration is checked against the module on this page
+    const generatedOwners = new Set(documentation["pgs-generated"]
+        .map(item => normalizeName(item.key.replace(/^_/, "").split("-")[0])));
+    const tokenModules = sources.filter(source =>
+        source.file.endsWith(".js") && generatedOwners.has(source.name) && !exactMatches.includes(source));
+
+    if (exactMatches.length > 0) return [...exactMatches, ...tokenModules];
 
     const nameMatches = sources.filter(source =>
         source.name.startsWith(basename) || basename.startsWith(source.name));

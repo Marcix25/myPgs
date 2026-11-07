@@ -12,6 +12,7 @@ import { PGS_notification } from "./components/_notification.js";
 import { PGS_toast } from "./components/_toast.js";
 import { PGS_search } from "./components/_search.js";
 import { PGS_range } from "./components/_range.js";
+import { PGS_selectBox } from "./components/_selectBox.js";
 import { PGS_slides } from "./components/_slides.js";
 import { PGS_stepTabs } from "./components/_stepTabs.js";
 import { PGS_steps } from "./components/_steps.js";
@@ -37,6 +38,7 @@ pgs.registerModules({
     toast: PGS_toast,
     search: PGS_search,
     range: PGS_range,
+    selectBox: PGS_selectBox,
     slides: PGS_slides,
     stepTabs: PGS_stepTabs,
     steps: PGS_steps,
