@@ -43,6 +43,7 @@ function PGS_selectBox_build(root) {
     const list = document.createElement("ul");
     list.id = listId;
     pgs(list).add("_selectBox-list");
+    pgs(list).add("listbox");
     list.setAttribute("role", "listbox");
     list.tabIndex = -1;
     if (multiple) list.setAttribute("aria-multiselectable", "true");
@@ -84,7 +85,7 @@ function PGS_selectBox_build(root) {
 
             const item = document.createElement("li");
             item.id = `${listId}-${entries.length}`;
-            pgs(item).add("_selectBox-list-option");
+            pgs(item).add("listbox-option");
             item.setAttribute("role", "option");
             item.replaceChildren(...contentOf(option));
 
@@ -98,7 +99,7 @@ function PGS_selectBox_build(root) {
         Array.from(select.children).forEach(child => {
             if (child.tagName === "OPTGROUP") {
                 const group = document.createElement("li");
-                pgs(group).add("_selectBox-list-group");
+                pgs(group).add("listbox-group");
                 group.setAttribute("role", "presentation");
                 group.textContent = child.label;
                 list.append(group);

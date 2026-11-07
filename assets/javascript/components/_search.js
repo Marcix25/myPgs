@@ -110,6 +110,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.setAttribute("aria-expanded", "false");
     input.setAttribute("autocomplete", "off");
     list.setAttribute("role", "listbox");
+    // the look of the list and of its options comes from listbox, shared with the other lists of options
+    pgs(list).add("listbox");
     list.setAttribute("aria-labelledby", input.id);
     list.setAttribute("aria-hidden", "true");
 
@@ -191,6 +193,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         items.forEach((item, index) => {
             const option = document.createElement("li");
             pgs(option).add("_search-suggestions-item");
+            pgs(option).add("listbox-option");
             option.id = `${list.id}-option-${index}`;
             option.dataset.index = String(index);
             option.setAttribute("role", "option");

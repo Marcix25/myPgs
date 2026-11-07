@@ -5,10 +5,10 @@
  *
  * @pgs
  * - search: identifies the search element used by Search. Without a submit button (a button of type submit, or with no type) the input takes --search-paddingBlock on its sides too, so the text does not touch the edges.
- * - search-suggestions: identifies the search-suggestions element used by Search.
+ * - search-suggestions: identifies the search-suggestions element used by Search. The JavaScript gives it listbox, which draws the list and its options (see Listbox); joined to the form, it takes the background, the color and the radius of the search (--search-background, --search-color, --search-borderRadius), the outline of the form goes on round it, and it lies --listbox-offset under the form.
  *
  * @pgs-generated
- * - _search-suggestions-item: one suggestion in the list, rebuilt from the configured source at every keystroke.
+ * - _search-suggestions-item: one suggestion in the list, rebuilt from the configured source at every keystroke; it also takes listbox-option, which draws it.
  * - _search-suggestions-placeholder: shown instead of the suggestion list while the query is shorter than minLength, guiding how many more characters to type.
  * - _search-suggestions-empty: shown instead of the suggestion list when a completed search returns no items.
  *
@@ -45,6 +45,7 @@
  * - instance.setActiveIndex(index): marks the suggestion at index as the selected one and points aria-activedescendant at it; -1 clears it.
  *
  * @related
+ * - listbox: draws the list of suggestions and each suggestion (listbox-option); see Listbox.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: provides the base styling for search controls.
  * - modal: uses the related modal component or utility in this example.

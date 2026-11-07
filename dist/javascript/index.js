@@ -3220,6 +3220,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.setAttribute("aria-expanded", "false");
     input.setAttribute("autocomplete", "off");
     list.setAttribute("role", "listbox");
+    // the look of the list and of its options comes from listbox, shared with the other lists of options
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("listbox");
     list.setAttribute("aria-labelledby", input.id);
     list.setAttribute("aria-hidden", "true");
 
@@ -3301,6 +3303,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         items.forEach((item, index) => {
             const option = document.createElement("li");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-item");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-option");
             option.id = `${list.id}-option-${index}`;
             option.dataset.index = String(index);
             option.setAttribute("role", "option");
@@ -3628,6 +3631,7 @@ function PGS_selectBox_build(root) {
     const list = document.createElement("ul");
     list.id = listId;
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("_selectBox-list");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("listbox");
     list.setAttribute("role", "listbox");
     list.tabIndex = -1;
     if (multiple) list.setAttribute("aria-multiselectable", "true");
@@ -3669,7 +3673,7 @@ function PGS_selectBox_build(root) {
 
             const item = document.createElement("li");
             item.id = `${listId}-${entries.length}`;
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(item).add("_selectBox-list-option");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(item).add("listbox-option");
             item.setAttribute("role", "option");
             item.replaceChildren(...contentOf(option));
 
@@ -3683,7 +3687,7 @@ function PGS_selectBox_build(root) {
         Array.from(select.children).forEach(child => {
             if (child.tagName === "OPTGROUP") {
                 const group = document.createElement("li");
-                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(group).add("_selectBox-list-group");
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(group).add("listbox-group");
                 group.setAttribute("role", "presentation");
                 group.textContent = child.label;
                 list.append(group);

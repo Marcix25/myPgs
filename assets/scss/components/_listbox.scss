@@ -1,0 +1,78 @@
+@use "../mixin/mixin" as *;
+
+//= LISTBOX
+// the look of a list of options to pick from, the same wherever one is: the suggestions of search and the
+// list of a selectBox take this token from their JavaScript, and a list written by hand can take it too.
+// Only the look is here; where the list lies (under a field, open or closed) is up to the component
+// that owns it. Every rule is under :where, so a component sets these tokens on its own list in one line
+:where([pgs~="listbox"]) {
+    --listbox-background: var(--color-white);
+    --listbox-color: var(--color-black);
+    --listbox-border: var(--border-width) var(--border-color) var(--border-style);
+    --listbox-borderRadius: var(--borderRadius-paragraphs);
+    --listbox-padding: calc(var(--padding-details) / 2);
+    --listbox-gap: var(--listbox-padding);
+    // read by the component that lays the list under its control: the space between the two
+    --listbox-offset: 0px;
+    --listbox-maxHeight: 30rem;
+    --listbox-option-padding: var(--padding-details) var(--padding-paragraphs);
+    --listbox-option-background-active: var(--hover-background);
+    --listbox-option-color-active: var(--hover-color);
+    --listbox-option-background-selected: var(--current-background);
+    --listbox-option-color-selected: var(--current-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--listbox-gap);
+    max-height: var(--listbox-maxHeight);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: var(--listbox-padding);
+    list-style: none;
+    background: var(--listbox-background);
+    color: var(--listbox-color);
+    border: var(--listbox-border);
+    border-radius: var(--listbox-borderRadius);
+
+    //## option
+    // what an option holds before its text (an icon, an svg) sits the gap apart
+    :where([pgs~="listbox-option"]) {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-details);
+        padding: var(--listbox-option-padding);
+        border-radius: calc(var(--listbox-borderRadius) - var(--listbox-padding));
+        cursor: pointer;
+        transition: var(--clickable-transition);
+
+        // the option the keys are on (active) and the one under the pointer, a CSS hover
+        &[pgs-state~="active"] {
+            background: var(--listbox-option-background-active);
+            color: var(--listbox-option-color-active);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            &:not([aria-disabled="true"]):hover {
+                background: var(--listbox-option-background-active);
+                color: var(--listbox-option-color-active);
+            }
+        }
+
+        // after the active and the hovered one: the selected option keeps its look under the pointer
+        &[aria-selected="true"] {
+            background: var(--listbox-option-background-selected);
+            color: var(--listbox-option-color-selected);
+        }
+
+        &[aria-disabled="true"] { @include disabled(); }
+    }
+
+    //## group
+    // the heading of a group of options, which the keys skip
+    :where([pgs~="listbox-group"]) {
+        padding: var(--listbox-option-padding);
+        font-size: .85em;
+        font-weight: var(--font-weight-bold);
+        opacity: .6;
+    }
+}

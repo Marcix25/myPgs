@@ -895,6 +895,15 @@
         "pgs-options": [],
         "pgs-data": []
     },
+    "listbox": {
+        "pgs": [
+            "listbox-group",
+            "listbox-option"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "logo": {
         "pgs": [
             "logo-image",
@@ -1452,9 +1461,7 @@
         "pgs-generated": [
             "_selectBox-button",
             "_selectBox-button-value",
-            "_selectBox-list",
-            "_selectBox-list-group",
-            "_selectBox-list-option"
+            "_selectBox-list"
         ],
         "pgs-options": [],
         "pgs-data": []

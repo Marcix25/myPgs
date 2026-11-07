@@ -1418,6 +1418,73 @@
   cursor: not-allowed !important;
 }
 
+:where([pgs~=listbox]) {
+  --listbox-background: var(--color-white);
+  --listbox-color: var(--color-black);
+  --listbox-border: var(--border-width) var(--border-color) var(--border-style);
+  --listbox-borderRadius: var(--borderRadius-paragraphs);
+  --listbox-padding: calc(var(--padding-details) / 2);
+  --listbox-gap: var(--listbox-padding);
+  --listbox-offset: 0px;
+  --listbox-maxHeight: 30rem;
+  --listbox-option-padding: var(--padding-details) var(--padding-paragraphs);
+  --listbox-option-background-active: var(--hover-background);
+  --listbox-option-color-active: var(--hover-color);
+  --listbox-option-background-selected: var(--current-background);
+  --listbox-option-color-selected: var(--current-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--listbox-gap);
+  max-height: var(--listbox-maxHeight);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: var(--listbox-padding);
+  list-style: none;
+  background: var(--listbox-background);
+  color: var(--listbox-color);
+  border: var(--listbox-border);
+  border-radius: var(--listbox-borderRadius);
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-option]) {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-details);
+  padding: var(--listbox-option-padding);
+  border-radius: calc(var(--listbox-borderRadius) - var(--listbox-padding));
+  cursor: pointer;
+  transition: var(--clickable-transition);
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-option])[pgs-state~=active] {
+  background: var(--listbox-option-background-active);
+  color: var(--listbox-option-color-active);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where([pgs~=listbox]) :where([pgs~=listbox-option]):not([aria-disabled=true]):hover {
+    background: var(--listbox-option-background-active);
+    color: var(--listbox-option-color-active);
+  }
+}
+:where([pgs~=listbox]) :where([pgs~=listbox-option])[aria-selected=true] {
+  background: var(--listbox-option-background-selected);
+  color: var(--listbox-option-color-selected);
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-option])[aria-disabled=true] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-group]) {
+  padding: var(--listbox-option-padding);
+  font-size: 0.85em;
+  font-weight: var(--font-weight-bold);
+  opacity: 0.6;
+}
+
 :is([pgs~=button], [pgs*="button["]) {
   --button-color: var(--clickable-color);
   --button-color-hover: var(--hover-color);
@@ -2062,19 +2129,6 @@
 [pgs~=selectBox] {
   --selectBox-icon: var(--icon-glyph-chevronDown);
   --selectBox-timing: 300ms;
-  --selectBox-list-background: var(--color-white);
-  --selectBox-list-color: var(--color-black);
-  --selectBox-list-border: var(--border-width) var(--border-color) var(--border-style);
-  --selectBox-list-borderRadius: var(--borderRadius-paragraphs);
-  --selectBox-list-padding: calc(var(--padding-details) / 2);
-  --selectBox-list-gap: var(--selectBox-list-padding);
-  --selectBox-list-offset: 0px;
-  --selectBox-list-maxHeight: 30rem;
-  --selectBox-option-padding: var(--padding-details) var(--padding-paragraphs);
-  --selectBox-option-background-active: var(--hover-background);
-  --selectBox-option-color-active: var(--hover-color);
-  --selectBox-option-background-selected: var(--current-background);
-  --selectBox-option-color-selected: var(--current-color);
   position: relative;
   display: block;
   width: 100%;
@@ -2188,59 +2242,9 @@
 
 [pgs~=selectBox] > :where([pgs~=_selectBox-list]) {
   display: none;
-  flex-direction: column;
-  gap: var(--selectBox-list-gap);
   position: absolute;
-  inset: calc(100% + var(--selectBox-list-offset)) 0 auto;
+  inset: calc(100% + var(--listbox-offset)) 0 auto;
   z-index: var(--zIndex-dropdown);
-  max-height: var(--selectBox-list-maxHeight);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  margin: 0;
-  padding: var(--selectBox-list-padding);
-  list-style: none;
-  background: var(--selectBox-list-background);
-  color: var(--selectBox-list-color);
-  border: var(--selectBox-list-border);
-  border-radius: var(--selectBox-list-borderRadius);
-}
-
-[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option]) {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-details);
-  padding: var(--selectBox-option-padding);
-  border-radius: calc(var(--selectBox-list-borderRadius) - var(--selectBox-list-padding));
-  cursor: pointer;
-  transition: var(--clickable-transition);
-}
-
-[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option])[pgs-state~=active] {
-  background: var(--selectBox-option-background-active);
-  color: var(--selectBox-option-color-active);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option]):not([aria-disabled=true]):hover {
-    background: var(--selectBox-option-background-active);
-    color: var(--selectBox-option-color-active);
-  }
-}
-[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option])[aria-selected=true] {
-  background: var(--selectBox-option-background-selected);
-  color: var(--selectBox-option-color-selected);
-}
-
-[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-option])[aria-disabled=true] {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-[pgs~=selectBox] > :where([pgs~=_selectBox-list]) :where([pgs~=_selectBox-list-group]) {
-  padding: var(--selectBox-option-padding);
-  font-size: 0.85em;
-  font-weight: var(--font-weight-bold);
-  opacity: 0.6;
 }
 
 [pgs~=selectBox][pgs-state~=open] > :where([pgs~=_selectBox-list]) {
@@ -2248,7 +2252,7 @@
 }
 
 [pgs~=selectBox][pgs-state~=openUp] > :where([pgs~=_selectBox-list]) {
-  inset: auto 0 calc(100% + var(--selectBox-list-offset));
+  inset: auto 0 calc(100% + var(--listbox-offset));
 }
 
 [pgs~=selectBox]:has(> select[pgs-state~=errorField]) > :where([pgs~=_selectBox-button]) {
@@ -4226,14 +4230,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --search-border: var(--border-width) var(--border-color) var(--border-style);
   --search-borderWidth: var(--border-width);
   --search-borderColor: var(--border-color);
-  --search-suggestions-offset: 0rem;
-  --search-suggestions-padding: var(--padding-details);
-  --search-suggestions-maxHeight: 70vh;
-  --search-suggestions-item-padding: var(--padding-details);
-  --search-suggestions-item-background-selected: var(--current-background);
-  --search-suggestions-item-color-selected: var(--current-color);
-  --search-suggestions-item-background-hover: var(--hover-background);
-  --search-suggestions-item-color-hover: var(--hover-color);
   position: relative;
   display: flex;
   flex-direction: row;
@@ -4297,55 +4293,22 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) {
+  --listbox-background: var(--search-background);
+  --listbox-color: var(--search-color);
+  --listbox-borderRadius: var(--search-borderRadius);
   display: none;
   position: absolute;
-  inset: calc(100% + var(--search-suggestions-offset)) calc(var(--search-borderWidth) * -1) auto;
+  inset: calc(100% + var(--listbox-offset)) calc(var(--search-borderWidth) * -1) auto;
   z-index: var(--zIndex-search);
-  flex-direction: column;
-  max-height: var(--search-suggestions-maxHeight);
-  overflow-y: auto;
-  padding: var(--search-suggestions-padding);
-  border-radius: var(--search-borderRadius);
-  margin: 0;
-  list-style: none;
   border: var(--search-borderWidth) var(--border-style) var(--search-borderColor);
   border-top: var(--search-border);
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  background: var(--search-background);
-  color: var(--search-color);
-}
-
-:is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item]) {
-  border-radius: calc(var(--search-borderRadius) - var(--search-suggestions-padding));
-  padding: var(--search-suggestions-item-padding);
-  cursor: pointer;
-  flex-wrap: nowrap;
-  display: flex;
-  flex-direction: row;
-  gap: var(--search-suggestions-item-padding);
-  transition: var(--clickable-transition);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item]):hover {
-    background: var(--search-suggestions-item-background-hover);
-    color: var(--search-suggestions-item-color-hover);
-  }
-}
-:is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item])[aria-selected=true] {
-  background: var(--search-suggestions-item-background-selected);
-  color: var(--search-suggestions-item-color-selected);
-}
-
-:is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-item])[aria-disabled=true] {
-  cursor: not-allowed;
-  opacity: 0.5;
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-placeholder]),
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-empty]) {
-  padding: var(--search-suggestions-item-padding);
+  padding: var(--listbox-option-padding);
   cursor: default;
   opacity: 0.6;
 }

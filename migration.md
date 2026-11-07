@@ -1307,7 +1307,8 @@ No `$variable` of these partials changed (`_settings.scss` only gained `$h6`).
 - `btnTwoState`: a `<label pgs="button['btnTwoState']">` around its own checkbox/radio; checked look from `--button-*-twoState`, focus ring on the label.
 - `btnVertical`, `btnPaddingEqual` (same padding on all sides), `btnForHeader`, `btnForNavSmart` (-> see [Layout](#part-4-layout)).
 - `field` and `field['noInput']`: wrapper with a floating label (needs `placeholder=" "` on the input and the label right before it); `noInput` for checkbox, radio group, range, color, toggle, chips. Reads `--field-background`, `--field-padding`, `--field-borderRadius`, `--field-gap`.
-- `selectBox` (form add-on, `_selectBox.js`): a `<select>` wrapped in `pgs="selectBox"` gets a button and a list of its own (combobox / listbox, keys of a native select, typeahead, optgroups; a `<select multiple>` keeps the list open and toggles its options), the same in every browser; the select stays in the form and keeps the value. API `pgs.selectBox.init/api`, `open()`, `close()`, `toggle()`, `isOpen()`, `update()`, `destroy()`, `refresh()`; event `pgs:selectBox:change`; `--selectBox-*`.
+- `selectBox` (form add-on, `_selectBox.js`): a `<select>` wrapped in `pgs="selectBox"` gets a button and a list of its own (combobox / listbox, keys of a native select, typeahead, optgroups; a `<select multiple>` keeps the list open and toggles its options), the same in every browser; the select stays in the form and keeps the value. API `pgs.selectBox.init/api`, `open()`, `close()`, `toggle()`, `isOpen()`, `update()`, `destroy()`, `refresh()`; event `pgs:selectBox:change`; `--selectBox-icon`, `--selectBox-timing`; its list is a `listbox`. An option draws what its `<template>` holds (an icon of any pack) before its text.
+- `listbox`, `listbox-option`, `listbox-group` (`components/listbox`): the look of a list of options, shared by the suggestions of `search` and the list of `selectBox` (their JavaScript adds the tokens) and usable by hand; `--listbox-*` set once on `[pgs~="listbox"]` change every list.
 - `label['labelBox']` (also `legend['labelBox']`), `label['labelTab']`, `label['labelTabNoGap']`; `form-requiredHere`; `--form-gap`; tokens `fieldset`, `checkbox`, `radio`, `legend`, `range`, `file`, `inputColor`, `select` as stand-alone tokens usable outside a form.
 - `select` with `multiple` is an always-open list; a single select has a chevron.
 - `pgs.range` module and the filled range track.
@@ -1528,7 +1529,10 @@ Renamed:
 | `--dropdown-left` / `--dropdown-top` (written by JS on the content) | `--_dropdown-left` / `--_dropdown-top` |
 | `--notification-timeout` (written by JS on the toast) | `--_alert-timeout` (same, on every timed card) |
 | `--search-suggestions-background` / `-color` / `-border` / `-borderRadius` | `--search-background` / `--search-color` / `--search-border` / `--search-borderRadius` |
-| `--search-suggestions-item-selected-background` / `-color` | `--search-suggestions-item-background-selected` / `--search-suggestions-item-color-selected` |
+| `--search-suggestions-item-selected-background` / `-color`, `--search-suggestions-item-background-selected` / `-color-selected` | `--listbox-option-background-selected` / `--listbox-option-color-selected` (the list of suggestions is a `listbox`, see F) |
+| `--search-suggestions-item-background-hover` / `-color-hover` | `--listbox-option-background-active` / `--listbox-option-color-active` (hover and the option of the keys) |
+| `--search-suggestions-offset` / `-maxHeight` / `-padding` | `--listbox-offset` / `--listbox-maxHeight` / `--listbox-padding` |
+| `--search-suggestions-item-padding` | `--listbox-option-padding` |
 | `--summary-content-max-height` | `--summary-lines` (a line count, not a length) |
 | keyframes `toast-timeline` | `alertTimeline` |
 
@@ -1536,7 +1540,7 @@ Removed without replacement:
 - `--menu-background`, `--menu-background-current`, `--menu-background-strong`, `--menu-border`, `--menu-color`, `--menu-color-current`, `--menu-color-strong`: set the button tokens on the link instead (`--button-background`, `--button-color`, ... see [Buttons and forms](#part-5-buttons-and-forms)).
 - `--notification-background`, `--notification-color`, `--notification-shadow-color`, `--toast-background`, `--toast-background-timer`, `--toast-color`, `--toast-shadow-color`: use `--alert-background`, `--alert-color`, `--alert-accent` (severity accent; icon color), `--alert-content-title-color`. The toast box-shadow is gone.
 - `--dropdown-maxwidth`, `--dropdown-position-right` (set only by tooltip, read by nothing).
-- `--search-suggestions-boxShadow`, `--search-suggestions-gap` (items use `--search-suggestions-item-padding` as their gap now).
+- `--search-suggestions-boxShadow`; `--search-suggestions-gap` is `--listbox-gap`.
 
 New (public, tunable): `--modal-offset` (`--gap-texts`), `--modal-animation-timing` (333ms), `--modal-animation-easing`, `--dropdown-arrow-size` (7px), `--dropdown-borderWidth`, `--dropdown-borderColor` (the border is composed of them; `--dropdown-border` still overrides all three), `--dropdown-maxBlockSize`, `--alert-iconSize` (3.5rem), `--search-height`, `--search-paddingBlock`, `--search-suggestions-item-background-hover`, `--search-suggestions-item-color-hover`, `--summary-lines`.
 New, written by the module (never set): `--_modal-zoom-x|y|scaleX|scaleY`, `--_modal-drag-y`, `--_modal-drag-progress`, `--_dropdown-arrowLeft`, `--_dropdown-arrowTop`, `--_dropdown-arrow-inset`, `--_alert-timer`, `--_summary-content-height`.
@@ -1549,9 +1553,10 @@ Kept, default changed (value visible):
 | `--alert-accent` | `var(--color-primary)` | `initial` (neutral) |
 | `--alert-background` | `var(--color-primary-soft)` | `var(--color-box)` |
 | `--alert-padding` | `var(--padding-2)` | `var(--padding-texts)` |
-| `--search-suggestions-offset` | `.5rem` | `0rem` |
-| `--search-suggestions-maxHeight` | `32rem` | `70vh` |
-| `--search-suggestions-item-padding`, `--search-suggestions-padding` | `1rem`, `.5rem` | `var(--padding-details)` for both |
+| `--listbox-offset` (was `--search-suggestions-offset`) | `.5rem` | `0px` |
+| `--listbox-maxHeight` (was `--search-suggestions-maxHeight`) | `32rem` | `30rem` |
+| `--listbox-padding` (was `--search-suggestions-padding`) | `.5rem` | `calc(var(--padding-details) / 2)`, also the gap between the options (`--listbox-gap`) |
+| `--listbox-option-padding` (was `--search-suggestions-item-padding`) | `1rem` | `var(--padding-details) var(--padding-paragraphs)` |
 | `--dropdown-*` (background, color, padding `1rem`, inline-size, display) | | unchanged values |
 
 ### D. Sass

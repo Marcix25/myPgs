@@ -174,25 +174,11 @@
 
 //# SELECT BOX
 // the button and the list the JavaScript (_selectBox.js) builds in place of a <select>, which stays in the
-// form out of sight. The button is an input with a chevron; the list opens under it (above when there is
-// no room below), with the hover colors on the option under the pointer or the keys and the current
-// colors on the chosen one
+// form out of sight. The button is an input with a chevron; the list is a listbox (its look is there),
+// laid here under the button, or above it when there is no room below
 @mixin selectBox() {
     --selectBox-icon: var(--icon-glyph-chevronDown);
     --selectBox-timing: 300ms;
-    --selectBox-list-background: var(--color-white);
-    --selectBox-list-color: var(--color-black);
-    --selectBox-list-border: var(--border-width) var(--border-color) var(--border-style);
-    --selectBox-list-borderRadius: var(--borderRadius-paragraphs);
-    --selectBox-list-padding: calc(var(--padding-details) / 2);
-    --selectBox-list-gap: var(--selectBox-list-padding);
-    --selectBox-list-offset: 0px;
-    --selectBox-list-maxHeight: 30rem;
-    --selectBox-option-padding: var(--padding-details) var(--padding-paragraphs);
-    --selectBox-option-background-active: var(--hover-background);
-    --selectBox-option-color-active: var(--hover-color);
-    --selectBox-option-background-selected: var(--current-background);
-    --selectBox-option-color-selected: var(--current-color);
     position: relative;
     display: block;
     width: 100%;
@@ -253,69 +239,16 @@
     &[pgs-state~="open"]>:where([pgs~="_selectBox-button"])::after { rotate: 180deg; }
 
     //## LIST
+    // a listbox, which draws it: here it only lies under the button, and shows while open
     >:where([pgs~="_selectBox-list"]) {
         display: none;
-        flex-direction: column;
-        gap: var(--selectBox-list-gap);
         position: absolute;
-        inset: calc(100% + var(--selectBox-list-offset)) 0 auto;
+        inset: calc(100% + var(--listbox-offset)) 0 auto;
         z-index: var(--zIndex-dropdown);
-        max-height: var(--selectBox-list-maxHeight);
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        margin: 0;
-        padding: var(--selectBox-list-padding);
-        list-style: none;
-        background: var(--selectBox-list-background);
-        color: var(--selectBox-list-color);
-        border: var(--selectBox-list-border);
-        border-radius: var(--selectBox-list-borderRadius);
-
-        //### option
-        :where([pgs~="_selectBox-list-option"]) {
-            display: flex;
-            align-items: center;
-            gap: var(--gap-details);
-            padding: var(--selectBox-option-padding);
-            border-radius: calc(var(--selectBox-list-borderRadius) - var(--selectBox-list-padding));
-            cursor: pointer;
-            transition: var(--clickable-transition);
-
-            // the option the keys are on (active) and the one under the pointer, a CSS hover: the pointer
-            // leaves the active option of the keys where it is
-            &[pgs-state~="active"] {
-                background: var(--selectBox-option-background-active);
-                color: var(--selectBox-option-color-active);
-            }
-
-            @media (hover: hover) and (pointer: fine) {
-                &:not([aria-disabled="true"]):hover {
-                    background: var(--selectBox-option-background-active);
-                    color: var(--selectBox-option-color-active);
-                }
-            }
-
-            // after the active and the hovered one: the chosen option keeps its look under the pointer
-            &[aria-selected="true"] {
-                background: var(--selectBox-option-background-selected);
-                color: var(--selectBox-option-color-selected);
-            }
-
-            &[aria-disabled="true"] { @include disabled(); }
-        }
-
-        //### group
-        // the label of an optgroup: a heading the keys skip
-        :where([pgs~="_selectBox-list-group"]) {
-            padding: var(--selectBox-option-padding);
-            font-size: .85em;
-            font-weight: var(--font-weight-bold);
-            opacity: .6;
-        }
     }
 
     &[pgs-state~="open"]>:where([pgs~="_selectBox-list"]) { display: flex; }
-    &[pgs-state~="openUp"]>:where([pgs~="_selectBox-list"]) { inset: auto 0 calc(100% + var(--selectBox-list-offset)); }
+    &[pgs-state~="openUp"]>:where([pgs~="_selectBox-list"]) { inset: auto 0 calc(100% + var(--listbox-offset)); }
 
     //## ERROR
     // the select failed formValidate: its button shows it, as an input would
