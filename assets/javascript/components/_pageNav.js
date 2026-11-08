@@ -98,20 +98,40 @@ function PGS_pageNav_build(pageNav) {
             return href.startsWith("#") ? href.slice(1) : null;
         },
 
+        // the links of the current panel are the current page, unless the panels are out of sight: on the
+        // first screen of pageNavDrillDown the list is alone, and no link stands for a page on screen. The
+        // CSS decides when the panels hide, so this reads it rather than repeating the breakpoint
+        markItems() {
+            const listAlone = pgs(pageNav).state.contains("home") && this.panelsRoot.getClientRects().length === 0;
+            this.items.forEach(item => {
+                if (!listAlone && this.panelIdFor(item) === keyOf(this.current)) item.setAttribute("aria-current", "page");
+                else item.removeAttribute("aria-current");
+            });
+        },
+
         itemsFor(panelId) {
             return this.items.filter(item => this.panelIdFor(item) === panelId);
         },
 
-        select(panelId, { resetScroll = true } = {}) {
+        // home: the URL names no panel. The current panel is still shown (a wide layout keeps it beside the
+        // list), and the root carries the state home, which pageNavDrillDown reads on a narrow screen to show
+        // the list on its own, as the first screen
+        select(panelId, { resetScroll = true, home = false } = {}) {
             const panel = this.panelItems.find(item => keyOf(item) === panelId);
+            const wasHome = pgs(pageNav).state.contains("home");
             this.current = panel;
             this.appliedHash = window.location.hash;
 
+            // leaving the list for a panel: where the list was scrolled to is kept for the way back, and the
+            // history entry of the panel is marked, so the back button knows the list is the entry before it
+            if (wasHome && !home) {
+                this.homeScroll = window.scrollY;
+                if (window.location.hash) history.replaceState({ ...history.state, pgsPageNavFromHome: true }, "");
+            }
+            pgs(pageNav).state.toggle("home", home);
+            this.markItems();
+
             this.panelItems.forEach(item => pgs(item).state.toggle("active", item === panel));
-            this.items.forEach(item => {
-                if (this.panelIdFor(item) === keyOf(panel)) item.setAttribute("aria-current", "page");
-                else item.removeAttribute("aria-current");
-            });
 
             // closes whichever nav the reader just used when it lives inside a dialog (the
             // mobile "Browse docs" panel), the same way any other navigation should tidy up
@@ -120,7 +140,27 @@ function PGS_pageNav_build(pageNav) {
 
             if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
 
-            pgs.helper.dispatch(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(keyOf(panel)) });
+            pgs.helper.dispatch(pageNav, "pgs:pageNav:change", { panel, items: this.itemsFor(keyOf(panel)), home });
+        },
+
+        // back to the list: the URL no longer names a panel (the back button, or a back move of the browser
+        // onto the entry with no hash), and the page is scrolled where the list was left
+        home() {
+            if (pgs(pageNav).state.contains("home")) return;
+            this.select(keyOf(this.current), { resetScroll: false, home: true });
+            window.scrollTo({ top: this.homeScroll || 0, behavior: "instant" });
+        },
+
+        // the back button: the browser's own back when the list is the entry before this one, so the history
+        // keeps one entry per screen; a panel opened from a link elsewhere (a bookmark, a shared link) has no
+        // list before it, so the entry is turned into the list in place, and a further back leaves the page
+        back() {
+            if (history.state?.pgsPageNavFromHome) {
+                history.back();
+                return;
+            }
+            history.replaceState(history.state, "", window.location.pathname + window.location.search);
+            this.home();
         },
 
         idFromHash(hash) {
@@ -136,6 +176,20 @@ function PGS_pageNav_build(pageNav) {
     window.addEventListener("hashchange", () => {
         const id = nav.fromHash();
         if (id && window.location.hash !== nav.appliedHash) nav.select(id);
+        else if (!window.location.hash) nav.home();
+    }, { signal });
+
+    // a screen that turns wide or narrow shows or hides the panels beside the list: the marks follow. An
+    // observer of the page rather than the resize event, so it reads the layout once it has settled
+    const resizeObserver = new ResizeObserver(() => nav.markItems());
+    resizeObserver.observe(document.documentElement);
+    signal.addEventListener("abort", () => resizeObserver.disconnect());
+
+    // every pageNav-back, the ones written later included
+    pageNav.addEventListener("click", (event) => {
+        if (!pgs(event.target).closest("pageNav-back")) return;
+        event.preventDefault();
+        nav.back();
     }, { signal });
 
     const destroy = () => {
@@ -180,7 +234,7 @@ function PGS_pageNav_build(pageNav) {
     const juggleHash = initialPanelId && firstInit && pageNavUtil.hashNamesElement(initialPanelId);
 
     if (juggleHash) pageNavUtil.stripHash();
-    nav.select(initialPanelId || keyOf(nav.current), { resetScroll: false });
+    nav.select(initialPanelId || keyOf(nav.current), { resetScroll: false, home: !initialPanelId });
     if (juggleHash) pageNavUtil.restoreHash(initialPanelId, () => keyOf(nav.current) === initialPanelId, signal);
 
     return api;

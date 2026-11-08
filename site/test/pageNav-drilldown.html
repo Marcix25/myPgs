@@ -1,0 +1,171 @@
+<!doctype html>
+<!-- Test page for pageNav['pageNavDrillDown'] inside a pageShell: not a page of the site (sitebuild never
+     reads site/test/). While the pageShell stacks its sidebar above the content (up to 900px of the shell, about 970px of screen
+     here), the list is the first screen and a link opens its
+     panel on a screen of its own, with a back button; wider it is the usual sidebar beside the panel.
+     Open it with no hash to start from the list. -->
+<html lang="it" pgs="htmlBase">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pageNav drill-down test</title>
+    <link rel="stylesheet" href="../../dist/css/index.css">
+    <link rel="stylesheet" href="../assets/css/myicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+    <script src="../../dist/javascript/index.js"></script>
+</head>
+
+<body pgs="pageNav['pageNavDrillDown'] body['bodyBase' 'bodyText' 'bodyHeading']">
+    <div pgs="pageShell['shellAsideScroll']">
+        <aside pgs="pageShell-aside pageNav-home">
+            <div pgs="flex['column' 'gapElements']">
+                <h2>Impostazioni</h2>
+                <nav pgs="menu['menuGrouped'] pageNav-list" aria-label="Impostazioni">
+                    <ul>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#general">
+                            <i pgs="icon['icon-sliders']" aria-hidden="true"></i>
+                            <span>Generali</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#wifi">
+                            <i pgs="icon['icon-wifi']" aria-hidden="true"></i>
+                            <span>Wi-Fi</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#bluetooth">
+                            <i pgs="icon['icon-bluetooth']" aria-hidden="true"></i>
+                            <span>Bluetooth</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#battery">
+                            <i pgs="icon['icon-batteryFull']" aria-hidden="true"></i>
+                            <span>Batteria</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#display">
+                            <i pgs="icon['icon-sun']" aria-hidden="true"></i>
+                            <span>Schermo e luminosità</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#sound">
+                            <i pgs="icon['icon-volumeHigh']" aria-hidden="true"></i>
+                            <span>Suoni</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#privacy">
+                            <i pgs="icon['icon-lock']" aria-hidden="true"></i>
+                            <span>Privacy e sicurezza</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#accessibility">
+                            <i pgs="icon['icon-eye']" aria-hidden="true"></i>
+                            <span>Accessibilità</span>
+                            <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <main pgs="pageNav-panels pageShell-content">
+            <button type="button" pgs="pageNav-back button['btnTransparent'] marginBottom['mgBtParagraphs']">
+                <i pgs="icon['icon-chevronLeft']" aria-hidden="true"></i>
+                <span>Impostazioni</span>
+            </button>
+
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[general]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-sliders']" aria-hidden="true"></i> Generali</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[wifi]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-wifi']" aria-hidden="true"></i> Wi-Fi</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[bluetooth]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-bluetooth']" aria-hidden="true"></i> Bluetooth</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[battery]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-batteryFull']" aria-hidden="true"></i> Batteria</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[display]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-sun']" aria-hidden="true"></i> Schermo e luminosità</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[sound]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-volumeHigh']" aria-hidden="true"></i> Suoni</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[privacy]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-lock']" aria-hidden="true"></i> Privacy e sicurezza</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+            <section pgs="pageNav-panels-content" pgs-data="pageNavHash[accessibility]">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2><i pgs="icon['icon-eye']" aria-hidden="true"></i> Accessibilità</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

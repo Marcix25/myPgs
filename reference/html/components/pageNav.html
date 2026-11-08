@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Page Nav
- * @description Full-page panels switched by the URL hash instead of an index, so the current one survives a reload or a shared link with no extra bookkeeping. A panel is addressed by the name in its pageNavHash, matched against the fragment of whichever pageNav-list-item link points at it: write as many pageNav-list navs as the layout needs — a sidebar and a copy inside a mobile dialog, say — and every one of them stays in sync, since matching goes by name rather than by counting positions in a single list. The name is not an id: with no element of that id in the page, the browser has nothing to scroll to when the page opens on a panel, so it never pulls back a reader who has already started scrolling, the URL keeps its hash and the panel can carry an id of its own for CSS or ARIA, as long as it differs from the name. Clicking a link is a native hash navigation the browser already handles; the module only reacts to it (and to a direct back/forward move) to hide every panel but the one now named by the hash. A link inside an open dialog closes it on selection. Every selection dispatches pgs:pageNav:change on the pageNav root, once, with detail { element, panel, items }; the event bubbles, so a listener can sit on the root or above it. A root with no panel or no link is reported in the console and left alone. A panel with no pageNavHash is still addressed by its own id: the browser would scroll to it, so on a load that opens on it the hash is taken off the URL and put back once the page has loaded. The hash the page was opened with is taken once, on the first initialization of the root; initializing it again with refresh() follows the URL as it is by then. The panels hide with display: none until one carries the pgs-state active, because they have to start hidden; tabs uses the native hidden attribute, so that every panel stays visible without JavaScript.
+ * @description Full-page panels switched by the URL hash instead of an index, so the current one survives a reload or a shared link with no extra bookkeeping. A panel is addressed by the name in its pageNavHash, matched against the fragment of whichever pageNav-list-item link points at it: write as many pageNav-list navs as the layout needs — a sidebar and a copy inside a mobile dialog, say — and every one of them stays in sync, since matching goes by name rather than by counting positions in a single list. The name is not an id: with no element of that id in the page, the browser has nothing to scroll to when the page opens on a panel, so it never pulls back a reader who has already started scrolling, the URL keeps its hash and the panel can carry an id of its own for CSS or ARIA, as long as it differs from the name. Clicking a link is a native hash navigation the browser already handles; the module only reacts to it (and to a direct back/forward move) to hide every panel but the one now named by the hash. A link inside an open dialog closes it on selection. Every selection dispatches pgs:pageNav:change on the pageNav root, once, with detail { element, panel, items, home }, where home says that the URL names no panel; the event bubbles, so a listener can sit on the root or above it. A root with no panel or no link is reported in the console and left alone. A panel with no pageNavHash is still addressed by its own id: the browser would scroll to it, so on a load that opens on it the hash is taken off the URL and put back once the page has loaded. The hash the page was opened with is taken once, on the first initialization of the root; initializing it again with refresh() follows the URL as it is by then. The panels hide with display: none until one carries the pgs-state active, because they have to start hidden; tabs uses the native hidden attribute, so that every panel stays visible without JavaScript.
  *
  * @pgs
  * - pageNav: identifies the root initialized by the module; usually the page's own <body>, since the panels it switches are whole pages, not a fragment of one.
@@ -9,11 +9,17 @@
  * - pageNav-list-item: identifies a link, whose href="#name" names the panel it selects.
  * - pageNav-panels: identifies the wrapper around every panel.
  * - pageNav-panels-content: identifies one panel, addressed by its pageNavHash. Hidden by default, with no [hidden] to write by hand — give its own content's layout to an inner wrapper, not to this element.
+ * - pageNav-back: the button that goes from a panel back to the list, shown only by pageNavDrillDown in its narrow layout while a panel is open; write it as a <button type="button">, anywhere inside the root (above the panels, or in each one). It takes the browser's own back when the list is the entry before the panel, so the history keeps one entry per screen; a panel opened from a link elsewhere (a bookmark, a shared link) has no list before it, so the entry turns into the list in place. Back on the list, the page is scrolled where the list was left.
+ * - pageNav-home: marks what belongs to the first screen of pageNavDrillDown together with the list, such as the sidebar that holds it or a title above it: in the narrow layout it hides with the list while a panel is open.
+ *
+ * @pgs-options
+ * - pageNavDrillDown: inside pageNav's own bracket, pageNav['pageNavDrillDown']: whenever the list would lie above the panels, the list is the first screen, as in the settings of a phone. In a pageShell it follows the shell: it applies while the shell stacks its sidebar above the content, up to 900px of the shell's own width (the page padding is not counted), read through the container the shell names pageShell, so write pageNav-back and the panels inside the shell; with no pageShell it follows the screen, up to 900px. While the URL names no panel (the state home) only the list shows, with what carries pageNav-home, and no link is marked as the current page; a link opens its panel on a screen of its own, scrolled to the top, with pageNav-back to go back. Wider, nothing changes: the list and the panel stay side by side, and a load with no hash shows the panel marked active, or the first one. In a pageShell put pageNav-home on the pageShell-aside that holds the list, so in the narrow layout the panel takes the whole page.
  *
  * @pgs-data
  * - pageNavHash: on a pageNav-panels-content, pageNavHash[name]: the name of the panel in the URL hash, the one its links write as href="#name". Keep it different from every id in the page, or the browser scrolls to that element: the module warns in the console when they match. Without it the panel is addressed by its own id, as before.
  *
  * @pgs-state
+ * - home: on the root while the URL names no panel, written by the module: the page was opened with no hash, or the reader went back to the list. The current panel still shows, beside the list; pageNavDrillDown reads it in its narrow layout to show the list alone.
  * - active: identifies the visible panel; the module writes it, and reads it back on a hashless load to honor one already marked in the markup, the same convention Tabs uses. A link's own selected state is separate, aria-current="page", not pgs-state.
  *
  * @api
@@ -25,7 +31,27 @@
  * - instance.destroy(): removes the listeners of the instance and forgets it; the panels keep their active state.
  * - instance.refresh(): destroys the instance and builds a new one on the same root, and returns it.
  *
- * @return Two synchronized link lists above a bordered panel, the visible one always matching the URL hash.
+ * @related
+ * - pageShell: lays the sidebar with the list beside the panels, and is the container pageNavDrillDown follows; see Page Shell.
+ * - shellAsideScroll: keeps the sidebar of the shell beside the panels while they scroll, from the notebook breakpoint up.
+ * - pageShell-aside: the sidebar that holds the list, marked pageNav-home in the drill-down example.
+ * - pageShell-content: the column of the panels.
+ * - menu: draws the list of links in the drill-down example; see Menu.
+ * - menuGrouped: puts the list on a background of its own with a hairline between the links.
+ * - button: draws each link and the back button.
+ * - btnTransparent: keeps the links and the back button flat.
+ * - btnCurrent: gives the link of the panel on screen the current look.
+ * - hide: hides the chevron at the end of each link from the notebook breakpoint up.
+ * - hideMediaUpNotebook: inside hide's own bracket, hides the element above 900px.
+ * - flex: provides the flex layout; direction and spacing are flags in its bracket.
+ * - column: sets the vertical direction inside the flex bracket.
+ * - gapElements: applies element spacing inside the flex bracket.
+ * - icon: draws the glyphs of the links and of the back button; see Icon for the whole set.
+ * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
+ * - icon-chevronRight: the chevron at the end of each link on a phone.
+ * - icon-chevronLeft: the chevron of the back button.
+ *
+ * @return Two synchronized link lists above a bordered panel, the visible one always matching the URL hash, then a pageShell with pageNavDrillDown: while the shell stacks its sidebar the list is the first screen and a panel opens on its own with a back button.
  */
 -->
 
@@ -59,6 +85,53 @@
                 <h3>Vue</h3>
                 <p>Component markup ready for a Vue template.</p>
             </section>
+        </div>
+    </div>
+</section>
+
+<demo demo-h3="Drill-down (pageNavDrillDown)" demo-description="In a pageShell: while the shell stacks its sidebar above the content, the list is the first screen and a link opens its panel on its own, with a back button; wider, the list stays beside the panel. The option goes on the root, usually the body, so this too is markup to copy, not a live preview."></demo>
+<section demo="component previewNone">
+    <div pgs="pageNav['pageNavDrillDown']">
+        <div pgs="pageShell['shellAsideScroll']">
+            <aside pgs="pageShell-aside pageNav-home">
+                <div pgs="flex['column' 'gapElements']">
+                    <h2>Settings</h2>
+                    <nav pgs="menu['menuGrouped'] pageNav-list" aria-label="Settings">
+                        <ul>
+                            <li>
+                                <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-general">
+                                    <i pgs="icon['icon-star']" aria-hidden="true"></i>
+                                    <span>General</span>
+                                    <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-privacy">
+                                    <i pgs="icon['icon-star']" aria-hidden="true"></i>
+                                    <span>Privacy</span>
+                                    <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+
+            <main pgs="pageNav-panels pageShell-content">
+                <button type="button" pgs="pageNav-back button['btnTransparent']">
+                    <i pgs="icon['icon-chevronLeft']" aria-hidden="true"></i>
+                    <span>Settings</span>
+                </button>
+
+                <section pgs="pageNav-panels-content" pgs-data="pageNavHash[drill-general]">
+                    <h3>General</h3>
+                    <p>The settings that apply to the whole app.</p>
+                </section>
+                <section pgs="pageNav-panels-content" pgs-data="pageNavHash[drill-privacy]">
+                    <h3>Privacy</h3>
+                    <p>What the app keeps and what it shares.</p>
+                </section>
+            </main>
         </div>
     </div>
 </section>

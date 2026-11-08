@@ -1,8 +1,22 @@
+@use "../mixin/mixin" as *;
+
+// the narrow layout of pageNavDrillDown: the list alone while no panel is named (home), the panel alone
+// after, with the back button
+@mixin pageNav-drillDown() {
+    &[pgs-state~="home"] {
+        :where([pgs~="pageNav-panels"], [pgs~="pageNav-back"]) { display: none; }
+    }
+
+    &:not([pgs-state~="home"]) {
+        :where([pgs~="pageNav-list"], [pgs~="pageNav-home"]) { display: none; }
+    }
+}
+
 //= PAGE NAV
 // Full-page panels switched by URL hash instead of index, addressed by native <a href="#id">
 // links kept in sync across as many pageNav-list navs as the markup holds (a desktop sidebar and
 // a mobile one inside a dialog, for example).
-[pgs~="pageNav"] {
+:is([pgs~="pageNav"], [pgs*="pageNav\5B"]) {
     :where([pgs~="pageNav-list"]) {
         :where([pgs~="pageNav-list-item"]) {}
     }
@@ -43,6 +57,33 @@
             to { transform: translateX(100%); }
         }
 
+        }
+    }
+
+    //## back
+    // the way from a panel back to the list: it shows only with pageNavDrillDown, while the list would lie
+    // above the panel and a panel is open. It is only ever hidden, never given a display, so a button keeps
+    // the one of its own
+    &:not([pgs*="'pageNavDrillDown'"]) :where([pgs~="pageNav-back"]) { display: none; }
+
+    //+ OPTION
+    //+ pageNavDrillDown
+    // the list is the first screen, as in the settings of a phone, whenever it would otherwise lie above the
+    // panels: a link opens its panel on a screen of its own, with pageNav-back to go back. pageNav-home marks
+    // what belongs to that first screen with the list (the sidebar that holds it, a title), and hides with it.
+    // In a pageShell it follows the shell, which stacks its sidebar above the content up to $notebook of its
+    // own width (a container query on the shell, named pageShell: the page padding is not counted); with no
+    // pageShell it follows the screen, up to $notebook. Wider, nothing changes
+    &:where([pgs*="'pageNavDrillDown'"]) {
+
+        &:has(:is([pgs~="pageShell"], [pgs*="pageShell\5B"])) {
+            @container pageShell (width <= #{$notebook}) { @include pageNav-drillDown(); }
+            @container pageShell (width > #{$notebook}) { :where([pgs~="pageNav-back"]) { display: none; } }
+        }
+
+        &:not(:has(:is([pgs~="pageShell"], [pgs*="pageShell\5B"]))) {
+            @media (width <= #{$notebook}) { @include pageNav-drillDown(); }
+            @media (width > #{$notebook}) { :where([pgs~="pageNav-back"]) { display: none; } }
         }
     }
 }

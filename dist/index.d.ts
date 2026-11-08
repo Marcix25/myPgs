@@ -253,6 +253,8 @@ declare global {
   interface PgsPageNavChangeDetail extends PgsEventDetail {
     panel: Element;
     items: Element[];
+    /** True when the URL names no panel: the list is the first screen (pageNavDrillDown). */
+    home: boolean;
   }
 
   //== search

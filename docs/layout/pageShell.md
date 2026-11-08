@@ -6,7 +6,7 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 ## PGS
 
-- `pageShell`: identifies the container that calculates the main and aside composition.
+- `pageShell`: identifies the container that calculates the main and aside composition. It is a container named pageShell (inline-size), so a component deeper inside can follow the width of the shell: pageNav['pageNavDrillDown'] does, see Page Nav.
 - `pageShell-aside`: identifies a sidebar that can be placed before or after the content.
 - `pageShell-content`: identifies the main page content.
 

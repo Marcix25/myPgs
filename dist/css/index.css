@@ -3333,20 +3333,20 @@
     transform: translateY(100dvh);
   }
 }
-[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]) {
+:is([pgs~=pageNav], [pgs*="pageNav["]) :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content]) {
   display: none;
 }
 
-[pgs~=pageNav] :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content])[pgs-state~=active] {
+:is([pgs~=pageNav], [pgs*="pageNav["]) :where([pgs~=pageNav-panels]) :where([pgs~=pageNav-panels-content])[pgs-state~=active] {
   display: block;
 }
 
-[pgs~=pageNav] :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active])) {
+:is([pgs~=pageNav], [pgs*="pageNav["]) :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active])) {
   position: relative;
   overflow: hidden;
 }
 
-[pgs~=pageNav] :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active]))::after {
+:is([pgs~=pageNav], [pgs*="pageNav["]) :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active]))::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -3355,13 +3355,43 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [pgs~=pageNav] :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active]))::after {
+  :is([pgs~=pageNav], [pgs*="pageNav["]) :where([pgs~=pageNav-panels]):not(:has([pgs~=pageNav-panels-content][pgs-state~=active]))::after {
     animation: pageNavLoading 1.4s ease-in-out infinite;
   }
 }
 @keyframes pageNavLoading {
   to {
     transform: translateX(100%);
+  }
+}
+:is([pgs~=pageNav], [pgs*="pageNav["]):not([pgs*="'pageNavDrillDown'"]) :where([pgs~=pageNav-back]) {
+  display: none;
+}
+
+@container pageShell (width <= 900px) {
+  :is([pgs~=pageNav], [pgs*="pageNav["]):where([pgs*="'pageNavDrillDown'"]):has(:is([pgs~=pageShell], [pgs*="pageShell["]))[pgs-state~=home] :where([pgs~=pageNav-panels], [pgs~=pageNav-back]) {
+    display: none;
+  }
+  :is([pgs~=pageNav], [pgs*="pageNav["]):where([pgs*="'pageNavDrillDown'"]):has(:is([pgs~=pageShell], [pgs*="pageShell["])):not([pgs-state~=home]) :where([pgs~=pageNav-list], [pgs~=pageNav-home]) {
+    display: none;
+  }
+}
+@container pageShell (width > 900px) {
+  :is([pgs~=pageNav], [pgs*="pageNav["]):where([pgs*="'pageNavDrillDown'"]):has(:is([pgs~=pageShell], [pgs*="pageShell["])) :where([pgs~=pageNav-back]) {
+    display: none;
+  }
+}
+@media (width <= 900px) {
+  :is([pgs~=pageNav], [pgs*="pageNav["]):where([pgs*="'pageNavDrillDown'"]):not(:has(:is([pgs~=pageShell], [pgs*="pageShell["])))[pgs-state~=home] :where([pgs~=pageNav-panels], [pgs~=pageNav-back]) {
+    display: none;
+  }
+  :is([pgs~=pageNav], [pgs*="pageNav["]):where([pgs*="'pageNavDrillDown'"]):not(:has(:is([pgs~=pageShell], [pgs*="pageShell["]))):not([pgs-state~=home]) :where([pgs~=pageNav-list], [pgs~=pageNav-home]) {
+    display: none;
+  }
+}
+@media (width > 900px) {
+  :is([pgs~=pageNav], [pgs*="pageNav["]):where([pgs*="'pageNavDrillDown'"]):not(:has(:is([pgs~=pageShell], [pgs*="pageShell["]))) :where([pgs~=pageNav-back]) {
+    display: none;
   }
 }
 @property --slides-maskStart {
@@ -6765,7 +6795,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   padding-inline: var(--pageShell-paddingInline);
   padding-bottom: var(--pageShell-paddingBottom);
   padding-top: var(--pageShell-offsetTop);
-  container-type: inline-size;
+  container: pageShell/inline-size;
   max-width: var(--pageShell-width);
 }
 

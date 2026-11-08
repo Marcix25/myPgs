@@ -1343,13 +1343,17 @@
     },
     "pageNav": {
         "pgs": [
+            "pageNav-back",
+            "pageNav-home",
             "pageNav-list",
             "pageNav-list-item",
             "pageNav-panels",
             "pageNav-panels-content"
         ],
         "pgs-generated": [],
-        "pgs-options": [],
+        "pgs-options": [
+            "pageNavDrillDown"
+        ],
         "pgs-data": [
             "pageNavHash"
         ]
