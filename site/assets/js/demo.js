@@ -134,7 +134,7 @@ function configureSearchDemo() {
     section.append(note);
 }
 
-// Nav Search (sidebar + mobile "Browse docs" search over the reference pages listed below it)
+// Nav Search (the search of the sidebar over the reference pages listed below it)
 function configureNavSearchDemo() {
     const pgsApi = globalThis.pgs;
     if (!pgsApi?.search) return;
@@ -169,7 +169,6 @@ function configureNavSearchDemo() {
             onSelect: ({ value, input }) => {
                 // click the real anchor instead of just setting location.hash, so pgs.pageNav (which switches panels on click, not on hashchange) runs as usual
                 navLinks.find(link => link.getAttribute("href") === value)?.click();
-                pgsApi.modal.api(pgsApi(form).closest("modal"))?.close();
                 input.value = "";
                 // deferred past select()'s own input.focus(): that refocus would otherwise reschedule a search for the now-empty field and reopen the placeholder
                 setTimeout(() => {

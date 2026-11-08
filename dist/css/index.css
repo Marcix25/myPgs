@@ -6777,6 +6777,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --pageShell-paddingInline: var(--page-padding);
   --pageShell-offsetTop: var(--page-top);
   --pageShell-paddingBottom: var(--gap-elements);
+  --pageShell-child-padding: max(0px, calc(var(--pageShell-offsetTop) - var(--pageShell-asideScroll-top)));
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
   --pageShell-aside-width: 20rem;
@@ -6794,9 +6795,45 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   position: relative;
   padding-inline: var(--pageShell-paddingInline);
   padding-bottom: var(--pageShell-paddingBottom);
-  padding-top: var(--pageShell-offsetTop);
+  margin-top: min(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
   container: pageShell/inline-size;
   max-width: var(--pageShell-width);
+}
+
+:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
+  padding-top: var(--pageShell-child-padding);
+  isolation: isolate;
+  width: var(--pageShell-aside-width);
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  container-type: inline-size;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
+    transition: top 0.3s ease;
+  }
+}
+:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) > * {
+  width: 100%;
+}
+
+:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]):has(+ :where([pgs~=pageShell-content])) {
+  grid-area: asideLeft;
+}
+
+:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-content]) + :where([pgs~=pageShell-aside]) {
+  grid-area: asideRight;
+}
+
+:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-content]) {
+  padding-top: var(--pageShell-child-padding);
+  grid-area: content;
+  min-width: 0;
+  width: 100%;
+  max-width: var(--pageShell-content-width);
+  container-type: inline-size;
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]):where(:has(> :where([pgs~=pageShell-aside]))) {
@@ -6831,40 +6868,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 :is([pgs~=pageShell], [pgs*="pageShell["]):where(:has(> :where([pgs~=pageShell-aside]) + :where([pgs~=pageShell-content])):has(> :where([pgs~=pageShell-content]) + :where([pgs~=pageShell-aside]))) {
   grid-template-columns: auto 1fr auto;
   grid-template-areas: "asideLeft content asideRight";
-}
-
-:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-content]) {
-  grid-area: content;
-  min-width: 0;
-  width: 100%;
-  max-width: var(--pageShell-content-width);
-  container-type: inline-size;
-}
-
-:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
-  isolation: isolate;
-  width: var(--pageShell-aside-width);
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  container-type: inline-size;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
-    transition: top 0.3s ease;
-  }
-}
-:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) > * {
-  width: 100%;
-}
-
-:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]):has(+ :where([pgs~=pageShell-content])) {
-  grid-area: asideLeft;
-}
-
-:is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-content]) + :where([pgs~=pageShell-aside]) {
-  grid-area: asideRight;
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) {
@@ -6962,15 +6965,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   margin-inline: auto;
 }
 
-:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] {
-  padding-top: 0;
-}
-
-@container (max-width: 900px) {
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] > *:first-child {
-    margin-top: var(--pageShell-offsetTop);
-  }
-}
 @container (min-width: 900px) {
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-aside]) {
     position: sticky;
@@ -6978,14 +6972,9 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
     top: var(--pageShell-asideScroll-top);
     scrollbar-color: transparent transparent;
     max-height: var(--pageShell-asideScroll-maxHeight);
-    margin-top: var(--pageShell-asideScroll-top);
-    padding-top: max(0px, var(--pageShell-offsetTop) - var(--pageShell-asideScroll-top));
   }
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-aside]):hover {
     scrollbar-color: var(--color-gray) transparent;
-  }
-  :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-content]) {
-    margin-top: max(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
   }
 }
 @container (min-width: 900px) {
