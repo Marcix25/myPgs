@@ -23,9 +23,8 @@
     --pageShell-paddingInline: var(--page-padding);
     --pageShell-paddingBottom: var(--gap-elements);
     --pageShell-gap: var(--gap-elements);
-    // room above: the shell's margin (the header) plus the top padding of every aside and content, so a hidden child takes nothing away
-    --pageShell-marginTop: var(--_header-height);
-    --pageShell-child-paddingTop: max(0px, calc(var(--page-top) - var(--pageShell-marginTop)));
+    // room above, like main: the shell's own padding, never moved to a child, with or without shellAsideScroll
+    --pageShell-paddingTop: var(--page-top);
     // content
     --pageShell-content-width: var(--page-width);
     // aside
@@ -42,8 +41,8 @@
     width: 100%;
     position: relative;
     padding-inline: var(--pageShell-paddingInline);
+    padding-top: var(--pageShell-paddingTop);
     padding-bottom: var(--pageShell-paddingBottom);
-    margin-top: var(--pageShell-marginTop);
     // named, so pageNav['pageNavDrillDown'] can follow the shell from deeper down, past its children's containers
     container: pageShell / inline-size;
     max-width: var(--pageShell-width);
@@ -51,7 +50,6 @@
     //## aside & content
     //### aside
     :where([pgs~="pageShell-aside"]) {
-        padding-top: var(--pageShell-child-paddingTop);
         isolation: isolate;
         width: var(--pageShell-aside-width);
         min-width: 0;
@@ -69,7 +67,6 @@
 
     //### content
     :where([pgs~="pageShell-content"]) {
-        padding-top: var(--pageShell-child-paddingTop);
         grid-area: content;
         min-width: 0;
         width: 100%;
@@ -193,11 +190,11 @@
     //+ shellAsideScroll
     &[pgs*="'shellAsideScroll'"] {
 
-        // the top room is the shell's in every band (see --pageShell-child-paddingTop): the sidebar only sticks
+        // the option only adds the sticky sidebar: it sticks where the shell's padding puts it, never under the header
         //+( notebook
         @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
-                $asideScrollTop: max(var(--_header-height), var(--pageShell-marginTop));
+                $asideScrollTop: max(var(--_header-height), var(--pageShell-paddingTop));
                 position: sticky;
                 overflow-y: auto;
                 top: #{$asideScrollTop};

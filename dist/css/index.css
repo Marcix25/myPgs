@@ -6777,8 +6777,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --pageShell-paddingInline: var(--page-padding);
   --pageShell-paddingBottom: var(--gap-elements);
   --pageShell-gap: var(--gap-elements);
-  --pageShell-marginTop: var(--_header-height);
-  --pageShell-child-paddingTop: max(0px, calc(var(--page-top) - var(--pageShell-marginTop)));
+  --pageShell-paddingTop: var(--page-top);
   --pageShell-content-width: var(--page-width);
   --pageShell-aside-width: 20rem;
   --pageShell-asideShadow-sizeMaskImage: 40px;
@@ -6792,14 +6791,13 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   width: 100%;
   position: relative;
   padding-inline: var(--pageShell-paddingInline);
+  padding-top: var(--pageShell-paddingTop);
   padding-bottom: var(--pageShell-paddingBottom);
-  margin-top: var(--pageShell-marginTop);
   container: pageShell/inline-size;
   max-width: var(--pageShell-width);
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-aside]) {
-  padding-top: var(--pageShell-child-paddingTop);
   isolation: isolate;
   width: var(--pageShell-aside-width);
   min-width: 0;
@@ -6826,7 +6824,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 :is([pgs~=pageShell], [pgs*="pageShell["]) :where([pgs~=pageShell-content]) {
-  padding-top: var(--pageShell-child-paddingTop);
   grid-area: content;
   min-width: 0;
   width: 100%;
@@ -6967,9 +6964,9 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-aside]) {
     position: sticky;
     overflow-y: auto;
-    top: max(var(--_header-height), var(--pageShell-marginTop));
+    top: max(var(--_header-height), var(--pageShell-paddingTop));
     scrollbar-color: transparent transparent;
-    max-height: calc(100dvh - max(var(--_header-height), var(--pageShell-marginTop)));
+    max-height: calc(100dvh - max(var(--_header-height), var(--pageShell-paddingTop)));
   }
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-aside]):hover {
     scrollbar-color: var(--color-gray) transparent;

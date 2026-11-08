@@ -31,12 +31,11 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 - `--pageShell-aside-width`
 - `--pageShell-asideShadow-sizeMaskImage`
-- `--pageShell-child-paddingTop`
 - `--pageShell-content-width`
 - `--pageShell-gap`
-- `--pageShell-marginTop`
 - `--pageShell-paddingBottom`
 - `--pageShell-paddingInline`
+- `--pageShell-paddingTop`
 - `--pageShell-width`
 
 ## Output
