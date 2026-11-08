@@ -3,7 +3,7 @@
 //# MAIN
 @mixin main() {
     --main-paddingTop: var(--page-top);
-    --main-paddingBottom: var(--page-top);
+    --main-paddingBottom: var(--page-bottom);
     --main-gap: var(--gap-sections);
     min-height: 100svh;
     @include column(var(--main-gap));

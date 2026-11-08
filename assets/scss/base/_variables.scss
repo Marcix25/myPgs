@@ -59,6 +59,7 @@
         --page-padding: min(3vw, #{$SIZE});
         --page-top: calc(var(--_header-height) + 7lvh);
         --page-topScroll: calc(var(--_header-heightScroll) + var(--_header-height));
+        --page-bottom: 7lvh; // the room --page-top adds under the header, at the bottom of the page (no header there)
         --page-width: 1280px;
         --page-edge: max(0px, calc((100% - var(--page-width)) / 2 - var(--page-padding)));
         //
