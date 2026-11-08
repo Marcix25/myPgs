@@ -21,21 +21,15 @@
 :is([pgs~="pageShell"], [pgs*="pageShell\5B"]) {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-paddingInline) * 2));
     --pageShell-paddingInline: var(--page-padding);
-    --pageShell-offsetTop: var(--page-top);
     --pageShell-paddingBottom: var(--gap-elements);
-    // the room above the shell is split in two, the same in every band and with or without shellAsideScroll: the
-    // shell's margin, up to the header height (where a shellAsideScroll sidebar sticks), and the rest as the top
-    // padding of each sidebar and of the content, so aside and content share one structure and a hidden child
-    // takes nothing away from the others. Together they always add up to --pageShell-offsetTop
-    --pageShell-child-padding: max(0px, calc(var(--pageShell-offsetTop) - var(--pageShell-asideScroll-top)));
     --pageShell-gap: var(--gap-elements);
+    // room above: the shell's margin (the header) plus the top padding of every aside and content, so a hidden child takes nothing away
+    --pageShell-marginTop: var(--_header-height);
+    --pageShell-child-paddingTop: max(0px, calc(var(--page-top) - var(--pageShell-marginTop)));
     // content
     --pageShell-content-width: var(--page-width);
     // aside
     --pageShell-aside-width: 20rem;
-    // shellAsideScroll
-    --pageShell-asideScroll-top: var(--_header-height);
-    --pageShell-asideScroll-maxHeight: calc(100dvh - var(--pageShell-asideScroll-top));
     // shellAsideShadow
     --pageShell-asideShadow-sizeMaskImage: 40px;
     display: grid;
@@ -49,17 +43,15 @@
     position: relative;
     padding-inline: var(--pageShell-paddingInline);
     padding-bottom: var(--pageShell-paddingBottom);
-    // a --pageShell-offsetTop smaller than the header (a shell lower down the page) is all margin
-    margin-top: min(var(--pageShell-offsetTop), var(--pageShell-asideScroll-top));
-    // named, so a component inside it can follow the shell from deeper down (pageNav['pageNavDrillDown']),
-    // past the containers of its own children
+    margin-top: var(--pageShell-marginTop);
+    // named, so pageNav['pageNavDrillDown'] can follow the shell from deeper down, past its children's containers
     container: pageShell / inline-size;
     max-width: var(--pageShell-width);
 
     //## aside & content
     //### aside
     :where([pgs~="pageShell-aside"]) {
-        padding-top: var(--pageShell-child-padding);
+        padding-top: var(--pageShell-child-paddingTop);
         isolation: isolate;
         width: var(--pageShell-aside-width);
         min-width: 0;
@@ -77,7 +69,7 @@
 
     //### content
     :where([pgs~="pageShell-content"]) {
-        padding-top: var(--pageShell-child-padding);
+        padding-top: var(--pageShell-child-paddingTop);
         grid-area: content;
         min-width: 0;
         width: 100%;
@@ -201,15 +193,16 @@
     //+ shellAsideScroll
     &[pgs*="'shellAsideScroll'"] {
 
-        // the top room is the shell's in every band (see --pageShell-child-padding): the sidebar only sticks
+        // the top room is the shell's in every band (see --pageShell-child-paddingTop): the sidebar only sticks
         //+( notebook
         @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
+                $asideScrollTop: max(var(--_header-height), var(--pageShell-marginTop));
                 position: sticky;
                 overflow-y: auto;
-                top: var(--pageShell-asideScroll-top);
+                top: #{$asideScrollTop};
                 scrollbar-color: transparent transparent;
-                max-height: var(--pageShell-asideScroll-maxHeight);
+                max-height: calc(100dvh - #{$asideScrollTop});
 
                 &:hover { scrollbar-color: var(--color-gray) transparent; }
             }
