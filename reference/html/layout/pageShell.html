@@ -4,16 +4,17 @@
  * @description Responsive page layout that combines main content with zero, one or two sidebars and adapts their width, position and scrolling behavior.
  *
  * @pgs
- * - pageShell: identifies the container that calculates the main and aside composition. It is a container named pageShell (inline-size), so a component deeper inside can follow the width of the shell: pageNav['pageNavDrillDown'] does, see Page Nav.
+ * - pageShell: identifies the container that calculates the main and aside composition. It has no room above or below of its own: main gives it, written on the same element (`<main pgs="main pageShell">`, where the shell's grid replaces main's column and main keeps its padding) or around the shell; a shell with no main has none. It is a container named pageShell (inline-size), so a component deeper inside can follow the width of the shell: pageNav['pageNavDrillDown'] does, see Page Nav.
  * - pageShell-aside: identifies a sidebar that can be placed before or after the content.
  * - pageShell-content: identifies the main page content.
  *
  * @pgs-options
  * - shellFullPage: expands the shell to the full available width while keeping its content centered.
- * - shellAsideScroll: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height; it releases the sticky behavior once the sidebar stacks.
+ * - shellAsideScroll: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height: under the header, or where main's top padding puts it on `main pageShell`; it releases the sticky behavior once the sidebar stacks.
  * - shellAsideShadow: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of shellAsideScroll, but only meaningful alongside it.
  *
  * @related
+ * - main: gives the shell its room under the header and at the bottom of the page, on the same element or around it.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: organizes text contained in the sidebars.
  * - gapElements: applies element spacing in the main sections.

@@ -1,13 +1,14 @@
 <!-- The demo page's own content — the pageShell that hosts the reference nav and panels, no
      surrounding page around it, like every file in site/page/. Unlike the others it is not shown as
-     written: its nav starts empty and its main holds only the back button of pageNavDrillDown, and
+     written: its nav starts empty and its content holds only the back button of pageNavDrillDown, and
      scripts/build-site-static.js fills them in with the nav and the panels (after the button) rendered
      from reference/html before wrapping the result in site/index.html
      to make site/build/demo.html. Opening this file directly shows nothing. Edit it for the
-     demo's own layout — the nav, the aside, the main; edit site/index.html for the page around
+     demo's own layout — the nav, the aside, the content; edit site/index.html for the page around
      it (head, asset paths), and header.html / footer.html for the header and
      the footer. -->
-<div pgs="pageShell['shellFullPage' 'shellAsideScroll']">
+<!-- main pageShell: main gives the room under the header and at the bottom, pageShell the sidebar and the content -->
+<main pgs="main pageShell['shellFullPage' 'shellAsideScroll']">
     <!-- pageNav-home: with pageNavDrillDown on the body, while the shell stacks its sidebar (a phone, a tablet
          in portrait) this aside is the first screen on its own, and hides once a page is open -->
     <aside pgs="pageShell-aside pageNav-home container['cntNone']" id="reference-demo-aside" class="reference-demo-menuAside-search">
@@ -19,11 +20,11 @@
         </div>
         <div pgs="flex['column' 'gapElements'] paddingBottom" class="reference-demo-nav"></div>
     </aside>
-    <main pgs="pageNav-panels pageShell-content marginBottom['mgBtSections']" id="reference-demo-main">
+    <div pgs="pageNav-panels pageShell-content marginBottom['mgBtSections']" id="reference-demo-main">
         <!-- back to the list of pages, shown only while the sidebar would stack above the page -->
         <button type="button" pgs="pageNav-back button['btnTransparent'] marginBottom['mgBtElements']">
             <i pgs="icon['icon-chevronLeft']" aria-hidden="true"></i>
             <span>Browse docs</span>
         </button>
-    </main>
-</div>
+    </div>
+</main>

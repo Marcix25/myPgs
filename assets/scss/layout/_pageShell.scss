@@ -21,10 +21,7 @@
 :is([pgs~="pageShell"], [pgs*="pageShell\5B"]) {
     --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-paddingInline) * 2));
     --pageShell-paddingInline: var(--page-padding);
-    --pageShell-paddingBottom: var(--page-bottom);
     --pageShell-gap: var(--gap-elements);
-    // room above, like main: the shell's own padding, never moved to a child, with or without shellAsideScroll
-    --pageShell-paddingTop: var(--page-top);
     // content
     --pageShell-content-width: var(--page-width);
     // aside
@@ -40,12 +37,19 @@
     justify-content: center;
     width: 100%;
     position: relative;
+    // no room above or below of its own: main gives it, on the same element (main pageShell) or around the shell
     padding-inline: var(--pageShell-paddingInline);
-    padding-top: var(--pageShell-paddingTop);
-    padding-bottom: var(--pageShell-paddingBottom);
     // named, so pageNav['pageNavDrillDown'] can follow the shell from deeper down, past its children's containers
     container: pageShell / inline-size;
     max-width: var(--pageShell-width);
+
+    //## on main
+    // pgs="main pageShell": the shell's grid wins over main's column whatever the order of the files, main keeps its padding
+    &[pgs~="main"] {
+        display: grid;
+        gap: var(--pageShell-gap);
+        align-items: start;
+    }
 
     //## aside & content
     //### aside
@@ -190,18 +194,25 @@
     //+ shellAsideScroll
     &[pgs*="'shellAsideScroll'"] {
 
-        // the option only adds the sticky sidebar: it sticks where the shell's padding puts it, never under the header
+        // the option only adds the sticky sidebar: under the header, or where main's padding puts it on main pageShell
+        $top: var(--_header-height);
+        $topOnMain: max(var(--_header-height), var(--main-paddingTop));
+
         //+( notebook
         @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
-                $asideScrollTop: max(var(--_header-height), var(--pageShell-paddingTop));
                 position: sticky;
                 overflow-y: auto;
-                top: #{$asideScrollTop};
+                top: $top;
                 scrollbar-color: transparent transparent;
-                max-height: calc(100dvh - #{$asideScrollTop});
+                max-height: calc(100dvh - #{$top});
 
                 &:hover { scrollbar-color: var(--color-gray) transparent; }
+            }
+
+            &[pgs~="main"] :where([pgs~="pageShell-aside"]) {
+                top: $topOnMain;
+                max-height: calc(100dvh - #{$topOnMain});
             }
         }
     }
