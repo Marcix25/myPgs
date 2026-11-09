@@ -7,12 +7,12 @@
 // this element anywhere in the document independently of the wrapper. The flag selectors below
 // don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
 // needs to be scoped to the token that carries it.
-// the page stops scrolling while a pgs modal is open: it reads the html token and the pgs dialog,
-// never the bare html and dialog tags
+// the page is not locked while a pgs modal is open: the dialog and modal-dialog-content-scroll keep the wheel
+// with overscroll-behavior: contain. It reads the html token and the pgs dialog, never the bare html and dialog tags
 :where([pgs~="htmlBase"]):has([pgs~="modal-dialog"][open]) {
     cursor: pointer;
-    overflow: clip;
-    scrollbar-gutter: stable ;
+    // overflow: clip;
+    // scrollbar-gutter: stable ;
 }
 
 //# MODAL
@@ -67,7 +67,7 @@
     --modal-color: var(--color-black);
     --modal-content-padding: var(--padding-elements);
     --modal-offset: var(--gap-paragraphs);
-    --modal-borderRadius: calc(var(--borderRadius-paragraphs) + var(--modal-content-padding));
+    --modal-borderRadius: calc(var(--borderRadius-details) + var(--modal-content-padding));
     // dialogAnimation*: duration and curve of every opening and closing animation (PhotoSwipe's own defaults)
     --modal-animation-timing: 333ms;
     --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
@@ -139,8 +139,34 @@
             overflow: auto;
             overscroll-behavior: contain;
             max-height: 100%;
+            // it takes the right padding of the panel too: the scrollbar runs along the edge of the panel
+            margin-right: calc(var(--modal-content-padding) * -1);
+            padding-right: var(--modal-content-padding);
 
             &:has(~:where([pgs~="modal-dialog-content-header"])) { padding-top: calc(var(--modal-content-padding) / 2); }
+
+            // the last part of the panel takes its bottom padding too: the text scrolls down to the bottom edge,
+            // with no empty strip under it that looks like the end
+            &:not(:has(~ :where([pgs~="modal-dialog-content-footer"]))) {
+                margin-bottom: calc(var(--modal-content-padding) * -1);
+                padding-bottom: var(--modal-content-padding);
+            }
+
+            // over a footer the text is cut by its border, and the room at the end of the scroll stays inside
+            &:has(~ :where([pgs~="modal-dialog-content-footer"])) { padding-bottom: calc(var(--modal-content-padding) / 2); }
+        }
+
+        //#### FOOTER
+        // the actions of the panel (a Cancel, a confirm), under the part that scrolls and always in view: the
+        // mirror of the header, a row on the right that wraps on a narrow screen
+        :where([pgs~="modal-dialog-content-footer"]) {
+            --modal-footer-gap: var(--gap-details);
+            @include row(wrap, var(--modal-footer-gap));
+            justify-content: flex-end;
+            align-items: center;
+            flex-shrink: 0;
+            border-top: var(--border-width) var(--border-color) var(--border-style);
+            padding-top: calc(var(--modal-content-padding) / 2);
         }
     }
 

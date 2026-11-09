@@ -8,7 +8,7 @@
 :root {
     --heading-color: var(--color-black);
     --heading-family: var(--font-heading);
-    --heading-weight: 900;
+    --heading-weight: var(--font-weight-title);
     --heading-lineHeight: 1.1;
     --heading-letterSpacing: normal;
     // h1

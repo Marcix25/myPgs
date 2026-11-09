@@ -9,7 +9,7 @@
 // overriding --heading-family-h3 there once, not touching this mixin or its h3() caller.
 // The fallback only matters if that :root block is ever missing. $tag (e.g. "-h3") selects
 // those -hN properties; $weight is the fallback of --heading-weight-hN.
-@mixin heading($size, $tag: "", $weight: 900) {
+@mixin heading($size, $tag: "", $weight: 700) {
     font-family: var(--heading-family#{$tag}, var(--font-heading));
     margin-bottom: calc(var(--heading-size#{$tag}, #{$size}) / 8);
     font-size: var(--heading-size#{$tag}, #{$size});

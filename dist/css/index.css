@@ -35,7 +35,7 @@
   --borderRadius-sections: var(--SIZE-sections);
   --font: 'Urbanist', sans-serif;
   --font-heading: var(--font);
-  --font-weight-title: 800;
+  --font-weight-title: 700;
   --font-weight-bold: 600;
   --font-weight-text: 500;
   --font-size-text: 1.6rem;
@@ -297,7 +297,7 @@
   color: var(--heading-color-h1, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h1, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h1, 900);
+  font-weight: var(--heading-weight-h1, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -325,7 +325,7 @@
   color: var(--heading-color-h2, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h2, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h2, 900);
+  font-weight: var(--heading-weight-h2, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -353,7 +353,7 @@
   color: var(--heading-color-h3, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h3, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h3, 900);
+  font-weight: var(--heading-weight-h3, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -381,7 +381,7 @@
   color: var(--heading-color-h4, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h4, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h4, 900);
+  font-weight: var(--heading-weight-h4, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -2999,8 +2999,6 @@
 
 :where([pgs~=htmlBase]):has([pgs~=modal-dialog][open]) {
   cursor: pointer;
-  overflow: clip;
-  scrollbar-gutter: stable;
 }
 
 :is([pgs~=modal], [pgs*="modal["]) {
@@ -3017,7 +3015,7 @@
   --modal-color: var(--color-black);
   --modal-content-padding: var(--padding-elements);
   --modal-offset: var(--gap-paragraphs);
-  --modal-borderRadius: calc(var(--borderRadius-paragraphs) + var(--modal-content-padding));
+  --modal-borderRadius: calc(var(--borderRadius-details) + var(--modal-content-padding));
   --modal-animation-timing: 333ms;
   --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
@@ -3111,9 +3109,34 @@
   overflow: auto;
   overscroll-behavior: contain;
   max-height: 100%;
+  margin-right: calc(var(--modal-content-padding) * -1);
+  padding-right: var(--modal-content-padding);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):has(~ :where([pgs~=modal-dialog-content-header])) {
+  padding-top: calc(var(--modal-content-padding) / 2);
+}
+
+:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):not(:has(~ :where([pgs~=modal-dialog-content-footer]))) {
+  margin-bottom: calc(var(--modal-content-padding) * -1);
+  padding-bottom: var(--modal-content-padding);
+}
+
+:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):has(~ :where([pgs~=modal-dialog-content-footer])) {
+  padding-bottom: calc(var(--modal-content-padding) / 2);
+}
+
+:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-footer]) {
+  --modal-footer-gap: var(--gap-details);
+  display: flex;
+  gap: var(--modal-footer-gap);
+  --gap: var(--modal-footer-gap);
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  border-top: var(--border-width) var(--border-color) var(--border-style);
   padding-top: calc(var(--modal-content-padding) / 2);
 }
 
@@ -8045,7 +8068,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 :root {
   --heading-color: var(--color-black);
   --heading-family: var(--font-heading);
-  --heading-weight: 900;
+  --heading-weight: var(--font-weight-title);
   --heading-lineHeight: 1.1;
   --heading-letterSpacing: normal;
   --heading-size-h1: 7.2rem;
@@ -8094,7 +8117,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   color: var(--heading-color-h1, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h1, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h1, 900);
+  font-weight: var(--heading-weight-h1, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -8122,7 +8145,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   color: var(--heading-color-h2, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h2, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h2, 900);
+  font-weight: var(--heading-weight-h2, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -8150,7 +8173,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   color: var(--heading-color-h3, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h3, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h3, 900);
+  font-weight: var(--heading-weight-h3, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -8178,7 +8201,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   color: var(--heading-color-h4, var(--color-black));
   letter-spacing: var(--heading-letterSpacing-h4, var(--heading-letterSpacing));
   min-width: 0;
-  font-weight: var(--heading-weight-h4, 900);
+  font-weight: var(--heading-weight-h4, 700);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }

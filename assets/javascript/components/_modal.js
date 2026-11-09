@@ -31,7 +31,7 @@ function initializeModal(MODAL) {
 
     //## SELECTOR
     // a hand-written close button keeps the bare name; a generated one gets the underscore
-    const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] _modal-close\" type=\"button\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
+    const DOMButtonClose = "<button pgs=\"button['btnIconOnly' 'btnMini'] background['bgBackground'] _modal-close\" type=\"button\" aria-label=\"Close\"><i pgs=\"icon['icon-close']\"></i></button>";
     const modalContentHeader = pgs(DIALOG).querySelector("modal-dialog-content-header");
 
     //## FOCUS
@@ -106,11 +106,21 @@ function initializeModal(MODAL) {
 
 
     //## BUTTON CLOSE
-    if (!pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) && !pgs(MODAL).querySelector(["modal-close", "_modal-close"])) {
+    // a close button of this modal, not of a modal written inside its dialog
+    const isOwnClose = button => {
+        const wrapper = button.closest("[pgs~='modal'], [pgs*='modal[']");
+        return !wrapper || wrapper === MODAL || !DIALOG.contains(wrapper);
+    };
+    const closesOf = root => [...pgs(root).querySelectorAll(["modal-close", "_modal-close"])].filter(isOwnClose);
+    // a close in the footer (a Cancel next to the confirm) is an action of the panel: the cross is still
+    // generated, unless the author wrote a close of their own anywhere else
+    const inFooter = button => button.closest("[pgs~='modal-dialog-content-footer']") !== null;
+    if (![...closesOf(DIALOG), ...closesOf(MODAL)].some(button => !inFooter(button))) {
         if (modalContentHeader) modalContentHeader.insertAdjacentHTML("beforeend", DOMButtonClose);
         else DIALOG.insertAdjacentHTML("beforeend", DOMButtonClose);
     }
-    const BUTTON_CLOSE = pgs(DIALOG).querySelector(["modal-close", "_modal-close"]) || pgs(MODAL).querySelector(["modal-close", "_modal-close"]);
+    // the one the API names: the cross, or the first close written outside the footer
+    const BUTTON_CLOSE = closesOf(DIALOG).find(button => !inFooter(button)) || closesOf(MODAL)[0] || closesOf(DIALOG)[0];
 
 
     //## BUTTON OPEN
@@ -445,9 +455,18 @@ function initializeModal(MODAL) {
         pressTarget = null;
         if (e.target == DIALOG && pressedOnBackdrop && !dialogDisableBackdropClose) closeModal(e);
     }, { signal });
-    // a modal-button that is also the modal-close is a toggle: its open handler already closes an open
-    // dialog, and a second listener on it would close the dialog it has just opened
-    if (BUTTON_CLOSE && BUTTON_CLOSE !== BUTTON_OPEN) BUTTON_CLOSE.addEventListener("click", e => closeModal(e), { signal });
+    // every close of this modal inside its dialog closes it, the cross and a Cancel in the footer alike: one
+    // listener on the dialog, so a close added later by a script works too
+    DIALOG.addEventListener("click", e => {
+        const button = e.target.closest?.("[pgs~='modal-close'], [pgs~='_modal-close']");
+        if (button && DIALOG.contains(button) && isOwnClose(button) && button !== BUTTON_OPEN) closeModal(e);
+    }, { signal });
+    // a close written on the wrapper, outside the dialog. A modal-button that is also the modal-close is a
+    // toggle: its open handler already closes an open dialog, and a second listener on it would close the
+    // dialog it has just opened
+    for (const button of closesOf(MODAL)) {
+        if (button !== BUTTON_OPEN && !DIALOG.contains(button)) button.addEventListener("click", e => closeModal(e), { signal });
+    }
 
     //# DRAG CLOSE
     // touchmove is not passive: once a drag has started it has to stop the page from scrolling

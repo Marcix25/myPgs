@@ -1101,6 +1101,7 @@
             "modal-button",
             "modal-close",
             "modal-dialog-content",
+            "modal-dialog-content-footer",
             "modal-dialog-content-header",
             "modal-dialog-content-scroll"
         ],
