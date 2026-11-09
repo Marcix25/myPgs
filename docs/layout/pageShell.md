@@ -13,7 +13,7 @@ Responsive page layout that combines main content with zero, one or two sidebars
 ## PGS Options (component brackets)
 
 - `shellFullPage`: expands the shell to the full available width while keeping its content centered.
-- `shellAsideScroll`: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height: under the header, or where main's top padding puts it on `main pageShell`; it releases the sticky behavior once the sidebar stacks.
+- `shellAsideScroll`: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height, stuck right under the header (on `main pageShell` it reaches up to the header through main's top padding, its content still level with the content); it releases the sticky behavior once the sidebar stacks.
 - `shellAsideShadow`: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of shellAsideScroll, but only meaningful alongside it.
 
 ## Related elements
@@ -34,6 +34,8 @@ Responsive page layout that combines main content with zero, one or two sidebars
 ## CSS Variables
 
 - `--pageShell-aside-width`
+- `--pageShell-asideShadow-maskEnd`
+- `--pageShell-asideShadow-maskStart`
 - `--pageShell-asideShadow-sizeMaskImage`
 - `--pageShell-content-width`
 - `--pageShell-gap`

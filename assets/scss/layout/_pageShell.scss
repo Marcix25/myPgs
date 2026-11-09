@@ -1,6 +1,30 @@
 @use "../mixin/mixin" as *;
 
 //= pageShell
+// registered so the fades of shellAsideShadow can follow the scroll of the sidebar: a plain custom property would jump
+@property --pageShell-asideShadow-maskStart {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+@property --pageShell-asideShadow-maskEnd {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+// the top fade grows over the first stretch of scroll, the bottom one shrinks over the last
+@keyframes pageShell-asideShadow-start {
+    from { --pageShell-asideShadow-maskStart: 0px; }
+    to { --pageShell-asideShadow-maskStart: var(--pageShell-asideShadow-sizeMaskImage); }
+}
+
+@keyframes pageShell-asideShadow-end {
+    from { --pageShell-asideShadow-maskEnd: var(--pageShell-asideShadow-sizeMaskImage); }
+    to { --pageShell-asideShadow-maskEnd: 0px; }
+}
+
 // takes a sidebar out of its own column so it fills the whole row it stacks on
 @mixin pageShell-aside-flow() {
     position: relative;
@@ -27,7 +51,7 @@
     // aside
     --pageShell-aside-width: 20rem;
     // shellAsideShadow
-    --pageShell-asideShadow-sizeMaskImage: 40px;
+    --pageShell-asideShadow-sizeMaskImage: var(--gap-elements);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "content";
@@ -194,25 +218,24 @@
     //+ shellAsideScroll
     &[pgs*="'shellAsideScroll'"] {
 
-        // the option only adds the sticky sidebar: under the header, or where main's padding puts it on main pageShell
-        $top: var(--_header-height);
-        $topOnMain: max(var(--_header-height), var(--main-paddingTop));
-
+        // the option only adds the sticky sidebar, stuck right under the header
         //+( notebook
         @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
                 position: sticky;
                 overflow-y: auto;
-                top: $top;
+                top: var(--_header-height);
                 scrollbar-color: transparent transparent;
-                max-height: calc(100dvh - #{$top});
+                max-height: calc(100dvh - var(--_header-height));
 
                 &:hover { scrollbar-color: var(--color-gray) transparent; }
             }
 
+            // on main pageShell the sidebar climbs into main's top padding up to the header, so what scrolls in it
+            // reaches the header, and gives the same room back inside: its content stays level with the content
             &[pgs~="main"] :where([pgs~="pageShell-aside"]) {
-                top: $topOnMain;
-                max-height: calc(100dvh - #{$topOnMain});
+                margin-top: min(0px, calc(var(--_header-height) - var(--main-paddingTop)));
+                padding-top: max(0px, calc(var(--main-paddingTop) - var(--_header-height)));
             }
         }
     }
@@ -223,8 +246,19 @@
         //+( notebook
         @container (min-width: #{$notebook}) {
             :where([pgs~="pageShell-aside"]) {
-                -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
-                mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-sizeMaskImage), black calc(100% - var(--pageShell-asideShadow-sizeMaskImage)), transparent 100%);
+                // with no scroll-driven animations (Firefox) only the bottom fade, which hides nothing at the top
+                --pageShell-asideShadow-maskEnd: var(--pageShell-asideShadow-sizeMaskImage);
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-maskStart), black calc(100% - var(--pageShell-asideShadow-maskEnd)), transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-maskStart), black calc(100% - var(--pageShell-asideShadow-maskEnd)), transparent 100%);
+
+                // a fade only where there is something to scroll to: none at the top before scrolling, none at the
+                // bottom once at the end, none at all on a sidebar that does not scroll (the timeline is inactive)
+                @supports (animation-timeline: scroll()) {
+                    --pageShell-asideShadow-maskEnd: 0px;
+                    animation: pageShell-asideShadow-start linear both, pageShell-asideShadow-end linear both;
+                    animation-timeline: scroll(self), scroll(self);
+                    animation-range: 0 var(--pageShell-asideShadow-sizeMaskImage), calc(100% - var(--pageShell-asideShadow-sizeMaskImage)) 100%;
+                }
             }
         }
     }
