@@ -7,12 +7,14 @@
 }
 
 //## iconBase
+// the font-size takes --icon-size and the box is 1em of it: --icon-size read again for the width would be
+// resolved at that font-size, and a value in em (iconMedium, a vertical button) would count twice
 @mixin iconBase() {
     line-height: 1;
     font-size: var(--icon-size);
     display: inline-block;
-    width: var(--icon-size, 1em);
-    height: var(--icon-size, 1em);
+    width: 1em;
+    height: 1em;
     background-color: var(--icon-color, currentColor);
     vertical-align: -0.125em;
     content: "";
@@ -45,12 +47,14 @@
     inline-size: var(--icon-size, 1em);
     block-size: var(--icon-size, 1em);
 
+    // each layer the same way as iconBase: the font-size takes --icon-size, the layer is 1em of it
     &::before,
     &::after {
         content: "";
         display: inline-block;
-        width: var(--icon-size, 1em);
-        height: var(--icon-size, 1em);
+        font-size: var(--icon-size);
+        width: 1em;
+        height: 1em;
         vertical-align: -0.125em;
         grid-area: 1 / 1;
     }

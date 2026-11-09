@@ -11,8 +11,8 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 ## PGS Options (component brackets)
 
 - `iconBoxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
-- `iconMedium`: sets --icon-size to 1.25em, a preset for a glyph that needs to stand out a little more than the size it inherits from the surrounding text.
-- `iconLarge`: sets --icon-size to 1.5em, the next preset up from iconMedium, for a glyph that has to stand out clearly from the text around it.
+- `iconMedium`: sets --icon-size to 1.5em, a preset for a glyph that needs to stand out a little more than the size it inherits from the surrounding text.
+- `iconLarge`: sets --icon-size to 2.25em, the next preset up from iconMedium (the same step of one and a half), for a glyph that has to stand out clearly from the text around it.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
 - `icon-close`: cross, for dismissing a surface.

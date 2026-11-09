@@ -1031,8 +1031,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -1624,7 +1624,7 @@
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnVertical'"]) {
   padding: var(--button-paddingInline);
   --button-height: 100%;
-  --icon-size: 1.2em;
+  --icon-size: 1.45em;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -1747,8 +1747,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -1885,8 +1885,9 @@
 :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::before, :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::after {
   content: "";
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  font-size: var(--icon-size);
+  width: 1em;
+  height: 1em;
   vertical-align: -0.125em;
   grid-area: 1/1;
 }
@@ -1925,11 +1926,11 @@
 }
 
 :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconMedium'"]) {
-  --icon-size: 1.25em;
+  --icon-size: 1.5em;
 }
 
 :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'iconLarge'"]) {
-  --icon-size: 1.5em;
+  --icon-size: 2.25em;
 }
 
 [pgs~=checkboxBackground] {
@@ -2202,8 +2203,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -2320,8 +2321,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -2341,8 +2342,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -2393,8 +2394,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -2414,8 +2415,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";
@@ -2751,8 +2752,8 @@
   line-height: 1;
   font-size: var(--icon-size);
   display: inline-block;
-  width: var(--icon-size, 1em);
-  height: var(--icon-size, 1em);
+  width: 1em;
+  height: 1em;
   background-color: var(--icon-color, currentColor);
   vertical-align: -0.125em;
   content: "";

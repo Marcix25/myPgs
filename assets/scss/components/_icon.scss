@@ -59,8 +59,9 @@
     &:where([pgs*="'iconBoxed'"]) { @include boxed(); }
 
     //+ ICON MEDIUM
-    &:where([pgs*="'iconMedium'"]) { --icon-size: 1.25em; }
+    // one and a half times the text, then the same step again for iconLarge
+    &:where([pgs*="'iconMedium'"]) { --icon-size: 1.5em; }
 
     //+ ICON LARGE
-    &:where([pgs*="'iconLarge'"]) { --icon-size: 1.5em; }
+    &:where([pgs*="'iconLarge'"]) { --icon-size: 2.25em; }
 }
