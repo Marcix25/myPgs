@@ -349,6 +349,8 @@
         --label-paddingBlock: var(--field-padding) .25em;
         --label-paddingInline: var(--field-padding);
         --label-background: transparent;
+        // the text size: --field-paddingTop and --field-label-paddingTop make room for one line of it
+        --label-size: 1em;
         position: absolute;
         top: 0;
         left: 0;

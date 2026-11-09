@@ -7,7 +7,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ## PGS
 
 - `form`: identifies the form container: a column, spaced by --form-gap (the paragraph gap by default). It styles no control of its own: each label, input, select, textarea, checkbox, radio, legend and fieldset takes its token. It also draws the asterisk on the label or legend of a required control.
-- `label`: the label of a control. Outside a field it is plain text above the control, in --label-color (labelBox gives it a box), on the label itself or on a span inside the label that wraps the control. It is styled only when it sits right before its control, or wraps it: a label with a for that names a control further away is left plain. A label right after a checkbox or a radio is the text of that control instead, and it stays on its line. In a field it is the floating label: no box, one line, partly transparent, over the control. It also dims when its control is disabled, is hidden together with a hidden control and gets the asterisk when the control after it is required.
+- `label`: the label of a control. Outside a field it is plain text above the control, in --label-color, --label-size (1.1em) and --label-weight (bold) (labelBox gives it a box), on the label itself or on a span inside the label that wraps the control. It is styled only when it sits right before its control, or wraps it: a label with a for that names a control further away is left plain. A label right after a checkbox or a radio is the text of that control instead, and it stays on its line. In a field it is the floating label: no box, one line, partly transparent, over the control. --label-gap is the room between the label and its control (the detail gap by default), the same wherever the two are written: inside a wrapper, in a div, in a grid, or next to each other in a column. A label written right before its control as a direct child of a form, a fieldset or a flex['column'] gives the gap of that column back, so the column does not add its own gap to it. It also dims when its control is disabled, is hidden together with a hidden control and gets the asterisk when the control after it is required.
 - `input`: applies shared styling to an input. A password input uses the browser's own font; a search, number, date, time, datetime-local, month or week input is a row with the picker icon first. The look reads --input-padding, --input-border, --input-borderRadius and --input-background. In a field the input takes the padding of the field and room above for the label, and the label floats while the input is empty; the field adds the background and the radius around both, and no border.
 - `textarea`: applies shared styling to a <textarea>. In a field it also takes the token input, so that the label floats over it.
 - `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior. The box has --radio-background and --radio-borderColor, the dot of a checked radio is --radio-color, each with a -hover and a -checked one; a disabled radio is dimmed. --radio-gap is the space between the box and the text (half the paragraph gap). The label is a flex row: write its text in a <span>, and any link or <strong> inside that span, so the spaces around them are kept.
@@ -19,8 +19,8 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ## PGS Options (component brackets)
 
 - `labelBox`: inside label's (or legend's) own bracket, `label['labelBox']`: the label in a white box with a border and rounded corners on every side, on one line, a text too long for it ending with an ellipsis (--label-borderRadius, --label-paddingInline, --label-paddingBlock, --label-background, --label-border, --label-borderWidth). In a failing form the box turns to the error colors.
-- `labelTab`: inside label's own bracket, `label['labelTab']`: the box of labelBox as a tab, which it does not need next to it, rounded on the top corners only and with no border at the bottom, and the gap of the form left between it and the control.
-- `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: the same tab as labelTab with the gap of the form taken away, so that it touches the control and opens into it. It does not need labelTab next to it. It is made for a label and a control that are siblings in the column of a `pgs="form"`, joined by `for` and `id`: it cancels the gap of that column. Inside a `<label>` wrapper there is no gap to cancel and the control would be pulled over the tab.
+- `labelTab`: inside label's own bracket, `label['labelTab']`: the box of labelBox as a tab, which it does not need next to it, rounded on the top corners only and with no border at the bottom. Its --label-gap is 0, so it touches the control and opens into it wherever the two are written: in a `<label>` wrapper, in a div, or next to each other in the column of a form.
+- `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: deprecated, the old name of labelTab, kept so the markup that uses it still works. labelTab now touches the control in every context, so the two are the same tab.
 
 ## PGS Data
 
@@ -51,10 +51,12 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 - `select`: the select of the example, which keeps its own token; see Form Controls.
 - `alertContainer`: written inside the form, it is where the errors and the success of the validation are shown, as an alert; a form without one gets a toast.
 - `button`: provides the base styling for the primary submit action.
+- `grid`: the two fields side by side in the last example, grid['column-2']; each field keeps --label-gap inside its own div. See Grid.
 
 ### PGS Options (component brackets)
 
 - `btnStrong`: presents form submission as the primary action.
+- `column-2`: inside grid's own bracket, two columns; see Grid.
 
 ### Other
 
@@ -66,7 +68,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 
 ## Output
 
-Complete HTML form with required fields and plain labels, an example script for a custom rule, validation, and a success message, then the labelBox box on a label and on a legend and the labelTab and labelTabNoGap labels on their own.
+Complete HTML form with required fields and plain labels, an example script for a custom rule, validation, and a success message, then the labelBox box on a label and on a legend, the labelTab labels on their own, and the same distance between label and control in a wrapper, next to each other and in a grid of two columns.
 
 ## JavaScript Usage
 
@@ -207,7 +209,7 @@ labelBox puts the label in a box with a border and rounded corners, and on a leg
 
 ### Tab labels (labelTab)
 
-labelTab makes the label a tab instead of a box, rounded on the top corners only, with the gap of the form left between it and the control.
+labelTab makes the label a tab instead of a box, rounded on the top corners only, touching the control: in a label wrapper or next to its control, joined by for and id.
 
 ```html
 <form pgs="form" action="#" method="post">
@@ -216,20 +218,34 @@ labelTab makes the label a tab instead of a box, rounded on the top corners only
         <input pgs="input" type="text" name="tabName" placeholder=" ">
     </label>
 
-    <label>
-        <span pgs="label['labelTab']">Message</span>
-        <textarea pgs="textarea" name="tabMessage" rows="3" placeholder=" "></textarea>
-    </label>
+    <label pgs="label['labelTab']" for="formTabNotes">Notes</label>
+    <textarea pgs="textarea" id="formTabNotes" name="tabNotes" rows="3" placeholder=" "></textarea>
 </form>
 ```
 
-### Tab label without gap (labelTabNoGap)
+### Label and control in any container
 
-The same tab with labelTabNoGap, written on a label that is a sibling of its control: the gap of the form is taken away, so the tab touches the control.
+The label keeps --label-gap from its control wherever the two are written: in a label wrapper, next to each other in the column of the form, or in a div of a grid. The gap of the form only separates one field from the next.
 
 ```html
 <form pgs="form" action="#" method="post">
-    <label pgs="label['labelTabNoGap']" for="formNotes">Notes</label>
-    <textarea pgs="textarea" id="formNotes" name="notes" rows="3" placeholder=" "></textarea>
+    <label>
+        <span pgs="label">In a wrapper</span>
+        <input pgs="input" type="text" name="gapWrapper" placeholder=" ">
+    </label>
+
+    <label pgs="label" for="formGapSibling">Next to its control</label>
+    <input pgs="input" type="text" id="formGapSibling" name="gapSibling" placeholder=" ">
+
+    <div pgs="grid['column-2']">
+        <div>
+            <label pgs="label" for="formGapFirst">First name</label>
+            <input pgs="input" type="text" id="formGapFirst" name="gapFirst" placeholder=" ">
+        </div>
+        <div>
+            <label pgs="label" for="formGapLast">Last name</label>
+            <input pgs="input" type="text" id="formGapLast" name="gapLast" placeholder=" ">
+        </div>
+    </div>
 </form>
 ```

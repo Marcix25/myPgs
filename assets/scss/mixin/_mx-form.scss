@@ -53,8 +53,10 @@
     --label-paddingInline: var(--padding-paragraphs);
     --label-paddingBlock: 0px;
     --label-color: var(--color-black);
-    --label-size:  1.1em;
+    --label-size: 1.1em;
     --label-weight: var(--font-weight-bold);
+    // the room between the label and its control, the same inside a wrapper and next to the control
+    --label-gap: var(--gap-details);
     cursor: pointer;
     display: inline-block;
     vertical-align: top;
@@ -64,10 +66,16 @@
     position: relative;
     width: fit-content;
     max-width: 100%;
-    margin-bottom: var(--gap-details);
-    font-size: var(--labrel-size);
+    margin-bottom: var(--label-gap);
+    font-size: var(--label-size);
     font-weight: var(--label-weight);
 
+
+    //## next to its control
+    // a label written next to its control, in a column with a gap (form, fieldset, flex['column']), gives that
+    // gap back: the two stay --label-gap apart, as inside a wrapper. Only a direct child: --gap is inherited,
+    // and inside any other container there is no gap to give back
+    :where([pgs~="form"], [pgs~="fieldset"], :is([pgs~="flex"], [pgs*="flex\5B"])[pgs*="'column'"]) > &:where(:not(legend):has(+ *)) { margin-bottom: calc(var(--label-gap) - var(--gap, 0px)); }
 
     //## disabled
     &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
@@ -102,17 +110,16 @@
     }
 
     //+ labelTab
-    // the top corners only, and no bottom border: the label opens into the control it sits on
+    // the top corners only, and no bottom border: the label opens into the control it sits on, wherever the two
+    // are written. labelTabNoGap is the old name of the same tab
     &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+        --label-gap: 0px;
         max-width: calc(100% - (var(--label-left)*2));
         transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
         padding-bottom: 0;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         border-bottom: unset;
-        margin-bottom: 0;
-
-        &:where([pgs*="'labelTabNoGap'"]) { margin-bottom: calc(var(--form-gap, 0px) * -1); }
     }
 }
 

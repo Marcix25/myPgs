@@ -759,6 +759,7 @@
   --label-color: var(--color-black);
   --label-size: 1.1em;
   --label-weight: var(--font-weight-bold);
+  --label-gap: var(--gap-details);
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
@@ -768,9 +769,13 @@
   position: relative;
   width: fit-content;
   max-width: 100%;
-  margin-bottom: var(--gap-details);
-  font-size: var(--labrel-size);
+  margin-bottom: var(--label-gap);
+  font-size: var(--label-size);
   font-weight: var(--label-weight);
+}
+
+:where([pgs~=form], [pgs~=fieldset], :is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"]) > :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(:not(legend):has(+ *)) {
+  margin-bottom: calc(var(--label-gap) - var(--gap, 0px));
 }
 
 :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where(:has(+ [disabled], > [disabled])) {
@@ -821,17 +826,13 @@
 }
 
 :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+  --label-gap: 0px;
   max-width: calc(100% - var(--label-left) * 2);
   transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
   padding-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: unset;
-  margin-bottom: 0;
-}
-
-:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]):where([pgs*="'labelTabNoGap'"]) {
-  margin-bottom: calc(var(--form-gap, 0px) * -1);
 }
 
 [pgs~=radio] {
@@ -2440,6 +2441,7 @@
   --label-paddingBlock: var(--field-padding) .25em;
   --label-paddingInline: var(--field-padding);
   --label-background: transparent;
+  --label-size: 1em;
   position: absolute;
   top: 0;
   left: 0;
