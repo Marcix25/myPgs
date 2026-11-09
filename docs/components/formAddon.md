@@ -77,7 +77,173 @@ The field box that wraps a label and its control, and additional form controls f
 
 ## Output
 
-HTML examples of the field, checkboxBackground, toggle, select box (single and multiple), chip, and chips form controls.
+HTML examples of the toggle, chip and chips, select box (single and multiple), checkboxBackground, and field form controls.
+## Toggle
+
+### Toggle
+
+Checkbox presented as a switch with a rail and movable thumb.
+
+```html
+<label pgs="toggle">
+    <span>Enable Wi-Fi</span>
+    <input type="checkbox" name="darkMode" value="enabled">
+</label>
+```
+
+## Chip and chips
+
+### Chips checkbox
+
+Individual checkbox options presented as compact selectable chip buttons.
+
+```html
+<div pgs="flex['row']" role="group" aria-label="Chip actions">
+    <label pgs="button['btnMini' 'btnTwoState'] chip">
+        <input type="checkbox" name="like" value="basic">
+        <i pgs="icon['icon-star']"></i>
+        Like
+    </label>
+    <label pgs="button['btnMini' 'btnTwoState'] chip">
+        <input type="checkbox" name="share" value="basic">
+        <i pgs="icon['icon-star']"></i>
+        Share
+    </label>
+</div>
+```
+
+### Chips group (checkbox)
+
+Multiple checkbox chips grouped into a compact segmented selector.
+
+```html
+<fieldset pgs="chips">
+    <legend pgs="legend">Chip checkbox</legend>
+    <label pgs="button['btnMini' 'btnTwoState']">
+        <input type="checkbox" name="plan" value="red" checked>
+        Red
+    </label>
+
+    <label pgs="button['btnMini' 'btnTwoState']">
+        <input type="checkbox" name="plan" value="blue">
+        Blue
+    </label>
+
+    <label pgs="button['btnMini' 'btnTwoState']">
+        <input type="checkbox" name="plan" value="green">
+        Green
+    </label>
+</fieldset>
+```
+
+### Chips group (radio)
+
+Multiple radio chips grouped into a compact segmented selector, each paired with an icon.
+
+```html
+<fieldset pgs="chips">
+    <legend pgs="legend">Chips radio</legend>
+    <label pgs="button['btnMini' 'btnTwoState']">
+        <input type="radio" name="characters" value="Crow" checked>
+        <i pgs="icon['icon-star']"></i>
+        Crow
+    </label>
+
+    <label pgs="button['btnMini' 'btnTwoState']">
+        <input type="radio" name="characters" value="Dove">
+        <i pgs="icon['icon-star']"></i>
+        Dove
+    </label>
+
+    <label pgs="button['btnMini' 'btnTwoState']">
+        <input type="radio" name="characters" value="Dragon">
+        <i pgs="icon['icon-star']"></i>
+        Dragon
+    </label>
+</fieldset>
+```
+
+## Select box
+
+### Select box
+
+A select with a list of its own: the first option, hidden, is the placeholder, and the optgroups become headings.
+
+```html
+<label pgs="label" for="selectBoxCountry">Country</label>
+<div pgs="selectBox">
+    <select pgs="select" id="selectBoxCountry" name="selectBoxCountry" required>
+        <option value="" selected disabled hidden>Choose a country</option>
+        <optgroup label="Europe">
+            <option value="it"><template><i pgs="icon['icon-star']" aria-hidden="true"></i></template>Italy</option>
+            <option value="fr"><template><i pgs="icon['icon-star']" aria-hidden="true"></i></template>France</option>
+            <option value="de"><template><i pgs="icon['icon-star']" aria-hidden="true"></i></template>Germany</option>
+        </optgroup>
+        <optgroup label="America">
+            <option value="us">United States</option>
+            <option value="br">Brazil</option>
+            <option value="ca" disabled>Canada</option>
+        </optgroup>
+    </select>
+</div>
+```
+
+### Select box, multiple
+
+A select multiple keeps the list open while its options are turned on and off; the hidden option is the placeholder shown while nothing is chosen.
+
+```html
+<label pgs="label" for="selectBoxTopics">Topics</label>
+<div pgs="selectBox">
+    <select pgs="select" id="selectBoxTopics" name="selectBoxTopics" multiple>
+        <option value="" hidden>Choose the topics</option>
+        <option value="news">News</option>
+        <option value="events">Events</option>
+        <option value="offers">Offers</option>
+        <option value="jobs">Jobs</option>
+    </select>
+</div>
+```
+
+## Checkbox background
+
+### Checkbox with background
+
+A single checkbox presented as a selectable container, with the checked state highlighted.
+
+```html
+<label pgs="checkboxBackground checkbox">
+    <input type="checkbox" name="notifications" value="enabled">
+    <span>
+        <strong>Enable notifications</strong><br>
+        Receive important account updates.
+    </span>
+</label>
+```
+
+### Radio group with background
+
+Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.
+
+```html
+<fieldset pgs="fieldset flex['row']">
+    <label pgs="checkboxBackground radio">
+        <input type="radio" name="plan" value="basic" checked>
+        Basic
+    </label>
+
+    <label pgs="checkboxBackground radio">
+        <input type="radio" name="plan" value="pro">
+        Pro
+    </label>
+
+    <label pgs="checkboxBackground radio">
+        <input type="radio" name="plan" value="enterprise">
+        Enterprise
+    </label>
+</fieldset>
+```
+
 ## Field
 
 ### Field
@@ -197,165 +363,5 @@ The same for a group of checkboxes.
     <legend pgs="legend">A checkbox group</legend>
     <label pgs="checkbox"><input type="checkbox" name="fieldCheckbox" value="news" required> <span>News</span></label>
     <label pgs="checkbox"><input type="checkbox" name="fieldCheckbox" value="offers" required> <span>Offers</span></label>
-</fieldset>
-```
-
-## Add-ons
-
-### Checkbox with background
-
-A single checkbox presented as a selectable container, with the checked state highlighted.
-
-```html
-<label pgs="checkboxBackground checkbox">
-    <input type="checkbox" name="notifications" value="enabled">
-    <span>
-        <strong>Enable notifications</strong><br>
-        Receive important account updates.
-    </span>
-</label>
-```
-
-### Radio group with background
-
-Radio inputs sharing the same name and presented as selectable containers, so only one can be checked.
-
-```html
-<fieldset pgs="fieldset flex['row']">
-    <label pgs="checkboxBackground radio">
-        <input type="radio" name="plan" value="basic" checked>
-        Basic
-    </label>
-
-    <label pgs="checkboxBackground radio">
-        <input type="radio" name="plan" value="pro">
-        Pro
-    </label>
-
-    <label pgs="checkboxBackground radio">
-        <input type="radio" name="plan" value="enterprise">
-        Enterprise
-    </label>
-</fieldset>
-```
-
-### Toggle
-
-Checkbox presented as a switch with a rail and movable thumb.
-
-```html
-<label pgs="toggle">
-    <span>Enable Wi-Fi</span>
-    <input type="checkbox" name="darkMode" value="enabled">
-</label>
-```
-
-### Select box
-
-A select with a list of its own: the first option, hidden, is the placeholder, and the optgroups become headings.
-
-```html
-<label pgs="label" for="selectBoxCountry">Country</label>
-<div pgs="selectBox">
-    <select pgs="select" id="selectBoxCountry" name="selectBoxCountry" required>
-        <option value="" selected disabled hidden>Choose a country</option>
-        <optgroup label="Europe">
-            <option value="it"><template><i pgs="icon['icon-star']" aria-hidden="true"></i></template>Italy</option>
-            <option value="fr"><template><i pgs="icon['icon-star']" aria-hidden="true"></i></template>France</option>
-            <option value="de"><template><i pgs="icon['icon-star']" aria-hidden="true"></i></template>Germany</option>
-        </optgroup>
-        <optgroup label="America">
-            <option value="us">United States</option>
-            <option value="br">Brazil</option>
-            <option value="ca" disabled>Canada</option>
-        </optgroup>
-    </select>
-</div>
-```
-
-### Select box, multiple
-
-A select multiple keeps the list open while its options are turned on and off; the hidden option is the placeholder shown while nothing is chosen.
-
-```html
-<label pgs="label" for="selectBoxTopics">Topics</label>
-<div pgs="selectBox">
-    <select pgs="select" id="selectBoxTopics" name="selectBoxTopics" multiple>
-        <option value="" hidden>Choose the topics</option>
-        <option value="news">News</option>
-        <option value="events">Events</option>
-        <option value="offers">Offers</option>
-        <option value="jobs">Jobs</option>
-    </select>
-</div>
-```
-
-### Chips checkbox
-
-Individual checkbox options presented as compact selectable chip buttons.
-
-```html
-<div pgs="flex['row']" role="group" aria-label="Chip actions">
-    <label pgs="button['btnMini' 'btnTwoState'] chip">
-        <input type="checkbox" name="like" value="basic">
-        <i pgs="icon['icon-star']"></i>
-        Like
-    </label>
-    <label pgs="button['btnMini' 'btnTwoState'] chip">
-        <input type="checkbox" name="share" value="basic">
-        <i pgs="icon['icon-star']"></i>
-        Share
-    </label>
-</div>
-```
-
-### Chips group (checkbox)
-
-Multiple checkbox chips grouped into a compact segmented selector.
-
-```html
-<fieldset pgs="chips">
-    <legend pgs="legend">Chip checkbox</legend>
-    <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="checkbox" name="plan" value="red" checked>
-        Red
-    </label>
-
-    <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="checkbox" name="plan" value="blue">
-        Blue
-    </label>
-
-    <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="checkbox" name="plan" value="green">
-        Green
-    </label>
-</fieldset>
-```
-
-### Chips group (radio)
-
-Multiple radio chips grouped into a compact segmented selector, each paired with an icon.
-
-```html
-<fieldset pgs="chips">
-    <legend pgs="legend">Chips radio</legend>
-    <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="radio" name="characters" value="Crow" checked>
-        <i pgs="icon['icon-star']"></i>
-        Crow
-    </label>
-
-    <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="radio" name="characters" value="Dove">
-        <i pgs="icon['icon-star']"></i>
-        Dove
-    </label>
-
-    <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="radio" name="characters" value="Dragon">
-        <i pgs="icon['icon-star']"></i>
-        Dragon
-    </label>
 </fieldset>
 ```

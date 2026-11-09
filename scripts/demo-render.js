@@ -437,8 +437,11 @@ function extractDemoBlocks(markup, { unwrap = true } = {}) {
 // renders Markdown, this renders the demo's own panel HTML)
 // isPanel turns the list into the accordion's own panel: the token and the initial hidden go on
 // the <ul> itself, since there is nothing else between it and the accordion root
+// every sentence of a description starts on a line of its own: a full stop followed by a capital letter
+const breakSentences = html => html.replace(/\. (?=[A-Z])/g, ".<br>");
+
 function renderDocListHtml(items, isPanel = false) {
-    const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${escapeHtml(item.description)}</li>`).join("");
+    const rows = items.map(item => `<li><code>${escapeHtml(item.key)}</code>: ${breakSentences(escapeHtml(item.description))}</li>`).join("");
     return `<ul pgs="flex['column' 'gapParagraphs']${isPanel ? " accordion-content" : ""}"${isPanel ? " hidden" : ""}>${rows}</ul>`;
 }
 
