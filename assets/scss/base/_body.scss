@@ -100,6 +100,8 @@
 
         span { overflow-wrap: var(--text-overflowWrap); }
         p { @include text(); }
+        // a list item reads like a paragraph: the same line spacing, the rest stays inherited
+        li { line-height: var(--text-lineHeight); }
         a { text-decoration: none; }
     }
 

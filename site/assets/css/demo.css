@@ -173,9 +173,6 @@ body {
 
 
 .demoContent-doc {
-    /* the descriptions are list items, which bodyText leaves at line-height: normal: the same spacing as a paragraph */
-    li { line-height: var(--text-lineHeight); }
-
     code {
         display: inline-flex;
         background: var(--color-primary-soft);

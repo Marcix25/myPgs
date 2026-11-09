@@ -281,6 +281,10 @@
   text-underline-offset: 0.15em;
 }
 
+:where([pgs*="body["]):where([pgs*="'bodyText'"]) li {
+  line-height: var(--text-lineHeight);
+}
+
 :where([pgs*="body["]):where([pgs*="'bodyText'"]) a {
   text-decoration: none;
 }
