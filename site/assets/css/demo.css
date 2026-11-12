@@ -13,18 +13,8 @@
 
 .demoContent-heading {
     --heading-family-h1: "MyPix", var(--font);
-    /* --heading-color-h1: var(--color-primary-strong);
-    --heading-color-h2: var(--color-primary-strong); */
     --heading-letterSpacing-h1: 2.5px;
 }
-
-/* MyPix is the font of the h1 only. The one other place it stays is the highlighted word of a heading of the
-   home, a span written as an h2 (class demoContent-heading with pgs="h2"): it is not a heading of the page */
-.demoContent-heading[pgs~="h2"] {
-    --heading-family-h2: "MyPix", var(--font);
-    --heading-letterSpacing-h2: 1.2px;
-}
-
 body {
     /* --color-background: light-dark(#f1ffef, #101010); */
     display: block;
@@ -139,6 +129,10 @@ body {
         }
     }
 }
+
+/* the docs sidebar is wider than the library default (20rem): set on the shell that holds it, so the shell
+   grows by the same amount (--pageShell-width reads it) and the content keeps its own width */
+#reference-demo-shell { --pageShell-aside-width: 27rem; }
 
 .reference-demo-menuAside-search {
     /* the search stays at the top while the list scrolls: inside the sidebar, which scrolls on its own beside

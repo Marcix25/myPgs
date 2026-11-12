@@ -32,12 +32,16 @@
 
     <div pgs="flex['column' 'gapParagraphs']">
         <h2 class="demoContent-heading demoContent-heading-h2">Getting started</h2>
-        <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']"><code>npm install mypgs</code></div>
-        <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']">
-            <code>
-                import "mypgs"; <br>
-                import "mypgs/style.css";
-            </code>
+        <div class="exampleSource" data-kind="bash">
+            <strong class="exampleSource-title">Terminal</strong>
+            <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
+<pre><code class="language-bash">npm install mypgs</code></pre>
+        </div>
+        <div class="exampleSource" data-kind="javascript">
+            <strong class="exampleSource-title">JavaScript</strong>
+            <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
+<pre><code class="language-javascript">import "mypgs";
+import "mypgs/style.css";</code></pre>
         </div>
         <p>The bundle initializes the registered behaviors on load. For markup added later, by JavaScript, JSX or a fetch, initialize its container with <code>pgs.helper.init(container)</code>.</p>
     </div>
@@ -45,13 +49,13 @@
     <div pgs="flex['column' 'gapParagraphs']">
         <h2 class="demoContent-heading demoContent-heading-h2">CSS and SCSS</h2>
         <p>Prefer the library's custom properties, such as <code>--color-primary</code>, <code>--padding-elements</code>, <code>--gap-elements</code> and <code>--borderRadius-elements</code>, to hardcoded values:</p>
-        <div pgs="box['boxMini'] background['bgPrimarySoft'] textColor['txtPrimaryStrong']">
-            <code>
-                #danger-action { <br>
-                &nbsp;&nbsp;--button-background: var(--color-error); <br>
-                &nbsp;&nbsp;--button-color: var(--color-whiteFixed); <br>
-                }
-            </code>
+        <div class="exampleSource" data-kind="css">
+            <strong class="exampleSource-title">CSS</strong>
+            <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
+<pre><code class="language-css">#danger-action {
+    --button-background: var(--color-error);
+    --button-color: var(--color-whiteFixed);
+}</code></pre>
         </div>
         <p>Component styling composes from small mixins instead of one bundled rule, so each consumer only includes what it needs: a standard button is <code>buttonBase</code>, an icon-only one adds <code>buttonIconOnly</code>. Buttons and link cards and boxes carry a plain CSS hover of their own. Variant mixins such as <code>buttonTransparent</code> or <code>buttonText</code> only add their own declarations and must follow that base. Menus, accordions, forms and step tabs follow the same explicit-composition pattern.</p>
     </div>
@@ -76,5 +80,78 @@
             <li>Reuse the custom properties, such as <code>--color-primary</code>, <code>--gap-elements</code> and <code>--borderRadius-elements</code>, instead of hardcoding values.</li>
             <li>Keep project-specific work outside the library.</li>
         </ul>
+    </div>
+
+    <div pgs="flex['column' 'gapParagraphs']">
+        <h2 class="demoContent-heading demoContent-heading-h2">Only what a project uses</h2>
+        <p>Every component is in the bundle by default.</p>
+        <p>A project can list the ones it uses in a <code>mypgs.config.json</code> next to its build config.</p>
+        <p>The example lists every name of <code>assets/modules.json</code>: copy it and remove what the project does not use.</p>
+        <div class="exampleSource" data-kind="json">
+            <strong class="exampleSource-title">mypgs.config.json</strong>
+            <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
+<pre><code class="language-json">{
+    "include": [
+        "accordion", "alerts", "badges", "breadcrumb", "button",
+        "card", "dropdown", "form", "formAddon", "formControls",
+        "formValidate", "icon", "listbox", "logo", "menu",
+        "modal", "notification", "pageNav", "search", "slides",
+        "steps", "stepTabs", "summary", "table", "tabs",
+        "toast", "pageShell", "header", "navSmart", "footer"
+    ]
+}</code></pre>
+        </div>
+        <ul pgs="list">
+            <li>Every part not listed is left out, a component added to the library later too, until the project lists it.</li>
+            <li>What a listed part needs is added, with a message: a modal brings its button and icon, a toast its alerts.</li>
+            <li>An unknown name stops the build.</li>
+            <li>Without the file, or without <code>include</code> in it, every part is in.</li>
+            <li>The base, the patterns (color, border, typography, general) and the layout utilities (section, flex, grid, flexGrid, breakpoints, utilities, spacing, size) are always in.</li>
+        </ul>
+        <p><code>mypgs/build</code> reads the file and gives the build what it needs. It works on the sources, the SCSS and <code>import "mypgs"</code>, not on the prebuilt <code>style.css</code>.</p>
+        <div class="exampleSource" data-kind="javascript">
+            <strong class="exampleSource-title">webpack.config.js</strong>
+            <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
+<pre><code class="language-javascript">const modules = require("mypgs/build").pgsModules();
+
+module.exports = [
+    {
+        // the JavaScript bundle: a module left out becomes an empty one
+        entry: "./assets/javascript/index.js",
+        resolve: { alias: modules.alias },
+    },
+    {
+        // the SCSS bundle: sets $pgs-exclude before the library is loaded
+        entry: "./assets/scss/index.scss",
+        module: {
+            rules: [{
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader", {
+                    loader: "sass-loader",
+                    options: { additionalData: modules.sass },
+                }],
+            }],
+        },
+    },
+];</code></pre>
+        </div>
+        <div class="exampleSource" data-kind="javascript">
+            <strong class="exampleSource-title">vite.config.js</strong>
+            <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
+<pre><code class="language-javascript">import { defineConfig } from "vite";
+import { pgsModules } from "mypgs/build";
+
+const modules = pgsModules();
+
+export default defineConfig({
+    plugins: [modules.vite()],
+    css: {
+        preprocessorOptions: {
+            scss: { additionalData: modules.sass },
+        },
+    },
+});</code></pre>
+        </div>
+        <p>A module left out is missing from <code>pgs</code>: <code>pgs.slides</code> is <code>undefined</code>, and without <code>formValidate</code> there is no <code>pgs.helper.formValidate</code>.</p>
     </div>
 </section>

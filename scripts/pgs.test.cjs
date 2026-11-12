@@ -309,11 +309,17 @@ function interfaceMembers(source, name) {
     return members;
 }
 
+// _imports.js and the file of each module it imports (assets/javascript/modules/), where they are published
+function moduleSources() {
+    const dir = 'assets/javascript/modules';
+    return [read('assets/javascript/_imports.js'), ...fs.readdirSync(path.join(root, dir)).map(file => read(`${dir}/${file}`))];
+}
+
 test('dist/index.d.ts declares every helper pgs.helper has', () => {
     const declared = read('dist/index.d.ts');
     const published = [
         ...objectKeys(read('assets/javascript/_pgs.js'), 'pgs.helper = '),
-        ...objectKeys(read('assets/javascript/_imports.js'), 'Object.assign(pgs.helper, '),
+        ...moduleSources().flatMap(source => [...source.matchAll(/pgs\.helper\.(\w+) = /g)].map(match => match[1])),
     ].sort();
     const typed = interfaceMembers(declared, 'PgsHelper').sort();
     assert(published.length >= 12);
@@ -322,8 +328,79 @@ test('dist/index.d.ts declares every helper pgs.helper has', () => {
 
 test('dist/index.d.ts declares every module registerModules registers', () => {
     const declared = read('dist/index.d.ts');
-    const registered = objectKeys(read('assets/javascript/_imports.js'), 'pgs.registerModules(').sort();
+    const registered = moduleSources()
+        .filter(source => source.includes('pgs.registerModules('))
+        .flatMap(source => objectKeys(source, 'pgs.registerModules('))
+        .sort();
     const typed = interfaceMembers(declared, 'PgsFunction').filter(name => !['registerModules', 'helper'].includes(name)).sort();
     assert(registered.length >= 15);
     assert.deepEqual(typed, registered);
+});
+
+//= MODULES
+// assets/modules.json is what a project can leave out: index.scss, _imports.js and the files under
+// assets/javascript/modules/ have to agree with it, or an excluded part would stay (or a kept one go)
+const { modules: MODULES } = JSON.parse(read('assets/modules.json'));
+
+test('assets/modules.json agrees with index.scss and _imports.js', () => {
+    const scss = read('assets/scss/index.scss');
+    const imports = read('assets/javascript/_imports.js');
+    const jsFiles = fs.readdirSync(path.join(root, 'assets/javascript/modules')).map(file => file.replace(/\.js$/, ''));
+
+    for (const [name, module] of Object.entries(MODULES)) {
+        assert(module.scss || module.js, `${name} has neither scss nor js`);
+        if (module.scss) {
+            assert(fs.existsSync(path.join(root, 'assets/scss', path.dirname(module.scss), `_${path.basename(module.scss)}.scss`)), `${module.scss} not found`);
+            assert(scss.includes(`@if pgs-module("${name}") { @include meta.load-css("${module.scss}"); }`), `index.scss does not gate ${module.scss} on ${name}`);
+        }
+        if (module.js) {
+            assert(jsFiles.includes(module.js), `assets/javascript/modules/${module.js}.js not found`);
+        }
+        for (const needed of module.requires ?? []) assert(MODULES[needed], `${name} requires an unknown ${needed}`);
+    }
+
+    // every scss file index.scss gates is a module, every module file is imported, and only core is always there
+    for (const [, name] of scss.matchAll(/pgs-module\("([^"]+)"\)/g)) assert(MODULES[name], `index.scss gates an unknown ${name}`);
+    const declaredJs = Object.values(MODULES).map(module => module.js).filter(Boolean);
+    for (const file of jsFiles) {
+        assert(imports.includes(`import "./modules/${file}.js";`), `_imports.js does not import modules/${file}.js`);
+        if (file !== 'core') assert(declaredJs.includes(file), `modules/${file}.js is not in assets/modules.json`);
+    }
+});
+
+test('the welcome guide lists every name of assets/modules.json', () => {
+    // the example mypgs.config.json is the complete list, to copy and trim
+    const welcome = read('reference/html/guides/welcome.html');
+    const example = welcome.match(/<code class="language-json">([\s\S]*?)<\/code>/);
+    assert(example, 'the example mypgs.config.json is not there');
+    const decoded = example[1].replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    assert.deepEqual([...JSON.parse(decoded).include].sort(), Object.keys(MODULES).sort());
+});
+
+test('mypgs/build includes the listed parts and what they require', () => {
+    const { pgsModules, modules } = require('../plugins/build.cjs');
+    const all = Object.keys(modules);
+
+    // no config: every part is in
+    const none = pgsModules({ config: path.join(root, 'no-such-config.json'), warn: false });
+    assert.deepEqual(none.include, all);
+    assert.equal(none.sass, '$pgs-exclude: ();\n');
+    assert.deepEqual(none.alias, {});
+
+    // a modal brings its button and icon; everything else, a component added later too, is out
+    const some = pgsModules({ include: ['modal'], warn: false });
+    assert.deepEqual(some.include, ['button', 'icon', 'modal']);
+    assert.equal(some.exclude.length, all.length - 3);
+    assert(some.sass.includes('slides') && !some.sass.includes('modal'));
+    assert(Object.keys(some.alias).some(file => file.endsWith('/slides.js')));
+    assert(!Object.keys(some.alias).some(file => file.endsWith('/modal.js')));
+
+    // a chain: formValidate brings toast, which brings alerts, which brings button and icon
+    assert.deepEqual(pgsModules({ include: ['formValidate'], warn: false }).include, ['alerts', 'button', 'formValidate', 'icon', 'toast']);
+
+    // an empty list keeps only what is always there
+    assert.deepEqual(pgsModules({ include: [], warn: false }).exclude, all);
+    assert.equal(pgsModules({ include: ['card'], warn: false }).sass.includes('$pgs-exclude: (accordion,'), true);
+
+    assert.throws(() => pgsModules({ include: ['slide'] }), /unknown in include: slide/);
 });

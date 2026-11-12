@@ -132,7 +132,7 @@
   --color-boxDark: light-dark(#222121, #f5f5f8);
   --color-box-transparent: light-dark(color-mix(in srgb, #eeeeee 50%, transparent 50%), color-mix(in srgb, #222121 50%, transparent 50%));
   --color-boxDark-transparent: light-dark(color-mix(in srgb, #222121 50%, transparent 50%), color-mix(in srgb, #eeeeee 50%, transparent 50%));
-  --color-background: light-dark(#fcfcfc, #080808);
+  --color-background: light-dark(#fcfcfc, #191919);
   --color-whiteFixed: #FFFFFF;
   --color-blackFixed: #000000;
   --color-link: light-dark(#0065a3, #009EFF);

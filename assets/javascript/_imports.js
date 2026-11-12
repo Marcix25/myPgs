@@ -1,50 +1,31 @@
 import { pgs } from "./_pgs.js";
 
-import { PGS_darkmode } from "./base/_darkmode.js";
-import { PGS_svg } from "./base/_svg.js";
-import { PGS_accordion } from "./components/_accordion.js";
-import { PGS_alert } from "./components/_alerts.js";
-import { PGS_dropdown } from "./components/_dropdown.js";
-import { PGS_menu } from "./components/_menu.js";
-import { PGS_modal } from "./components/_modal.js";
-import { PGS_pageNav } from "./components/_pageNav.js";
-import { PGS_notification } from "./components/_notification.js";
-import { PGS_toast } from "./components/_toast.js";
-import { PGS_search } from "./components/_search.js";
-import { PGS_range } from "./components/_range.js";
-import { PGS_selectBox } from "./components/_selectBox.js";
-import { PGS_slides } from "./components/_slides.js";
-import { PGS_stepTabs } from "./components/_stepTabs.js";
-import { PGS_steps } from "./components/_steps.js";
-import { PGS_summary } from "./components/_summary.js";
-import { PGS_tabs } from "./components/_tabs.js";
-import { PGS_header } from "./layout/_header.js";
-import { PGS_navSmart } from "./layout/_navSmart.js";
-import { PGS_formValidate } from "./helper/_formValidate.js";
 import { PGS_init } from "./helper/_init.js";
 
-pgs.registerModules({
-    darkmode: PGS_darkmode,
-    svg: PGS_svg,
-    accordion: PGS_accordion,
-    alert: PGS_alert,
-    dropdown: PGS_dropdown,
-    menu: PGS_menu,
-    modal: PGS_modal,
-    pageNav: PGS_pageNav,
-    header: PGS_header,
-    navSmart: PGS_navSmart,
-    notification: PGS_notification,
-    toast: PGS_toast,
-    search: PGS_search,
-    range: PGS_range,
-    selectBox: PGS_selectBox,
-    slides: PGS_slides,
-    stepTabs: PGS_stepTabs,
-    steps: PGS_steps,
-    summary: PGS_summary,
-    tabs: PGS_tabs,
-});
+// each file imports one module, which starts itself on import, and publishes it on pgs. A project
+// lists the ones it uses in mypgs.config.json: its build (mypgs/build) resolves the others to an empty
+// module. The order is the order the modules are published in, which pgs.helper.init walks;
+// core (darkmode, svg) cannot be left out
+import "./modules/core.js";
+import "./modules/accordion.js";
+import "./modules/alerts.js";
+import "./modules/dropdown.js";
+import "./modules/menu.js";
+import "./modules/modal.js";
+import "./modules/pageNav.js";
+import "./modules/header.js";
+import "./modules/navSmart.js";
+import "./modules/notification.js";
+import "./modules/toast.js";
+import "./modules/search.js";
+import "./modules/formControls.js";
+import "./modules/formAddon.js";
+import "./modules/slides.js";
+import "./modules/stepTabs.js";
+import "./modules/steps.js";
+import "./modules/summary.js";
+import "./modules/tabs.js";
+import "./modules/formValidate.js";
 
-// the two helpers that need the module system: they walk or build on what is registered above
-Object.assign(pgs.helper, { init: PGS_init, formValidate: PGS_formValidate });
+// init walks what is registered above
+pgs.helper.init = PGS_init;

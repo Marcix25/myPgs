@@ -65,6 +65,46 @@ To import only the mixins:
 @use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
 ```
 
+### Only what a project uses
+
+Every component is in the bundle by default. A project can list the ones it uses in a
+`mypgs.config.json` next to its build config, by the names of
+[`assets/modules.json`](assets/modules.json):
+
+```json
+{ "include": ["button", "icon", "form", "formAddon", "modal", "menu"] }
+```
+
+Every part not listed is left out, a component added to the library later too, until the project lists
+it. What a listed part needs (the button and icon of a modal, the alerts of a toast) is added, with a
+message; an unknown name stops the build. `mypgs/build` reads the file and gives the build what it
+needs; it requires compiling the sources (the SCSS and `import "mypgs"`), not the prebuilt `style.css`.
+
+```js
+// webpack.config.js
+const modules = require("mypgs/build").pgsModules();
+
+// the JavaScript bundle: a module left out becomes an empty one
+resolve: { alias: modules.alias },
+// the SCSS bundle: sets $pgs-exclude (every part not included) before the library is loaded
+{ loader: "sass-loader", options: { additionalData: modules.sass } },
+```
+
+```js
+// vite.config.js
+import { pgsModules } from "mypgs/build";
+const modules = pgsModules();
+
+export default defineConfig({
+  plugins: [modules.vite()],
+  css: { preprocessorOptions: { scss: { additionalData: modules.sass } } },
+});
+```
+
+The base, the patterns (color, border, typography, general) and the layout utilities (section, flex,
+grid, flexGrid, breakpoints, utilities, spacing, size) are always there. A module left out is missing
+from `pgs` (`pgs.slides` is `undefined`), and `formValidate` left out removes `pgs.helper.formValidate`.
+
 ### Markup
 
 `pgs` identifies components and holds their CSS flags, quoted inside each component's bracket.

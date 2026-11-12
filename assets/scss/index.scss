@@ -1,4 +1,12 @@
 @use "sass:meta";
+@use "sass:list";
+
+// the parts a project leaves out, by the names of assets/modules.json: (slides, toast). mypgs/build
+// writes it from the include of mypgs.config.json (every part not listed, and not required by one that
+// is); set by hand (before the import, or with @use ... with) it is taken as it is
+$pgs-exclude: () !default;
+
+@function pgs-module($name) { @return not list.index($pgs-exclude, $name); }
 /*
 |--------------------------------------------------------------------------
 | Base
@@ -13,31 +21,31 @@
 | Components
 |--------------------------------------------------------------------------
 */
-@include meta.load-css("components/card");
-@include meta.load-css("components/form");
-@include meta.load-css("components/formControls");
-@include meta.load-css("components/listbox");
-@include meta.load-css("components/button");
-@include meta.load-css("components/icon");
-@include meta.load-css("components/formAddon");
-@include meta.load-css("components/menu");
-@include meta.load-css("components/accordion");
-@include meta.load-css("components/breadcrumb");
-@include meta.load-css("components/dropdown");
-@include meta.load-css("components/modal");
-@include meta.load-css("components/pageNav");
-@include meta.load-css("components/slides");
-@include meta.load-css("components/steps");
-@include meta.load-css("components/table");
-@include meta.load-css("components/tabs");
-@include meta.load-css("components/stepTabs");
-@include meta.load-css("components/summary");
-@include meta.load-css("components/badges");
-@include meta.load-css("components/alerts");
-@include meta.load-css("components/notification");
-@include meta.load-css("components/toast");
-@include meta.load-css("components/search");
-@include meta.load-css("components/logo");
+@if pgs-module("card") { @include meta.load-css("components/card"); }
+@if pgs-module("form") { @include meta.load-css("components/form"); }
+@if pgs-module("formControls") { @include meta.load-css("components/formControls"); }
+@if pgs-module("listbox") { @include meta.load-css("components/listbox"); }
+@if pgs-module("button") { @include meta.load-css("components/button"); }
+@if pgs-module("icon") { @include meta.load-css("components/icon"); }
+@if pgs-module("formAddon") { @include meta.load-css("components/formAddon"); }
+@if pgs-module("menu") { @include meta.load-css("components/menu"); }
+@if pgs-module("accordion") { @include meta.load-css("components/accordion"); }
+@if pgs-module("breadcrumb") { @include meta.load-css("components/breadcrumb"); }
+@if pgs-module("dropdown") { @include meta.load-css("components/dropdown"); }
+@if pgs-module("modal") { @include meta.load-css("components/modal"); }
+@if pgs-module("pageNav") { @include meta.load-css("components/pageNav"); }
+@if pgs-module("slides") { @include meta.load-css("components/slides"); }
+@if pgs-module("steps") { @include meta.load-css("components/steps"); }
+@if pgs-module("table") { @include meta.load-css("components/table"); }
+@if pgs-module("tabs") { @include meta.load-css("components/tabs"); }
+@if pgs-module("stepTabs") { @include meta.load-css("components/stepTabs"); }
+@if pgs-module("summary") { @include meta.load-css("components/summary"); }
+@if pgs-module("badges") { @include meta.load-css("components/badges"); }
+@if pgs-module("alerts") { @include meta.load-css("components/alerts"); }
+@if pgs-module("notification") { @include meta.load-css("components/notification"); }
+@if pgs-module("toast") { @include meta.load-css("components/toast"); }
+@if pgs-module("search") { @include meta.load-css("components/search"); }
+@if pgs-module("logo") { @include meta.load-css("components/logo"); }
 /*
 |--------------------------------------------------------------------------
 | Layout
@@ -51,10 +59,10 @@
 @include meta.load-css("layout/utilities");
 @include meta.load-css("layout/spacing");
 @include meta.load-css("layout/size");
-@include meta.load-css("layout/pageShell");
-@include meta.load-css("layout/header");
-@include meta.load-css("layout/navSmart");
-@include meta.load-css("layout/footer");
+@if pgs-module("pageShell") { @include meta.load-css("layout/pageShell"); }
+@if pgs-module("header") { @include meta.load-css("layout/header"); }
+@if pgs-module("navSmart") { @include meta.load-css("layout/navSmart"); }
+@if pgs-module("footer") { @include meta.load-css("layout/footer"); }
 /*
 |--------------------------------------------------------------------------
 | Patterns

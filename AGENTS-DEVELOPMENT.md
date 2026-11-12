@@ -137,28 +137,26 @@ Example component structure:
 - Component initialization accepts a root, `init(root = document)`: see "Module lifecycle" below.
 - Use `WeakMap` for per-element public APIs when the component owns instances.
 - Export modules with `init` and/or `api` when public lifecycle access is needed.
-- Register public shortcuts in `assets/javascript/_imports.js` through `pgs.registerModules`.
-- Import runtime modules from `assets/javascript/_imports.js` (`index.js` loads it): a module starts itself on import, so there is no second list to keep in `index.js`.
+- Register a module in its own file in `assets/javascript/modules/` (it imports the component and calls `pgs.registerModules`), and import that file from `assets/javascript/_imports.js` (`index.js` loads it): a module starts itself on import, so there is no second list to keep in `index.js`. The file is what a project leaves out when its `mypgs.config.json` does not include the module: `mypgs/build` resolves it to an empty module. `modules/core.js` (darkmode, svg) is the only one that is always in.
 - Keep visual state in `pgs-state`, not arbitrary CSS classes.
 - Update `dist/index.d.ts` when a public API changes: it ships with `plugins/vite-plugin-pgs.d.ts`, the declaration file of the Vite plugin.
 - Validate options and produce clear errors for invalid public input.
 - Escape user-provided content before inserting it through HTML templates.
 
-Registration example:
+Registration example, `assets/javascript/modules/myNewComponent.js`:
 
 ```js
-import { PGS_myNewComponent } from "./components/_myNewComponent.js";
+import { pgs } from "../_pgs.js";
+import { PGS_myNewComponent } from "../components/_myNewComponent.js";
 
-pgs.registerModules({
-    myNewComponent: PGS_myNewComponent,
-});
+pgs.registerModules({ myNewComponent: PGS_myNewComponent });
 ```
 
 ### Module lifecycle
 
 Every component module follows one contract; its helpers live in `assets/javascript/helper/` and every module imports `pgs` from `../_pgs.js` instead of relying on the global.
 
-Inside the library a module reaches every helper as `pgs.helper.<name>` (`pgs.helper.warn(...)`, `pgs.helper.dispatch(...)`), never through an import of the helper file, so the code reads the same as a theme's. `_pgs.js` fills `pgs.helper` with the helpers that stand alone, before any module runs, and `_imports.js` adds `init` and `formValidate` once the modules are registered. The helper files in `assets/javascript/helper/` still import each other directly (`_dom.js` uses `_warn.js`). A new helper is added to `pgs.helper` in `_pgs.js` (or in `_imports.js` when it needs the registered modules), to `PgsHelper` in `dist/index.d.ts`, and to `reference/html/helper/helper.html`. `PGS_init` skips the `helper` key when it walks `pgs`, because `pgs.helper.init` is `PGS_init` itself.
+Inside the library a module reaches every helper as `pgs.helper.<name>` (`pgs.helper.warn(...)`, `pgs.helper.dispatch(...)`), never through an import of the helper file, so the code reads the same as a theme's. `_pgs.js` fills `pgs.helper` with the helpers that stand alone, before any module runs, `modules/formValidate.js` adds `formValidate`, and `_imports.js` adds `init` once the modules are registered. The helper files in `assets/javascript/helper/` still import each other directly (`_dom.js` uses `_warn.js`). A new helper is added to `pgs.helper` in `_pgs.js` (or in `_imports.js` when it needs the registered modules), to `PgsHelper` in `dist/index.d.ts`, and to `reference/html/helper/helper.html`. `PGS_init` skips the `helper` key when it walks `pgs`, because `pgs.helper.init` is `PGS_init` itself.
 
 - `init(root = document)` resolves its elements with `PGS_roots(root, token)` (`_dom.js`), which always includes the root itself when it carries the token, then skips every element that is already in the module's `WeakMap`: the map is the only double-init guard, never a `data-*` marker. It checks the required markup before writing to the DOM and, when it is invalid, calls `PGS_warn("module.init", "...")` and returns.
 - One `AbortController` per instance: every listener the instance adds (element, `document` or `window`) takes `{ signal }`, and observers, timers and animation frames are released in `destroy()`. A `document`/`window` listener that serves all instances is registered once at module level, never inside `init`.
@@ -171,7 +169,7 @@ Inside the library a module reaches every helper as `pgs.helper.<name>` (`pgs.he
 
 They are two separate mechanisms, both at the end of `assets/javascript/_pgs.js`; keep both when touching the entry point.
 
-- `pgs.registerModules({ name: module })` is the list of modules on the `pgs` object, which is what makes `pgs.menu.init()`, `pgs.toast.success()` or `pgs.darkmode.init()` exist. A name already taken by another module throws (`"name" is already defined on pgs`) instead of overwriting it, which is why a module never assigns `pgs.name` by hand. `pgs.helper.init(root)` walks every registered module that has an `init` and calls it once, so a module that is not registered is never initialized by it. A new module is therefore registered in `_imports.js` and declared in `dist/index.d.ts`; `scripts/pgs.test.cjs` fails when the two lists differ.
+- `pgs.registerModules({ name: module })` is the list of modules on the `pgs` object, which is what makes `pgs.menu.init()`, `pgs.toast.success()` or `pgs.darkmode.init()` exist. A name already taken by another module throws (`"name" is already defined on pgs`) instead of overwriting it, which is why a module never assigns `pgs.name` by hand. `pgs.helper.init(root)` walks every registered module that has an `init` and calls it once, so a module that is not registered is never initialized by it. A new module is therefore registered in its file under `assets/javascript/modules/` and declared in `dist/index.d.ts`; `scripts/pgs.test.cjs` fails when the two lists differ.
 - `globalThis.pgs` is the library for a page that loads the bundle with a script tag, and `globalThis.mypgs ??= { pgs }` is the same library under the package name (`??=`: a copy that is already published is kept, never replaced by a second one). The webpack configs of the themes (`PGS_theme-*`) declare `externals: { mypgs: "mypgs" }`, so `import ... from "mypgs"` in their own bundles resolves to that global object at runtime instead of bundling and running a second copy of the library. `PGS_theme`'s own `index.js` is the only bundle that includes mypgs, loaded blocking in the `<head>`; every other bundle of the page reuses it. The demo site does the same through an import map (`site/assets/js/mypgs-module.js`), and the bundle is built as UMD with `library: { name: "mypgs" }` so a script tag publishes the same name. Removing `globalThis.mypgs` breaks every theme that has that `externals` entry; renaming it means changing it in all of them.
 
 ## 6. Adding or Changing a Component
@@ -180,13 +178,14 @@ For a reusable component:
 
 1. Add or update its mixins in `assets/scss/mixin/` when composition is useful.
 2. Add its public selector in `assets/scss/components/`.
-3. Import it from `assets/scss/index.scss`.
+3. Import it from `assets/scss/index.scss`, gated as `@if pgs-module("name") { @include meta.load-css(...); }`.
 4. Add JavaScript only when behavior is required.
-5. Register the JavaScript module when it needs a `pgs.*` public API.
-6. Add or update the canonical HTML reference.
-7. Update declarations and README when the public usage changes.
-8. Regenerate generated documentation.
-9. Rebuild distributed CSS and JavaScript assets.
+5. Register the JavaScript module when it needs a `pgs.*` public API, in its own file under `assets/javascript/modules/`.
+6. Add it to `assets/modules.json` (`scss`, `js`, and in `requires` what it cannot work without: the components whose markup its JavaScript builds, the ones whose rules it builds on). `scripts/pgs.test.cjs` fails when `modules.json`, `index.scss` and `_imports.js` disagree.
+7. Add or update the canonical HTML reference.
+8. Update declarations and README when the public usage changes.
+9. Regenerate generated documentation.
+10. Rebuild distributed CSS and JavaScript assets.
 
 Do not create a separate reference page when the new token is intentionally part of an existing component API. Document it in that component's canonical reference instead.
 

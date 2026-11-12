@@ -84,6 +84,21 @@ Import only the mixins when the project does not need the library stylesheet sou
 @use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as *;
 ```
 
+### Only the components a project uses
+
+A project that compiles the sources can keep its bundle to the components it uses: it lists them in
+`mypgs.config.json` (`{ "include": ["button", "icon", "modal"] }`, the names of `mypgs/modules.json`;
+every part not listed is left out, a new one of the library too) and passes `require("mypgs/build").pgsModules()` to its build: `alias` to the
+`resolve.alias` of the JavaScript bundle, `sass` to the `additionalData` of `sass-loader`, or `vite()`
+as a Vite plugin. The README has the full setup.
+
+- Build the list from what the project uses: search it (templates, PHP, JS, content) for the tokens and the
+  `pgs.<module>` API. A component not listed has no CSS and no JavaScript, and `pgs.<module>` is `undefined`.
+- When using a new component in a project with the file, add it to `include`.
+- When one bundle serves several sites (a parent theme loaded by its child themes), the config belongs to
+  the project that builds the bundle, and it lists what any of those sites uses.
+- What a listed component requires is added anyway, with a message.
+
 ## 5. SCSS Usage
 
 - Icon size comes from `--icon-size`, which the components set per context and you can override. Color follows the text color, or `--icon-color` when you set it.

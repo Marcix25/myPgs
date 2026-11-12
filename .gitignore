@@ -1,5 +1,5 @@
 node_modules
-modules
+/modules
 *.tgz
 .DS_Store
 **/.DS_Store

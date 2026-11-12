@@ -13,6 +13,12 @@
         },
         "./style.css": "./dist/css/index.css",
         "./style.min.css": "./dist/css/index.min.css",
+        "./build": {
+            "import": "./plugins/build.mjs",
+            "require": "./plugins/build.cjs",
+            "default": "./plugins/build.cjs"
+        },
+        "./modules.json": "./assets/modules.json",
         "./vite-plugin-pgs": {
             "types": "./plugins/vite-plugin-pgs.d.ts",
             "import": "./plugins/vite-plugin-pgs.js",

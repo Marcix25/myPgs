@@ -20,28 +20,35 @@ return /******/ (() => { // webpackBootstrap
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_pgs.js */ "./assets/javascript/_pgs.js");
-/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
-/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./base/_svg.js */ "./assets/javascript/base/_svg.js");
-/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/_accordion.js */ "./assets/javascript/components/_accordion.js");
-/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/_alerts.js */ "./assets/javascript/components/_alerts.js");
-/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
-/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/_menu.js */ "./assets/javascript/components/_menu.js");
-/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_modal.js */ "./assets/javascript/components/_modal.js");
-/* harmony import */ var _components_pageNav_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_pageNav.js */ "./assets/javascript/components/_pageNav.js");
-/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/_notification.js */ "./assets/javascript/components/_notification.js");
-/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/_toast.js */ "./assets/javascript/components/_toast.js");
-/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/_search.js */ "./assets/javascript/components/_search.js");
-/* harmony import */ var _components_range_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/_range.js */ "./assets/javascript/components/_range.js");
-/* harmony import */ var _components_selectBox_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/_selectBox.js */ "./assets/javascript/components/_selectBox.js");
-/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/_slides.js */ "./assets/javascript/components/_slides.js");
-/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
-/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/_steps.js */ "./assets/javascript/components/_steps.js");
-/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/_summary.js */ "./assets/javascript/components/_summary.js");
-/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/_tabs.js */ "./assets/javascript/components/_tabs.js");
-/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./layout/_header.js */ "./assets/javascript/layout/_header.js");
-/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
-/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
-/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _helper_init_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper/_init.js */ "./assets/javascript/helper/_init.js");
+/* harmony import */ var _modules_core_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/core.js */ "./assets/javascript/modules/core.js");
+/* harmony import */ var _modules_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/accordion.js */ "./assets/javascript/modules/accordion.js");
+/* harmony import */ var _modules_alerts_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/alerts.js */ "./assets/javascript/modules/alerts.js");
+/* harmony import */ var _modules_dropdown_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/dropdown.js */ "./assets/javascript/modules/dropdown.js");
+/* harmony import */ var _modules_menu_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/menu.js */ "./assets/javascript/modules/menu.js");
+/* harmony import */ var _modules_modal_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/modal.js */ "./assets/javascript/modules/modal.js");
+/* harmony import */ var _modules_pageNav_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/pageNav.js */ "./assets/javascript/modules/pageNav.js");
+/* harmony import */ var _modules_header_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/header.js */ "./assets/javascript/modules/header.js");
+/* harmony import */ var _modules_navSmart_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/navSmart.js */ "./assets/javascript/modules/navSmart.js");
+/* harmony import */ var _modules_notification_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/notification.js */ "./assets/javascript/modules/notification.js");
+/* harmony import */ var _modules_toast_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/toast.js */ "./assets/javascript/modules/toast.js");
+/* harmony import */ var _modules_search_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/search.js */ "./assets/javascript/modules/search.js");
+/* harmony import */ var _modules_formControls_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/formControls.js */ "./assets/javascript/modules/formControls.js");
+/* harmony import */ var _modules_formAddon_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/formAddon.js */ "./assets/javascript/modules/formAddon.js");
+/* harmony import */ var _modules_slides_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/slides.js */ "./assets/javascript/modules/slides.js");
+/* harmony import */ var _modules_stepTabs_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/stepTabs.js */ "./assets/javascript/modules/stepTabs.js");
+/* harmony import */ var _modules_steps_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/steps.js */ "./assets/javascript/modules/steps.js");
+/* harmony import */ var _modules_summary_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/summary.js */ "./assets/javascript/modules/summary.js");
+/* harmony import */ var _modules_tabs_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./modules/tabs.js */ "./assets/javascript/modules/tabs.js");
+/* harmony import */ var _modules_formValidate_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/formValidate.js */ "./assets/javascript/modules/formValidate.js");
+
+
+
+
+// each file imports one module, which starts itself on import, and publishes it on pgs. A project
+// lists the ones it uses in mypgs.config.json: its build (mypgs/build) resolves the others to an empty
+// module. The order is the order the modules are published in, which pgs.helper.init walks;
+// core (darkmode, svg) cannot be left out
 
 
 
@@ -63,35 +70,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({
-    darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode,
-    svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg,
-    accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_3__.PGS_accordion,
-    alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_4__.PGS_alert,
-    dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_5__.PGS_dropdown,
-    menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_6__.PGS_menu,
-    modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_7__.PGS_modal,
-    pageNav: _components_pageNav_js__WEBPACK_IMPORTED_MODULE_8__.PGS_pageNav,
-    header: _layout_header_js__WEBPACK_IMPORTED_MODULE_19__.PGS_header,
-    navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_20__.PGS_navSmart,
-    notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_9__.PGS_notification,
-    toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_10__.PGS_toast,
-    search: _components_search_js__WEBPACK_IMPORTED_MODULE_11__.PGS_search,
-    range: _components_range_js__WEBPACK_IMPORTED_MODULE_12__.PGS_range,
-    selectBox: _components_selectBox_js__WEBPACK_IMPORTED_MODULE_13__.PGS_selectBox,
-    slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_14__.PGS_slides,
-    stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_15__.PGS_stepTabs,
-    steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_16__.PGS_steps,
-    summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_17__.PGS_summary,
-    tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_18__.PGS_tabs,
-});
-
-// the two helpers that need the module system: they walk or build on what is registered above
-Object.assign(_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper, { init: _helper_init_js__WEBPACK_IMPORTED_MODULE_22__.PGS_init, formValidate: _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_21__.PGS_formValidate });
+// init walks what is registered above
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.init = _helper_init_js__WEBPACK_IMPORTED_MODULE_1__.PGS_init;
 
 
 /***/ },
@@ -6509,6 +6489,387 @@ const PGS_navSmart = {
     init: PGS_navSmart_init,
     api: PGS_navSmart_api
 };
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/accordion.js"
+/*!************************************************!*\
+  !*** ./assets/javascript/modules/accordion.js ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_accordion.js */ "./assets/javascript/components/_accordion.js");
+// accordion: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ accordion: _components_accordion_js__WEBPACK_IMPORTED_MODULE_1__.PGS_accordion });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/alerts.js"
+/*!*********************************************!*\
+  !*** ./assets/javascript/modules/alerts.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_alerts_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_alerts.js */ "./assets/javascript/components/_alerts.js");
+// alerts: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ alert: _components_alerts_js__WEBPACK_IMPORTED_MODULE_1__.PGS_alert });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/core.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/modules/core.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../base/_darkmode.js */ "./assets/javascript/base/_darkmode.js");
+/* harmony import */ var _base_svg_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../base/_svg.js */ "./assets/javascript/base/_svg.js");
+// always there, and published first: every page reads the theme and recolors its SVGs
+
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ darkmode: _base_darkmode_js__WEBPACK_IMPORTED_MODULE_1__.PGS_darkmode, svg: _base_svg_js__WEBPACK_IMPORTED_MODULE_2__.PGS_svg });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/dropdown.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/modules/dropdown.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_dropdown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_dropdown.js */ "./assets/javascript/components/_dropdown.js");
+// dropdown: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ dropdown: _components_dropdown_js__WEBPACK_IMPORTED_MODULE_1__.PGS_dropdown });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/formAddon.js"
+/*!************************************************!*\
+  !*** ./assets/javascript/modules/formAddon.js ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_selectBox_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_selectBox.js */ "./assets/javascript/components/_selectBox.js");
+// formAddon, the selectBox behind it: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ selectBox: _components_selectBox_js__WEBPACK_IMPORTED_MODULE_1__.PGS_selectBox });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/formControls.js"
+/*!***************************************************!*\
+  !*** ./assets/javascript/modules/formControls.js ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_range_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_range.js */ "./assets/javascript/components/_range.js");
+// formControls, the range behind it: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ range: _components_range_js__WEBPACK_IMPORTED_MODULE_1__.PGS_range });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/formValidate.js"
+/*!***************************************************!*\
+  !*** ./assets/javascript/modules/formValidate.js ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/_formValidate.js */ "./assets/javascript/helper/_formValidate.js");
+// formValidate: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module and pgs.helper.formValidate is not there
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.formValidate = _helper_formValidate_js__WEBPACK_IMPORTED_MODULE_1__.PGS_formValidate;
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/header.js"
+/*!*********************************************!*\
+  !*** ./assets/javascript/modules/header.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _layout_header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layout/_header.js */ "./assets/javascript/layout/_header.js");
+// header: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ header: _layout_header_js__WEBPACK_IMPORTED_MODULE_1__.PGS_header });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/menu.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/modules/menu.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_menu_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_menu.js */ "./assets/javascript/components/_menu.js");
+// menu: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ menu: _components_menu_js__WEBPACK_IMPORTED_MODULE_1__.PGS_menu });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/modal.js"
+/*!********************************************!*\
+  !*** ./assets/javascript/modules/modal.js ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_modal.js */ "./assets/javascript/components/_modal.js");
+// modal: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ modal: _components_modal_js__WEBPACK_IMPORTED_MODULE_1__.PGS_modal });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/navSmart.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/modules/navSmart.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layout/_navSmart.js */ "./assets/javascript/layout/_navSmart.js");
+// navSmart: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ navSmart: _layout_navSmart_js__WEBPACK_IMPORTED_MODULE_1__.PGS_navSmart });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/notification.js"
+/*!***************************************************!*\
+  !*** ./assets/javascript/modules/notification.js ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_notification_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_notification.js */ "./assets/javascript/components/_notification.js");
+// notification: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ notification: _components_notification_js__WEBPACK_IMPORTED_MODULE_1__.PGS_notification });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/pageNav.js"
+/*!**********************************************!*\
+  !*** ./assets/javascript/modules/pageNav.js ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_pageNav_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_pageNav.js */ "./assets/javascript/components/_pageNav.js");
+// pageNav: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ pageNav: _components_pageNav_js__WEBPACK_IMPORTED_MODULE_1__.PGS_pageNav });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/search.js"
+/*!*********************************************!*\
+  !*** ./assets/javascript/modules/search.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_search_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_search.js */ "./assets/javascript/components/_search.js");
+// search: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ search: _components_search_js__WEBPACK_IMPORTED_MODULE_1__.PGS_search });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/slides.js"
+/*!*********************************************!*\
+  !*** ./assets/javascript/modules/slides.js ***!
+  \*********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_slides_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_slides.js */ "./assets/javascript/components/_slides.js");
+// slides: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ slides: _components_slides_js__WEBPACK_IMPORTED_MODULE_1__.PGS_slides });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/stepTabs.js"
+/*!***********************************************!*\
+  !*** ./assets/javascript/modules/stepTabs.js ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_stepTabs.js */ "./assets/javascript/components/_stepTabs.js");
+// stepTabs: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ stepTabs: _components_stepTabs_js__WEBPACK_IMPORTED_MODULE_1__.PGS_stepTabs });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/steps.js"
+/*!********************************************!*\
+  !*** ./assets/javascript/modules/steps.js ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_steps_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_steps.js */ "./assets/javascript/components/_steps.js");
+// steps: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ steps: _components_steps_js__WEBPACK_IMPORTED_MODULE_1__.PGS_steps });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/summary.js"
+/*!**********************************************!*\
+  !*** ./assets/javascript/modules/summary.js ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_summary_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_summary.js */ "./assets/javascript/components/_summary.js");
+// summary: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ summary: _components_summary_js__WEBPACK_IMPORTED_MODULE_1__.PGS_summary });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/tabs.js"
+/*!*******************************************!*\
+  !*** ./assets/javascript/modules/tabs.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_tabs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_tabs.js */ "./assets/javascript/components/_tabs.js");
+// tabs: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ tabs: _components_tabs_js__WEBPACK_IMPORTED_MODULE_1__.PGS_tabs });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/toast.js"
+/*!********************************************!*\
+  !*** ./assets/javascript/modules/toast.js ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_toast_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_toast.js */ "./assets/javascript/components/_toast.js");
+// toast: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module: the component is neither imported nor started
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ toast: _components_toast_js__WEBPACK_IMPORTED_MODULE_1__.PGS_toast });
 
 
 /***/ }
