@@ -33,7 +33,7 @@
  * - column: stacks the example and its notes vertically.
  * - gapParagraphs: spaces the example content.
  * - wrap: lets the example controls wrap.
- * - gapElements: spaces the separate buttons.
+ * - gapDetails: spaces the separate buttons.
  * - lightmode: pins a subtree to the light scheme, ignoring this switch; see General.
  * - darkmode: pins a subtree to the dark scheme, ignoring this switch; see General.
  * - icon: draws the glyph of each theme's icon here, when it comes from the built-in set; an icon from another set is written with its own markup.
@@ -81,39 +81,38 @@
 <div pgs="flex['gapParagraphs' 'wrap']" demo="component">
 
     <button pgs="button['btnIconOnly'] darkmodeToggle['tglFollowSystem']" type="button" aria-label="Change theme">
+        <i pgs="darkmodeToggle-system icon['icon-monitor']" aria-hidden="true"></i>
         <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
         <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
-        <i pgs="darkmodeToggle-system icon['icon-monitor']" aria-hidden="true"></i>
     </button>
 
     <button pgs="button darkmodeToggle['tglFollowSystem' 'tglLabeled']" type="button" aria-label="Change theme">
+        <i pgs="darkmodeToggle-system icon['icon-monitor']" aria-hidden="true"></i>
         <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
         <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
-        <i pgs="darkmodeToggle-system icon['icon-monitor']" aria-hidden="true"></i>
     </button>
 
     <script type="text/x-example-js">
-        /* On the html element: with nothing stored, the page follows the operating system. */
-        /* <html pgs="htmlBase htmlDarkmodeFollowSystem"> */
+        /* With nothing stored, the page follows the operating system when the html element carries pgs="htmlBase htmlDarkmodeFollowSystem". */
 
         /* True while the page follows the system. */
         pgs(document.documentElement).state.contains("darkmodeSystem");
     </script>
 </div>
 
-<demo demo-h3="Separate buttons" demo-description="darkmodeButtons puts the states on separate buttons, one each, instead of one switch: darkmodeButtons-light, darkmodeButtons-dark and darkmodeButtons-system. A click picks that state, and the button of the current one is pressed. They stay in sync with every switch on the page. Write only the buttons you need; the group draws no layout, so it takes flex here."></demo>
+<demo demo-h3="Separate buttons" demo-description="darkmodeButtons puts the states on separate buttons, one each, instead of one switch: darkmodeButtons-system, darkmodeButtons-light and darkmodeButtons-dark. A click picks that state, and the button of the current one is pressed. They stay in sync with every switch on the page. Write only the buttons you need; the group draws no layout, so it takes flex here."></demo>
 <div pgs="flex['column' 'gapParagraphs']" demo="component">
 
-    <div pgs="darkmodeButtons flex['gapElements' 'wrap']" role="group" aria-label="Theme">
+    <div pgs="darkmodeButtons flex['gapDetails' 'wrap']" role="group" aria-label="Theme">
+        <button pgs="button darkmodeButtons-system" type="button"><i pgs="icon['icon-monitor']" aria-hidden="true"></i>System</button>
         <button pgs="button darkmodeButtons-light" type="button"><i pgs="icon['icon-sun']" aria-hidden="true"></i>Light</button>
         <button pgs="button darkmodeButtons-dark" type="button"><i pgs="icon['icon-moon']" aria-hidden="true"></i>Dark</button>
-        <button pgs="button darkmodeButtons-system" type="button"><i pgs="icon['icon-monitor']" aria-hidden="true"></i>System</button>
     </div>
 
-    <div pgs="darkmodeButtons flex['gapElements']" role="group" aria-label="Theme">
+    <div pgs="darkmodeButtons flex['gapDetails']" role="group" aria-label="Theme">
+        <button pgs="button['btnIconOnly'] darkmodeButtons-system" type="button" aria-label="System"><i pgs="icon['icon-monitor']" aria-hidden="true"></i></button>
         <button pgs="button['btnIconOnly'] darkmodeButtons-light" type="button" aria-label="Light"><i pgs="icon['icon-sun']" aria-hidden="true"></i></button>
         <button pgs="button['btnIconOnly'] darkmodeButtons-dark" type="button" aria-label="Dark"><i pgs="icon['icon-moon']" aria-hidden="true"></i></button>
-        <button pgs="button['btnIconOnly'] darkmodeButtons-system" type="button" aria-label="System"><i pgs="icon['icon-monitor']" aria-hidden="true"></i></button>
     </div>
 
 </div>
