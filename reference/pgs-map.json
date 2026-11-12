@@ -432,6 +432,37 @@
         "pgs-options": [],
         "pgs-data": []
     },
+    "darkmodeButtons-dark": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "darkmodeButtons-light": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "darkmodeButtons-system": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "darkmodeToggle": {
+        "pgs": [
+            "darkmodeToggle-dark",
+            "darkmodeToggle-light",
+            "darkmodeToggle-system"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "tglFollowSystem",
+            "tglLabeled"
+        ],
+        "pgs-data": []
+    },
     "dropdown": {
         "pgs": [
             "dropdown-button",
@@ -812,6 +843,12 @@
         "pgs-data": []
     },
     "htmlBase": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
+    "htmlDarkmodeFollowSystem": {
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
@@ -1691,17 +1728,6 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
-        "pgs-data": []
-    },
-    "toggleDarkmode": {
-        "pgs": [
-            "toggleDarkmode-dark",
-            "toggleDarkmode-light"
-        ],
-        "pgs-generated": [],
-        "pgs-options": [
-            "tglLabeled"
-        ],
         "pgs-data": []
     },
     "truncate": {

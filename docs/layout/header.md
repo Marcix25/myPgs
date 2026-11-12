@@ -50,9 +50,9 @@ Responsive header that measures available space, switches between its full and c
 - `menu`: provides both the full and the compact navigation.
 - `blur`: applies a backdrop blur behind header-element for a frosted-glass effect.
 - `notificationBell`: a plain button that opens and closes the notification panel from the header; the panel itself is built by pgs.notification, not written here.
-- `toggleDarkmode`: connects the control to the global theme handler.
-- `toggleDarkmode-light`: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
-- `toggleDarkmode-dark`: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
+- `darkmodeToggle`: connects the control to the global theme handler.
+- `darkmodeToggle-light`: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
+- `darkmodeToggle-dark`: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
 - `modal`: provides opening and closing behavior for the compact navigation.
 - `modal-button`: opens the compact panel.
 - `modal-close`: closes the compact panel and shares the hamburger control.
@@ -127,9 +127,9 @@ Full navigation on the left, always-visible controls on the right, and the same 
                 <button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
                     <i pgs="icon['icon-bell']"></i>
                 </button>
-                <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
-                    <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
-                    <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+                <button pgs="button['btnIconOnly' 'btnForHeader'] darkmodeToggle" type="button" aria-label="Change theme">
+                    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+                    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -139,9 +139,9 @@ Full navigation on the left, always-visible controls on the right, and the same 
                 <button type="button" pgs="button['btnIconOnly' 'btnForHeader'] notificationBell" aria-label="Open notifications">
                     <i pgs="icon['icon-bell']"></i>
                 </button>
-                <button pgs="button['btnIconOnly' 'btnForHeader'] toggleDarkmode" type="button" aria-label="Change theme">
-                    <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
-                    <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+                <button pgs="button['btnIconOnly' 'btnForHeader'] darkmodeToggle" type="button" aria-label="Change theme">
+                    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+                    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
                 </button>
                 <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
 

@@ -457,21 +457,41 @@
     font-size: clamp(var(--font-size-text), var(--heading-size-h6, 1.7rem) / 3 + 2.5vw, var(--heading-size-h6, 1.7rem));
   }
 }
-:is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["]) {
+:is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["]) {
   --darkmode-label-toDark: "Dark mode";
   --darkmode-label-toLight: "Light mode";
+  --darkmode-label-system: "System theme";
 }
 
-:root:not([pgs-state~=darkmode]) :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["]) [pgs~=toggleDarkmode-dark], :root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["]) [pgs~=toggleDarkmode-light] {
+:root:not([pgs-state~=darkmode]) :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["]) [pgs~=darkmodeToggle-dark], :root[pgs-state~=darkmode] :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["]) [pgs~=darkmodeToggle-light] {
   display: none;
 }
 
-:is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabeled'"]::after {
+:root:not([pgs-state~=darkmodeSystem]) :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["]) [pgs~=darkmodeToggle-system], :root[pgs-state~=darkmodeSystem] :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["]):has([pgs~=darkmodeToggle-system]) :is([pgs~=darkmodeToggle-light], [pgs~=darkmodeToggle-dark]) {
+  display: none;
+}
+
+:is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["])[pgs*="'tglLabeled'"]::after {
   content: var(--darkmode-label-toDark);
 }
 
-:root[pgs-state~=darkmode] :is([pgs~=toggleDarkmode], [pgs*="toggleDarkmode["])[pgs*="'tglLabeled'"]::after {
+:root[pgs-state~=darkmode] :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["])[pgs*="'tglLabeled'"]::after {
   content: var(--darkmode-label-toLight);
+}
+
+:root[pgs-state~=darkmode]:not([pgs-state~=darkmodeSystem]) :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["])[pgs*="'tglFollowSystem'"][pgs*="'tglLabeled'"]::after {
+  content: var(--darkmode-label-system);
+}
+
+:root[pgs-state~=darkmodeSystem] :is([pgs~=darkmodeToggle], [pgs*="darkmodeToggle["])[pgs*="'tglFollowSystem'"][pgs*="'tglLabeled'"]::after {
+  content: var(--darkmode-label-toLight);
+}
+
+:is([pgs~=darkmodeButtons-light], [pgs~=darkmodeButtons-dark], [pgs~=darkmodeButtons-system])[aria-pressed=true] {
+  --button-color: var(--button-color-twoState);
+  --button-background: var(--button-background-twoState);
+  --button-borderColor: var(--button-borderColor-twoState);
+  --button-shadow: var(--button-shadow-twoState);
 }
 
 /*

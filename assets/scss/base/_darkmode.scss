@@ -1,19 +1,26 @@
 //= DARKMODE
 // the switch itself is drawn by button and icon: what lives here is only the written label, and
 // it is opt-in because an icon-only switch already says enough on its own
-:is([pgs~="toggleDarkmode"], [pgs*="toggleDarkmode\5B"]) {
+:is([pgs~="darkmodeToggle"], [pgs*="darkmodeToggle\5B"]) {
     --darkmode-label-toDark: "Dark mode";
     --darkmode-label-toLight: "Light mode";
+    --darkmode-label-system: "System theme";
 
     //# OWN ICON PER THEME
-    // a switch that holds a toggleDarkmode-light and/or a toggleDarkmode-dark shows the one of the current
+    // a switch that holds a darkmodeToggle-light and/or a darkmodeToggle-dark shows the one of the current
     // theme and hides the other: the icons are the author's, from any set, and the library does not touch
     // them. It reads the root state, which the head script writes before the first paint, so a reload
     // never shows the wrong one, or two: while the page is light the dark one is hidden, and the other
     // way round. Nothing is ever shown again, the element just stops being hidden, so the display the
     // author gave it (an inline-grid icon, a flex span) is left alone
-    :root:not([pgs-state~="darkmode"]) & [pgs~="toggleDarkmode-dark"],
-    :root[pgs-state~="darkmode"] & [pgs~="toggleDarkmode-light"] { display: none; }
+    :root:not([pgs-state~="darkmode"]) & [pgs~="darkmodeToggle-dark"],
+    :root[pgs-state~="darkmode"] & [pgs~="darkmodeToggle-light"] { display: none; }
+
+    // the third icon, darkmodeToggle-system, is the one of a page that follows the operating system: it is
+    // shown only then, and while it is shown it takes the place of the light and the dark one. A switch
+    // without it keeps showing the theme the system gave the page
+    :root:not([pgs-state~="darkmodeSystem"]) & [pgs~="darkmodeToggle-system"],
+    :root[pgs-state~="darkmodeSystem"] &:has([pgs~="darkmodeToggle-system"]) :is([pgs~="darkmodeToggle-light"], [pgs~="darkmodeToggle-dark"]) { display: none; }
 
     //# EXTENDED
     // the label says where the click leads, so it reads the theme itself rather than the glyph
@@ -26,4 +33,29 @@
             &::after { content: var(--darkmode-label-toLight); }
         }
     }
+
+    //# THREE STATES
+    // a switch with tglFollowSystem goes light, dark, the system, light again: with tglLabeled the label is
+    // still where the click leads, so a dark page that is not following the system says the system, and a
+    // page that follows it says light. Written under the root states so it outweighs the two labels above
+    &[pgs*="'tglFollowSystem'"][pgs*="'tglLabeled'"] {
+        :root[pgs-state~="darkmode"]:not([pgs-state~="darkmodeSystem"]) & {
+            &::after { content: var(--darkmode-label-system); }
+        }
+
+        :root[pgs-state~="darkmodeSystem"] & {
+            &::after { content: var(--darkmode-label-toLight); }
+        }
+    }
+}
+
+//= SEPARATE BUTTONS
+// a darkmodeButtons holds one button per state, light, dark and the system: the one of the current state is
+// pressed (the script writes aria-pressed="true" and the active state on it) and takes the checked colors of
+// a two-state button, so it reads like a checked btnTwoState. The group draws no layout: place it with flex
+:is([pgs~="darkmodeButtons-light"], [pgs~="darkmodeButtons-dark"], [pgs~="darkmodeButtons-system"])[aria-pressed="true"] {
+    --button-color: var(--button-color-twoState);
+    --button-background: var(--button-background-twoState);
+    --button-borderColor: var(--button-borderColor-twoState);
+    --button-shadow: var(--button-shadow-twoState);
 }

@@ -69,7 +69,7 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
   | `sel` | `userSelect` | `selNone`, `selText` |
   | `shell` | `pageShell` | `shellAsideScroll`, `shellFullPage` |
   | `ta` | `textAlign` | `taCenter`, `taJustify` |
-  | `tgl` | `toggleDarkmode` | `tglLabeled` |
+  | `tgl` | `darkmodeToggle` | `tglLabeled` |
   | `txs` | `textShadow` | `txsUnset` |
   | `txt` | `textColor` | `txtPrimary`, `txtError` |
   | `zi` | `zIndex` | `ziOne`, `ziTen` |

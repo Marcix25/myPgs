@@ -20,9 +20,9 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: presents the theme control as a button.
-- `toggleDarkmode`: connects the control to the global light or dark theme handler.
-- `toggleDarkmode-light`: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
-- `toggleDarkmode-dark`: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
+- `darkmodeToggle`: connects the control to the global light or dark theme handler.
+- `darkmodeToggle-light`: inside the control, the icon of the light theme, shown while the page is light; see Darkmode.
+- `darkmodeToggle-dark`: inside the control, the icon of the dark theme, shown while the page is dark; see Darkmode.
 - `section`: applies the shared section structure to the upper and legal areas.
 - `logo`: inserts the brand into the footer.
 - `logo-text`: uses the text variant of the logo.
@@ -61,9 +61,9 @@ Brand and navigation columns in the upper section, legal links in the lower one.
                 <a aria-label="Logo" pgs="logo['logoFooter']" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
-                <button pgs="button toggleDarkmode['tglLabeled']" type="button" aria-label="Change theme">
-                    <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
-                    <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+                <button pgs="button darkmodeToggle['tglLabeled']" type="button" aria-label="Change theme">
+                    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+                    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
                 </button>
             </div>
 

@@ -627,42 +627,111 @@ __webpack_require__.r(__webpack_exports__);
 const INITIALIZED_BUTTONS = new WeakSet();
 
 //# STORED CHOICE
-// localStorage throws when the browser blocks site data, and answers null in some private windows:
-// either way the choice lives in memory for the rest of the page, so the switch still works
+// "true" (dark), "false" (light) or "system" (the theme of the operating system). localStorage throws when
+// the browser blocks site data, and answers null in some private windows: either way the choice lives in
+// memory for the rest of the page, so the switch still works
 const STORAGE_KEY = "screenIsDarkMode";
-let memoryChoice = false;
+const SYSTEM = "system";
+let memoryChoice = null;
 
 function readStoredChoice() {
     try {
         const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored !== null) return stored === "true";
+        if (stored !== null) return stored;
     } catch (_) { }
     return memoryChoice;
 }
 
-function writeStoredChoice(isDarkMode) {
-    memoryChoice = isDarkMode;
-    try { localStorage.setItem(STORAGE_KEY, isDarkMode); } catch (_) { }
+function writeStoredChoice(choice) {
+    memoryChoice = String(choice);
+    try { localStorage.setItem(STORAGE_KEY, memoryChoice); } catch (_) { }
+}
+
+//# SYSTEM THEME
+// the theme of the operating system, read live: a page that follows it changes with it
+const SYSTEM_QUERY = typeof matchMedia === "function" ? matchMedia("(prefers-color-scheme: dark)") : null;
+
+// with nothing stored, a page whose html carries htmlDarkmodeFollowSystem follows the system, any other starts light
+function followsSystem() {
+    const stored = readStoredChoice();
+    if (stored === SYSTEM) return true;
+    if (stored === "true" || stored === "false") return false;
+    return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).contains("htmlDarkmodeFollowSystem");
+}
+
+function isDarkMode() {
+    return followsSystem() ? Boolean(SYSTEM_QUERY?.matches) : readStoredChoice() === "true";
 }
 
 //# SET STATUS
 function setDarkmodeStatus(toggle = false) {
-    let isDarkMode = readStoredChoice();
+    let dark = isDarkMode();
 
+    // a click on a switch fixes the theme it leads to, which leaves the system behind
     if (toggle) {
-        isDarkMode = !isDarkMode;
-        writeStoredChoice(isDarkMode);
+        dark = !dark;
+        writeStoredChoice(dark);
     }
 
+    const system = followsSystem();
+
     // SET
-    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.toggle("darkmode", isDarkMode);
-    if (document.body) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).state.toggle("darkmode", isDarkMode);
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.toggle("darkmode", dark);
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.documentElement).state.toggle("darkmodeSystem", system);
+    if (document.body) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(document.body).state.toggle("darkmode", dark);
     // END SET
+
+    // the separate buttons say which of the three is the current one
+    markButtons(document, currentMode());
 
     // on the root element, like every pgs:* event: it bubbles up to the document, and detail.element is
     // the element it was dispatched on
-    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(document.documentElement, _svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { isDarkMode });
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(document.documentElement, _svg_js__WEBPACK_IMPORTED_MODULE_1__.PGS_svg.eventChangeColor, { isDarkMode: dark });
 }
+
+//# THREE STATES
+// a darkmodeToggle['tglFollowSystem'] has three states and goes round them: light, dark, the system, light again
+function hasThreeStates(button) {
+    return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).option.contains("tglFollowSystem");
+}
+
+function nextOfThree() {
+    if (followsSystem()) writeStoredChoice(false);
+    else writeStoredChoice(isDarkMode() ? SYSTEM : true);
+    setDarkmodeStatus(false);
+}
+
+//# SEPARATE BUTTONS
+// a darkmodeButtons holds one button per state, darkmodeButtons-light, darkmodeButtons-dark and
+// darkmodeButtons-system: a click picks that state, and the one of the current state is marked pressed
+const BUTTON_MODES = { "darkmodeButtons-light": "false", "darkmodeButtons-dark": "true", "darkmodeButtons-system": SYSTEM };
+
+function currentMode() {
+    if (followsSystem()) return SYSTEM;
+    return isDarkMode() ? "true" : "false";
+}
+
+function modeOf(button) {
+    return Object.entries(BUTTON_MODES).find(([token]) => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).contains(token))?.[1];
+}
+
+function markButtons(root, mode) {
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).querySelectorAll(Object.keys(BUTTON_MODES)).forEach(button => {
+        const pressed = modeOf(button) === mode;
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).state.toggle("active", pressed);
+        button.setAttribute("aria-pressed", String(pressed));
+    });
+}
+
+function pickMode(mode) {
+    writeStoredChoice(mode);
+    setDarkmodeStatus(false);
+}
+
+// the system changed its theme: only a page that follows it changes too
+SYSTEM_QUERY?.addEventListener?.("change", () => {
+    if (followsSystem()) setDarkmodeStatus(false);
+});
 
 
 
@@ -674,13 +743,26 @@ if (typeof document !== "undefined") setDarkmodeStatus();
 // binds the switches in root that are not bound yet. Switches already bound are left untouched, so
 // pgs.helper.init(el) on a page that is already running changes nothing else: it does not re-apply the
 // theme or fire the color event again. The icon of a switch is not drawn here: the author writes a
-// toggleDarkmode-light and a toggleDarkmode-dark in it, and the stylesheet shows the one of the theme
+// darkmodeToggle-light and a darkmodeToggle-dark in it (and a darkmodeToggle-system in one with three states),
+// and the stylesheet shows the one of the current state
 function PGS_darkmode_init(root = document) {
-    const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "toggleDarkmode").filter(button => !INITIALIZED_BUTTONS.has(button));
+    const buttons = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "darkmodeToggle").filter(button => !INITIALIZED_BUTTONS.has(button));
 
     buttons.forEach(button => {
         INITIALIZED_BUTTONS.add(button);
-        button.addEventListener("click", () => setDarkmodeStatus(true));
+
+        button.addEventListener("click", () => hasThreeStates(button) ? nextOfThree() : setDarkmodeStatus(true));
+    });
+
+    _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.roots(root, "darkmodeButtons").forEach(group => {
+        const buttons = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(group).querySelectorAll(Object.keys(BUTTON_MODES))).filter(button => !INITIALIZED_BUTTONS.has(button));
+
+        buttons.forEach(button => {
+            INITIALIZED_BUTTONS.add(button);
+            button.addEventListener("click", () => pickMode(modeOf(button)));
+        });
+
+        markButtons(group, currentMode());
     });
 }
 

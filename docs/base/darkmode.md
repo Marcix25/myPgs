@@ -2,25 +2,34 @@
 
 # Darkmode
 
-Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked toggleDarkmode flips the theme and stays in sync with the others. The library draws no icon on it: the control holds one icon per theme, a toggleDarkmode-light and a toggleDarkmode-dark, from any icon set, and the stylesheet shows the one of the current theme and hides the other. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolors the SVG and Lottie files; see SVG colors.
+Global light and dark theme switch. The choice is persisted in localStorage under screenIsDarkMode ("true", "false", or "system" while the page follows the operating system) and re-applied to the html element as soon as the bundle is parsed, before the page paints, so a reload never flashes the wrong theme. Every control marked darkmodeToggle flips the theme and stays in sync with the others. The library draws no icon on it: the control holds one icon per theme, a darkmodeToggle-light and a darkmodeToggle-dark, from any icon set, and the stylesheet shows the one of the current theme and hides the other. Each switch dispatches pgs:svg:changeColor on the document with detail { isDarkMode }, which is what recolors the SVG and Lottie files; see SVG colors. Following the theme of the operating system is optional: htmlDarkmodeFollowSystem on the html element makes it the starting theme, and a switch with tglFollowSystem has three states, light, dark and the system, with a third icon, darkmodeToggle-system. A darkmodeButtons puts the three states on three separate buttons instead of one switch.
 
 ## PGS
 
-- `toggleDarkmode`: turns a control into a theme switch; every one of them on the page reflects the same state.
-- `toggleDarkmode-light`: write it yourself inside a switch: the icon for the light theme, from any icon set (an icon, an svg, an image, text). It is shown while the page is light and hidden while it is dark.
-- `toggleDarkmode-dark`: the icon for the dark theme, shown while the page is dark and hidden while it is light. Write both: the stylesheet hides the one that does not match the theme from the html element before the first paint, so a reload never shows two, and a switch with neither draws nothing.
+- `darkmodeToggle`: turns a control into a theme switch; every one of them on the page reflects the same state.
+- `darkmodeToggle-light`: write it yourself inside a switch: the icon for the light theme, from any icon set (an icon, an svg, an image, text). It is shown while the page is light and hidden while it is dark.
+- `darkmodeToggle-dark`: the icon for the dark theme, shown while the page is dark and hidden while it is light. Write both: the stylesheet hides the one that does not match the theme from the html element before the first paint, so a reload never shows two, and a switch with neither draws nothing.
+- `darkmodeToggle-system`: the third icon, for a switch with tglFollowSystem: shown while the page follows the operating system, and in its place the light and the dark one are hidden. A switch without it keeps showing the theme the system gave the page.
+- `darkmodeButtons`: a group of three separate buttons, one per state, as an alternative to one switch. It draws no layout of its own: place it with flex. Give it role="group" and an aria-label.
+- `darkmodeButtons-light`: inside a darkmodeButtons, the button that fixes the light theme.
+- `darkmodeButtons-dark`: the button that fixes the dark theme.
+- `darkmodeButtons-system`: the button that follows the theme of the operating system again. The button of the current state carries aria-pressed="true" and the active state, and takes the checked colors of a two-state button (--button-*-twoState); the other two carry aria-pressed="false". Write only the buttons you need: a group without the system one is a plain light and dark choice.
+- `htmlDarkmodeFollowSystem`: on the html element, opt-in: with no choice stored, the page takes the theme of the operating system (prefers-color-scheme) and changes with it while open. Without it the page starts light. A click on a darkmodeToggle fixes a theme; a switch with tglFollowSystem can go back to the system.
 
 ## PGS Options (component brackets)
 
+- `tglFollowSystem`: gives the switch three states and goes round them at each click: light, dark, the theme of the operating system ("system" in the storage), light again. It works with or without htmlDarkmodeFollowSystem. It shows the icon of the current state, so write a darkmodeToggle-system in it next to the light and the dark one; with tglLabeled the label stays where the click leads: "Dark mode", then "System theme" (retitled with --darkmode-label-system), then "Light mode".
 - `tglLabeled`: writes the theme the click leads to next to the glyph, "Dark mode" while the page is light and "Light mode" while it is dark. It reads the theme from the html element rather than the glyph on the button, so it keeps working whatever icon set drew it; retitle or translate it with --darkmode-label-toDark and --darkmode-label-toLight, whose values are CSS strings, quotes included.
 
 ## PGS States
 
 - `darkmode`: applied to the html and body elements while the dark theme is active, and read by the whole color layer.
+- `darkmodeSystem`: applied to the html element while the page follows the theme of the operating system.
+- `active`: on the button of a darkmodeButtons that matches the current state.
 
 ## JavaScript API
 
-- `pgs.darkmode.init(root)`: initializes the switches within the specified root that are not bound yet. Switches that are already bound, and the theme itself, are left untouched.
+- `pgs.darkmode.init(root)`: initializes the switches and the darkmodeButtons groups within the specified root that are not bound yet. Switches that are already bound, and the theme itself, are left untouched.
 
 ## Related elements
 
@@ -29,14 +38,18 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: presents the switch as a button.
 - `icon`: draws the glyph of each theme's icon here, when it comes from the built-in set; an icon from another set is written with its own markup.
+- `htmlBase`: the base of the html element, next to htmlDarkmodeFollowSystem; see Body.
 
 ### PGS Options (component brackets)
 
 - `btnIconOnly`: presents the switch as an icon-only button.
 - `column`: stacks the example and its notes vertically.
 - `gapParagraphs`: spaces the example content.
+- `wrap`: lets the example controls wrap.
+- `gapElements`: spaces the separate buttons.
 - `icon-sun`: the glyph of the dark theme in the examples.
 - `icon-moon`: the glyph of the light theme in the examples.
+- `icon-monitor`: the glyph of the system theme in the examples, from the myIcons pack the demo loads; any icon works.
 
 ### Other
 
@@ -45,6 +58,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 ## CSS Variables
 
+- `--darkmode-label-system`
 - `--darkmode-label-toDark`
 - `--darkmode-label-toLight`
 
@@ -69,12 +83,12 @@ localStorage.getItem("screenIsDarkMode");
 
 ### Theme switch
 
-A switch holds one icon per theme, toggleDarkmode-light and toggleDarkmode-dark: the stylesheet shows the one of the current theme and hides the other, so the icon is yours, from any set. Here the moon is the light theme's and the sun the dark theme's, so each one shows the theme the click leads to. Several switches can coexist: they all read and write the same stored value.
+A switch holds one icon per theme, darkmodeToggle-light and darkmodeToggle-dark: the stylesheet shows the one of the current theme and hides the other, so the icon is yours, from any set. Here the moon is the light theme's and the sun the dark theme's, so each one shows the theme the click leads to. Several switches can coexist: they all read and write the same stored value.
 
 ```html
-<button pgs="button['btnIconOnly'] toggleDarkmode" type="button" aria-label="Change theme">
-    <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
-    <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+<button pgs="button['btnIconOnly'] darkmodeToggle" type="button" aria-label="Change theme">
+    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
 </button>
 ```
 
@@ -83,8 +97,52 @@ A switch holds one icon per theme, toggleDarkmode-light and toggleDarkmode-dark:
 tglLabeled adds the written label, so the control says where the click leads instead of relying on the glyph alone. Override --darkmode-label-toDark and --darkmode-label-toLight to write it in another language: both take a CSS string, quotes included.
 
 ```html
-<button pgs="button toggleDarkmode['tglLabeled']" type="button" aria-label="Change theme">
-    <i pgs="toggleDarkmode-light icon['icon-moon']" aria-hidden="true"></i>
-    <i pgs="toggleDarkmode-dark icon['icon-sun']" aria-hidden="true"></i>
+<button pgs="button darkmodeToggle['tglLabeled']" type="button" aria-label="Change theme">
+    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
 </button>
+```
+
+### Follow the system
+
+Optional. htmlDarkmodeFollowSystem on the html element starts the page on the theme of the operating system when nothing is stored, and changes it live when the system changes. tglFollowSystem gives a switch three states, light, dark and the system, and each click moves to the next; it shows the icon of the current one, so it holds a third icon, darkmodeToggle-system. It also works without htmlDarkmodeFollowSystem, which only decides the starting theme.
+
+```html
+<button pgs="button['btnIconOnly'] darkmodeToggle['tglFollowSystem']" type="button" aria-label="Change theme">
+    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
+    <i pgs="darkmodeToggle-system icon['icon-monitor']" aria-hidden="true"></i>
+</button>
+
+<button pgs="button darkmodeToggle['tglFollowSystem' 'tglLabeled']" type="button" aria-label="Change theme">
+    <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+    <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
+    <i pgs="darkmodeToggle-system icon['icon-monitor']" aria-hidden="true"></i>
+</button>
+
+<script type="text/x-example-js">
+    /* On the html element: with nothing stored, the page follows the operating system. */
+    /* <html pgs="htmlBase htmlDarkmodeFollowSystem"> */
+
+    /* True while the page follows the system. */
+    pgs(document.documentElement).state.contains("darkmodeSystem");
+</script>
+```
+
+### Separate buttons
+
+darkmodeButtons puts the states on separate buttons, one each, instead of one switch: darkmodeButtons-light, darkmodeButtons-dark and darkmodeButtons-system. A click picks that state, and the button of the current one is pressed. They stay in sync with every switch on the page. Write only the buttons you need; the group draws no layout, so it takes flex here.
+
+```html
+<div pgs="darkmodeButtons flex['gapElements' 'wrap']" role="group" aria-label="Theme">
+    <button pgs="button darkmodeButtons-light" type="button"><i pgs="icon['icon-sun']" aria-hidden="true"></i>Light</button>
+    <button pgs="button darkmodeButtons-dark" type="button"><i pgs="icon['icon-moon']" aria-hidden="true"></i>Dark</button>
+    <button pgs="button darkmodeButtons-system" type="button"><i pgs="icon['icon-monitor']" aria-hidden="true"></i>System</button>
+</div>
+
+<div pgs="darkmodeButtons flex['gapElements']" role="group" aria-label="Theme">
+    <button pgs="button['btnIconOnly'] darkmodeButtons-light" type="button" aria-label="Light"><i pgs="icon['icon-sun']" aria-hidden="true"></i></button>
+    <button pgs="button['btnIconOnly'] darkmodeButtons-dark" type="button" aria-label="Dark"><i pgs="icon['icon-moon']" aria-hidden="true"></i></button>
+    <button pgs="button['btnIconOnly'] darkmodeButtons-system" type="button" aria-label="System"><i pgs="icon['icon-monitor']" aria-hidden="true"></i></button>
+</div>
 ```
