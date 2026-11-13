@@ -26,6 +26,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `icon-triangleExclamation`: exclamation mark inside a triangle, the warning mark.
 - `icon-hamburger`: three horizontal bars, the classic static hamburger menu glyph.
 - `icon-hamburgerTwo`: two horizontal bars, a lighter static hamburger menu glyph.
+- `icon-star`: five-pointed star, the glyph rating draws its score with.
 
 ## Related elements
 
@@ -55,6 +56,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `--icon-glyph-circle`
 - `--icon-glyph-circleXmark`
 - `--icon-glyph-close`
+- `--icon-glyph-star`
 - `--icon-size`
 
 ## Output
@@ -80,6 +82,7 @@ The glyphs the library carries because its own components draw them. The token m
 <i pgs="icon['icon-triangleExclamation']"></i>
 <i pgs="icon['icon-hamburger']"></i>
 <i pgs="icon['icon-hamburgerTwo']"></i>
+<i pgs="icon['icon-star']"></i>
 ```
 
 ### Size and color

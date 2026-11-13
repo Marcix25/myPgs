@@ -156,6 +156,7 @@ reference source before creating new markup.
 - [badges](docs/components/badges.md)
 - [breadcrumb](docs/components/breadcrumb.md)
 - [button](docs/components/button.md)
+- [buttonGroup](docs/components/buttonGroup.md)
 - [card](docs/components/card.md)
 - [dropdown](docs/components/dropdown.md)
 - [form](docs/components/form.md)

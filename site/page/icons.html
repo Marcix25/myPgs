@@ -24,8 +24,8 @@
             </form>
             <div pgs="flex['row' 'gapParagraphs' 'wrap']" role="group" aria-label="Which glyphs to show">
                 <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="all" aria-pressed="true">All (282)</button>
-                <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="core" aria-pressed="false">Core (13)</button>
-                <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="pack" aria-pressed="false">Pack only (269)</button>
+                <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="core" aria-pressed="false">Core (14)</button>
+                <button pgs="button['btnMini' 'btnTransparent']" type="button" data-scope="pack" aria-pressed="false">Pack only (268)</button>
             </div>
         </div>
 
@@ -970,9 +970,10 @@
                 <i pgs="icon['iconLarge' 'icon-squareX']" aria-hidden="true"></i>
                 <span class="icons-item-name">icon-squareX</span>
             </button>
-            <button class="icons-item" pgs="button['btnVertical']" type="button" data-icon="star" data-core="false" title="Show the code of icon-star">
+            <button class="icons-item" pgs="button['btnVertical']" type="button" data-icon="star" data-core="true" title="Show the code of icon-star">
                 <i pgs="icon['iconLarge' 'icon-star']" aria-hidden="true"></i>
                 <span class="icons-item-name">icon-star</span>
+                <span class="icons-item-badge" pgs="badge['badgeSoft']">core</span>
             </button>
             <button class="icons-item" pgs="button['btnVertical']" type="button" data-icon="steps" data-core="false" title="Show the code of icon-steps">
                 <i pgs="icon['iconLarge' 'icon-steps']" aria-hidden="true"></i>
@@ -1178,7 +1179,7 @@
 
         <div pgs="flex['column-2']">
             <div pgs="box">
-                <small><strong>Inside mypgs.</strong> Only the 13 glyphs a component of the library draws by itself are in the mypgs stylesheet: the chevrons, the close buttons, the marks on alerts, the search, dark-mode and hamburger glyphs. They come in with the library, by structure, with nothing to load. They are marked <span pgs="badge['badgeSoft']">core</span> in the set above.</small>
+                <small><strong>Inside mypgs.</strong> Only the 14 glyphs a component of the library draws by itself are in the mypgs stylesheet: the chevrons, the close buttons, the marks on alerts, the search, dark-mode and hamburger glyphs. They come in with the library, by structure, with nothing to load. They are marked <span pgs="badge['badgeSoft']">core</span> in the set above.</small>
             </div>
             <div pgs="box">
                 <small><strong>The myIcons pack.</strong> The full set of 282 glyphs is the separate <code>@marcix/myicons</code> package, and it holds the core ones too. Load its stylesheet after mypgs and write the same option: a glyph reads the same whichever of the two holds it. Without the pack, a glyph that is not core draws nothing.</small>

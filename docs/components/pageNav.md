@@ -45,6 +45,7 @@ Full-page panels switched by the URL hash instead of an index, so the current on
 - `pageShell-aside`: the sidebar that holds the list, marked pageNav-home in the drill-down example.
 - `pageShell-content`: the column of the panels.
 - `menu`: draws the list of links in the drill-down example; see Menu.
+- `buttonGroup`: on the ul of the menu, puts the list on a background of its own with a hairline between the links; see Button group.
 - `button`: draws each link and the back button.
 - `hide`: hides the chevron at the end of each link from the notebook breakpoint up.
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
@@ -53,7 +54,8 @@ Full-page panels switched by the URL hash instead of an index, so the current on
 ### PGS Options (component brackets)
 
 - `shellAsideScroll`: keeps the sidebar of the shell beside the panels while they scroll, from the notebook breakpoint up.
-- `menuGrouped`: puts the list on a background of its own with a hairline between the links.
+- `btgVertical`: the horizontal hairlines of a list stacked in a column; see Button group.
+- `btgFill`: makes the list as wide as the sidebar; see Button group.
 - `btnTransparent`: keeps the links and the back button flat.
 - `btnCurrent`: gives the link of the panel on screen the current look.
 - `hideMediaUpNotebook`: inside hide's own bracket, hides the element above 900px.
@@ -114,8 +116,8 @@ In a pageShell: while the shell stacks its sidebar above the content, the list i
         <aside pgs="pageShell-aside pageNav-home">
             <div pgs="flex['column' 'gapElements']">
                 <h2>Settings</h2>
-                <nav pgs="menu['menuGrouped'] pageNav-list" aria-label="Settings">
-                    <ul>
+                <nav pgs="menu pageNav-list" aria-label="Settings">
+                    <ul pgs="buttonGroup['btgVertical' 'btgFill']">
                         <li>
                             <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-general">
                                 <i pgs="icon['icon-star']" aria-hidden="true"></i>

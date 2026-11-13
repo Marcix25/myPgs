@@ -53,6 +53,7 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
   | `bg` | `background` | `bgPrimary`, `bgBoxDark` |
   | `blr` | `blur` | `blrUnset` |
   | `btn` | `button` | `btnMini`, `btnStrong`, `btnTransparent`, `btnIconOnly` |
+  | `btg` | `buttonGroup` | `btgVertical`, `btgFill` |
   | `bxs` | `boxShadow` | `bxsUnset` |
   | `cnt` | `container` | `cntNone` |
   | `dialog` | `modal`, `notificationBell` | `dialogRight`, `dialogAnimationZoom` (they act on the `<dialog>`, not on the wrapper) |

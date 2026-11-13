@@ -374,6 +374,15 @@
         ],
         "pgs-data": []
     },
+    "buttonGroup": {
+        "pgs": [],
+        "pgs-generated": [],
+        "pgs-options": [
+            "btgFill",
+            "btgVertical"
+        ],
+        "pgs-data": []
+    },
     "card": {
         "pgs": [
             "card-content",
@@ -869,6 +878,7 @@
             "icon-hamburgerTwo",
             "icon-magnifyingGlass",
             "icon-moon",
+            "icon-star",
             "icon-sun",
             "icon-triangleExclamation",
             "iconBoxed",
@@ -1119,7 +1129,6 @@
             "_menu-submenuButton"
         ],
         "pgs-options": [
-            "menuGrouped",
             "menuHorizontal",
             "menuIconOnlyCurrent",
             "menuShort",
@@ -1409,6 +1418,15 @@
         ],
         "pgs-data": []
     },
+    "pagination": {
+        "pgs": [
+            "pagination-ellipsis",
+            "pagination-item"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [],
+        "pgs-data": []
+    },
     "pointer": {
         "pgs": [],
         "pgs-generated": [],
@@ -1445,6 +1463,16 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [],
+        "pgs-data": []
+    },
+    "rating": {
+        "pgs": [
+            "rating-star"
+        ],
+        "pgs-generated": [],
+        "pgs-options": [
+            "ratingInput"
+        ],
         "pgs-data": []
     },
     "rotate": {

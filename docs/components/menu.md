@@ -20,7 +20,6 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `menuVertical`: identifies the vertical element used by Menu.
 - `menuIconOnlyCurrent`: displays link icons only when the link has an active aria-current value.
 - `menuShort`: compacts adjacent menu links by overlapping their horizontal spacing.
-- `menuGrouped`: puts the top-level list on a background of its own (--menu-grouped-background, the box color), with padding, rounded corners and a hairline between the items, in the middle of the gap (--menu-grouped-gap): horizontal lines in a vertical menu, vertical ones with menuHorizontal. The two lines that touch the item whose button is the current page (aria-current="page" or aria-selected="true"), hovered or focused with the keyboard fade out in --menu-grouped-timing (400ms ease-out, the timing of the background of a button), so the background of that button is not cut by a hairline. The submenus keep their own look. With menuHorizontal keep the list on one row, or a wrapped row would carry a line at its start.
 
 ## PGS States
 
@@ -39,6 +38,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: styles a menu link, now that the menu no longer does it itself.
+- `buttonGroup`: written on the ul, puts the list on a background of its own with a hairline between the items; see Button group.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options (component brackets)
@@ -49,6 +49,8 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 - `btnTransparent`: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
 - `row`: lays the top-level list out as a row, so a long menu can be measured against the space it has.
 - `wrap`: lets that row break onto a second line instead of overflowing.
+- `btgVertical`: the horizontal hairlines of the list of a vertical menu; see Button group.
+- `btgFill`: makes the list as wide as the menu; see Button group.
 - `icon-circle`: a plain disc, standing in for a section icon.
 - `icon-plus`: the icon of the toggle written by hand in the example.
 - `icon-circleInfo`: the information mark.
@@ -65,11 +67,6 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 - `--menu-gap-column`
 - `--menu-gap-row`
-- `--menu-grouped-background`
-- `--menu-grouped-borderRadius`
-- `--menu-grouped-gap`
-- `--menu-grouped-padding`
-- `--menu-grouped-timing`
 
 ## Output
 
@@ -222,11 +219,11 @@ menuShort overlaps the horizontal spacing between adjacent links, so it is meant
 
 ### Grouped menu
 
-The list sits on a background with a hairline between the items, using pgs=&quot;menu['menuGrouped']&quot;: horizontal lines in a vertical menu, the default.
+buttonGroup on the ul puts the list on a background of its own with a hairline between the items. A vertical menu stacks the items, and btgVertical draws the horizontal lines that go with it; btgFill makes the list as wide as the menu.
 
 ```html
-<nav pgs="menu['menuGrouped']" aria-label="Grouped vertical menu">
-    <ul>
+<nav pgs="menu" aria-label="Grouped vertical menu">
+    <ul pgs="buttonGroup['btgVertical' 'btgFill']">
         <li>
             <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>
@@ -251,11 +248,11 @@ The list sits on a background with a hairline between the items, using pgs=&quot
 
 ### Grouped menu - horizontal
 
-With menuHorizontal the hairlines are vertical, using pgs=&quot;menu['menuHorizontal' 'menuGrouped']&quot;. Keep it on a single row.
+In a menuHorizontal the list is a row, the default of buttonGroup, with vertical hairlines. Keep it on a single row.
 
 ```html
-<nav pgs="menu['menuHorizontal' 'menuGrouped']" aria-label="Grouped horizontal menu">
-    <ul>
+<nav pgs="menu['menuHorizontal']" aria-label="Grouped horizontal menu">
+    <ul pgs="buttonGroup">
         <li>
             <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                 <i pgs="icon['icon-circle']" aria-hidden="true"></i>

@@ -29,8 +29,11 @@ $pgs-exclude: () !default;
 @if pgs-module("icon") { @include meta.load-css("components/icon"); }
 @if pgs-module("formAddon") { @include meta.load-css("components/formAddon"); }
 @if pgs-module("menu") { @include meta.load-css("components/menu"); }
+@if pgs-module("buttonGroup") { @include meta.load-css("components/buttonGroup"); }
 @if pgs-module("accordion") { @include meta.load-css("components/accordion"); }
 @if pgs-module("breadcrumb") { @include meta.load-css("components/breadcrumb"); }
+@if pgs-module("pagination") { @include meta.load-css("components/pagination"); }
+@if pgs-module("rating") { @include meta.load-css("components/rating"); }
 @if pgs-module("dropdown") { @include meta.load-css("components/dropdown"); }
 @if pgs-module("modal") { @include meta.load-css("components/modal"); }
 @if pgs-module("pageNav") { @include meta.load-css("components/pageNav"); }

@@ -1,0 +1,35 @@
+//= PAGINATION
+// the pages of a list split in several pages (an archive, a shop, search results): each page is a
+// button the author writes, so the component owns only the row they sit in and the ellipsis
+// between them. The page the reader is on is the button with aria-current="page" and btnCurrent
+[pgs~="pagination"] {
+    --pagination-gap: var(--gap-details);
+    --pagination-justify: flex-start;
+    --pagination-ellipsis-color: var(--color-text);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: var(--pagination-justify);
+    gap: var(--pagination-gap);
+
+    //## ITEM
+    :where([pgs~="pagination-item"]) {
+        display: inline-flex;
+        margin: 0;
+    }
+
+    //## ELLIPSIS
+    // the pages left out between two numbers: text, not a control, and as tall as the buttons
+    // around it so the row keeps its baseline
+    :where([pgs~="pagination-ellipsis"]) {
+        display: inline-flex;
+        align-items: center;
+        min-height: 100%;
+        padding-inline: var(--padding-details);
+        color: var(--pagination-ellipsis-color);
+        user-select: none;
+    }
+}

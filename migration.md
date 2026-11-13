@@ -185,10 +185,13 @@ Silent changes and new features of `search`:
   pulled down to close, over the navSmart bar and the header). It keeps a size, an animation or a container
   written next to it. (5.0.7 - 5.0.8)
 - `modal-dialog-content-footer`: the actions under the part that scrolls, always in view. (next)
-- `menu['menuGrouped']`: the list on a background of its own with a hairline between the items
-  (`--menu-grouped-background`, `-padding`, `-gap`, `-borderRadius`, `-timing`). (next)
 - `accordion['accOpenBox']`, `steps['stepsLastHighlight']`, `table['tableStriped' 'tableHover' 'tableBordered']`,
   `dropdown['drpArrow']`. (next)
+- `buttonGroup`: a set of buttons on a background of its own with a hairline between them, for a toolbar, a
+  segmented choice or the list of a menu (`<ul pgs="buttonGroup['btgVertical' 'btgFill']">` inside a vertical
+  `menu`, plain `buttonGroup` in a `menuHorizontal`); `btgVertical`, `btgFill`, `--buttonGroup-*`; a child with
+  `aria-pressed="true"` takes the checked colors of a two-state button. CSS only, a part of `assets/modules.json`.
+  (next)
 - `pageNav['pageNavDrillDown']`: while a `pageShell` stacks its sidebar (or on a screen up to 900px without one),
   the list is the first screen and a panel opens on its own, with `pageNav-back`; `pageNav-home` marks what hides
   with the list. The root carries the state `home` while the URL names no panel, and `pgs:pageNav:change` has

@@ -1,0 +1,98 @@
+//= RATING - RATING INPUT
+// a score out of a number of stars. Read only, it is one element whose stars are a mask of the star
+// glyph repeated --rating-max times, filled from the left up to --rating-value: a half or any
+// fraction needs no markup of its own. ratingInput turns it into the control that sets the score,
+// one radio per star
+
+//# RATING
+:is([pgs~="rating"], [pgs*="rating\5B"]) {
+    --rating-value: 0;
+    --rating-max: 5;
+    --rating-size: 1.2em;
+    --rating-gap: 0.15em;
+    --rating-color: var(--color-warning);
+    --rating-color-empty: color-mix(in srgb, var(--color-gray) 40%, transparent);
+    --rating-color-hover: var(--rating-color);
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: -0.2em;
+    width: calc(var(--rating-max) * var(--rating-size) + (var(--rating-max) - 1) * var(--rating-gap));
+    height: var(--rating-size);
+    // the fill ends inside the right star: every whole star before it also counts the gap after it,
+    // so 4.5 ends in the middle of the fifth star and not 0.5 gaps further on
+    background: linear-gradient(to right,
+        var(--rating-color) calc(var(--rating-value) * var(--rating-size) + round(down, var(--rating-value), 1) * var(--rating-gap)),
+        var(--rating-color-empty) 0);
+    -webkit-mask: var(--icon-glyph-star) left center / var(--rating-size) var(--rating-size) space no-repeat;
+    mask: var(--icon-glyph-star) left center / var(--rating-size) var(--rating-size) space no-repeat;
+
+    //+ RATING INPUT
+    // the same stars, one radio each, written by the author inside a fieldset: the radio is the
+    // control and the keyboard, its label draws the star. A star is full when its radio or one
+    // after it is checked, and under the pointer the stars up to the hovered one preview the score
+    &:where([pgs*="'ratingInput'"]) {
+        width: auto;
+        height: auto;
+        background: none;
+        -webkit-mask: none;
+        mask: none;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--rating-gap);
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-inline-size: 0;
+
+        //### STAR
+        :where([pgs~="rating-star"]) {
+            position: relative;
+            display: inline-block;
+            width: var(--rating-size);
+            height: var(--rating-size);
+            cursor: pointer;
+            background-color: var(--rating-color-empty);
+            -webkit-mask: var(--icon-glyph-star) center / contain no-repeat;
+            mask: var(--icon-glyph-star) center / contain no-repeat;
+
+            @media (prefers-reduced-motion: no-preference) {
+                transition: background-color 150ms;
+            }
+
+            // the radio stays in the page, so it keeps the focus, the keyboard and the form value
+            :where(input) {
+                position: absolute;
+                inset: 0;
+                margin: 0;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+
+        // the conditions stay in :where() on purpose: the hover rules below have to win over the
+        // checked one with a single pseudo-class more
+        :where([pgs~="rating-star"]):where(:has(:checked), :has(~ [pgs~="rating-star"] :checked)) {
+            background-color: var(--rating-color);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:where(:not(:has(:disabled))) {
+                :where([pgs~="rating-star"]) { background-color: var(--rating-color-empty); }
+                :where([pgs~="rating-star"]):is(:hover, :has(~ [pgs~="rating-star"]:hover)) { background-color: var(--rating-color-hover); }
+            }
+        }
+
+        // the mask would cut an outline away, so the focused star shows it as its own color
+        :where([pgs~="rating-star"]):has(:focus-visible) {
+            background-color: var(--color-focus);
+        }
+
+        &:has(:disabled) {
+            opacity: 0.5;
+
+            :where([pgs~="rating-star"]),
+            :where([pgs~="rating-star"]) :where(input) { cursor: not-allowed; }
+        }
+    }
+}

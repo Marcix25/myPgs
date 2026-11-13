@@ -16,7 +16,6 @@
  * - menuVertical: identifies the vertical element used by Menu.
  * - menuIconOnlyCurrent: displays link icons only when the link has an active aria-current value.
  * - menuShort: compacts adjacent menu links by overlapping their horizontal spacing.
- * - menuGrouped: puts the top-level list on a background of its own (--menu-grouped-background, the box color), with padding, rounded corners and a hairline between the items, in the middle of the gap (--menu-grouped-gap): horizontal lines in a vertical menu, vertical ones with menuHorizontal. The two lines that touch the item whose button is the current page (aria-current="page" or aria-selected="true"), hovered or focused with the keyboard fade out in --menu-grouped-timing (400ms ease-out, the timing of the background of a button), so the background of that button is not cut by a hairline. The submenus keep their own look. With menuHorizontal keep the list on one row, or a wrapped row would carry a line at its start.
  *
  * @pgs-state
  * - open: written on an item whose submenu is open: the module toggles it from the item's own toggle button, and for a floating submenu the dropdown writes it.
@@ -36,6 +35,9 @@
  * - btnTransparent: the appearance a navigation link takes, whatever the menu's direction; see Button for the whole set of variants.
  * - row: lays the top-level list out as a row, so a long menu can be measured against the space it has.
  * - wrap: lets that row break onto a second line instead of overflowing.
+ * - buttonGroup: written on the ul, puts the list on a background of its own with a hairline between the items; see Button group.
+ * - btgVertical: the horizontal hairlines of the list of a vertical menu; see Button group.
+ * - btgFill: makes the list as wide as the menu; see Button group.
  * - dropdown: uses the related dropdown component or utility in this example.
  * - dropdown-button: uses the related dropdown-button component or utility in this example.
  * - dropdown-content: uses the related dropdown-content component or utility in this example.
@@ -184,10 +186,10 @@
     </nav>
 </section>
 
-<demo demo-h3="Grouped menu" demo-description="The list sits on a background with a hairline between the items, using pgs=&quot;menu['menuGrouped']&quot;: horizontal lines in a vertical menu, the default."></demo>
+<demo demo-h3="Grouped menu" demo-description="buttonGroup on the ul puts the list on a background of its own with a hairline between the items. A vertical menu stacks the items, and btgVertical draws the horizontal lines that go with it; btgFill makes the list as wide as the menu."></demo>
 <section demo="component">
-    <nav pgs="menu['menuGrouped']" aria-label="Grouped vertical menu">
-        <ul>
+    <nav pgs="menu" aria-label="Grouped vertical menu">
+        <ul pgs="buttonGroup['btgVertical' 'btgFill']">
             <li>
                 <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
@@ -210,10 +212,10 @@
     </nav>
 </section>
 
-<demo demo-h3="Grouped menu - horizontal" demo-description="With menuHorizontal the hairlines are vertical, using pgs=&quot;menu['menuHorizontal' 'menuGrouped']&quot;. Keep it on a single row."></demo>
+<demo demo-h3="Grouped menu - horizontal" demo-description="In a menuHorizontal the list is a row, the default of buttonGroup, with vertical hairlines. Keep it on a single row."></demo>
 <section demo="component">
-    <nav pgs="menu['menuHorizontal' 'menuGrouped']" aria-label="Grouped horizontal menu">
-        <ul>
+    <nav pgs="menu['menuHorizontal']" aria-label="Grouped horizontal menu">
+        <ul pgs="buttonGroup">
             <li>
                 <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>

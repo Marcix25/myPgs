@@ -10,7 +10,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 - `darkmodeToggle-light`: write it yourself inside a switch: the icon for the light theme, from any icon set (an icon, an svg, an image, text). It is shown while the page is light and hidden while it is dark.
 - `darkmodeToggle-dark`: the icon for the dark theme, shown while the page is dark and hidden while it is light. Write both: the stylesheet hides the one that does not match the theme from the html element before the first paint, so a reload never shows two, and a switch with neither draws nothing.
 - `darkmodeToggle-system`: the third icon, for a switch with tglFollowSystem: shown while the page follows the operating system, and in its place the light and the dark one are hidden. A switch without it keeps showing the theme the system gave the page.
-- `darkmodeButtons`: a group of three separate buttons, one per state, as an alternative to one switch. It draws no layout of its own: place it with flex. Give it role="group" and an aria-label.
+- `darkmodeButtons`: a group of three separate buttons, one per state, as an alternative to one switch. It draws no layout of its own: place it with flex, or give it buttonGroup. Give it role="group" and an aria-label.
 - `darkmodeButtons-light`: inside a darkmodeButtons, the button that fixes the light theme.
 - `darkmodeButtons-dark`: the button that fixes the dark theme.
 - `darkmodeButtons-system`: the button that follows the theme of the operating system again. The button of the current state carries aria-pressed="true" and the active state, and takes the checked colors of a two-state button (--button-*-twoState); the other two carry aria-pressed="false". Write only the buttons you need: a group without the system one is a plain light and dark choice.
@@ -37,6 +37,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
 - `button`: presents the switch as a button.
+- `buttonGroup`: puts the separate buttons on a background of their own with a hairline between them; see Button group.
 - `icon`: draws the glyph of each theme's icon here, when it comes from the built-in set; an icon from another set is written with its own markup.
 - `htmlBase`: the base of the html element, next to htmlDarkmodeFollowSystem; see Body.
 
@@ -47,6 +48,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 - `gapParagraphs`: spaces the example content.
 - `wrap`: lets the example controls wrap.
 - `gapDetails`: spaces the separate buttons.
+- `btnTransparent`: lets the background of the group show through the buttons that are not chosen; see Button.
 - `icon-sun`: the glyph of the dark theme in the examples.
 - `icon-moon`: the glyph of the light theme in the examples.
 - `icon-monitor`: the glyph of the system theme in the examples, from the myIcons pack the demo loads; any icon works.
@@ -130,13 +132,19 @@ Optional. htmlDarkmodeFollowSystem on the html element starts the page on the th
 
 ### Separate buttons
 
-darkmodeButtons puts the states on separate buttons, one each, instead of one switch: darkmodeButtons-system, darkmodeButtons-light and darkmodeButtons-dark. A click picks that state, and the button of the current one is pressed. They stay in sync with every switch on the page. Write only the buttons you need; the group draws no layout, so it takes flex here.
+darkmodeButtons puts the states on separate buttons, one each, instead of one switch: darkmodeButtons-system, darkmodeButtons-light and darkmodeButtons-dark. A click picks that state, and the button of the current one is pressed. They stay in sync with every switch on the page. Write only the buttons you need. The group draws no layout of its own: here it takes flex, or buttonGroup to sit on a background of its own with a hairline between the buttons.
 
 ```html
 <div pgs="darkmodeButtons flex['gapDetails' 'wrap']" role="group" aria-label="Theme">
     <button pgs="button darkmodeButtons-system" type="button"><i pgs="icon['icon-monitor']" aria-hidden="true"></i>System</button>
     <button pgs="button darkmodeButtons-light" type="button"><i pgs="icon['icon-sun']" aria-hidden="true"></i>Light</button>
     <button pgs="button darkmodeButtons-dark" type="button"><i pgs="icon['icon-moon']" aria-hidden="true"></i>Dark</button>
+</div>
+
+<div pgs="darkmodeButtons buttonGroup" role="group" aria-label="Theme">
+    <button pgs="button['btnTransparent'] darkmodeButtons-system" type="button"><i pgs="icon['icon-monitor']" aria-hidden="true"></i>System</button>
+    <button pgs="button['btnTransparent'] darkmodeButtons-light" type="button"><i pgs="icon['icon-sun']" aria-hidden="true"></i>Light</button>
+    <button pgs="button['btnTransparent'] darkmodeButtons-dark" type="button"><i pgs="icon['icon-moon']" aria-hidden="true"></i>Dark</button>
 </div>
 
 <div pgs="darkmodeButtons flex['gapDetails']" role="group" aria-label="Theme">

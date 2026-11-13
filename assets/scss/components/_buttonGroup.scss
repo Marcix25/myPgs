@@ -1,0 +1,101 @@
+//= BUTTON GROUP
+// a set of buttons on a background of its own, with padding, rounded corners and a hairline between them in the
+// middle of the gap: a toolbar, a segmented choice, the separate buttons of darkmodeButtons, the list of a menu.
+// Its children are the items: buttons, or elements that hold one as a direct child (the li of a menu around its
+// link). It is only a look, with no JavaScript, so the meaning comes from the markup. A row by default, a column
+// with btgVertical. It loads after menu, so on the ul of a menu its own gap and alignment win over the menu's
+:is([pgs~="buttonGroup"], [pgs*="buttonGroup\5B"]) {
+    --buttonGroup-background: var(--color-box);
+    --buttonGroup-padding: var(--padding-details);
+    --buttonGroup-gap: var(--gap-details);
+    --buttonGroup-borderRadius: calc(var(--borderRadius-elements) + var(--buttonGroup-padding));
+    --buttonGroup-timing: 400ms ease-out;
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: fit-content;
+    max-width: 100%;
+    gap: var(--buttonGroup-gap);
+    padding: var(--buttonGroup-padding);
+    border-radius: var(--buttonGroup-borderRadius);
+    background: var(--buttonGroup-background);
+
+    //# LINES
+    // vertical lines between the items of a row; keep the row on one line, or a wrapped row would carry a line
+    // at its start
+    >:where(*)+:where(*) {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+            border: 0;
+            border-inline-start: var(--border-complete);
+            inset-block: var(--buttonGroup-padding);
+            inset-inline: auto;
+            inset-inline-start: calc(var(--buttonGroup-gap) / -2);
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            &::before { transition: opacity var(--buttonGroup-timing); }
+        }
+    }
+
+    //## fade
+    // no line on either side of the item that is the current page (aria-current, aria-selected), pressed
+    // (aria-pressed), hovered or focused: the background its button draws takes the place of the hairlines that
+    // would touch it. The item is that button, or holds it as a direct child (hovering the rest of a li, such as
+    // its submenu toggle, does not count). The line above is the item's own, the line below is the next item's
+    $active: '[aria-current=page], [aria-selected=true], [aria-pressed=true], :focus-visible';
+    $button: 'a, button, [pgs~="button"], [pgs*="button\\5B"]';
+
+    >:where(#{$button}):is(#{$active}),
+    >:has(> :where(#{$button}):is(#{$active})) {
+        &::before,
+        &+*::before { opacity: 0; }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        >:where(#{$button}):hover,
+        >:has(> :where(#{$button}):hover) {
+            &::before,
+            &+*::before { opacity: 0; }
+        }
+    }
+
+    //## pressed
+    // the chosen button of a segmented choice, marked aria-pressed="true", takes the checked colors of a two-state
+    // button, the same look the pressed button of darkmodeButtons has
+    >:where([aria-pressed="true"]) {
+        --button-color: var(--button-color-twoState);
+        --button-background: var(--button-background-twoState);
+        --button-borderColor: var(--button-borderColor-twoState);
+        --button-shadow: var(--button-shadow-twoState);
+    }
+
+    //+ OPTION
+    //## vertical
+    // the buttons stacked in a column, all as wide as the widest, with horizontal lines between them. Write it on
+    // the ul of a vertical menu too: the menu stacks the items, the option draws the lines that go with it
+    &:where([pgs*="'btgVertical'"]) {
+        flex-direction: column;
+
+        >:where(*)+:where(*)::before {
+            border: 0;
+            border-block-start: var(--border-complete);
+            inset-block: auto;
+            inset-block-start: calc(var(--buttonGroup-gap) / -2);
+            inset-inline: var(--buttonGroup-padding);
+        }
+    }
+
+    //## fill
+    // the group takes the whole width of its container; in a row the buttons share it in equal parts
+    &:where([pgs*="'btgFill'"]) {
+        width: auto;
+
+        &:where(:not([pgs*="'btgVertical'"]))>:where(*) { flex: 1 1 0; }
+    }
+}

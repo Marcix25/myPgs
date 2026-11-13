@@ -45,6 +45,7 @@ const CORE_ICONS = [
     "sun", // darkmode
     "hamburger", // header, navSmart
     "hamburgerTwo", // header, navSmart
+    "star", // rating
 ];
 
 // the core glyphs that also have a two-layer version in the pack

@@ -1761,6 +1761,7 @@
   --icon-glyph-sun: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M256 146 a110 110 0 1 1 0 220 a110 110 0 1 1 0 -220 z M234 52 A22 22 0 0 1 256 30L256 30 A22 22 0 0 1 278 52L278 94 A22 22 0 0 1 256 116L256 116 A22 22 0 0 1 234 94Z M234 418 A22 22 0 0 1 256 396L256 396 A22 22 0 0 1 278 418L278 460 A22 22 0 0 1 256 482L256 482 A22 22 0 0 1 234 460Z M30 256 A22 22 0 0 1 52 234L94 234 A22 22 0 0 1 116 256L116 256 A22 22 0 0 1 94 278L52 278 A22 22 0 0 1 30 256Z M396 256 A22 22 0 0 1 418 234L460 234 A22 22 0 0 1 482 256L482 256 A22 22 0 0 1 460 278L418 278 A22 22 0 0 1 396 256Z M112 112 A22 22 0 0 0 112 143.1L136.9 168 A22 22 0 0 0 168 168L168 168 A22 22 0 0 0 168 136.9L143.1 112 A22 22 0 0 0 112 112Z M400 112 A22 22 0 0 0 368.9 112L344 136.9 A22 22 0 0 0 344 168L344 168 A22 22 0 0 0 375.1 168L400 143.1 A22 22 0 0 0 400 112Z M112 400 A22 22 0 0 0 143.1 400L168 375.1 A22 22 0 0 0 168 344L168 344 A22 22 0 0 0 136.9 344L112 368.9 A22 22 0 0 0 112 400Z M400 400 A22 22 0 0 0 400 368.9L375.1 344 A22 22 0 0 0 344 344L344 344 A22 22 0 0 0 344 375.1L368.9 400 A22 22 0 0 0 400 400Z%27/%3E%3C/svg%3E");
   --icon-glyph-hamburger: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56 154 A34 34 0 0 1 90 120 L422 120 A34 34 0 0 1 456 154 A34 34 0 0 1 422 188 L90 188 A34 34 0 0 1 56 154 Z M56 256 A34 34 0 0 1 90 222 L422 222 A34 34 0 0 1 456 256 A34 34 0 0 1 422 290 L90 290 A34 34 0 0 1 56 256 Z M56 358 A34 34 0 0 1 90 324 L422 324 A34 34 0 0 1 456 358 A34 34 0 0 1 422 392 L90 392 A34 34 0 0 1 56 358 Z%27/%3E%3C/svg%3E");
   --icon-glyph-hamburgerTwo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56 183.5 A34 34 0 0 1 90 149.5 L422 149.5 A34 34 0 0 1 456 183.5 A34 34 0 0 1 422 217.5 L90 217.5 A34 34 0 0 1 56 183.5 Z M56 326.5 A34 34 0 0 1 90 292.5 L422 292.5 A34 34 0 0 1 456 326.5 A34 34 0 0 1 422 360.5 L90 360.5 A34 34 0 0 1 56 326.5 Z%27/%3E%3C/svg%3E");
+  --icon-glyph-star: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M227.8 100.2 A30 30 0 0 1 284.2 100.2L308.3 166.8 A18 18 0 0 0 324.6 178.7L395.5 181 A30 30 0 0 1 412.9 234.7L356.9 278.2 A18 18 0 0 0 350.7 297.4L370.4 365.5 A30 30 0 0 1 324.8 398.7L266.1 358.9 A18 18 0 0 0 245.9 358.9L187.2 398.7 A30 30 0 0 1 141.6 365.5L161.3 297.4 A18 18 0 0 0 155.1 278.2L99.1 234.7 A30 30 0 0 1 116.5 181L187.4 178.7 A18 18 0 0 0 203.7 166.8Z%27/%3E%3C/svg%3E");
 }
 
 :is([pgs~=icon], [pgs*="icon["])::before {
@@ -1887,6 +1888,15 @@
 }
 
 :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"])::before {
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+}
+
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-star'"]) {
+  --icon: var(--icon-glyph-star);
+}
+
+:is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-star'"])::before {
   -webkit-mask: var(--icon) center/contain no-repeat;
   mask: var(--icon) center/contain no-repeat;
 }
@@ -2629,58 +2639,6 @@
   display: none;
 }
 
-:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) {
-  --menu-grouped-background: var(--color-box);
-  --menu-grouped-padding: var(--padding-details);
-  --menu-grouped-gap: var(--gap-details);
-  --menu-grouped-borderRadius: calc(var(--borderRadius-elements) + var(--menu-grouped-padding));
-  --menu-grouped-timing: 400ms ease-out;
-}
-
-:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) {
-  background: var(--menu-grouped-background);
-  padding: var(--menu-grouped-padding);
-  border-radius: var(--menu-grouped-borderRadius);
-  gap: var(--menu-grouped-gap);
-}
-
-:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li) + :where(li) {
-  position: relative;
-}
-
-:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li) + :where(li)::before {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  border: 0;
-  border-block-start: var(--border-complete);
-  inset-block: auto;
-  inset-block-start: calc(var(--menu-grouped-gap) / -2);
-  inset-inline: var(--menu-grouped-padding);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li) + :where(li)::before {
-    transition: opacity var(--menu-grouped-timing);
-  }
-}
-:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):is([aria-current=page], [aria-selected=true], :focus-visible))::before, :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):is([aria-current=page], [aria-selected=true], :focus-visible)) + :where(li)::before {
-  opacity: 0;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):hover)::before, :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]) > :where(ul) > :where(li):has(> :where(a, button, [pgs~=button]):hover) + :where(li)::before {
-    opacity: 0;
-  }
-}
-:is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuGrouped'"]):where([pgs*="'menuHorizontal'"]) > :where(ul) > :where(li) + :where(li)::before {
-  border: 0;
-  border-inline-start: var(--border-complete);
-  inset-block: var(--menu-grouped-padding);
-  inset-inline: auto;
-  inset-inline-start: calc(var(--menu-grouped-gap) / -2);
-}
-
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuIconOnlyCurrent'"]) :where(a):not([aria-current]:not([aria-current=false])) {
   padding-left: var(--button-paddingInline);
 }
@@ -2708,6 +2666,83 @@
     position: relative;
   }
 }
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) {
+  --buttonGroup-background: var(--color-box);
+  --buttonGroup-padding: var(--padding-details);
+  --buttonGroup-gap: var(--gap-details);
+  --buttonGroup-borderRadius: calc(var(--borderRadius-elements) + var(--buttonGroup-padding));
+  --buttonGroup-timing: 400ms ease-out;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+  gap: var(--buttonGroup-gap);
+  padding: var(--buttonGroup-padding);
+  border-radius: var(--buttonGroup-borderRadius);
+  background: var(--buttonGroup-background);
+}
+
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(*) + :where(*) {
+  position: relative;
+}
+
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(*) + :where(*)::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 0;
+  border-inline-start: var(--border-complete);
+  inset-block: var(--buttonGroup-padding);
+  inset-inline: auto;
+  inset-inline-start: calc(var(--buttonGroup-gap) / -2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(*) + :where(*)::before {
+    transition: opacity var(--buttonGroup-timing);
+  }
+}
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(a, button, [pgs~=button], [pgs*="button["]):is([aria-current=page], [aria-selected=true], [aria-pressed=true], :focus-visible)::before, :is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(a, button, [pgs~=button], [pgs*="button["]):is([aria-current=page], [aria-selected=true], [aria-pressed=true], :focus-visible) + *::before,
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :has(> :where(a, button, [pgs~=button], [pgs*="button["]):is([aria-current=page], [aria-selected=true], [aria-pressed=true], :focus-visible))::before,
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :has(> :where(a, button, [pgs~=button], [pgs*="button["]):is([aria-current=page], [aria-selected=true], [aria-pressed=true], :focus-visible)) + *::before {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(a, button, [pgs~=button], [pgs*="button["]):hover::before, :is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where(a, button, [pgs~=button], [pgs*="button["]):hover + *::before,
+  :is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :has(> :where(a, button, [pgs~=button], [pgs*="button["]):hover)::before,
+  :is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :has(> :where(a, button, [pgs~=button], [pgs*="button["]):hover) + *::before {
+    opacity: 0;
+  }
+}
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]) > :where([aria-pressed=true]) {
+  --button-color: var(--button-color-twoState);
+  --button-background: var(--button-background-twoState);
+  --button-borderColor: var(--button-borderColor-twoState);
+  --button-shadow: var(--button-shadow-twoState);
+}
+
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]):where([pgs*="'btgVertical'"]) {
+  flex-direction: column;
+}
+
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]):where([pgs*="'btgVertical'"]) > :where(*) + :where(*)::before {
+  border: 0;
+  border-block-start: var(--border-complete);
+  inset-block: auto;
+  inset-block-start: calc(var(--buttonGroup-gap) / -2);
+  inset-inline: var(--buttonGroup-padding);
+}
+
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]):where([pgs*="'btgFill'"]) {
+  width: auto;
+}
+
+:is([pgs~=buttonGroup], [pgs*="buttonGroup["]):where([pgs*="'btgFill'"]):where(:not([pgs*="'btgVertical'"])) > :where(*) {
+  flex: 1 1 0;
+}
+
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
   --accordionContainer-gap: 1rem;
   display: flex;
@@ -2902,6 +2937,117 @@
 }
 [pgs~=breadcrumb] :where([pgs~=breadcrumb-item]):last-child::after {
   display: none;
+}
+
+[pgs~=pagination] {
+  --pagination-gap: var(--gap-details);
+  --pagination-justify: flex-start;
+  --pagination-ellipsis-color: var(--color-text);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: var(--pagination-justify);
+  gap: var(--pagination-gap);
+}
+
+[pgs~=pagination] :where([pgs~=pagination-item]) {
+  display: inline-flex;
+  margin: 0;
+}
+
+[pgs~=pagination] :where([pgs~=pagination-ellipsis]) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 100%;
+  padding-inline: var(--padding-details);
+  color: var(--pagination-ellipsis-color);
+  user-select: none;
+}
+
+:is([pgs~=rating], [pgs*="rating["]) {
+  --rating-value: 0;
+  --rating-max: 5;
+  --rating-size: 1.2em;
+  --rating-gap: 0.15em;
+  --rating-color: var(--color-warning);
+  --rating-color-empty: color-mix(in srgb, var(--color-gray) 40%, transparent);
+  --rating-color-hover: var(--rating-color);
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+  width: calc(var(--rating-max) * var(--rating-size) + (var(--rating-max) - 1) * var(--rating-gap));
+  height: var(--rating-size);
+  background: linear-gradient(to right, var(--rating-color) calc(var(--rating-value) * var(--rating-size) + round(down, var(--rating-value), 1) * var(--rating-gap)), var(--rating-color-empty) 0);
+  -webkit-mask: var(--icon-glyph-star) left center/var(--rating-size) var(--rating-size) space no-repeat;
+  mask: var(--icon-glyph-star) left center/var(--rating-size) var(--rating-size) space no-repeat;
+}
+
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]) {
+  width: auto;
+  height: auto;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--rating-gap);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0;
+}
+
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]) :where([pgs~=rating-star]) {
+  position: relative;
+  display: inline-block;
+  width: var(--rating-size);
+  height: var(--rating-size);
+  cursor: pointer;
+  background-color: var(--rating-color-empty);
+  -webkit-mask: var(--icon-glyph-star) center/contain no-repeat;
+  mask: var(--icon-glyph-star) center/contain no-repeat;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]) :where([pgs~=rating-star]) {
+    transition: background-color 150ms;
+  }
+}
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]) :where([pgs~=rating-star]) :where(input) {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]) :where([pgs~=rating-star]):where(:has(:checked), :has(~ [pgs~=rating-star] :checked)) {
+  background-color: var(--rating-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]):hover:where(:not(:has(:disabled))) :where([pgs~=rating-star]) {
+    background-color: var(--rating-color-empty);
+  }
+  :is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]):hover:where(:not(:has(:disabled))) :where([pgs~=rating-star]):is(:hover, :has(~ [pgs~=rating-star]:hover)) {
+    background-color: var(--rating-color-hover);
+  }
+}
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]) :where([pgs~=rating-star]):has(:focus-visible) {
+  background-color: var(--color-focus);
+}
+
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]):has(:disabled) {
+  opacity: 0.5;
+}
+
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]):has(:disabled) :where([pgs~=rating-star]),
+:is([pgs~=rating], [pgs*="rating["]):where([pgs*="'ratingInput'"]):has(:disabled) :where([pgs~=rating-star]) :where(input) {
+  cursor: not-allowed;
 }
 
 :is([pgs~=dropdown], [pgs*="dropdown["]) {
