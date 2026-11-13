@@ -74,10 +74,27 @@ function initResize(header) {
         const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
+        //## After load
+        // the first measurement can come before the page is done: a web font still loading or a menu
+        // not yet in its final shape make the full layout look wider than it is. The header learns
+        // too big a width, goes compact, and from there nothing changes its size to make it look
+        // again. Once the fonts and the page have loaded, forget that width and measure again from
+        // the full layout, in the same frame, so nothing flickers
+        const loaded = new AbortController();
+        const remeasure = () => {
+            requiredWidth = 0;
+            pgs(header).state.toggle("compact", false);
+            pgs(selectHeader).state.toggle("compact", false);
+            compact(selectHeader);
+        };
+        if (document.readyState !== "complete") window.addEventListener("load", remeasure, { once: true, signal: loaded.signal });
+        document.fonts?.addEventListener("loadingdone", remeasure, { signal: loaded.signal });
+
         releases.push(() => {
             observer.disconnect();
             childObserver.disconnect();
             scheduleCompact.cancel();
+            loaded.abort();
         });
 
         //## initial check
