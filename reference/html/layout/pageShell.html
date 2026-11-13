@@ -10,16 +10,18 @@
  *
  * @pgs-options
  * - shellFullPage: expands the shell to the full available width while keeping its content centered.
+ * - shellNested: for a shell inside an element that already has its own room on the sides, as a section: the shell drops its padding on the sides (--pageShell-paddingInline 0), and the width it may reach drops it too, so its content lines up with the rest of that element.
  * - shellAsideScroll: makes every sidebar stick beside the content and scroll on its own, clamped to the viewport height, stuck right under the header (on `main pageShell` it reaches up to the header through main's top padding, its content still level with the content); it releases the sticky behavior once the sidebar stacks.
  * - shellAsideShadow: fades the top and bottom edges of a sidebar instead of cutting its content abruptly; independent of shellAsideScroll, but only meaningful alongside it.
  *
  * @related
  * - main: gives the shell its room under the header and at the bottom of the page, on the same element or around it.
+ * - section: an element with its own room on the sides, around the shell of the shellNested example; see Section.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - column: organizes text contained in the sidebars.
  * - gapElements: applies element spacing in the main sections.
  *
- * @return Seven page-shell HTML configurations with two, one, or no sidebars, with shellAsideScroll, its shadow variant, or neither.
+ * @return Eight page-shell HTML configurations with two, one, or no sidebars, with shellAsideScroll, its shadow variant, or neither.
  */
 -->
 
@@ -100,6 +102,27 @@
             <section pgs="flex['column' 'gapElements']">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum? Eveniet, sit, excepturi iusto porro eos temporibus illum non ut sunt ex aut earum neque. Iure harum similique autem commodi ratione enim quisquam soluta rem, eius dolor officiis necessitatibus voluptatibus obcaecati vel sint iusto. Eligendi reiciendis aut error rem? Hic aliquid tenetur porro itaque quaerat excepturi consequatur veniam, et alias molestiae, eius odio quae maiores suscipit iure voluptatibus sed dolor facere ipsa quod libero necessitatibus, placeat natus. Doloribus esse nobis culpa ab ut dolorem id expedita nesciunt necessitatibus ipsam natus accusantium eius eveniet eum, distinctio quos modi perspiciatis earum sequi nostrum consequatur quibusdam? Blanditiis iusto possimus officia odio animi repudiandae? Repellendus autem ut soluta facere accusamus magni aut architecto cumque cupiditate. Nostrum officiis, tenetur consequuntur quaerat alias animi debitis? Quae quas placeat iure alias totam quaerat fugit recusandae sed, earum ipsa nihil molestiae quam odit itaque, odio asperiores, mollitia porro ratione tempora laboriosam. Incidunt aliquam nobis sunt ut molestiae nam animi placeat neque vero ratione? Eaque?</p>
             </section>
+
+
+<demo demo-h3="Not scroll - Inside a section" demo-description="shellNested drops the padding of the shell on the sides, for a shell inside an element that already has its own: here a section, so the sidebar and the content line up with its heading."></demo>
+<section demo="component">
+    <section pgs="section">
+        <h2>Account</h2>
+        <div pgs="pageShell['shellNested']">
+            <aside pgs="pageShell-aside">
+                <div pgs="flex['column']">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab modi ut sunt est illum accusantium dolores eum aut cum itaque.</p>
+                </div>
+            </aside>
+
+            <div pgs="pageShell-content">
+                <div pgs="flex['column' 'gapElements']">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolore veniam nulla hic voluptatum harum illo voluptatem quos. Id quibusdam nemo, mollitia iusto quisquam tenetur doloremque corrupti natus nisi est sed consectetur deserunt? Fugiat consectetur iure aut id voluptate unde autem eius facilis dolorum?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 
 
 <demo demo-h2="Page Shell - Scroll" demo-description="The same shell with shellAsideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant."></demo>

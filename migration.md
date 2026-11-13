@@ -100,6 +100,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 ### New (opt-in)
 
 - `pgs="main pageShell"` on one element. (next)
+- `pageShell['shellNested']`: no padding on the sides (`--pageShell-paddingInline: 0`), for a shell inside a section or another element with its own. (next)
 - `slides['slidesEdge']`. (5.0.5)
 - `logo['logoFooter']`: `--logo-height: 200px`, square image box, text at 4rem (`--logo-textSize`). (next)
 - `--page-bottom` (`7lvh`), the room at the bottom of the page. (next)

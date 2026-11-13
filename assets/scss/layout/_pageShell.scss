@@ -215,6 +215,13 @@
         :where([pgs~="pageShell-content"]) { margin-inline: auto; }
     }
 
+    //+ shellNested
+    // inside an element that already has its own room on the sides (a section, a box, a card): no
+    // padding of its own, and the width it may reach drops it too
+    &[pgs*="'shellNested'"] {
+        --pageShell-paddingInline: 0px;
+    }
+
     //+ shellAsideScroll
     &[pgs*="'shellAsideScroll'"] {
 

@@ -68,7 +68,7 @@ Do not edit generated `dist/` files as the source of truth. Modify `assets/`, re
   | `rot` | `rotate` | `rot90`, `rot180` |
   | `sct` | `section` | `sctFull`, `sctMax` |
   | `sel` | `userSelect` | `selNone`, `selText` |
-  | `shell` | `pageShell` | `shellAsideScroll`, `shellFullPage` |
+  | `shell` | `pageShell` | `shellAsideScroll`, `shellFullPage`, `shellNested` |
   | `ta` | `textAlign` | `taCenter`, `taJustify` |
   | `tgl` | `darkmodeToggle` | `tglLabeled` |
   | `txs` | `textShadow` | `txsUnset` |

@@ -7185,6 +7185,10 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   margin-inline: auto;
 }
 
+:is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellNested'"] {
+  --pageShell-paddingInline: 0px;
+}
+
 @container (min-width: 900px) {
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideScroll'"] :where([pgs~=pageShell-aside]) {
     position: sticky;
