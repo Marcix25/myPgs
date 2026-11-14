@@ -112,6 +112,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | `btnIconOnly` | 50 x 50 (38 with `btnMini`) | 48 x 48 (36), a square in Safari too | 5.0.2 |
 | `btnVertical` icon | 1.2em (drawn at about 1.44em) | 1.45em, the same size on screen | next |
 | `--button-gap` | a third of `--button-size` | half of `--button-size` | next |
+| `btnText` side padding | `padding-inline: var(--button-paddingBlock)`, written as a property, so a `--button-paddingInline` of the project did nothing | `--button-paddingInline: 0px`: the label and its bottom edge are as wide as the text; set `--button-paddingInline` to give it room again | next |
 | `buttonForNavSmart()` | included `buttonVertical()` | writes its own column layout; the item width is the bar's | 5.0.7 |
 
 ## Forms
@@ -169,6 +170,8 @@ Silent changes and new features of `search`:
 | what | 5.0.0 | now | since |
 | --- | --- | --- | --- |
 | `dropdown` | an arrow by default | no arrow; `drpArrow` (breaking change 7) | next |
+| `menu` floating submenu | a dropdown with no arrow | `dropdown['drpArrow']`: the arrow points back at the toggle of the item | next |
+| `menu` submenus | shown open until the module ran, the menu as wide as all of them for a moment | hidden from the first paint while their item is neither a `dropdown` nor open; without JavaScript they stay hidden and the item's own link still leads to its page | next |
 | `table` | zebra and hover by default | plain base (breaking change 8); `tableBordered` draws a line round every cell and round the table, radius `--borderRadius-paragraphs` | next |
 | `steps` | the last circle highlighted | every circle the same; `steps['stepsLastHighlight']` for the old look; the content is at least the circle plus `5rem` tall | next |
 | `accordion` open | a box with a background | keeps the divider lines, no background or radius; `accordion['accOpenBox']` (or on `accordionContainer`) for the box; the lines next to an open accordion fade out | next |

@@ -2,7 +2,7 @@
 
 # Menu
 
-Menu markup with horizontal, vertical and recursively nested navigation examples. Every item that has a submenu gets a toggle button right after its own link, so the item needs a direct link of its own: one without is skipped, with a warning in the console. The first level of a horizontal menu floats its submenu as a dropdown, and every other submenu opens in place. A menu without a ul list is skipped as well.
+Menu markup with horizontal, vertical and recursively nested navigation examples. Every item that has a submenu gets a toggle button right after its own link, so the item needs a direct link of its own: one without is skipped, with a warning in the console. The first level of a horizontal menu floats its submenu as a dropdown, with the arrow of the dropdown (drpArrow) pointing back at the toggle, and every other submenu opens in place. A menu without a ul list is skipped as well. A submenu is hidden from the first paint, before the module runs, so it never shows open while the page loads: the dropdown shows it once its item is one, and an item that opens in place shows it while it carries the state open.
 
 ## PGS
 
@@ -58,6 +58,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 ### Other
 
+- `drpArrow`: the arrow the module gives the dropdown of a floating submenu; see Dropdown.
 - `dropdown`: uses the related dropdown component or utility in this example.
 - `dropdown-button`: uses the related dropdown-button component or utility in this example.
 - `dropdown-content`: uses the related dropdown-content component or utility in this example.

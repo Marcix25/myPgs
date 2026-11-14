@@ -57,6 +57,9 @@ Responsive header that measures available space, switches between its full and c
 - `modal-button`: opens the compact panel.
 - `modal-close`: closes the compact panel and shares the hamburger control.
 - `modal-dialog-content`: identifies the inner compact navigation panel; also identifies the JS-generated content area wrapping notifications inside the notification dialog.
+- `modal-dialog-content-scroll`: the part of the compact panel that scrolls, a flex column that holds the menu; see Modal.
+- `padding`: the root of pdDetails; see Spacing.
+- `buttonGroup`: on the ul of the compact menu, puts the links on a background of their own with a hairline between them; see Button group.
 - `icon`: draws the glyphs this example shows; see Icon for the whole set.
 
 ### PGS Options (component brackets)
@@ -71,6 +74,10 @@ Responsive header that measures available space, switches between its full and c
 - `menuShort`: compacts adjacent full-layout menu links by overlapping their horizontal spacing.
 - `dialogRight`: presents the compact navigation dialog content from the right side.
 - `btnIconOnly`: presents theme and hamburger controls as icon buttons.
+- `pdDetails`: gives the compact panel a small padding around the button group; see Spacing.
+- `column`: stacks what the compact panel holds; see Flex.
+- `btgVertical`: the horizontal hairlines of the stacked links; see Button group.
+- `btgFill`: makes the list as wide as the panel; see Button group.
 - `icon-bell`: the glyph on the control that opens the panel.
 - `icon-moon`: the glyph of the light theme on the theme control; belongs to the icon component.
 - `icon-sun`: the glyph of the dark theme on the theme control; belongs to the icon component.
@@ -150,15 +157,17 @@ Full navigation on the left, always-visible controls on the right, and the same 
                     </button>
 
                     <dialog>
-                        <div pgs="modal-dialog-content">
-                            <nav pgs="menu['menuVertical']" aria-label="Compact menu">
-                                <ul>
-                                    <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/">Home</a></li>
-                                    <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/services">Services</a></li>
-                                    <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/about">About</a></li>
-                                    <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/contact">Contact</a></li>
-                                </ul>
-                            </nav>
+                        <div pgs="modal-dialog-content padding['pdDetails']">
+                            <div pgs="modal-dialog-content-scroll flex['column']">
+                                <nav pgs="menu['menuVertical']" aria-label="Compact menu">
+                                    <ul pgs="buttonGroup['btgVertical' 'btgFill']">
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/">Home</a></li>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/services">Services</a></li>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/about">About</a></li>
+                                        <li><a pgs="button['btnTransparent' 'btnPaddingEqual']" href="/contact">Contact</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </dialog>
                 </div>
@@ -197,13 +206,15 @@ Code only, since a header is fixed to the viewport: headerCompactTablet turns th
                 </button>
 
                 <dialog>
-                    <div pgs="modal-dialog-content">
-                        <nav pgs="menu" aria-label="Compact compact menu">
-                            <ul>
-                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
-                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
-                            </ul>
-                        </nav>
+                    <div pgs="modal-dialog-content padding['pdDetails']">
+                        <div pgs="modal-dialog-content-scroll flex['column']">
+                            <nav pgs="menu" aria-label="Compact compact menu">
+                                <ul pgs="buttonGroup['btgVertical' 'btgFill']">
+                                    <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                    <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </dialog>
             </div>
@@ -241,13 +252,15 @@ Code only: while the header is compact, headerCompactBottom moves header-element
                 </button>
 
                 <dialog>
-                    <div pgs="modal-dialog-content">
-                        <nav pgs="menu" aria-label="Bottom compact compact menu">
-                            <ul>
-                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
-                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
-                            </ul>
-                        </nav>
+                    <div pgs="modal-dialog-content padding['pdDetails']">
+                        <div pgs="modal-dialog-content-scroll flex['column']">
+                            <nav pgs="menu" aria-label="Bottom compact compact menu">
+                                <ul pgs="buttonGroup['btgVertical' 'btgFill']">
+                                    <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                    <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </dialog>
             </div>
@@ -285,13 +298,15 @@ Code only: headerBottom pins the header to the bottom of the viewport, at the pa
                 </button>
 
                 <dialog>
-                    <div pgs="modal-dialog-content">
-                        <nav pgs="menu" aria-label="Bottom compact menu">
-                            <ul>
-                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
-                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
-                            </ul>
-                        </nav>
+                    <div pgs="modal-dialog-content padding['pdDetails']">
+                        <div pgs="modal-dialog-content-scroll flex['column']">
+                            <nav pgs="menu" aria-label="Bottom compact menu">
+                                <ul pgs="buttonGroup['btgVertical' 'btgFill']">
+                                    <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                    <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </dialog>
             </div>
@@ -329,13 +344,15 @@ Code only: headerScroll hides the header while the page scrolls down and shows i
                 </button>
 
                 <dialog>
-                    <div pgs="modal-dialog-content">
-                        <nav pgs="menu" aria-label="Scroll compact menu">
-                            <ul>
-                                <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
-                                <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
-                            </ul>
-                        </nav>
+                    <div pgs="modal-dialog-content padding['pdDetails']">
+                        <div pgs="modal-dialog-content-scroll flex['column']">
+                            <nav pgs="menu" aria-label="Scroll compact menu">
+                                <ul pgs="buttonGroup['btgVertical' 'btgFill']">
+                                    <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
+                                    <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </dialog>
             </div>

@@ -38,8 +38,9 @@ function setupAccordion(li, button, ul, signal) {
     button.addEventListener("click", () => setOpen(!pgs(li).state.contains("open")), { signal });
 }
 
+// the floating submenu has the arrow of the dropdown, pointing back at its item
 function setupDropdown(li, button, ul) {
-    pgs(li).add("dropdown");
+    pgs(li).add("dropdown['drpArrow']");
     pgs(li).data.setValueBrackets("dropdownPosition", "bottom center");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");

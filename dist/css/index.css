@@ -1675,7 +1675,8 @@
   --button-shadow-current: unset;
   --button-shadow-twoState: unset;
   --button-shadow-hover: unset;
-  padding-inline: var(--button-paddingBlock);
+  --button-paddingInline: 0px;
+  --button-paddingInline-short: 0px;
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnPaddingEqual'"]) {
@@ -2558,14 +2559,15 @@
   width: stretch;
 }
 
+:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(li):not([pgs~=dropdown], [pgs*="dropdown["]):not([pgs-state~=open]) :where(ul) {
+  display: none;
+}
+
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) {
   display: flex;
   gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
-  --dropdown-borderRadius: calc(var(--borderRadius-paragraphs) + var(--dropdown-padding));
-  --dropdown-background: var(--color-box);
-  --dropdown-display: flex;
 }
 
 :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=menu-submenuButton]),
@@ -3056,8 +3058,8 @@
   --dropdown-borderWidth: var(--border-width);
   --dropdown-borderColor: var(--border-color);
   --dropdown-border: var(--dropdown-borderWidth) var(--dropdown-borderColor) var(--border-style);
-  --dropdown-borderRadius: var(--dropdown-padding);
-  --dropdown-padding: var(--padding-paragraphs);
+  --dropdown-borderRadius: var(--borderRadius-paragraphs);
+  --dropdown-padding: var(--padding-details);
   --dropdown-inline-size: max-content;
   --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
   --dropdown-maxBlockSize: calc(100dvh - 2rem);

@@ -1915,8 +1915,9 @@ function setupAccordion(li, button, ul, signal) {
     button.addEventListener("click", () => setOpen(!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).state.contains("open")), { signal });
 }
 
+// the floating submenu has the arrow of the dropdown, pointing back at its item
 function setupDropdown(li, button, ul) {
-    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("dropdown");
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("dropdown['drpArrow']");
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).data.setValueBrackets("dropdownPosition", "bottom center");
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).add("dropdown-button");
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ul).add("dropdown-content");

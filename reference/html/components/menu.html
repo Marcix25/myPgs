@@ -1,7 +1,7 @@
 <!--
 /**
  * @title Menu
- * @description Menu markup with horizontal, vertical and recursively nested navigation examples. Every item that has a submenu gets a toggle button right after its own link, so the item needs a direct link of its own: one without is skipped, with a warning in the console. The first level of a horizontal menu floats its submenu as a dropdown, and every other submenu opens in place. A menu without a ul list is skipped as well.
+ * @description Menu markup with horizontal, vertical and recursively nested navigation examples. Every item that has a submenu gets a toggle button right after its own link, so the item needs a direct link of its own: one without is skipped, with a warning in the console. The first level of a horizontal menu floats its submenu as a dropdown, with the arrow of the dropdown (drpArrow) pointing back at the toggle, and every other submenu opens in place. A menu without a ul list is skipped as well. A submenu is hidden from the first paint, before the module runs, so it never shows open while the page loads: the dropdown shows it once its item is one, and an item that opens in place shows it while it carries the state open.
  *
  * @pgs
  * - menu: identifies the menu element used by Menu.
@@ -27,6 +27,7 @@
  * - instance.destroy(): releases the listeners of this menu and destroys the dropdown instances it created. The generated toggles and tokens stay in the markup.
  *
  * @related
+ * - drpArrow: the arrow the module gives the dropdown of a floating submenu; see Dropdown.
  * - btnCurrent: gives the link the current look while it carries aria-current="page"; belongs to the button component.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: styles a menu link, now that the menu no longer does it itself.

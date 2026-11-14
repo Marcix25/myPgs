@@ -35,12 +35,12 @@
         }
 
         //## submenu
-        :where(ul) {
-            @include column();
-            --dropdown-borderRadius: calc(var(--borderRadius-paragraphs) + var(--dropdown-padding));
-            --dropdown-background: var(--color-box);
-            --dropdown-display: flex;
-        }
+        // hidden from the first paint: until the module has made it a dropdown (the first level of
+        // a horizontal menu) or given its item a toggle, a submenu would show open in the page and
+        // make the menu as wide as all of it for a moment. Once the item is a dropdown, the dropdown
+        // shows it; an item that opens in place shows it while it is open
+        :where(li):not([pgs~="dropdown"], [pgs*="dropdown\5B"]):not([pgs-state~="open"]) :where(ul) { display: none; }
+        :where(ul) { @include column(); }
     }
 
     //## submenuButton

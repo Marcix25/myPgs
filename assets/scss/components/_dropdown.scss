@@ -5,8 +5,8 @@
     --dropdown-borderWidth: var(--border-width);
     --dropdown-borderColor: var(--border-color);
     --dropdown-border: var(--dropdown-borderWidth) var(--dropdown-borderColor) var(--border-style);
-    --dropdown-borderRadius: var(--dropdown-padding);
-    --dropdown-padding: var(--padding-paragraphs);
+    --dropdown-borderRadius: var(--borderRadius-paragraphs);
+    --dropdown-padding: var(--padding-details);
     --dropdown-inline-size: max-content;
     --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
     --dropdown-maxBlockSize: calc(100dvh - 2rem);
