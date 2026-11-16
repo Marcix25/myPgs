@@ -171,6 +171,7 @@ Silent changes and new features of `search`:
 | --- | --- | --- | --- |
 | `dropdown` | an arrow by default | no arrow; `drpArrow` (breaking change 7) | next |
 | `menu` floating submenu | a dropdown with no arrow | `dropdown['drpArrow']`: the arrow points back at the toggle of the item | next |
+| `menu` item with a submenu that opens in place | a wrapping flex row (`row`): an open submenu widened a dropdown by its own width | a grid, the link and the toggle on the first row, the submenu across the next one: the item is as wide as its widest row | next |
 | `menu` submenus | shown open until the module ran, the menu as wide as all of them for a moment | hidden from the first paint while their item is neither a `dropdown` nor open; without JavaScript they stay hidden and the item's own link still leads to its page | next |
 | `table` | zebra and hover by default | plain base (breaking change 8); `tableBordered` draws a line round every cell and round the table, radius `--borderRadius-paragraphs` | next |
 | `steps` | the last circle highlighted | every circle the same; `steps['stepsLastHighlight']` for the old look; the content is at least the circle plus `5rem` tall | next |

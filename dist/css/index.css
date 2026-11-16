@@ -77,12 +77,15 @@
   --hover-background: var(--color-secondary-soft);
   --hover-borderColor: var(--border-color);
   --hover-color: var(--color-secondary-strong);
+  --hover-onlyText-color: var(--color-primary-strong);
   --current-background: var(--color-primary-soft);
   --current-borderColor: var(--border-color);
   --current-color: var(--color-primary-strong);
+  --current-onlyText-color: var(--color-secondary-strong);
   --twoState-background: var(--color-tertiary-soft);
   --twoState-borderColor: var(--border-color);
   --twoState-color: var(--color-tertiary-strong);
+  --twoState-onlyText-color: var(--color-tertiary-strong);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1049,7 +1052,7 @@
   transition: var(--clickable-transition);
   --icon: var(--checkbox-icon);
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -1512,6 +1515,7 @@
 }
 
 :is([pgs~=button], [pgs*="button["]) {
+  --button-shadow: unset;
   --button-color: var(--clickable-color);
   --button-color-hover: var(--hover-color);
   --button-color-current: var(--current-color);
@@ -1520,10 +1524,6 @@
   --button-background-hover: var(--hover-background);
   --button-background-current: var(--current-background);
   --button-background-twoState: var(--twoState-background);
-  --button-shadow: unset;
-  --button-shadow-hover: unset;
-  --button-shadow-current: unset;
-  --button-shadow-twoState: unset;
   --button-borderColor: var(--clickable-borderColor);
   --button-borderColor-hover: var(--hover-borderColor);
   --button-borderColor-current: var(--current-borderColor);
@@ -1658,23 +1658,20 @@
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnText'"]) {
+  --button-shadow: unset;
   --button-borderColor: transparent;
-  --button-borderWidth: 0px 0px 3px 0px;
-  --button-borderColor-hover: var(--color-secondary);
-  --button-borderColor-current: var(--color-primary);
+  --button-borderWidth: 0px 0px 0px 0px;
+  --button-color-hover: var(--color-primary);
+  --button-color-current: var(--color-secondary);
   --button-borderRadius: 0px;
   --button-background: transparent;
   --button-background-current: transparent;
   --button-background-twoState: transparent;
   --button-background-hover: transparent;
   --button-color: var(--clickable-onlyText-color);
-  --button-color-current: var(--clickable-onlyText-color);
-  --button-color-twoState: var(--clickable-onlyText-color);
-  --button-color-hover: var(--clickable-onlyText-color);
-  --button-shadow: unset;
-  --button-shadow-current: unset;
-  --button-shadow-twoState: unset;
-  --button-shadow-hover: unset;
+  --button-color-hover: var(--hover-onlyText-color);
+  --button-color-current: var(--current-onlyText-color);
+  --button-color-twoState: var(--twoState-onlyText-color);
   --button-paddingInline: 0px;
   --button-paddingInline-short: 0px;
 }
@@ -1748,26 +1745,30 @@
   --button-color: var(--color-quaternary-text);
 }
 
+:where(:root) {
+  --icon-size: 1em;
+}
+
 :root {
-  --icon-glyph-chevronDown: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M136 196 A34 34 0 0 0 136 244.1L232 340 A34 34 0 0 0 280 340L376 244.1 A34 34 0 0 0 376 196L376 196 A34 34 0 0 0 327.9 196L263.1 260.8 A10 10 0 0 1 248.9 260.8L184.1 196 A34 34 0 0 0 136 196Z%27/%3E%3C/svg%3E");
-  --icon-glyph-check: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M424 112 a34 34 0 0 1 0 48 L200 384 a34 34 0 0 1 -48 0 L24 256 a34 34 0 0 1 48 -48 L176 312 L376 112 a34 34 0 0 1 48 0 z%27/%3E%3C/svg%3E");
-  --icon-glyph-close: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M418 94 A34 34 0 0 1 418 142.1L312.6 247.5 A12 12 0 0 0 312.6 264.5L418 369.9 A34 34 0 0 1 418 418L418 418 A34 34 0 0 1 369.9 418L264.5 312.6 A12 12 0 0 0 247.5 312.6L142.1 418 A34 34 0 0 1 94 418L94 418 A34 34 0 0 1 94 369.9L199.4 264.5 A12 12 0 0 0 199.4 247.5L94 142.1 A34 34 0 0 1 94 94L94 94 A34 34 0 0 1 142.1 94L247.5 199.4 A12 12 0 0 0 264.5 199.4L369.9 94 A34 34 0 0 1 418 94Z%27/%3E%3C/svg%3E");
-  --icon-glyph-magnifyingGlass: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M208 48 a160 160 0 1 1 0 320 a160 160 0 1 1 0 -320 z M208 108 a100 100 0 1 0 0 200 a100 100 0 1 0 0 -200 z M307 278.7 L444.1 415.9 A20 20 0 0 1 415.9 444.1 L278.7 307 A20 20 0 0 1 307 278.7 z%27/%3E%3C/svg%3E");
-  --icon-glyph-circle: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z%27/%3E%3C/svg%3E");
-  --icon-glyph-circleXmark: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z M343.7 168.3 A23 23 0 0 1 343.7 200.8L294.9 249.6 A9 9 0 0 0 294.9 262.4L343.7 311.2 A23 23 0 0 1 343.7 343.7L343.7 343.7 A23 23 0 0 1 311.2 343.7L262.4 294.9 A9 9 0 0 0 249.6 294.9L200.8 343.7 A23 23 0 0 1 168.3 343.7L168.3 343.7 A23 23 0 0 1 168.3 311.2L217.1 262.4 A9 9 0 0 0 217.1 249.6L168.3 200.8 A23 23 0 0 1 168.3 168.3L168.3 168.3 A23 23 0 0 1 200.8 168.3L249.6 217.1 A9 9 0 0 0 262.4 217.1L311.2 168.3 A23 23 0 0 1 343.7 168.3Z%27/%3E%3C/svg%3E");
-  --icon-glyph-circleCheck: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z M150 258 A23 23 0 0 0 150 290.5L206.6 347.1 A16.1 16.1 0 0 0 229.4 347.1L366 210.5 A23 23 0 0 0 366 178L366 178 A23 23 0 0 0 333.5 178L225.3 286.2 A10.4 10.4 0 0 1 210.7 286.2L182.5 258 A23 23 0 0 0 150 258Z%27/%3E%3C/svg%3E");
-  --icon-glyph-circleInfo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M256 56 a200 200 0 1 1 0 400 a200 200 0 1 1 0 -400 z M256 119 a31 31 0 1 1 0 62 a31 31 0 1 1 0 -62 z M225 237 A31 31 0 0 1 256 206L256 206 A31 31 0 0 1 287 237L287 347 A31 31 0 0 1 256 378L256 378 A31 31 0 0 1 225 347Z%27/%3E%3C/svg%3E");
-  --icon-glyph-triangleExclamation: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath fill-rule=%27evenodd%27 d=%27M216.1 115.1 A46 46 0 0 1 295.9 115.1L450.2 383 A46 46 0 0 1 410.4 452L101.6 452 A46 46 0 0 1 61.8 383Z M225 197 A31 31 0 0 1 256 166L256 166 A31 31 0 0 1 287 197L287 291 A31 31 0 0 1 256 322L256 322 A31 31 0 0 1 225 291Z M256 348 a32 32 0 1 1 0 64 a32 32 0 1 1 0 -64 z%27/%3E%3C/svg%3E");
-  --icon-glyph-moon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M362.9 86.9 A200 200 0 1 0 362.9 425.1 A11 11 0 0 0 360.1 407.6 A162.4 162.4 0 0 1 360.1 104.4 A11 11 0 0 0 362.9 86.9 Z%27/%3E%3C/svg%3E");
-  --icon-glyph-sun: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M256 146 a110 110 0 1 1 0 220 a110 110 0 1 1 0 -220 z M234 52 A22 22 0 0 1 256 30L256 30 A22 22 0 0 1 278 52L278 94 A22 22 0 0 1 256 116L256 116 A22 22 0 0 1 234 94Z M234 418 A22 22 0 0 1 256 396L256 396 A22 22 0 0 1 278 418L278 460 A22 22 0 0 1 256 482L256 482 A22 22 0 0 1 234 460Z M30 256 A22 22 0 0 1 52 234L94 234 A22 22 0 0 1 116 256L116 256 A22 22 0 0 1 94 278L52 278 A22 22 0 0 1 30 256Z M396 256 A22 22 0 0 1 418 234L460 234 A22 22 0 0 1 482 256L482 256 A22 22 0 0 1 460 278L418 278 A22 22 0 0 1 396 256Z M112 112 A22 22 0 0 0 112 143.1L136.9 168 A22 22 0 0 0 168 168L168 168 A22 22 0 0 0 168 136.9L143.1 112 A22 22 0 0 0 112 112Z M400 112 A22 22 0 0 0 368.9 112L344 136.9 A22 22 0 0 0 344 168L344 168 A22 22 0 0 0 375.1 168L400 143.1 A22 22 0 0 0 400 112Z M112 400 A22 22 0 0 0 143.1 400L168 375.1 A22 22 0 0 0 168 344L168 344 A22 22 0 0 0 136.9 344L112 368.9 A22 22 0 0 0 112 400Z M400 400 A22 22 0 0 0 400 368.9L375.1 344 A22 22 0 0 0 344 344L344 344 A22 22 0 0 0 344 375.1L368.9 400 A22 22 0 0 0 400 400Z%27/%3E%3C/svg%3E");
-  --icon-glyph-hamburger: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56 154 A34 34 0 0 1 90 120 L422 120 A34 34 0 0 1 456 154 A34 34 0 0 1 422 188 L90 188 A34 34 0 0 1 56 154 Z M56 256 A34 34 0 0 1 90 222 L422 222 A34 34 0 0 1 456 256 A34 34 0 0 1 422 290 L90 290 A34 34 0 0 1 56 256 Z M56 358 A34 34 0 0 1 90 324 L422 324 A34 34 0 0 1 456 358 A34 34 0 0 1 422 392 L90 392 A34 34 0 0 1 56 358 Z%27/%3E%3C/svg%3E");
-  --icon-glyph-hamburgerTwo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56 183.5 A34 34 0 0 1 90 149.5 L422 149.5 A34 34 0 0 1 456 183.5 A34 34 0 0 1 422 217.5 L90 217.5 A34 34 0 0 1 56 183.5 Z M56 326.5 A34 34 0 0 1 90 292.5 L422 292.5 A34 34 0 0 1 456 326.5 A34 34 0 0 1 422 360.5 L90 360.5 A34 34 0 0 1 56 326.5 Z%27/%3E%3C/svg%3E");
-  --icon-glyph-star: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M227.8 100.2 A30 30 0 0 1 284.2 100.2L308.3 166.8 A18 18 0 0 0 324.6 178.7L395.5 181 A30 30 0 0 1 412.9 234.7L356.9 278.2 A18 18 0 0 0 350.7 297.4L370.4 365.5 A30 30 0 0 1 324.8 398.7L266.1 358.9 A18 18 0 0 0 245.9 358.9L187.2 398.7 A30 30 0 0 1 141.6 365.5L161.3 297.4 A18 18 0 0 0 155.1 278.2L99.1 234.7 A30 30 0 0 1 116.5 181L187.4 178.7 A18 18 0 0 0 203.7 166.8Z%27/%3E%3C/svg%3E");
+  --icon-glyph-chevronDown: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27126.03 138 259.94 259.94%27%3E%3Cpath d=%27M136 196A34 34 0 0 0 136 244.1L232 340A34 34 0 0 0 280 340L376 244.1A34 34 0 0 0 376 196L376 196A34 34 0 0 0 327.9 196L263.1 260.8A10 10 0 0 1 248.9 260.8L184.1 196A34 34 0 0 0 136 196Z%27/%3E%3C/svg%3E");
+  --icon-glyph-check: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2715.41 38.74 418.51 418.51%27%3E%3Cpath d=%27M424 112A34 34 0 0 1 424 160L200 384A34 34 0 0 1 152 384L24 256A34 34 0 0 1 72 208L176 312L376 112A34 34 0 0 1 424 112Z%27/%3E%3C/svg%3E");
+  --icon-glyph-close: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2792.5 92.5 327 327%27%3E%3Cpath d=%27M375.97 99.97A25.5 25.5 0 0 1 412.03 99.97A25.5 25.5 0 0 1 412.03 136.03L300.55 247.51A12 12 0 0 0 300.55 264.49L412.03 375.97A25.5 25.5 0 0 1 412.03 412.03A25.5 25.5 0 0 1 375.97 412.03L264.49 300.55A12 12 0 0 0 247.51 300.55L136.03 412.03A25.5 25.5 0 0 1 99.97 412.03A25.5 25.5 0 0 1 99.97 375.97L211.45 264.49A12 12 0 0 0 211.45 247.51L99.97 136.03A25.5 25.5 0 0 1 99.97 99.97A25.5 25.5 0 0 1 136.03 99.97L247.51 211.45A12 12 0 0 0 264.49 211.45Z%27/%3E%3C/svg%3E");
+  --icon-glyph-magnifyingGlass: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2748 48 400.91 400.91%27%3E%3Cpath d=%27M208 48A160 160 0 1 1 208 368A160 160 0 1 1 208 48ZM208 108A100 100 0 1 0 208 308A100 100 0 1 0 208 108ZM307 278.7L444.1 415.9A20 20 0 0 1 415.9 444.1L278.7 307A20.01 20.01 0 0 1 307 278.7Z%27/%3E%3C/svg%3E");
+  --icon-glyph-circle: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M256 56A200 200 0 1 1 256 456A200 200 0 1 1 256 56Z%27/%3E%3C/svg%3E");
+  --icon-glyph-circleXmark: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M256 56A200 200 0 1 1 256 456A200 200 0 1 1 256 56ZM343.7 168.3A23 23 0 0 0 311.2 168.3L262.4 217.1A9 9 0 0 1 249.6 217.1L200.8 168.3A23 23 0 0 0 168.3 168.3L168.3 168.3A23 23 0 0 0 168.3 200.8L217.1 249.6A9 9 0 0 1 217.1 262.4L168.3 311.2A23 23 0 0 0 168.3 343.7L168.3 343.7A23 23 0 0 0 200.8 343.7L249.6 294.9A9 9 0 0 1 262.4 294.9L311.2 343.7A23 23 0 0 0 343.7 343.7L343.7 343.7A23 23 0 0 0 343.7 311.2L294.9 262.4A9 9 0 0 1 294.9 249.6L343.7 200.8A23 23 0 0 0 343.7 168.3Z%27/%3E%3C/svg%3E");
+  --icon-glyph-circleCheck: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M256 56A200 200 0 1 1 256 456A200 200 0 1 1 256 56ZM150 258A23 23 0 0 0 150 290.5L206.6 347.1A16.1 16.1 0 0 0 229.4 347.1L366 210.5A23 23 0 0 0 366 178L366 178A23 23 0 0 0 333.5 178L225.3 286.2A10.4 10.4 0 0 1 210.7 286.2L182.5 258A23 23 0 0 0 150 258Z%27/%3E%3C/svg%3E");
+  --icon-glyph-circleInfo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M256 56A200 200 0 1 1 256 456A200 200 0 1 1 256 56ZM256 119A31 31 0 1 0 256 181A31 31 0 1 0 256 119ZM225 237L225 347A31 31 0 0 0 256 378L256 378A31 31 0 0 0 287 347L287 237A31 31 0 0 0 256 206L256 206A31 31 0 0 0 225 237Z%27/%3E%3C/svg%3E");
+  --icon-glyph-triangleExclamation: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2755.63 71.63 400.74 400.74%27%3E%3Cpath d=%27M216.1 115.1A46 46 0 0 1 295.9 115.1L450.2 383A46 46 0 0 1 410.4 452L101.6 452A46 46 0 0 1 61.8 383ZM225 197L225 291A31 31 0 0 0 256 322L256 322A31 31 0 0 0 287 291L287 197A31 31 0 0 0 256 166L256 166A31 31 0 0 0 225 197ZM256 348A32 32 0 1 0 256 412A32 32 0 1 0 256 348Z%27/%3E%3C/svg%3E");
+  --icon-glyph-moon: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2711.08 56 400 400%27%3E%3Cpath d=%27M362.9 86.9A200 200 0 1 0 362.9 425.1A11 11 0 0 0 360.1 407.6A162.4 162.4 0 0 1 360.1 104.4A11 11 0 0 0 362.9 86.9Z%27/%3E%3C/svg%3E");
+  --icon-glyph-sun: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2730 30 452 452%27%3E%3Cpath d=%27M256 146A110 110 0 1 1 256 366A110 110 0 1 1 256 146ZM234 52A22 22 0 0 1 256 30L256 30A22 22 0 0 1 278 52L278 94A22 22 0 0 1 256 116L256 116A22 22 0 0 1 234 94ZM234 418A22 22 0 0 1 256 396L256 396A22 22 0 0 1 278 418L278 460A22 22 0 0 1 256 482L256 482A22 22 0 0 1 234 460ZM30 256A22 22 0 0 1 52 234L94 234A22 22 0 0 1 116 256L116 256A22 22 0 0 1 94 278L52 278A22 22 0 0 1 30 256ZM396 256A22 22 0 0 1 418 234L460 234A22 22 0 0 1 482 256L482 256A22 22 0 0 1 460 278L418 278A22 22 0 0 1 396 256ZM112 112A22 22 0 0 0 112 143.1L136.9 168A22 22 0 0 0 168 168L168 168A22 22 0 0 0 168 136.9L143.1 112A22 22 0 0 0 112 112ZM400 112A22 22 0 0 0 368.9 112L344 136.9A22 22 0 0 0 344 168L344 168A22 22 0 0 0 375.1 168L400 143.1A22 22 0 0 0 400 112ZM112 400A22 22 0 0 0 143.1 400L168 375.1A22 22 0 0 0 168 344L168 344A22 22 0 0 0 136.9 344L112 368.9A22 22 0 0 0 112 400ZM400 400A22 22 0 0 0 400 368.9L375.1 344A22 22 0 0 0 344 344L344 344A22 22 0 0 0 344 375.1L368.9 400A22 22 0 0 0 400 400Z%27/%3E%3C/svg%3E");
+  --icon-glyph-hamburger: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M56 154A34 34 0 0 1 90 120L422 120A34 34 0 0 1 456 154A34 34 0 0 1 422 188L90 188A34 34 0 0 1 56 154ZM56 256A34 34 0 0 1 90 222L422 222A34 34 0 0 1 456 256A34 34 0 0 1 422 290L90 290A34 34 0 0 1 56 256ZM56 358A34 34 0 0 1 90 324L422 324A34 34 0 0 1 456 358A34 34 0 0 1 422 392L90 392A34 34 0 0 1 56 358Z%27/%3E%3C/svg%3E");
+  --icon-glyph-hamburgerTwo: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M56 188A34 34 0 0 1 90 154L422 154A34 34 0 0 1 456 188A34 34 0 0 1 422 222L90 222A34 34 0 0 1 56 188ZM56 324A34 34 0 0 1 90 290L422 290A34 34 0 0 1 456 324A34 34 0 0 1 422 358L90 358A34 34 0 0 1 56 324Z%27/%3E%3C/svg%3E");
+  --icon-glyph-star: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2787.47 73.6 337.06 337.06%27%3E%3Cpath d=%27M227.8 100.2A30 30 0 0 1 284.2 100.2L308.3 166.8A18 18 0 0 0 324.6 178.7L395.5 181A30 30 0 0 1 412.9 234.7L356.9 278.2A18 18 0 0 0 350.7 297.4L370.4 365.5A30 30 0 0 1 324.8 398.7L266.1 358.9A18 18 0 0 0 245.9 358.9L187.2 398.7A30 30 0 0 1 141.6 365.5L161.3 297.4A18 18 0 0 0 155.1 278.2L99.1 234.7A30 30 0 0 1 116.5 181L187.4 178.7A18 18 0 0 0 203.7 166.8Z%27/%3E%3C/svg%3E");
 }
 
 :is([pgs~=icon], [pgs*="icon["])::before {
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -1903,8 +1904,8 @@
 }
 
 :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"]) {
-  --icon-before: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,183.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34s-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
-  --icon-after: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Cpath d=%27M56,326.5c0-18.8,15.2-34,34-34h332c18.8,0,34,15.2,34,34h0c0,18.8-15.2,34-34,34H90c-18.8,0-34-15.2-34-34h0Z%27/%3E%3C/svg%3E");
+  --icon-before: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M56 188A34 34 0 0 1 90 154L422 154A34 34 0 0 1 456 188A34 34 0 0 1 422 222L90 222A34 34 0 0 1 56 188Z%27/%3E%3C/svg%3E");
+  --icon-after: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%2756 56 400 400%27%3E%3Cpath d=%27M56 324A34 34 0 0 1 90 290L422 290A34 34 0 0 1 456 324A34 34 0 0 1 422 358L90 358A34 34 0 0 1 56 324Z%27/%3E%3C/svg%3E");
   --icon-before-color: var(--icon-color, currentColor);
   --icon-after-color: var(--icon-color, currentColor);
   display: inline-grid;
@@ -1916,7 +1917,7 @@
 :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::before, :is([pgs~=icon], [pgs*="icon["]):where([pgs*="'icon-hamburgerTwo'"][pgs*="'iconDuo'"])::after {
   content: "";
   display: inline-block;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   width: 1em;
   height: 1em;
   vertical-align: -0.125em;
@@ -2232,7 +2233,7 @@
 
 [pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2350,7 +2351,7 @@
   cursor: pointer;
   --icon: var(--icon-glyph-circleXmark);
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2371,7 +2372,7 @@
   cursor: pointer;
   --icon: var(--icon-glyph-circle);
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2423,7 +2424,7 @@
   cursor: pointer;
   --icon: var(--icon-glyph-circleXmark);
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2444,7 +2445,7 @@
   cursor: pointer;
   --icon: var(--icon-glyph-circle);
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -2532,6 +2533,7 @@
 :is([pgs~=menu], [pgs*="menu["]) {
   --menu-gap-column: var(--gap-details);
   --menu-gap-row: var(--gap-paragraphs);
+  --menu-submenuButton-translateX: calc(var(--gap-paragraphs) * -1);
 }
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) {
@@ -2572,9 +2574,10 @@
 
 :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=menu-submenuButton]),
 :is([pgs~=menu], [pgs*="menu["]) :where([pgs~=_menu-submenuButton]) {
-  --button-size: 0.2rem;
-  margin-right: -5px;
-  translate: -5px;
+  --button-size: 0.4rem;
+  --button-borderWidth: 0px;
+  --icon-size: 0.7em;
+  translate: var(--menu-submenuButton-translateX);
   margin-block: auto;
 }
 
@@ -2617,21 +2620,16 @@
 }
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
-  flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
   position: relative;
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul) > :where(a), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul) > :where(a), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) > :where(a) {
-  flex: 1;
-}
-
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul) > :where(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul) > :where(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul) > :where(ul) {
-  flex-basis: 100%;
+  grid-column: 1/-1;
   padding-left: var(--padding-details);
   margin-left: var(--margin-paragraphs);
   border-left: var(--border-width) var(--border-color) var(--border-style);
@@ -2807,7 +2805,7 @@
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-button])::after {
   line-height: 1;
-  font-size: var(--icon-size);
+  font-size: var(--icon-size, 1em);
   display: inline-block;
   width: 1em;
   height: 1em;

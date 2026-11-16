@@ -15,6 +15,7 @@
     --heading-family-h1: "MyPix", var(--font);
     --heading-letterSpacing-h1: 2.5px;
 }
+
 body {
     /* --color-background: light-dark(#f1ffef, #101010); */
     display: block;
@@ -132,9 +133,12 @@ body {
 
 /* the docs sidebar is wider than the library default (20rem): set on the shell that holds it, so the shell
    grows by the same amount (--pageShell-width reads it) and the content keeps its own width */
-#reference-demo-shell { --pageShell-aside-width: 27rem; }
+#reference-demo-shell {
+    --pageShell-aside-width: 27rem;
+}
 
 .reference-demo-menuAside-search {
+
     /* the search stays at the top while the list scrolls: inside the sidebar, which scrolls on its own beside
        the content, and under the header once the sidebar stacks and scrolls with the page */
     > :has(> .reference-demo-nav-search) {
@@ -143,7 +147,9 @@ body {
         z-index: 1;
         background: linear-gradient(to bottom, var(--color-background) 30%, transparent);
 
-        @container pageShell (width <= 900px) { top: var(--_header-height); }
+        @container pageShell (width <=900px) {
+            top: var(--_header-height);
+        }
 
         /* beside the content the sidebar reaches the header through main's top padding: the search's background
            climbs there too, so nothing that scrolls shows between the header and the search */
@@ -257,7 +263,8 @@ body {
 
     /* a navSmart bar is pinned to the bottom of the screen: inside its example panel it stays in
        the flow */
-    [pgs~=navSmart], [pgs*="navSmart["] {
+    [pgs~=navSmart],
+    [pgs*="navSmart["] {
         position: relative;
         inset: auto;
         padding-block: var(--padding-paragraphs);
@@ -272,6 +279,8 @@ body {
 
     a {
         --button-borderWidth: 0 0 0 4px;
+        --button-borderColor-hover: var(--color-secondary);
+        --button-borderColor-current: var(--color-primary);
 
         i {
             width: 22px;

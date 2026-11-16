@@ -21,6 +21,13 @@
 // The glyph lands on ::before, which is also where an icon font paints, so an element carrying
 // both this and a font class draws once, and the one loaded last wins: the option is in :where(), so
 // it weighs the same as a font's single class (a project that needs this one to win raises it).
+// the size of every icon, unless a container or the icon itself sets its own: 1em, the size of the text
+// around the icon. An unregistered custom property is inherited as written, so the em is resolved where
+// the icon reads it, not on :root. At no specificity, so a project's own :root always wins
+:where(:root) {
+    --icon-size: 1em;
+}
+
 :root {
     @each $name, $url in $icons-builtin {
         --icon-glyph-#{$name}: #{$url};

@@ -5,6 +5,7 @@
     // Only the gap tokens are menu's own (--menu-gap-*); the colors come from the button tokens.
     --menu-gap-column: var(--gap-details);
     --menu-gap-row: var(--gap-paragraphs);
+    --menu-submenuButton-translateX: calc(var(--gap-paragraphs) * -1);
 
     :where(ul) {
         display: flex;
@@ -47,9 +48,10 @@
     // the generated toggle and the one written by hand look and sit the same
     :where([pgs~="menu-submenuButton"]),
     :where([pgs~="_menu-submenuButton"]) {
-        --button-size: 0.2rem;
-        margin-right: -5px;
-        translate: -5px;
+        --button-size: 0.4rem;
+        --button-borderWidth: 0px;
+        --icon-size: 0.7em;
+        translate: var(--menu-submenuButton-translateX);
         margin-block: auto;
 
         // the icon is whatever the toggle holds: an <i>, an svg, or any element marked as an icon
@@ -103,17 +105,20 @@
             //### Sub menu
             //### link ------ |button|
             //### list ---------------|
-            // the link and the toggle share the first row, the submenu takes the whole next one:
-            // it needs flex-wrap, or flex-basis has no line to break onto
+            // the link and the toggle share the first row, the submenu takes the whole next one. A
+            // grid, not a wrapping flex row: the width a row asks for (max-content, the width of a
+            // dropdown) adds up every item as if nothing wrapped, so an open submenu widened the
+            // dropdown by its own width; a grid asks for its widest row only
             >:where(li):has(ul) {
-                @include row;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: var(--gap-paragraphs);
+                --gap: var(--gap-paragraphs);
                 align-items: center;
                 position: relative;
 
-                >:where(a) { flex: 1; }
-
                 >:where(ul) {
-                    flex-basis: 100%;
+                    grid-column: 1 / -1;
                     padding-left: var(--padding-details);
                     margin-left: var(--margin-paragraphs);
                     border-left: var(--border-width) var(--border-color) var(--border-style);

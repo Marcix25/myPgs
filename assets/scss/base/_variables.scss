@@ -92,16 +92,19 @@
         --hover-background: var(--color-secondary-soft);
         --hover-borderColor: var(--border-color);
         --hover-color: var(--color-secondary-strong);
+        --hover-onlyText-color: var(--color-primary-strong);
         //## current
         // button
         --current-background: var(--color-primary-soft);
         --current-borderColor: var(--border-color);
         --current-color: var(--color-primary-strong);
+        --current-onlyText-color: var(--color-secondary-strong);
         //## twoState
         // button
         --twoState-background: var(--color-tertiary-soft);
         --twoState-borderColor: var(--border-color);
         --twoState-color: var(--color-tertiary-strong);
+        --twoState-onlyText-color: var(--color-tertiary-strong);
 
         @media (prefers-reduced-motion: reduce) { --clickable-transition: none; }
     }
