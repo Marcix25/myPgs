@@ -1,21 +1,43 @@
 @use "mx-responsive" as *;
 
 //= LIST, FOCUS
-
 //# LIST
-@mixin list() {
+// a list is a column: the gap alone spaces its items, nested lists included, so the rhythm is one. The
+// room for the markers is a padding in em, so it follows the size of the text and a marker never leaves
+// the box (one with overflow hidden would cut it).
+// $flow: the text around the list is in the normal flow (a paragraph then a list, as an editor writes
+// it), so a list after another element takes the gap above it as a margin. false where the parent is a
+// column with its own gap (textBlock), which already spaces them
+@mixin list($flow: true) {
+
+    @if $flow {
+        :where(:not(li)) > :where(*) + :is(ol, ul) { margin-top: var(--gap-paragraphs); }
+    }
+
+    :is(ol, ul),
+    &:is(ol, ul) {
+        @include column(var(--gap-details));
+        margin-left: 0;
+        padding-left: 1.5em;
+
+        li {
+            display: list-item;
+            color: var(--text-color);
+
+            // a list inside an item: away from the item's text by the same gap as the items
+            >:is(ol, ul) { margin-top: var(--gap); }
+        }
+    }
 
     :is(ul),
     &:is(ul) {
         list-style: disc;
-        margin-left: var(--margin-elements);
 
         >li {
             list-style-type: disc;
 
             >ul>li {
                 list-style: circle;
-                margin-top: var(--gap-paragraphs);
 
                 ul>li { list-style: "-"; }
             }
@@ -25,24 +47,15 @@
     :is(ol),
     &:is(ol) {
         list-style: decimal;
-        margin-left: var(--margin-elements);
 
         li { list-style-type: decimal; }
-    }
-
-    li {
-        display: list-item;
-        margin-top: calc(var(--gap-paragraphs)/2);
-        color: var(--text-color);
     }
 }
 
 //# FOCUS
 // the ring itself, for a rule that already says when it shows: a wrapper whose input holds the focus
 // (&:has(input:focus-visible)) is never :focus-visible itself, so it cannot take focus() below
-@mixin focusRing() {
-    outline: var(--focus-visible);
-}
+@mixin focusRing() { outline: var(--focus-visible); }
 
 // the ring on the element that takes the focus: it adds :focus-visible itself, so use it only where the
 // rule does not already say it (inside a :focus-visible block, focusRing() is the one)

@@ -68,8 +68,6 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-paddingInline`
 - `--button-paddingInline-short`
 - `--button-shadow`
-- `--button-shadow-current`
-- `--button-shadow-hover`
 - `--button-shadow-twoState`
 - `--button-size`
 

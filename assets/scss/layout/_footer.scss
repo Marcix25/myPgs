@@ -1,92 +1,88 @@
 @use "../mixin/mixin" as *;
 
+//= FOOTER
+// the footer of the page: an upper section with the brand and the columns of links, a legal section under
+// it. Every value it sets is a --footer-* variable, so a project tunes it without rewriting its rules
 [pgs~="footer"] {
     --footer-color: var(--color-black);
+    // the links on hover and keyboard focus; their underline is a soft tint of it
+    --footer-color-hover: var(--color-link);
+    // a color, or an image: background-size cover fills the footer with it
     --footer-background: var(--color-box);
     --footer-colorScheme: inherit;
+    --footer-paddingBlock: calc(var(--gap-sections) / 3);
+    --footer-titleSize: 2rem;
+    --footer-borderColor: var(--color-boxDark-transparent);
+    --footer-legal-fontSize: 1.3rem;
     background: var(--footer-background);
+    background-size: cover;
     color: var(--footer-color);
     color-scheme: var(--footer-colorScheme);
-    background-size: cover;
     container-type: inline-size;
+    // a child placed with position absolute (a control across the top edge) is placed against the
+    // footer, and its z-index stays inside it
     position: relative;
     isolation: isolate;
+    // the room of the navSmart bar, which floats over the bottom of the page
     padding-bottom: var(--_navSmart-heightScroll);
 
-    //# TOP
-    :where([pgs~="footer-top"]) {
+    // the text and the links take the color of the footer, not the one of the page; a link drawn as a
+    // button or a logo keeps its own look
+    $link: 'a:where(:not([pgs~="button"], [pgs*="button\\5B"], [pgs~="logo"], [pgs*="logo\\5B"]))';
+
+    p { color: var(--footer-color); }
+
+    #{$link} {
         color: var(--footer-color);
-        padding-block: calc(var(--gap-sections)/3);
-        --heading-size-h2: 2.0rem;
-        --heading-size-h3: var(--font-size-text);
+        text-decoration: underline;
+        font-weight: var(--font-weight-title);
+        // the underline is the link color at half strength: it sits on any background, an image included
+        text-decoration-color: color-mix(in srgb, var(--footer-color) 50%, transparent 50%);
 
-        :where([pgs~="footer-top-content"]) { row-gap: var(--gap-elements); }
-        &::after { content: unset; }
-        p { color: var(--footer-color); }
-
-        a {
-            text-decoration: none;
-            font-weight: var(--font-weight-title);
-            color: var(--footer-color);
-
-            &:hover { text-decoration: underline; }
-        }
-
-        // the big logo of a brand column is logo['logoFooter']
-        :where([pgs~="footer-brand"]) { @include column(); }
-
-        :where([pgs~="footer-content"]) {
-            nav {
-                li {
-                    margin-top: var(--margin-details);
-
-                    // an icon in the link keeps its own size and color, and sits where it is written
-                    a {
-                        display: flex;
-                        align-items: center;
-                        gap: var(--gap-details);
-                    }
-                }
-            }
+        &:is(:hover, :focus-visible) {
+            color: var(--footer-color-hover);
+            text-decoration-color: color-mix(in srgb, var(--footer-color-hover) 50%, transparent 50%);
         }
     }
 
+    //# TOP
+    :where([pgs~="footer-top"]) {
+        padding-block: var(--footer-paddingBlock);
+        --heading-size-h2: var(--footer-titleSize);
+        --heading-size-h3: var(--font-size-text);
+    }
+
     //# LEGAL
+    // one centered row of small links, text and buttons, wrapping on a narrow screen; a logo takes a row of
+    // its own once the section is narrower than a tablet
     :where([pgs~="footer-legal"]) {
-        width: 100%;
-
-        :where([pgs~="footer-legal-content"]) {
-            border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
-            padding-block: var(--padding-groups);
-            @include row();
-            justify-content: center;
-            align-items: center;
-
-            :is([pgs~="logo"], [pgs*="logo\5B"]) {
-                margin-right: auto;
-                justify-content: center;
-            }
-
-            //- tablet 
-            @media (max-width: $tablet) {
-                :is([pgs~="logo"], [pgs*="logo\5B"]) { width: 100%; }
-            }
-        }
+        font-size: var(--footer-legal-fontSize);
 
         p {
-            font-size: 1.3rem;
-            color: var(--footer-color);
+            font-size: inherit;
             text-align: center;
         }
 
-        a {
-            font-size: 1.3rem;
-            color: var(--footer-color);
-            text-decoration: none;
-
-            &:hover { text-decoration: underline; }
+        #{$link} {
+            font-size: inherit;
+            font-weight: inherit;
         }
 
-        button { --button-size: 1.3rem; }
+        button { --button-size: var(--footer-legal-fontSize); font-size: inherit; }
+
+        :where([pgs~="footer-legal-content"]) {
+            @include center();
+            flex-wrap: wrap;
+            padding-block: var(--padding-groups);
+            border-top: var(--border-width) var(--border-style) var(--footer-borderColor);
+
+            //-( tablet
+            @container (max-width: #{$tablet}) {
+                :is([pgs~="logo"], [pgs*="logo\5B"]) {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        }
     }
 }

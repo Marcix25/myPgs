@@ -887,8 +887,8 @@
   height: var(--radio-size);
   cursor: pointer;
   display: flex;
-  gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   align-items: center;
   justify-content: center;
   display: inline-flex;
@@ -1024,8 +1024,8 @@
   height: var(--checkbox-size);
   cursor: pointer;
   display: flex;
-  gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   align-items: center;
   justify-content: center;
   display: inline-flex;
@@ -1145,7 +1145,7 @@
 [pgs~=fieldset] {
   border: unset;
   display: flex;
-  gap: var(--form-gap, var(--gap-paragraphs));
+  gap: var(--gap);
   --gap: var(--form-gap, var(--gap-paragraphs));
   flex-direction: column;
   padding-top: var(--form-gap, var(--gap-paragraphs));
@@ -1154,7 +1154,7 @@
 [pgs~=form] {
   --form-gap: var(--gap-paragraphs);
   display: flex;
-  gap: var(--form-gap);
+  gap: var(--gap);
   --gap: var(--form-gap);
   flex-direction: column;
 }
@@ -1413,7 +1413,7 @@
 :is([pgs~=select], [pgs*="select["])[multiple] optgroup {
   color: var(--color-black);
   display: flex;
-  gap: calc(var(--gap-paragraphs) / 2);
+  gap: var(--gap);
   --gap: calc(var(--gap-paragraphs) / 2);
   flex-direction: column;
 }
@@ -2025,7 +2025,7 @@
   --toggle-thumb-background-checked: var(--twoState-color);
   isolation: isolate;
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
@@ -2304,7 +2304,7 @@
 [pgs~=chips] {
   border: unset;
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
@@ -2567,7 +2567,7 @@
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
@@ -2746,7 +2746,7 @@
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
   --accordionContainer-gap: 1rem;
   display: flex;
-  gap: var(--accordionContainer-gap);
+  gap: var(--gap);
   --gap: var(--accordionContainer-gap);
   flex-direction: column;
 }
@@ -2786,7 +2786,7 @@
   all: unset;
   cursor: pointer;
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
@@ -2831,7 +2831,7 @@
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
   visibility: hidden;
@@ -2867,7 +2867,7 @@
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
@@ -3235,7 +3235,7 @@
   --section-maxWidth: var(--page-width);
   --section-paddingInline: 0rem;
   display: flex;
-  gap: 0;
+  gap: var(--gap);
   --gap: 0;
   flex-direction: column;
   margin-inline: unset;
@@ -3248,7 +3248,7 @@
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
@@ -3296,7 +3296,7 @@
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-footer]) {
   --modal-footer-gap: var(--gap-details);
   display: flex;
-  gap: var(--modal-footer-gap);
+  gap: var(--gap);
   --gap: var(--modal-footer-gap);
   flex-direction: row;
   flex-wrap: wrap;
@@ -3603,7 +3603,7 @@
 }
 :is([pgs~=slides], [pgs*="slides["]) {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
@@ -3631,7 +3631,7 @@
   -webkit-user-select: none;
   user-select: none;
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
@@ -3852,7 +3852,7 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) {
 
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-content]) {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
   margin-bottom: var(--margin-details);
@@ -4019,7 +4019,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: nowrap;
@@ -4067,7 +4067,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --summary-lines: 3;
   position: relative;
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
   isolation: isolate;
@@ -4250,7 +4250,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   grid-area: content;
   z-index: 1;
   display: flex;
-  gap: calc(var(--alert-gap) / 2);
+  gap: var(--gap);
   --gap: calc(var(--alert-gap) / 2);
   flex-direction: column;
   min-width: 0;
@@ -4564,6 +4564,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   min-width: max-content;
   background-color: transparent;
   color: var(--color-black);
+  text-decoration: none;
   --logo-height: calc(var(--SIZE) + var(--font-size-text));
   --logo-textSize: 20px;
   --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
@@ -4626,7 +4627,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --main-gap: var(--gap-sections);
   min-height: 100svh;
   display: flex;
-  gap: var(--main-gap);
+  gap: var(--gap);
   --gap: var(--main-gap);
   flex-direction: column;
   align-items: flex-start;
@@ -4696,7 +4697,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --section-edge-mediaDivisor: 2;
   --section-edge-gap: var(--page-padding);
   display: flex;
-  gap: var(--section-edge-gap);
+  gap: var(--gap);
   --gap: var(--section-edge-gap);
   flex-direction: row;
   flex-wrap: wrap;
@@ -4758,14 +4759,14 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"] {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'row'"] {
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: row;
   flex-wrap: wrap;
@@ -4777,8 +4778,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'flexPlaceCenter'"] {
   display: flex;
-  gap: var(--gap-paragraphs);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   align-items: center;
   justify-content: center;
 }
@@ -7447,110 +7448,81 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=footer] {
   --footer-color: var(--color-black);
+  --footer-color-hover: var(--color-link);
   --footer-background: var(--color-box);
   --footer-colorScheme: inherit;
+  --footer-paddingBlock: calc(var(--gap-sections) / 3);
+  --footer-titleSize: 2rem;
+  --footer-borderColor: var(--color-boxDark-transparent);
+  --footer-legal-fontSize: 1.3rem;
   background: var(--footer-background);
+  background-size: cover;
   color: var(--footer-color);
   color-scheme: var(--footer-colorScheme);
-  background-size: cover;
   container-type: inline-size;
   position: relative;
   isolation: isolate;
   padding-bottom: var(--_navSmart-heightScroll);
 }
 
-[pgs~=footer] :where([pgs~=footer-top]) {
+[pgs~=footer] p {
   color: var(--footer-color);
-  padding-block: calc(var(--gap-sections) / 3);
-  --heading-size-h2: 2.0rem;
+}
+
+[pgs~=footer] a:where(:not([pgs~=button], [pgs*="button["], [pgs~=logo], [pgs*="logo["])) {
+  color: var(--footer-color);
+  text-decoration: underline;
+  font-weight: var(--font-weight-title);
+  text-decoration-color: color-mix(in srgb, var(--footer-color) 50%, transparent 50%);
+}
+
+[pgs~=footer] a:where(:not([pgs~=button], [pgs*="button["], [pgs~=logo], [pgs*="logo["])):is(:hover, :focus-visible) {
+  color: var(--footer-color-hover);
+  text-decoration-color: color-mix(in srgb, var(--footer-color-hover) 50%, transparent 50%);
+}
+
+[pgs~=footer] :where([pgs~=footer-top]) {
+  padding-block: var(--footer-paddingBlock);
+  --heading-size-h2: var(--footer-titleSize);
   --heading-size-h3: var(--font-size-text);
 }
 
-[pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-top-content]) {
-  row-gap: var(--gap-elements);
-}
-
-[pgs~=footer] :where([pgs~=footer-top])::after {
-  content: unset;
-}
-
-[pgs~=footer] :where([pgs~=footer-top]) p {
-  color: var(--footer-color);
-}
-
-[pgs~=footer] :where([pgs~=footer-top]) a {
-  text-decoration: none;
-  font-weight: var(--font-weight-title);
-  color: var(--footer-color);
-}
-
-[pgs~=footer] :where([pgs~=footer-top]) a:hover {
-  text-decoration: underline;
-}
-
-[pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-brand]) {
-  display: flex;
-  gap: var(--gap-paragraphs);
-  --gap: var(--gap-paragraphs);
-  flex-direction: column;
-}
-
-[pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-content]) nav li {
-  margin-top: var(--margin-details);
-}
-
-[pgs~=footer] :where([pgs~=footer-top]) :where([pgs~=footer-content]) nav li a {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-details);
-}
-
 [pgs~=footer] :where([pgs~=footer-legal]) {
-  width: 100%;
+  font-size: var(--footer-legal-fontSize);
 }
 
-[pgs~=footer] :where([pgs~=footer-legal]) :where([pgs~=footer-legal-content]) {
-  border-top: var(--border-width) var(--border-style) var(--color-boxDark-transparent);
-  padding-block: var(--padding-groups);
-  display: flex;
-  gap: var(--gap-paragraphs);
-  --gap: var(--gap-paragraphs);
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-[pgs~=footer] :where([pgs~=footer-legal]) :where([pgs~=footer-legal-content]) :is([pgs~=logo], [pgs*="logo["]) {
-  margin-right: auto;
-  justify-content: center;
-}
-
-@media (max-width: 800px) {
-  [pgs~=footer] :where([pgs~=footer-legal]) :where([pgs~=footer-legal-content]) :is([pgs~=logo], [pgs*="logo["]) {
-    width: 100%;
-  }
-}
 [pgs~=footer] :where([pgs~=footer-legal]) p {
-  font-size: 1.3rem;
-  color: var(--footer-color);
+  font-size: inherit;
   text-align: center;
 }
 
-[pgs~=footer] :where([pgs~=footer-legal]) a {
-  font-size: 1.3rem;
-  color: var(--footer-color);
-  text-decoration: none;
-}
-
-[pgs~=footer] :where([pgs~=footer-legal]) a:hover {
-  text-decoration: underline;
+[pgs~=footer] :where([pgs~=footer-legal]) a:where(:not([pgs~=button], [pgs*="button["], [pgs~=logo], [pgs*="logo["])) {
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 [pgs~=footer] :where([pgs~=footer-legal]) button {
-  --button-size: 1.3rem;
+  --button-size: var(--footer-legal-fontSize);
+  font-size: inherit;
 }
 
+[pgs~=footer] :where([pgs~=footer-legal]) :where([pgs~=footer-legal-content]) {
+  display: flex;
+  --gap: var(--gap-paragraphs);
+  gap: var(--gap);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-block: var(--padding-groups);
+  border-top: var(--border-width) var(--border-style) var(--footer-borderColor);
+}
+
+@container (max-width: 800px) {
+  [pgs~=footer] :where([pgs~=footer-legal]) :where([pgs~=footer-legal-content]) :is([pgs~=logo], [pgs*="logo["]) {
+    width: 100%;
+    justify-content: center;
+  }
+}
 /*
 |--------------------------------------------------------------------------
 | Patterns
@@ -8506,9 +8478,30 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   display: none !important;
 }
 
+[pgs~=list] :where(:not(li)) > :where(*) + :is(ol, ul) {
+  margin-top: var(--gap-paragraphs);
+}
+
+[pgs~=list] :is(ol, ul), [pgs~=list]:is(ol, ul) {
+  display: flex;
+  gap: var(--gap);
+  --gap: var(--gap-details);
+  flex-direction: column;
+  margin-left: 0;
+  padding-left: 1.5em;
+}
+
+[pgs~=list] :is(ol, ul) li, [pgs~=list]:is(ol, ul) li {
+  display: list-item;
+  color: var(--text-color);
+}
+
+[pgs~=list] :is(ol, ul) li > :is(ol, ul), [pgs~=list]:is(ol, ul) li > :is(ol, ul) {
+  margin-top: var(--gap);
+}
+
 [pgs~=list] :is(ul), [pgs~=list]:is(ul) {
   list-style: disc;
-  margin-left: var(--margin-elements);
 }
 
 [pgs~=list] :is(ul) > li, [pgs~=list]:is(ul) > li {
@@ -8517,7 +8510,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=list] :is(ul) > li > ul > li, [pgs~=list]:is(ul) > li > ul > li {
   list-style: circle;
-  margin-top: var(--gap-paragraphs);
 }
 
 [pgs~=list] :is(ul) > li > ul > li ul > li, [pgs~=list]:is(ul) > li > ul > li ul > li {
@@ -8526,30 +8518,40 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=list] :is(ol), [pgs~=list]:is(ol) {
   list-style: decimal;
-  margin-left: var(--margin-elements);
 }
 
 [pgs~=list] :is(ol) li, [pgs~=list]:is(ol) li {
   list-style-type: decimal;
 }
 
-[pgs~=list] li {
-  display: list-item;
-  margin-top: calc(var(--gap-paragraphs) / 2);
-  color: var(--text-color);
-}
-
 [pgs~=textBlock] {
   align-items: flex-start;
   display: flex;
-  gap: var(--gap-paragraphs);
+  gap: var(--gap);
   --gap: var(--gap-paragraphs);
   flex-direction: column;
 }
 
+[pgs~=textBlock] :is(ol, ul), [pgs~=textBlock]:is(ol, ul) {
+  display: flex;
+  gap: var(--gap);
+  --gap: var(--gap-details);
+  flex-direction: column;
+  margin-left: 0;
+  padding-left: 1.5em;
+}
+
+[pgs~=textBlock] :is(ol, ul) li, [pgs~=textBlock]:is(ol, ul) li {
+  display: list-item;
+  color: var(--text-color);
+}
+
+[pgs~=textBlock] :is(ol, ul) li > :is(ol, ul), [pgs~=textBlock]:is(ol, ul) li > :is(ol, ul) {
+  margin-top: var(--gap);
+}
+
 [pgs~=textBlock] :is(ul), [pgs~=textBlock]:is(ul) {
   list-style: disc;
-  margin-left: var(--margin-elements);
 }
 
 [pgs~=textBlock] :is(ul) > li, [pgs~=textBlock]:is(ul) > li {
@@ -8558,7 +8560,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=textBlock] :is(ul) > li > ul > li, [pgs~=textBlock]:is(ul) > li > ul > li {
   list-style: circle;
-  margin-top: var(--gap-paragraphs);
 }
 
 [pgs~=textBlock] :is(ul) > li > ul > li ul > li, [pgs~=textBlock]:is(ul) > li > ul > li ul > li {
@@ -8567,17 +8568,10 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=textBlock] :is(ol), [pgs~=textBlock]:is(ol) {
   list-style: decimal;
-  margin-left: var(--margin-elements);
 }
 
 [pgs~=textBlock] :is(ol) li, [pgs~=textBlock]:is(ol) li {
   list-style-type: decimal;
-}
-
-[pgs~=textBlock] li {
-  display: list-item;
-  margin-top: calc(var(--gap-paragraphs) / 2);
-  color: var(--text-color);
 }
 
 [pgs~=textBlock] :where(hr) {

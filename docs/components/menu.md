@@ -68,6 +68,7 @@ Menu markup with horizontal, vertical and recursively nested navigation examples
 
 - `--menu-gap-column`
 - `--menu-gap-row`
+- `--menu-submenuButton-translateX`
 
 ## Output
 

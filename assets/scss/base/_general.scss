@@ -31,7 +31,8 @@
 [pgs~="textBlock"] {
     align-items: flex-start;
     @include column();
-    @include list;
+    // its gap already spaces a list from the paragraph before it
+    @include list(false);
 
     :where(hr) { align-self: stretch; }
     :where(h1, h2, h3) { margin-top: var(--margin-elements); }

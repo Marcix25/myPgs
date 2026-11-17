@@ -6,6 +6,8 @@
     min-width: max-content;
     background-color: transparent;
     color: var(--color-black);
+    // a logo is usually a link: never underlined, wherever it sits (a footer underlines its links)
+    text-decoration: none;
     --logo-height: calc(var(--SIZE) + var(--font-size-text));
     --logo-textSize: 20px;
     --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);

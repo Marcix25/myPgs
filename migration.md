@@ -50,7 +50,8 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | `--font-weight-title` | 800 | 700 (also the `heading()` mixin default `$weight`) | next |
 | `bodyText` plain `<a>` | `--color-link`, underlined, everywhere | the link color and the underline only inside a `<p>` or `pgs="text"`; elsewhere the text color, no underline. An `<a>` with a `pgs` token takes the color of its component | 5.0.2 |
 | `bodyText` list items | `line-height: normal` | `line-height: var(--text-lineHeight)` (1.5), so a menu or a nav built on `<ul>` may grow a little | next |
-| `textBlock` headings, `list()` indent | 25px | `--margin-elements` (30px) | next |
+| `textBlock` headings indent | 25px | `--margin-elements` (30px) | next |
+| lists of `list()` (`pgs="list"`, `textBlock`) | `margin-left: 25px`; every item `margin-top: calc(var(--gap-texts) / 2)`, a nested item `--gap-texts` | a column (`flex`): the items, nested ones included, spaced by the gap alone (`--gap-details`), a nested list the same gap below its item's text; in `pgs="list"` a list after another element (a paragraph, as an editor writes it) the same gap below it, in `textBlock` its gap does it; the markers in a `padding-left: 1.5em`, no margin. A `pgs="list"` wrapper after a paragraph is spaced by its parent: `flex['column']` on it | next |
 | `--icon-size` in em | counted twice (1.25em drew 1.56em) | counted once; `iconMedium` is 1.5em and `iconLarge` 2.25em, so they draw as before, but a custom `--icon-size` in em now draws smaller | next |
 | `hamburgerTwo` glyph | bars almost touching | bars spaced like the two layers of the duo icon | next |
 
@@ -91,7 +92,9 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | buttons of the header (`btnForHeader`) | `min-height: var(--header-size)` | no height: as tall as the content; give `min-height` yourself where the header needs it | 5.0.2 |
 | logo | 4.4rem in a header, 6rem outside | `--logo-height: calc(var(--SIZE) + var(--font-size-text))` (4.6rem) everywhere; set `--logo-height` on the logo itself | 5.0.2 |
 | logo of `footer-brand` | resized by the footer (`aspect-ratio: 1; height: 200px`) | not resized: write `logo['logoFooter']` for the big footer logo | next |
-| links of `footer-top` | `--color-primary-strong`, bold, underlined on hover | `--footer-color`, bold, underlined on hover; an icon in a footer menu link keeps its own size and color, spaced by `--gap-details` | next |
+| links of `footer` | in `footer-top` `--color-primary-strong`, bold, underlined on hover; in `footer-legal` `--footer-color`, underlined on hover | `--footer-color`, always underlined (the underline the link color at half strength), `--footer-color-hover` (default `--color-link`) on hover and keyboard focus, anywhere in the footer; bold in `footer-top`, not in `footer-legal`; a link drawn as a `button` or a `logo` keeps its own look | next |
+| `footer-brand` and the menu of `footer-content` | the brand a column; menu links 5px apart, an icon 18px wide before the text | no layout from the footer: `flex['column']` on `footer-brand`, `flex['column' 'gapDetails']` on the `ul` of the menu; an icon keeps its own size and color | next |
+| `footer-legal` | padding 60px; a logo on the left, full width below 800px of screen; text, links and buttons 1.3rem | padding `--padding-groups`, wrapping; a logo centered with the rest, full width below 800px of the legal section (container query); text, links and buttons (`--button-size`) at `--footer-legal-fontSize` (1.3rem) | next |
 | `navSmart` items | fixed width `--navSmart-itemMinWidth`; icon 2.2rem, item 4.9rem | `--navSmart-itemMinWidth` or as wide as the label, shrinking toward the label when the bar does not fit the screen; icon `--navSmart-iconSize` 2.8rem, item `--navSmart-itemHeight` 5.5rem; the bar distance is capped at the home indicator | 5.0.3 - 5.0.6 |
 | `slides` track | `--page-padding` inline padding and `--page-edge` margins | no padding or margin of its own (inside a section it is not needed); `slides['slidesEdge']` for slides as wide as the screen | 5.0.4 - 5.0.5 |
 | `slides` arrows | in a row above the slides | at the top right above the slides, out of the flow, in the `_slides-arrows` wrapper, with the room kept above the track from the first paint (`--slides-arrowsSpace`) | 5.0.5 - 5.0.6 |
@@ -104,6 +107,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 - `slides['slidesEdge']`. (5.0.5)
 - `logo['logoFooter']`: `--logo-height: 200px`, square image box, text at 4rem (`--logo-textSize`). (next)
 - `--page-bottom` (`7lvh`), the room at the bottom of the page. (next)
+- `footer` variables: `--footer-color-hover` (`--color-link`), `--footer-paddingBlock` (`calc(var(--gap-sections) / 3)`), `--footer-titleSize` (`2rem`), `--footer-borderColor` (`--color-boxDark-transparent`), `--footer-legal-fontSize` (`1.3rem`, also the size of its buttons); `--footer-background` takes an image too. (next)
 
 ## Buttons
 
@@ -257,8 +261,9 @@ grep -rnE 'slides"?\]? *> *\[pgs~="?_slides-(next|prev)' .
 # 13 pageNav panels and selectors. Hit: add pgs-data="pageNavHash[name]"; write :is([pgs~="pageNav"], [pgs*="pageNav["])
 grep -rn 'pageNav' .
 
-# footer logo. Hit: add logo['logoFooter'] to the logo of footer-brand that should stay big
-grep -rn 'footer-brand' .
+# footer brand and menu. Hit: add logo['logoFooter'] to the logo of footer-brand that should stay big,
+# flex['column'] to footer-brand and flex['column' 'gapDetails'] to the ul of a footer-content menu
+grep -rnE 'footer-(brand|content)' .
 
 # steps. Hit: add steps['stepsLastHighlight'] to keep the highlighted last circle
 grep -rnE 'pgs="[^"]*\bsteps\b' .

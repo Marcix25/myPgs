@@ -2,17 +2,17 @@
 
 # Footer
 
-Complete footer with theme control, brand area, navigation, informational content, and legal links.
+Complete footer with theme control, brand area, navigation, informational content, and legal links. The text and the links take the color of the footer, not the one of the page: the links are bold and underlined, the underline the link color at half strength, and turn --footer-color-hover (--color-link) on hover or keyboard focus; a link drawn as a button or a logo keeps its own look. The footer lays out nothing inside its columns: a column, the list of a menu are flex in the markup. Every value is a --footer-* variable: --footer-background takes a color or an image (it covers the footer), --footer-paddingBlock is the room above and below the upper section, --footer-titleSize the size of its h2, --footer-borderColor the line over the legal section and --footer-legal-fontSize the size of its text and buttons. The footer is the reference of a child placed with position absolute (a control across its top edge), whose z-index stays inside it.
 
 ## PGS
 
 - `footer`: identifies the main footer container.
 - `footer-top`: identifies the upper section containing the brand and content.
 - `footer-top-content`: identifies the responsive inner layout of the upper section.
-- `footer-brand`: identifies the group dedicated to the brand, a column; the footer does not resize the logo inside it (logo['logoFooter'] makes it big).
-- `footer-content`: identifies an informational footer column. The links of the upper section take --footer-color, bold and underlined on hover; a link of its menu is a row, an icon in it keeps its own size and color.
+- `footer-brand`: identifies the group dedicated to the brand; write flex['column'] on it to stack the logo and what follows. The footer does not resize the logo inside it (logo['logoFooter'] makes it big).
+- `footer-content`: identifies an informational footer column. The list of its menu is laid out in the markup, flex['column' 'gapDetails'] for links one under the other.
 - `footer-legal`: identifies the lower section dedicated to legal information.
-- `footer-legal-content`: identifies the content of the legal section.
+- `footer-legal-content`: identifies the content of the legal section: one centered row of small links, text and buttons at --footer-legal-fontSize, the links not bold, wrapping on a narrow screen, with a line above it. A logo sits in the row with the rest and takes a row of its own once the section is narrower than a tablet.
 
 ## Related elements
 
@@ -30,18 +30,26 @@ Complete footer with theme control, brand area, navigation, informational conten
 
 ### PGS Options (component brackets)
 
+- `column`: stacks the brand and the links of a menu.
+- `gapDetails`: spaces the links of a menu.
 - `tglLabeled`: labels that control with the theme the click leads to; see Darkmode.
 - `row`: distributes the upper columns responsively.
 - `column-3`: configures the footer flex layout with three columns.
 - `logoFooter`: the big logo of the brand column; belongs to the logo component.
+- `btnIconOnly`: shapes the theme control of the legal section as an icon-only button; see Button.
 - `icon-moon`: the glyph of the theme control; belongs to the icon component.
 - `icon-sun`: the glyph of the dark theme on the theme control; belongs to the icon component.
 
 ## CSS Variables
 
 - `--footer-background`
+- `--footer-borderColor`
 - `--footer-color`
+- `--footer-color-hover`
 - `--footer-colorScheme`
+- `--footer-legal-fontSize`
+- `--footer-paddingBlock`
+- `--footer-titleSize`
 
 ## Output
 
@@ -57,7 +65,7 @@ Brand and navigation columns in the upper section, legal links in the lower one.
 
     <section pgs="footer-top section">
         <div pgs="footer-top-content flex['row' 'column-3']">
-            <div pgs="footer-brand">
+            <div pgs="footer-brand flex['column']">
                 <a aria-label="Logo" pgs="logo['logoFooter']" href="/">
                     <span pgs="logo-text">MyPGS</span>
                 </a>
@@ -70,7 +78,7 @@ Brand and navigation columns in the upper section, legal links in the lower one.
             <div pgs="footer-content">
                 <h2>Menu</h2>
                 <nav aria-label="Footer menu">
-                    <ul>
+                    <ul pgs="flex['column' 'gapDetails']">
                         <li><a href="/">Home</a></li>
                         <li><a href="/contact">Contact</a></li>
                     </ul>
@@ -85,6 +93,29 @@ Brand and navigation columns in the upper section, legal links in the lower one.
             <a href="">Cookie Policy</a>
             <a href="">Terms and Conditions</a>
             <p>© 2026 MyPGS. No rights reserved.</p>
+        </div>
+    </section>
+</footer>
+```
+
+### Legal with logo and theme control
+
+A logo in footer-legal-content sits in the row with the links, and on a narrow section takes a row of its own. A button, here the theme control, takes the small size of the legal text.
+
+```html
+<footer pgs="footer">
+    <section pgs="footer-legal section">
+        <div pgs="footer-legal-content">
+            <a aria-label="Logo" pgs="logo" href="/">
+                <span pgs="logo-text">MyPGS</span>
+            </a>
+            <a href="">Privacy Policy</a>
+            <a href="">Cookie Policy</a>
+            <p>© 2026 MyPGS. No rights reserved.</p>
+            <button pgs="button['btnIconOnly'] darkmodeToggle" type="button" aria-label="Change theme">
+                <i pgs="darkmodeToggle-light icon['icon-moon']" aria-hidden="true"></i>
+                <i pgs="darkmodeToggle-dark icon['icon-sun']" aria-hidden="true"></i>
+            </button>
         </div>
     </section>
 </footer>

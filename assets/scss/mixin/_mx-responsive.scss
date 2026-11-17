@@ -5,16 +5,16 @@
 //## column
 @mixin column($gap: var(--gap-paragraphs)) {
     display: flex;
-    gap: $gap;
     --gap: #{$gap};
+    gap: var(--gap);
     flex-direction: column;
 }
 
 //## row
 @mixin row($wrap: wrap, $gap: var(--gap-paragraphs)) {
     display: flex;
-    gap: $gap;
     --gap: #{$gap};
+    gap: var(--gap);
     flex-direction: row;
     flex-wrap: $wrap;
 }
@@ -22,8 +22,8 @@
 //## center
 @mixin center($gap: var(--gap-paragraphs)) {
     display: flex;
-    gap: $gap;
     --gap: #{$gap};
+    gap: var(--gap);
     align-items: center;
     justify-content: center;
 }
