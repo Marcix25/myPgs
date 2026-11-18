@@ -16,6 +16,7 @@ pgs.helper gathers the small functions the library itself is built on, public so
 - `pgs.helper.onDocumentReady(callback)`: runs the callback once the DOM is parsed, straight away when it already is; does nothing without a document.
 - `pgs.helper.escapeHtml(value)`: the text with & < > " ' turned into entities, for a string that goes into innerHTML.
 - `pgs.helper.formatText(value)`: escapeHtml, then **bold** as strong and line breaks as br, the same small subset the alert card accepts.
+- `pgs.helper.normalizeText(value)`: the text in lower case, without accents and without the spaces at the ends, the form two texts are compared in: pgs.helper.normalizeText("Città ") is "citta". The select box with selectBoxSearch and the search suggestions of an array source filter with it.
 - `pgs.helper.warn(scope, message, ...details)`: prints "pgs.<scope>(): <message>" with console.warn, for markup that is invalid but can be skipped.
 - `pgs.helper.invalid(scope, message)`: returns a TypeError with the message "pgs.<scope>(): <message>", to throw for an invalid argument.
 

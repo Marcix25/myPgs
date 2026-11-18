@@ -27,6 +27,11 @@
         border-bottom-left-radius: 0;
     }
 
+    //+ openUp: the list opens above the form, which squares its top corners instead
+    &[pgs-state~="openUp"]:has([pgs~="search-suggestions"][aria-hidden="false"]) {
+        border-radius: 0 0 var(--search-borderRadius) var(--search-borderRadius);
+    }
+
     // the input draws no outline of its own (it would be cut by the rounded corners), the form carries the ring
     &:has(> input:focus-visible) {
         @include focusRing();
@@ -38,6 +43,8 @@
             @include focusRing();
             clip-path: inset(0 -10px -10px);
         }
+
+        &[pgs-state~="openUp"] :where([pgs~="search-suggestions"]) { clip-path: inset(-10px -10px 0); }
     }
 
     >:where(input) {
@@ -76,34 +83,24 @@
     // form, so the input takes the same space on its sides as above and below
     &:not(:has(> :is(button:not([type]), button[type="submit"], input[type="submit"]))) >:where(input) { padding-inline: var(--search-paddingBlock); }
 
-    // the list is a listbox (the JavaScript gives it the token), joined to the form: it takes the background,
-    // the color and the radius of the form. The outline of the form (--search-borderWidth) goes on round
-    // the list: an absolute box is placed inside the border of the form, so the list is pulled out by the
-    // same width on both sides and lies over the bottom border, where its border-top (--search-border) is
-    // the line between the two
+    // the list is a listbox (the JavaScript gives it the token), which draws it whole (see Listbox): here it is
+    // only placed and shown while open. It is joined to the form: the form squares its corners on the side of
+    // the list, and the list, an absolute box placed inside the border of the form, is pulled out by that
+    // border on both sides and lies over the bottom one, so the two borders are one line. The JavaScript
+    // tells the list on which side it lies (below or above), and listbox squares its corners there
     :where([pgs~="search-suggestions"]) {
-        --listbox-background: var(--search-background);
-        --listbox-color: var(--search-color);
-        --listbox-borderRadius: var(--search-borderRadius);
         display: none;
         position: absolute;
         inset: calc(100% + var(--listbox-offset)) calc(var(--search-borderWidth) * -1) auto;
-        z-index: var(--zIndex-search);
-        border: var(--search-borderWidth) var(--border-style) var(--search-borderColor);
-        border-top: var(--search-border);
-        border-top-right-radius: 0;
-        border-top-left-radius: 0;
-
-        // the messages in place of the options read like the heading of a group, without the bold
-        :where([pgs~="_search-suggestions-placeholder"]),
-        :where([pgs~="_search-suggestions-empty"]) {
-            padding: var(--listbox-option-padding);
-            cursor: default;
-            opacity: .6;
-        }
+        z-index: var(--zIndex-dropdown);
     }
 
     &[pgs-state~="open"] :where([pgs~="search-suggestions"]) { display: flex; }
+
+    //+ openUp: no room below the form and more above, the list lies over it, joined to its top
+    &[pgs-state~="openUp"] :where([pgs~="search-suggestions"]) {
+        inset: auto calc(var(--search-borderWidth) * -1) calc(100% + var(--listbox-offset));
+    }
 
     @at-root :where(dialog) #{&} {
         height: max-content;

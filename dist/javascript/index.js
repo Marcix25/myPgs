@@ -577,6 +577,7 @@ pgs.helper = {
     onDocumentReady: _helper_onDocumentReady_js__WEBPACK_IMPORTED_MODULE_1__.PGS_onDocumentReady,
     escapeHtml: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_escapeHtml,
     formatText: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_formatText,
+    normalizeText: _helper_text_js__WEBPACK_IMPORTED_MODULE_2__.PGS_normalizeText,
     warn: _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_warn,
     invalid: _helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid,
 };
@@ -3300,6 +3301,9 @@ const Search = {
         if (!data) return;
 
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("open");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("openUp");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.remove("below");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.remove("above");
         data.input.setAttribute("aria-expanded", "false");
         data.input.removeAttribute("aria-activedescendant");
         data.list.setAttribute("aria-hidden", "true");
@@ -3315,6 +3319,17 @@ const Search = {
         data.input.setAttribute("aria-expanded", "true");
         data.list.setAttribute("aria-hidden", "false");
         ACTIVE_SEARCHES.add(search);
+
+        // the list opens upward when there is no room for it below and more above, as the list of a select box
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("openUp");
+        const listRect = data.list.getBoundingClientRect();
+        const formRect = search.getBoundingClientRect();
+        const up = listRect.bottom > window.innerHeight && formRect.top > window.innerHeight - formRect.bottom;
+        if (up) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.add("openUp");
+
+        // listbox squares the corners of the list on the side of the form
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.toggle("below", !up);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.toggle("above", up);
     },
 
     placeholderText(search, options) {
@@ -3461,10 +3476,11 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
     async function resolveSource(query, signal) {
         if (Array.isArray(options.source)) {
-            const normalizedQuery = query.toLocaleLowerCase();
+            // capitals and accents do not count: "citta" finds "Città"
+            const normalizedQuery = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.normalizeText(query);
             return options.source.filter(item => {
                 const normalized = Search.normalizeItem(item);
-                return normalized && normalized.label.toLocaleLowerCase().includes(normalizedQuery);
+                return normalized && _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.normalizeText(normalized.label).includes(normalizedQuery);
             });
         }
 
@@ -3522,6 +3538,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     function showPlaceholder() {
         const option = document.createElement("li");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-placeholder");
+        // drawn by listbox, as a message in place of the options
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-message");
         option.textContent = Search.placeholderText(search, options);
         showMessage(option);
     }
@@ -3529,6 +3547,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     function showNoResults() {
         const option = document.createElement("li");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-empty");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-message");
         option.textContent = Search.noResultsText(search);
         showMessage(option);
     }
@@ -3738,6 +3757,12 @@ const PAGE_STEP = 10;
 // the form and keeps the value: every choice is written on it and raises input and change, so the form,
 // required, a reset and formValidate work as they do on any select. destroy() takes the generated
 // button and list away and gives the select back
+//
+// Options, all off by default:
+// - selectBoxSearch: a search field over the list filters the options (and the groups by their label)
+// - selectBoxChips: on a multiple select, each chosen option is a chip with a button that takes it away
+// - selectBoxCollapse: the optgroups open and close from their heading
+// - selectBoxMax[n] (pgs-data): on a multiple select, at most n options can be chosen
 function PGS_selectBox_build(root) {
     const select = Array.from(root.children).find(child => child.tagName === "SELECT");
 
@@ -3749,6 +3774,23 @@ function PGS_selectBox_build(root) {
     const controller = new AbortController();
     const { signal } = controller;
     const listId = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("selectBox-list");
+
+    //## options
+    const searchable = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxSearch");
+    const collapsible = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxCollapse");
+    const withChips = multiple && (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxChips");
+    const maxValue = Number.parseInt((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxMax"), 10);
+    const max = multiple && maxValue > 0 ? maxValue : 0;
+    const searchPlaceholder = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxSearchPlaceholder") || "Search";
+    const noResultsText = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxNoResults") || "No results";
+    const chipRemoveText = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxChipRemove") || "Remove";
+
+    if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxChips") && !multiple) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("selectBox.init", "selectBoxChips needs a <select multiple>, so it was left out", root);
+    }
+    if (maxValue > 0 && !multiple) {
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("selectBox.init", "selectBoxMax needs a <select multiple>, so it was left out", root);
+    }
 
     //## generated markup
     const button = document.createElement("button");
@@ -3772,10 +3814,57 @@ function PGS_selectBox_build(root) {
     list.tabIndex = -1;
     if (multiple) list.setAttribute("aria-multiselectable", "true");
 
+    // with a search the list is not alone under the button: a panel holds the field, the list and the
+    // message shown when nothing matches, and the panel is what opens
+    let panel = null;
+    let search = null;
+    let searchField = null;
+    let noResults = null;
+    if (searchable) {
+        panel = document.createElement("div");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("_selectBox-panel");
+        // the box of a listbox (background, border, radius, padding), the same as the list it holds
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("listbox");
+
+        // the field looks like the one of a search (pgs="search"): a pill with the magnifying glass before the input
+        searchField = document.createElement("div");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(searchField).add("_selectBox-search");
+
+        search = document.createElement("input");
+        search.type = "search";
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).add("_selectBox-search-input");
+        searchField.append(search);
+        search.placeholder = searchPlaceholder;
+        search.setAttribute("aria-label", searchPlaceholder);
+        search.setAttribute("aria-controls", listId);
+        search.setAttribute("aria-autocomplete", "list");
+        search.autocomplete = "off";
+        search.spellcheck = false;
+
+        noResults = document.createElement("p");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(noResults).add("_selectBox-noResults");
+        // drawn by listbox, as a message in place of the options
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(noResults).add("listbox-message");
+        noResults.setAttribute("role", "status");
+        noResults.textContent = noResultsText;
+        noResults.hidden = true;
+
+        panel.append(searchField, list, noResults);
+    }
+    const floating = panel || list;
+
+    // the chosen options of a selectBoxChips, before the button, each with its own button to take it away
+    let chips = null;
+    if (withChips) {
+        chips = document.createElement("ul");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(chips).add("_selectBox-chips");
+        chips.setAttribute("aria-live", "polite");
+    }
+
     // the select is still the one the form reads, but no longer the one the reader uses
     select.setAttribute("aria-hidden", "true");
     select.tabIndex = -1;
-    select.after(button, list);
+    select.after(...[chips, button, floating].filter(Boolean));
 
     // the button and the list are named by the labels of the select, given an id when they have none
     const labelIds = Array.from(select.labels || []).map(label => {
@@ -3792,19 +3881,27 @@ function PGS_selectBox_build(root) {
 
     //## state
     let entries = [];
+    let groups = [];
+    // which groups are open, by their label, so a list written again keeps them as they were
+    const groupOpen = new Map();
     let activeIndex = -1;
     let typed = "";
     let typedTimer = 0;
 
     const isOpen = () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.contains("open");
-    const enabled = entry => entry && !entry.disabled;
+    const chosenOptions = () => Array.from(select.selectedOptions).filter(option => !(option.hidden && option.value === ""));
+    const isFull = () => max > 0 && chosenOptions().length >= max;
+    // an option the keys and the pointer can choose: not disabled, not cut by the limit, not filtered out.
+    // An option of a closed group still is: reaching it opens its group
+    const enabled = entry => Boolean(entry) && !entry.disabled && !entry.filtered && !(isFull() && !entry.option.selected);
 
     // the options of the select, optgroups included, written again as items of the list
     const render = () => {
         list.replaceChildren();
         entries = [];
+        groups = [];
 
-        const addOption = (option, groupDisabled) => {
+        const addOption = (option, group) => {
             if (option.hidden) return;
 
             const item = document.createElement("li");
@@ -3813,26 +3910,33 @@ function PGS_selectBox_build(root) {
             item.setAttribute("role", "option");
             item.replaceChildren(...contentOf(option));
 
-            const disabled = option.disabled || groupDisabled;
-            if (disabled) item.setAttribute("aria-disabled", "true");
-
-            entries.push({ option, item, disabled });
+            const disabled = option.disabled || Boolean(group?.disabled);
+            const entry = { option, item, disabled, group, text: _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.normalizeText(labelOf(option)), filtered: false };
+            entries.push(entry);
+            group?.entries.push(entry);
             list.append(item);
         };
 
         Array.from(select.children).forEach(child => {
             if (child.tagName === "OPTGROUP") {
-                const group = document.createElement("li");
-                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(group).add("listbox-group");
-                group.setAttribute("role", "presentation");
-                group.textContent = child.label;
-                list.append(group);
-                Array.from(child.children).forEach(option => addOption(option, child.disabled));
+                const header = document.createElement("li");
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).add("listbox-group");
+                header.setAttribute("role", "presentation");
+                header.textContent = child.label;
+                list.append(header);
+
+                const group = { header, label: child.label, text: _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.normalizeText(child.label), disabled: child.disabled, entries: [] };
+                groups.push(group);
+                Array.from(child.children).forEach(option => addOption(option, group));
+
+                // a group opens the first time it is drawn when it holds a chosen option
+                if (!groupOpen.has(group.label)) groupOpen.set(group.label, group.entries.some(entry => entry.option.selected));
             } else if (child.tagName === "OPTION") {
-                addOption(child, false);
+                addOption(child, null);
             }
         });
 
+        filter();
         sync();
     };
 
@@ -3847,19 +3951,84 @@ function PGS_selectBox_build(root) {
         return template ? [template.content.cloneNode(true), text] : [text];
     };
 
+    // what the search field holds hides the options that do not match, unless their group matches; a group
+    // with nothing left hides its heading. Without a search, a closed group hides its options
+    const filter = () => {
+        const query = search ? _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.normalizeText(search.value) : "";
+
+        entries.forEach(entry => {
+            const groupMatches = query && entry.group && entry.group.text.includes(query);
+            entry.filtered = Boolean(query) && !groupMatches && !entry.text.includes(query);
+            const closed = collapsible && !query && entry.group && !groupOpen.get(entry.group.label);
+            entry.item.hidden = entry.filtered || Boolean(closed);
+        });
+
+        groups.forEach(group => {
+            group.header.hidden = !group.entries.some(entry => !entry.filtered);
+            // listbox draws a heading with open or closed as one that opens and closes
+            if (collapsible) {
+                const open = Boolean(query) || Boolean(groupOpen.get(group.label));
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(group.header).state.toggle("open", open);
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(group.header).state.toggle("closed", !open);
+            }
+        });
+
+        if (noResults) noResults.hidden = !query || entries.some(entry => !entry.filtered);
+    };
+
+    const toggleGroup = (group, open = !groupOpen.get(group.label)) => {
+        groupOpen.set(group.label, open);
+        filter();
+    };
+
     // the button shows the option the select holds (the chosen ones, one after the other, on a multiple
     // select), and the list marks them. With nothing chosen, or a placeholder chosen, the button shows the
-    // placeholder: the hidden option with an empty value
+    // placeholder: the hidden option with an empty value. With chips, the chosen ones are the chips and the
+    // button keeps the placeholder for when there are none
     const sync = () => {
-        const chosen = Array.from(select.selectedOptions).filter(option => !(option.hidden && option.value === ""));
+        const chosen = chosenOptions();
         const placeholder = Array.from(select.options).find(option => option.hidden && option.value === "");
+        const full = isFull();
 
-        entries.forEach(entry => entry.item.setAttribute("aria-selected", String(entry.option.selected)));
-        if (multiple) value.textContent = chosen.length ? chosen.map(labelOf).join(", ") : (placeholder ? labelOf(placeholder) : "");
-        else value.replaceChildren(...(select.selectedOptions[0] ? contentOf(select.selectedOptions[0]) : []));
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.toggle("empty", !chosen.length || (!multiple && chosen[0].value === ""));
+        entries.forEach(entry => {
+            entry.item.setAttribute("aria-selected", String(entry.option.selected));
+            if (entry.disabled || (full && !entry.option.selected)) entry.item.setAttribute("aria-disabled", "true");
+            else entry.item.removeAttribute("aria-disabled");
+        });
+
+        if (withChips) {
+            value.textContent = chosen.length ? "" : (placeholder ? labelOf(placeholder) : "");
+            chips.replaceChildren(...chosen.map(chipOf));
+        } else if (multiple) {
+            value.textContent = chosen.length ? chosen.map(labelOf).join(", ") : (placeholder ? labelOf(placeholder) : "");
+        } else {
+            value.replaceChildren(...(select.selectedOptions[0] ? contentOf(select.selectedOptions[0]) : []));
+        }
+
+        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.toggle("empty", !chosen.length || (!multiple && chosen[0].value === ""));
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.toggle("full", full);
         button.disabled = select.disabled;
+        if (search) search.disabled = select.disabled;
         if (select.disabled && isOpen()) close();
+    };
+
+    const chipOf = (option) => {
+        const chip = document.createElement("li");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(chip).add("_selectBox-chip");
+
+        const label = document.createElement("span");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).add("_selectBox-chip-label");
+        label.replaceChildren(...contentOf(option));
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(remove).add("_selectBox-chip-remove");
+        remove.setAttribute("aria-label", `${chipRemoveText} ${labelOf(option).trim()}`);
+        remove.dataset.optionIndex = String(option.index);
+        remove.disabled = select.disabled;
+
+        chip.append(label, remove);
+        return chip;
     };
 
     const selectedIndex = () => entries.findIndex(entry => entry.option.selected);
@@ -3871,15 +4040,22 @@ function PGS_selectBox_build(root) {
         const entry = entries[activeIndex];
         if (!entry) {
             button.removeAttribute("aria-activedescendant");
+            search?.removeAttribute("aria-activedescendant");
             return;
         }
 
-        ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(entry.item).state.add("active");
+        // an option the keys reach inside a closed group opens it
+        if (collapsible && entry.group && !groupOpen.get(entry.group.label)) toggleGroup(entry.group, true);
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(entry.item).state.add("active");
         button.setAttribute("aria-activedescendant", entry.item.id);
+        search?.setAttribute("aria-activedescendant", entry.item.id);
 
         // keeps the item inside the list, without moving the page
-        const top = entry.item.offsetTop;
-        const bottom = top + entry.item.offsetHeight;
+        const listRect = list.getBoundingClientRect();
+        const itemRect = entry.item.getBoundingClientRect();
+        const top = itemRect.top - listRect.top + list.scrollTop;
+        const bottom = top + itemRect.height;
         if (top < list.scrollTop) list.scrollTop = top;
         else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight;
     };
@@ -3912,23 +4088,40 @@ function PGS_selectBox_build(root) {
 
         // the list opens upward when there is no room for it below and more above
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("openUp");
-        const rect = list.getBoundingClientRect();
+        const rect = floating.getBoundingClientRect();
         const buttonRect = button.getBoundingClientRect();
-        if (rect.bottom > window.innerHeight && buttonRect.top > window.innerHeight - buttonRect.bottom) {
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.add("openUp");
-        }
+        const up = rect.bottom > window.innerHeight && buttonRect.top > window.innerHeight - buttonRect.bottom;
+        if (up) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.add("openUp");
+
+        // listbox squares the corners of the list on the side of the field, when the list floats against it
+        // (a theme that lays it in the flow of the page keeps it whole)
+        const attached = getComputedStyle(floating).position === "absolute";
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.toggle("below", attached && !up);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.toggle("above", attached && up);
+
+        // with a search the keys go to its field, which keeps the list working as the button did
+        search?.focus({ preventScroll: true });
     };
 
     const close = () => {
         if (!isOpen()) return;
 
+        const focusWasInside = search && document.activeElement === search;
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("open");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("openUp");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("below");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("above");
         button.setAttribute("aria-expanded", "false");
         setActive(-1);
         // letters typed before closing do not carry over to the next search
         clearTimeout(typedTimer);
         typed = "";
+        if (search) {
+            search.value = "";
+            filter();
+        }
+        // the field is hidden with the list: the focus it held goes back to the button
+        if (focusWasInside) button.focus();
     };
 
     const announce = (option) => {
@@ -3986,32 +4179,11 @@ function PGS_selectBox_build(root) {
         else setActive(found);
     };
 
-    //## events
-    button.addEventListener("click", (event) => {
-        // a click raised by Enter or Space is already handled by the keydown below
-        if (event.detail === 0) return;
-        isOpen() ? close() : open();
-    }, { signal });
-
-    button.addEventListener("keydown", (event) => {
+    // the keys of an open list, the same on the button and on the search field; the field keeps the space,
+    // Home and End for its text
+    const onOpenKeys = (event, inSearch) => {
         const { key, altKey } = event;
         const printable = key.length === 1 && !event.ctrlKey && !event.metaKey && !altKey;
-
-        if (!isOpen()) {
-            if (["ArrowDown", "ArrowUp", "Enter", " "].includes(key)) {
-                event.preventDefault();
-                open();
-            } else if (key === "Home") {
-                event.preventDefault();
-                open(first());
-            } else if (key === "End") {
-                event.preventDefault();
-                open(last());
-            } else if (printable) {
-                typeahead(key);
-            }
-            return;
-        }
 
         switch (key) {
             case "ArrowDown":
@@ -4025,10 +4197,12 @@ function PGS_selectBox_build(root) {
                 else move(-1);
                 break;
             case "Home":
+                if (inSearch) break;
                 event.preventDefault();
                 setActive(first());
                 break;
             case "End":
+                if (inSearch) break;
                 event.preventDefault();
                 setActive(last());
                 break;
@@ -4045,6 +4219,7 @@ function PGS_selectBox_build(root) {
                 choose(activeIndex);
                 break;
             case " ":
+                if (inSearch) break;
                 event.preventDefault();
                 // a space in the middle of a word being typed is part of it
                 if (typed) typeahead(key);
@@ -4053,6 +4228,7 @@ function PGS_selectBox_build(root) {
             case "Escape":
                 event.preventDefault();
                 close();
+                button.focus();
                 break;
             case "Tab":
                 // the focus moves on with the active option chosen, as on a native select; a multiple
@@ -4061,15 +4237,84 @@ function PGS_selectBox_build(root) {
                 else choose(activeIndex);
                 break;
             default:
-                if (printable) typeahead(key);
+                if (printable && !inSearch) typeahead(key);
+        }
+    };
+
+    //## events
+    button.addEventListener("click", (event) => {
+        // a click raised by Enter or Space is already handled by the keydown below
+        if (event.detail === 0) return;
+        isOpen() ? close() : open();
+    }, { signal });
+
+    button.addEventListener("keydown", (event) => {
+        const { key, altKey } = event;
+        const printable = key.length === 1 && !event.ctrlKey && !event.metaKey && !altKey;
+
+        if (isOpen()) {
+            onOpenKeys(event, false);
+            return;
+        }
+
+        if (["ArrowDown", "ArrowUp", "Enter", " "].includes(key)) {
+            event.preventDefault();
+            open();
+        } else if (key === "Home") {
+            event.preventDefault();
+            open(first());
+        } else if (key === "End") {
+            event.preventDefault();
+            open(last());
+        } else if (printable && search) {
+            // a letter typed on the closed button opens the list and starts the search with it
+            event.preventDefault();
+            open();
+            search.value = key;
+            filter();
+            setActive(first());
+        } else if (printable) {
+            typeahead(key);
         }
     }, { signal });
 
-    // the focus stays on the button while the pointer works the list
-    list.addEventListener("mousedown", event => event.preventDefault(), { signal });
+    if (search) {
+        search.addEventListener("keydown", event => onOpenKeys(event, true), { signal });
+        search.addEventListener("input", () => {
+            filter();
+            setActive(first());
+        }, { signal });
+    }
+
+    // the focus stays on the button (or on the search field) while the pointer works the list
+    floating.addEventListener("mousedown", (event) => {
+        if (event.target !== search) event.preventDefault();
+    }, { signal });
     list.addEventListener("click", (event) => {
-        const index = entries.findIndex(entry => entry.item === event.target.closest("li"));
+        const item = event.target.closest("li");
+        const group = groups.find(candidate => candidate.header === item);
+        if (group) {
+            if (collapsible && !(search && search.value)) toggleGroup(group);
+            return;
+        }
+        const index = entries.findIndex(entry => entry.item === item);
         if (index >= 0) choose(index);
+    }, { signal });
+
+    // a chip takes its option away with its button; a click elsewhere on the chips opens the list
+    chips?.addEventListener("click", (event) => {
+        const remove = event.target.closest('[pgs~="_selectBox-chip-remove"]');
+        if (!remove) {
+            if (!isOpen()) open();
+            return;
+        }
+        const option = select.options[Number(remove.dataset.optionIndex)];
+        if (!option || select.disabled) return;
+        option.selected = false;
+        announce(option);
+        sync();
+        // the chip and its button are gone: the focus goes back to the field
+        if (!isOpen()) button.focus();
     }, { signal });
 
     // a click outside, or the focus leaving the box, closes the list
@@ -4110,8 +4355,10 @@ function PGS_selectBox_build(root) {
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("open");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("openUp");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("empty");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("full");
         button.remove();
-        list.remove();
+        floating.remove();
+        chips?.remove();
         select.removeAttribute("aria-hidden");
         select.removeAttribute("tabindex");
         API.delete(root);
@@ -4122,6 +4369,7 @@ function PGS_selectBox_build(root) {
         select,
         button,
         list,
+        search,
         open: () => open(),
         close,
         toggle: () => (isOpen() ? close() : open()),
@@ -5979,7 +6227,8 @@ function PGS_onDocumentReady(callback) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PGS_escapeHtml: () => (/* binding */ PGS_escapeHtml),
-/* harmony export */   PGS_formatText: () => (/* binding */ PGS_formatText)
+/* harmony export */   PGS_formatText: () => (/* binding */ PGS_formatText),
+/* harmony export */   PGS_normalizeText: () => (/* binding */ PGS_normalizeText)
 /* harmony export */ });
 // escapes text that gets interpolated into innerHTML, shared by the components that build their own
 // markup from supplied strings: the alert card (the titles and descriptions of alerts, and of
@@ -5991,6 +6240,17 @@ function PGS_escapeHtml(value) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+}
+
+// the form two texts are compared in: lower case, without accents and without the spaces at the ends, so
+// "citta" finds "Città". Shared by the lists that filter their options as the reader types (the select box
+// with selectBoxSearch, the search suggestions of an array source)
+function PGS_normalizeText(value) {
+    return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase()
+        .trim();
 }
 
 // the shared bit of markdown the alert card accepts in its title and description: **bold** and line

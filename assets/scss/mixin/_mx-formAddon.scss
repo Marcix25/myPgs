@@ -179,6 +179,11 @@
 @mixin selectBox() {
     --selectBox-icon: var(--icon-glyph-chevronDown);
     --selectBox-timing: 300ms;
+    --selectBox-chip-background: var(--current-background);
+    --selectBox-chip-color: var(--current-color);
+    --selectBox-chip-borderRadius: var(--borderRadius-paragraphs);
+    --selectBox-chip-padding: calc(var(--padding-details) / 2) var(--padding-details);
+    --selectBox-chip-removeIcon: var(--icon-glyph-close);
     position: relative;
     display: block;
     width: 100%;
@@ -239,24 +244,195 @@
     &[pgs-state~="open"]>:where([pgs~="_selectBox-button"])::after { rotate: 180deg; }
 
     //## LIST
-    // a listbox, which draws it: here it only lies under the button, and shows while open
-    >:where([pgs~="_selectBox-list"]) {
+    // a listbox, which draws it whole (see Listbox): here it is only placed and shown while open. It is joined
+    // to the field: the button squares its corners on the side of the list, and the list lies over the border
+    // of the button, so the two borders are one line; the JavaScript tells the list on which side it lies
+    // (below or above), and listbox squares its corners there. With a search the panel is what opens
+    >:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) {
         display: none;
         position: absolute;
-        inset: calc(100% + var(--listbox-offset)) 0 auto;
+        inset: calc(100% - var(--border-width) + var(--listbox-offset, 0px)) 0 auto;
         z-index: var(--zIndex-dropdown);
     }
 
-    &[pgs-state~="open"]>:where([pgs~="_selectBox-list"]) { display: flex; }
-    &[pgs-state~="openUp"]>:where([pgs~="_selectBox-list"]) { inset: auto 0 calc(100% + var(--listbox-offset)); }
+    &[pgs-state~="open"]>:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) { display: flex; }
+
+    &[pgs-state~="open"]:not([pgs-state~="openUp"])>:where([pgs~="_selectBox-button"]) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    //+ openUp: the list over the field, joined to its top
+    &[pgs-state~="openUp"]>:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) {
+        inset: auto 0 calc(100% - var(--border-width) + var(--listbox-offset, 0px));
+    }
+
+    &[pgs-state~="openUp"]>:where([pgs~="_selectBox-button"]) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    // the ring of the focused field goes on round the list, so the two read as one; the clip-path trims the
+    // ring of the list on the side it shares with the field
+    &[pgs-state~="open"]:has(> [pgs~="_selectBox-button"]:focus-visible)>:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) {
+        @include focusRing();
+        clip-path: inset(0 -10px -10px);
+    }
+
+    &[pgs-state~="openUp"]:has(> [pgs~="_selectBox-button"]:focus-visible)>:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) { clip-path: inset(-10px -10px 0); }
+
+    //## PANEL
+    // selectBoxSearch: the search field, the list and the message for no match, in one box that is a listbox
+    // too (the JavaScript gives it the token): listbox draws it, and the list inside it, as a listbox in a
+    // listbox. Here only the search field, which belongs to the select box
+    >:where([pgs~="_selectBox-panel"]) {
+        // the search field looks like the field of a search (pgs="search"): a pill on --color-box with the
+        // magnifying glass before the input, which draws no box of its own
+        >:where([pgs~="_selectBox-search"]) {
+            --selectBox-search-height: var(--font-size-text);
+            --selectBox-search-paddingBlock: var(--borderRadius-paragraphs);
+            --selectBox-search-background: var(--color-box);
+            --selectBox-search-color: var(--color-black);
+            display: flex;
+            align-items: center;
+            gap: var(--gap-details);
+            padding-inline: var(--selectBox-search-paddingBlock);
+            border: var(--border-width) var(--border-color) var(--border-style);
+            border-radius: calc(var(--borderRadius-paragraphs) + (var(--selectBox-search-height) / 2));
+            background-color: var(--selectBox-search-background);
+            color: var(--selectBox-search-color);
+            @include icon(var(--icon-glyph-magnifyingGlass), "::before");
+
+            &::before { flex-shrink: 0; }
+
+            &:has(> input:focus-visible) { @include focusRing(); }
+
+            >:where(input) {
+                flex: 1;
+                min-width: 0;
+                height: var(--selectBox-search-height);
+                box-sizing: content-box;
+                padding: var(--selectBox-search-paddingBlock) 0;
+                border: 0;
+                background-color: transparent;
+                color: inherit;
+                font-family: var(--font);
+                font-size: var(--font-size-text);
+                font-weight: var(--font-weight-bold);
+
+                &::placeholder {
+                    color: color-mix(in srgb, var(--selectBox-search-color) 60%, transparent);
+                    opacity: 1;
+                }
+
+                &:focus-visible { outline: unset; }
+
+                &::-webkit-search-cancel-button,
+                &::-webkit-search-decoration {
+                    -webkit-appearance: none;
+                    appearance: none;
+                }
+            }
+        }
+    }
+
+    //## CHIPS
+    //+ selectBoxChips: the box of the field holds the chosen options as chips, then the button, which drops its
+    // own box and keeps the chevron at the end
+    &:where([pgs*="'selectBoxChips'"]):has(> [pgs~="_selectBox-chips"]) {
+        @include input();
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--gap-details);
+
+        >:where([pgs~="_selectBox-button"]) {
+            flex: 1 1 8ch;
+            min-width: 8ch;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            outline: 0;
+        }
+
+        &:has(> [pgs~="_selectBox-button"]:focus-visible) { @include focusRing(); }
+
+        // the box of the field is the root here: it squares its corners on the side of the list, and the list,
+        // placed inside its border, is pulled out by the border on both sides, as the suggestions of a search
+        >:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) {
+            inset: calc(100% + var(--listbox-offset, 0px)) calc(var(--border-width) * -1) auto;
+        }
+
+        &[pgs-state~="open"]:not([pgs-state~="openUp"]) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &[pgs-state~="openUp"] {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+
+            >:where([pgs~="_selectBox-list"], [pgs~="_selectBox-panel"]) {
+                inset: auto calc(var(--border-width) * -1) calc(100% + var(--listbox-offset, 0px));
+            }
+        }
+    }
+
+    >:where([pgs~="_selectBox-chips"]) {
+        display: contents;
+
+        :where([pgs~="_selectBox-chip"]) {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--gap-details);
+            max-width: 100%;
+            padding: var(--selectBox-chip-padding);
+            border-radius: var(--selectBox-chip-borderRadius);
+            background: var(--selectBox-chip-background);
+            color: var(--selectBox-chip-color);
+            font-size: .9em;
+            line-height: 1.2;
+        }
+
+        :where([pgs~="_selectBox-chip-label"]) {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--gap-details);
+            min-width: 0;
+        }
+
+        :where([pgs~="_selectBox-chip-remove"]) {
+            display: inline-grid;
+            place-items: center;
+            flex-shrink: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            opacity: .7;
+            --icon-size: .8em;
+            @include icon(var(--selectBox-chip-removeIcon), "::before");
+
+            &:hover { opacity: 1; }
+            &:focus-visible { @include focusRing(); }
+            &:disabled { cursor: not-allowed; }
+        }
+    }
 
     //## ERROR
-    // the select failed formValidate: its button shows it, as an input would
-    &:has(> select[pgs-state~=errorField])>:where([pgs~="_selectBox-button"]) {
+    // the select failed formValidate: its button shows it, as an input would (the whole box with chips)
+    &:has(> select[pgs-state~=errorField])>:where([pgs~="_selectBox-button"]),
+    &:where([pgs*="'selectBoxChips'"]):has(> select[pgs-state~=errorField]):has(> [pgs~="_selectBox-chips"]) {
         outline: var(--formValidate-outline, var(--border-width) var(--border-style));
         outline-color: var(--formValidate-outlineColor, var(--color-error));
         background-color: var(--color-error-soft);
         color: var(--color-error);
+    }
+
+    &:where([pgs*="'selectBoxChips'"]):has(> select[pgs-state~=errorField])>:where([pgs~="_selectBox-button"]) {
+        outline: 0;
+        background: transparent;
     }
 }
 

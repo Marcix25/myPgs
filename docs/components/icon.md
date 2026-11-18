@@ -56,6 +56,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `--icon-glyph-circle`
 - `--icon-glyph-circleXmark`
 - `--icon-glyph-close`
+- `--icon-glyph-magnifyingGlass`
 - `--icon-glyph-star`
 - `--icon-size`
 

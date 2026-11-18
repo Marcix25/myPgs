@@ -1,6 +1,6 @@
 import { PGS_directChild, PGS_directChildren, PGS_dispatch, PGS_roots, PGS_uniqueId } from "./helper/_dom.js";
 import { PGS_onDocumentReady } from "./helper/_onDocumentReady.js";
-import { PGS_escapeHtml, PGS_formatText } from "./helper/_text.js";
+import { PGS_escapeHtml, PGS_formatText, PGS_normalizeText } from "./helper/_text.js";
 import { PGS_rafThrottle, PGS_watchDocument } from "./helper/_throttle.js";
 import { PGS_invalid, PGS_warn } from "./helper/_warn.js";
 
@@ -484,6 +484,7 @@ pgs.helper = {
     onDocumentReady: PGS_onDocumentReady,
     escapeHtml: PGS_escapeHtml,
     formatText: PGS_formatText,
+    normalizeText: PGS_normalizeText,
     warn: PGS_warn,
     invalid: PGS_invalid,
 };

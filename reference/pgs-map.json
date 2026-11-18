@@ -597,12 +597,9 @@
     },
     "footer": {
         "pgs": [
-            "footer-brand",
-            "footer-content",
             "footer-legal",
             "footer-legal-content",
-            "footer-top",
-            "footer-top-content"
+            "footer-top"
         ],
         "pgs-generated": [],
         "pgs-options": [],
@@ -945,6 +942,7 @@
     "listbox": {
         "pgs": [
             "listbox-group",
+            "listbox-message",
             "listbox-option"
         ],
         "pgs-generated": [],
@@ -1532,10 +1530,27 @@
         "pgs-generated": [
             "_selectBox-button",
             "_selectBox-button-value",
-            "_selectBox-list"
+            "_selectBox-chip",
+            "_selectBox-chip-label",
+            "_selectBox-chip-remove",
+            "_selectBox-chips",
+            "_selectBox-list",
+            "_selectBox-noResults",
+            "_selectBox-panel",
+            "_selectBox-search",
+            "_selectBox-search-input"
         ],
-        "pgs-options": [],
-        "pgs-data": []
+        "pgs-options": [
+            "selectBoxChips",
+            "selectBoxCollapse",
+            "selectBoxSearch"
+        ],
+        "pgs-data": [
+            "selectBoxChipRemove",
+            "selectBoxMax",
+            "selectBoxNoResults",
+            "selectBoxSearchPlaceholder"
+        ]
     },
     "skipLink": {
         "pgs": [],

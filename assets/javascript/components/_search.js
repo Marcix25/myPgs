@@ -54,6 +54,9 @@ const Search = {
         if (!data) return;
 
         pgs(search).state.remove("open");
+        pgs(search).state.remove("openUp");
+        pgs(data.list).state.remove("below");
+        pgs(data.list).state.remove("above");
         data.input.setAttribute("aria-expanded", "false");
         data.input.removeAttribute("aria-activedescendant");
         data.list.setAttribute("aria-hidden", "true");
@@ -69,6 +72,17 @@ const Search = {
         data.input.setAttribute("aria-expanded", "true");
         data.list.setAttribute("aria-hidden", "false");
         ACTIVE_SEARCHES.add(search);
+
+        // the list opens upward when there is no room for it below and more above, as the list of a select box
+        pgs(search).state.remove("openUp");
+        const listRect = data.list.getBoundingClientRect();
+        const formRect = search.getBoundingClientRect();
+        const up = listRect.bottom > window.innerHeight && formRect.top > window.innerHeight - formRect.bottom;
+        if (up) pgs(search).state.add("openUp");
+
+        // listbox squares the corners of the list on the side of the form
+        pgs(data.list).state.toggle("below", !up);
+        pgs(data.list).state.toggle("above", up);
     },
 
     placeholderText(search, options) {
@@ -215,10 +229,11 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
     async function resolveSource(query, signal) {
         if (Array.isArray(options.source)) {
-            const normalizedQuery = query.toLocaleLowerCase();
+            // capitals and accents do not count: "citta" finds "Città"
+            const normalizedQuery = pgs.helper.normalizeText(query);
             return options.source.filter(item => {
                 const normalized = Search.normalizeItem(item);
-                return normalized && normalized.label.toLocaleLowerCase().includes(normalizedQuery);
+                return normalized && pgs.helper.normalizeText(normalized.label).includes(normalizedQuery);
             });
         }
 
@@ -276,6 +291,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     function showPlaceholder() {
         const option = document.createElement("li");
         pgs(option).add("_search-suggestions-placeholder");
+        // drawn by listbox, as a message in place of the options
+        pgs(option).add("listbox-message");
         option.textContent = Search.placeholderText(search, options);
         showMessage(option);
     }
@@ -283,6 +300,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     function showNoResults() {
         const option = document.createElement("li");
         pgs(option).add("_search-suggestions-empty");
+        pgs(option).add("listbox-message");
         option.textContent = Search.noResultsText(search);
         showMessage(option);
     }

@@ -155,7 +155,6 @@
 :where([pgs~=htmlBase]):root {
   --zIndex-skipLink: 9999;
   --zIndex-dropdown: 1000;
-  --zIndex-search: 1000;
   --zIndex-header: 100;
   --zIndex-navSmart: 100;
   --zIndex-toast: 98;
@@ -1145,8 +1144,8 @@
 [pgs~=fieldset] {
   border: unset;
   display: flex;
-  gap: var(--gap);
   --gap: var(--form-gap, var(--gap-paragraphs));
+  gap: var(--gap);
   flex-direction: column;
   padding-top: var(--form-gap, var(--gap-paragraphs));
 }
@@ -1154,8 +1153,8 @@
 [pgs~=form] {
   --form-gap: var(--gap-paragraphs);
   display: flex;
-  gap: var(--gap);
   --gap: var(--form-gap);
+  gap: var(--gap);
   flex-direction: column;
 }
 
@@ -1413,8 +1412,8 @@
 :is([pgs~=select], [pgs*="select["])[multiple] optgroup {
   color: var(--color-black);
   display: flex;
-  gap: var(--gap);
   --gap: calc(var(--gap-paragraphs) / 2);
+  gap: var(--gap);
   flex-direction: column;
 }
 
@@ -1449,7 +1448,7 @@
 
 :where([pgs~=listbox]) {
   --listbox-background: var(--color-white);
-  --listbox-color: var(--color-black);
+  --listbox-color: var(--color-text);
   --listbox-border: var(--border-width) var(--border-color) var(--border-style);
   --listbox-borderRadius: var(--borderRadius-paragraphs);
   --listbox-padding: calc(var(--padding-details) / 2);
@@ -1457,10 +1456,14 @@
   --listbox-offset: 0px;
   --listbox-maxHeight: 30rem;
   --listbox-option-padding: var(--padding-details) var(--padding-paragraphs);
+  --listbox-option-borderRadius: calc(var(--listbox-borderRadius) - var(--listbox-padding));
   --listbox-option-background-active: var(--hover-background);
   --listbox-option-color-active: var(--hover-color);
   --listbox-option-background-selected: var(--current-background);
   --listbox-option-color-selected: var(--current-color);
+  --listbox-option-iconSize: 1.25em;
+  --listbox-group-icon: var(--icon-glyph-chevronDown);
+  --listbox-timing: 300ms;
   display: flex;
   flex-direction: column;
   gap: var(--listbox-gap);
@@ -1474,6 +1477,33 @@
   color: var(--listbox-color);
   border: var(--listbox-border);
   border-radius: var(--listbox-borderRadius);
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-text);
+  line-height: 1.5;
+  text-align: left;
+}
+
+:where([pgs~=listbox])[pgs-state~=below] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+:where([pgs~=listbox])[pgs-state~=above] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+:where([pgs~=listbox]):has(:where([pgs~=listbox])) {
+  max-height: none;
+  overflow: visible;
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox]) {
+  --listbox-border: 0;
+  --listbox-padding: 0px;
+  --listbox-background: transparent;
+  --listbox-option-borderRadius: inherit;
 }
 
 :where([pgs~=listbox]) :where([pgs~=listbox-option]) {
@@ -1481,7 +1511,7 @@
   align-items: center;
   gap: var(--gap-details);
   padding: var(--listbox-option-padding);
-  border-radius: calc(var(--listbox-borderRadius) - var(--listbox-padding));
+  border-radius: var(--listbox-option-borderRadius);
   cursor: pointer;
   transition: var(--clickable-transition);
 }
@@ -1507,10 +1537,61 @@
   cursor: not-allowed !important;
 }
 
+:where([pgs~=listbox]) :where([pgs~=listbox-option]) > :where(i, svg, img, [pgs~=icon]) {
+  flex: 0 0 var(--listbox-option-iconSize);
+  text-align: center;
+}
+
 :where([pgs~=listbox]) :where([pgs~=listbox-group]) {
   padding: var(--listbox-option-padding);
   font-size: 0.85em;
   font-weight: var(--font-weight-bold);
+  opacity: 0.6;
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-group]:not([hidden])):is([pgs-state~=open], [pgs-state~=closed]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-details);
+  cursor: pointer;
+  --icon: var(--listbox-group-icon);
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-group]:not([hidden])):is([pgs-state~=open], [pgs-state~=closed])::after {
+  line-height: 1;
+  font-size: var(--icon-size, 1em);
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-group]:not([hidden])):is([pgs-state~=open], [pgs-state~=closed])::after {
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where([pgs~=listbox]) :where([pgs~=listbox-group]:not([hidden])):is([pgs-state~=open], [pgs-state~=closed])::after {
+    transition: rotate var(--listbox-timing) ease;
+  }
+}
+:where([pgs~=listbox]) :where([pgs~=listbox-group]:not([hidden])):is([pgs-state~=open], [pgs-state~=closed])[pgs-state~=closed]::after {
+  rotate: -90deg;
+}
+
+:where([pgs~=listbox]) :where([pgs~=listbox-option], [pgs~=listbox-group])[hidden] {
+  display: none;
+}
+
+:where([pgs~=listbox-message]) {
+  margin: 0;
+  padding: var(--listbox-option-padding, var(--padding-details) var(--padding-paragraphs));
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -2025,8 +2106,8 @@
   --toggle-thumb-background-checked: var(--twoState-color);
   isolation: isolate;
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: nowrap;
   --checkboxRadio-labelColor: var(--color-black);
@@ -2165,15 +2246,20 @@
   outline: var(--focus-visible) !important;
 }
 
-[pgs~=selectBox] {
+:is([pgs~=selectBox], [pgs*="selectBox["]) {
   --selectBox-icon: var(--icon-glyph-chevronDown);
   --selectBox-timing: 300ms;
+  --selectBox-chip-background: var(--current-background);
+  --selectBox-chip-color: var(--current-color);
+  --selectBox-chip-borderRadius: var(--borderRadius-paragraphs);
+  --selectBox-chip-padding: calc(var(--padding-details) / 2) var(--padding-details);
+  --selectBox-chip-removeIcon: var(--icon-glyph-close);
   position: relative;
   display: block;
   width: 100%;
 }
 
-[pgs~=selectBox]:has(> [pgs~=_selectBox-button]) > :where(select) {
+:is([pgs~=selectBox], [pgs*="selectBox["]):has(> [pgs~=_selectBox-button]) > :where(select) {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -2187,7 +2273,7 @@
   pointer-events: none;
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button]) {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button]) {
   --input-padding: var(--padding-paragraphs);
   --input-border: var(--border-width) var(--border-color) var(--border-style);
   --input-borderRadius: var(--borderRadius-paragraphs);
@@ -2202,23 +2288,23 @@
   color: var(--color-black);
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button])::placeholder {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button])::placeholder {
   color: var(--color-black);
   opacity: 60%;
   font-weight: var(--font-weight-text);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [pgs~=selectBox] > :where([pgs~=_selectBox-button]):hover:where(:not(:disabled, [disabled])) {
+  :is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button]):hover:where(:not(:disabled, [disabled])) {
     border-color: var(--hover-borderColor);
   }
 }
-[pgs~=selectBox] > :where([pgs~=_selectBox-button])[disabled] {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button])[disabled] {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button]) {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button]) {
   border: var(--input-border);
   background-color: var(--input-background);
   border-radius: var(--input-borderRadius);
@@ -2231,7 +2317,7 @@
   --icon: var(--selectBox-icon);
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button])::after {
   line-height: 1;
   font-size: var(--icon-size, 1em);
   display: inline-block;
@@ -2244,22 +2330,22 @@
   mask: var(--icon) center/contain no-repeat;
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button])::after {
   margin-left: auto;
   flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  [pgs~=selectBox] > :where([pgs~=_selectBox-button])::after {
+  :is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button])::after {
     transition: rotate var(--selectBox-timing) ease;
   }
 }
-[pgs~=selectBox] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) > * {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) > * {
   margin-right: var(--gap-details);
   vertical-align: middle;
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -2267,45 +2353,270 @@
   white-space: nowrap;
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-button]):focus-visible {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-button]):focus-visible {
   outline: var(--focus-visible);
 }
 
-[pgs~=selectBox][pgs-state~=empty] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) {
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=empty] > :where([pgs~=_selectBox-button]) > :where([pgs~=_selectBox-button-value]) {
   opacity: 0.6;
 }
 
-[pgs~=selectBox][pgs-state~=open] > :where([pgs~=_selectBox-button])::after {
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=open] > :where([pgs~=_selectBox-button])::after {
   rotate: 180deg;
 }
 
-[pgs~=selectBox] > :where([pgs~=_selectBox-list]) {
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
   display: none;
   position: absolute;
-  inset: calc(100% + var(--listbox-offset)) 0 auto;
+  inset: calc(100% - var(--border-width) + var(--listbox-offset, 0px)) 0 auto;
   z-index: var(--zIndex-dropdown);
 }
 
-[pgs~=selectBox][pgs-state~=open] > :where([pgs~=_selectBox-list]) {
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=open] > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
   display: flex;
 }
 
-[pgs~=selectBox][pgs-state~=openUp] > :where([pgs~=_selectBox-list]) {
-  inset: auto 0 calc(100% + var(--listbox-offset));
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=open]:not([pgs-state~=openUp]) > :where([pgs~=_selectBox-button]) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-[pgs~=selectBox]:has(> select[pgs-state~=errorField]) > :where([pgs~=_selectBox-button]) {
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=openUp] > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
+  inset: auto 0 calc(100% - var(--border-width) + var(--listbox-offset, 0px));
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=openUp] > :where([pgs~=_selectBox-button]) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=open]:has(> [pgs~=_selectBox-button]:focus-visible) > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
+  outline: var(--focus-visible);
+  clip-path: inset(0 -10px -10px);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["])[pgs-state~=openUp]:has(> [pgs~=_selectBox-button]:focus-visible) > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
+  clip-path: inset(-10px -10px 0);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]) {
+  --selectBox-search-height: var(--font-size-text);
+  --selectBox-search-paddingBlock: var(--borderRadius-paragraphs);
+  --selectBox-search-background: var(--color-box);
+  --selectBox-search-color: var(--color-black);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-details);
+  padding-inline: var(--selectBox-search-paddingBlock);
+  border: var(--border-width) var(--border-color) var(--border-style);
+  border-radius: calc(var(--borderRadius-paragraphs) + var(--selectBox-search-height) / 2);
+  background-color: var(--selectBox-search-background);
+  color: var(--selectBox-search-color);
+  --icon: var(--icon-glyph-magnifyingGlass);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search])::before {
+  line-height: 1;
+  font-size: var(--icon-size, 1em);
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search])::before {
+  flex-shrink: 0;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]):has(> input:focus-visible) {
+  outline: var(--focus-visible);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]) > :where(input) {
+  flex: 1;
+  min-width: 0;
+  height: var(--selectBox-search-height);
+  box-sizing: content-box;
+  padding: var(--selectBox-search-paddingBlock) 0;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  font-weight: var(--font-weight-bold);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]) > :where(input)::placeholder {
+  color: color-mix(in srgb, var(--selectBox-search-color) 60%, transparent);
+  opacity: 1;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]) > :where(input):focus-visible {
+  outline: unset;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]) > :where(input)::-webkit-search-cancel-button, :is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-panel]) > :where([pgs~=_selectBox-search]) > :where(input)::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips]) {
+  --input-padding: var(--padding-paragraphs);
+  --input-border: var(--border-width) var(--border-color) var(--border-style);
+  --input-borderRadius: var(--borderRadius-paragraphs);
+  --input-background: var(--color-white);
+  appearance: none;
+  width: 100%;
+  letter-spacing: 0.03em;
+  font-family: var(--font);
+  font-size: var(--font-size-text);
+  line-height: calc(var(--font-size-text) * 1.2);
+  vertical-align: top;
+  color: var(--color-black);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips])::placeholder {
+  color: var(--color-black);
+  opacity: 60%;
+  font-weight: var(--font-weight-text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips]):hover:where(:not(:disabled, [disabled])) {
+    border-color: var(--hover-borderColor);
+  }
+}
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips])[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips]) {
+  border: var(--input-border);
+  background-color: var(--input-background);
+  border-radius: var(--input-borderRadius);
+  padding: var(--input-padding);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-details);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips]) > :where([pgs~=_selectBox-button]) {
+  flex: 1 1 8ch;
+  min-width: 8ch;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: 0;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips]):has(> [pgs~=_selectBox-button]:focus-visible) {
+  outline: var(--focus-visible);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips]) > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
+  inset: calc(100% + var(--listbox-offset, 0px)) calc(var(--border-width) * -1) auto;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips])[pgs-state~=open]:not([pgs-state~=openUp]) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips])[pgs-state~=openUp] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> [pgs~=_selectBox-chips])[pgs-state~=openUp] > :where([pgs~=_selectBox-list], [pgs~=_selectBox-panel]) {
+  inset: auto calc(var(--border-width) * -1) calc(100% + var(--listbox-offset, 0px));
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) {
+  display: contents;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip]) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-details);
+  max-width: 100%;
+  padding: var(--selectBox-chip-padding);
+  border-radius: var(--selectBox-chip-borderRadius);
+  background: var(--selectBox-chip-background);
+  color: var(--selectBox-chip-color);
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip-label]) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-details);
+  min-width: 0;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip-remove]) {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  --icon-size: .8em;
+  --icon: var(--selectBox-chip-removeIcon);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip-remove])::before {
+  line-height: 1;
+  font-size: var(--icon-size, 1em);
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--icon-color, currentColor);
+  vertical-align: -0.125em;
+  content: "";
+  -webkit-mask: var(--icon) center/contain no-repeat;
+  mask: var(--icon) center/contain no-repeat;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip-remove]):hover {
+  opacity: 1;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip-remove]):focus-visible {
+  outline: var(--focus-visible);
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chip-remove]):disabled {
+  cursor: not-allowed;
+}
+
+:is([pgs~=selectBox], [pgs*="selectBox["]):has(> select[pgs-state~=errorField]) > :where([pgs~=_selectBox-button]), :is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> select[pgs-state~=errorField]):has(> [pgs~=_selectBox-chips]) {
   outline: var(--formValidate-outline, var(--border-width) var(--border-style));
   outline-color: var(--formValidate-outlineColor, var(--color-error));
   background-color: var(--color-error-soft);
   color: var(--color-error);
 }
 
+:is([pgs~=selectBox], [pgs*="selectBox["]):where([pgs*="'selectBoxChips'"]):has(> select[pgs-state~=errorField]) > :where([pgs~=_selectBox-button]) {
+  outline: 0;
+  background: transparent;
+}
+
 [pgs~=chips] {
   border: unset;
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -2567,8 +2878,8 @@
 
 :is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
 }
 
@@ -2746,8 +3057,8 @@
 :is([pgs~=accordionContainer], [pgs*="accordionContainer["]) {
   --accordionContainer-gap: 1rem;
   display: flex;
-  gap: var(--gap);
   --gap: var(--accordionContainer-gap);
+  gap: var(--gap);
   flex-direction: column;
 }
 
@@ -2786,8 +3097,8 @@
   all: unset;
   cursor: pointer;
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: nowrap;
   box-shadow: none;
@@ -2831,8 +3142,8 @@
 
 :is([pgs~=accordion], [pgs*="accordion["]) :where([pgs~=accordion-content]) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
   visibility: hidden;
   opacity: 0;
@@ -2867,8 +3178,8 @@
 
 :is([pgs~=accordion], [pgs*="accordion["])[pgs-state~=open] {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
 }
 
@@ -3235,8 +3546,8 @@
   --section-maxWidth: var(--page-width);
   --section-paddingInline: 0rem;
   display: flex;
-  gap: var(--gap);
   --gap: 0;
+  gap: var(--gap);
   flex-direction: column;
   margin-inline: unset;
   cursor: auto;
@@ -3248,8 +3559,8 @@
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: nowrap;
   z-index: 1;
@@ -3296,8 +3607,8 @@
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-footer]) {
   --modal-footer-gap: var(--gap-details);
   display: flex;
-  gap: var(--gap);
   --gap: var(--modal-footer-gap);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -3603,8 +3914,8 @@
 }
 :is([pgs~=slides], [pgs*="slides["]) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: wrap;
   position: relative;
@@ -3631,8 +3942,8 @@
   -webkit-user-select: none;
   user-select: none;
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: nowrap;
 }
@@ -3852,8 +4163,8 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) {
 
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-content]) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
   margin-bottom: var(--margin-details);
   padding-bottom: calc(var(--gap-elements) / 2);
@@ -4019,8 +4330,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -4067,8 +4378,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --summary-lines: 3;
   position: relative;
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
   isolation: isolate;
 }
@@ -4250,8 +4561,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   grid-area: content;
   z-index: 1;
   display: flex;
-  gap: var(--gap);
   --gap: calc(var(--alert-gap) / 2);
+  gap: var(--gap);
   flex-direction: column;
   min-width: 0;
 }
@@ -4476,6 +4787,10 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   border-bottom-left-radius: 0;
 }
 
+:is([pgs~=search], [pgs*="search["])[pgs-state~=openUp]:has([pgs~=search-suggestions][aria-hidden=false]) {
+  border-radius: 0 0 var(--search-borderRadius) var(--search-borderRadius);
+}
+
 :is([pgs~=search], [pgs*="search["]):has(> input:focus-visible) {
   outline: var(--focus-visible);
 }
@@ -4483,6 +4798,10 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 :is([pgs~=search], [pgs*="search["]):has(> input:focus-visible) :where([pgs~=search-suggestions]) {
   outline: var(--focus-visible);
   clip-path: inset(0 -10px -10px);
+}
+
+:is([pgs~=search], [pgs*="search["]):has(> input:focus-visible)[pgs-state~=openUp] :where([pgs~=search-suggestions]) {
+  clip-path: inset(-10px -10px 0);
 }
 
 :is([pgs~=search], [pgs*="search["]) > :where(input) {
@@ -4520,28 +4839,18 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 :is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) {
-  --listbox-background: var(--search-background);
-  --listbox-color: var(--search-color);
-  --listbox-borderRadius: var(--search-borderRadius);
   display: none;
   position: absolute;
   inset: calc(100% + var(--listbox-offset)) calc(var(--search-borderWidth) * -1) auto;
-  z-index: var(--zIndex-search);
-  border: var(--search-borderWidth) var(--border-style) var(--search-borderColor);
-  border-top: var(--search-border);
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
-
-:is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-placeholder]),
-:is([pgs~=search], [pgs*="search["]) :where([pgs~=search-suggestions]) :where([pgs~=_search-suggestions-empty]) {
-  padding: var(--listbox-option-padding);
-  cursor: default;
-  opacity: 0.6;
+  z-index: var(--zIndex-dropdown);
 }
 
 :is([pgs~=search], [pgs*="search["])[pgs-state~=open] :where([pgs~=search-suggestions]) {
   display: flex;
+}
+
+:is([pgs~=search], [pgs*="search["])[pgs-state~=openUp] :where([pgs~=search-suggestions]) {
+  inset: auto calc(var(--search-borderWidth) * -1) calc(100% + var(--listbox-offset));
 }
 
 :where(dialog) :is([pgs~=search], [pgs*="search["]) {
@@ -4627,8 +4936,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --main-gap: var(--gap-sections);
   min-height: 100svh;
   display: flex;
-  gap: var(--gap);
   --gap: var(--main-gap);
+  gap: var(--gap);
   flex-direction: column;
   align-items: flex-start;
   isolation: isolate;
@@ -4697,8 +5006,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --section-edge-mediaDivisor: 2;
   --section-edge-gap: var(--page-padding);
   display: flex;
-  gap: var(--gap);
   --gap: var(--section-edge-gap);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -4759,15 +5068,15 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column'"] {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
 }
 
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'row'"] {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -8484,8 +8793,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=list] :is(ol, ul), [pgs~=list]:is(ol, ul) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-details);
+  gap: var(--gap);
   flex-direction: column;
   margin-left: 0;
   padding-left: 1.5em;
@@ -8527,15 +8836,15 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 [pgs~=textBlock] {
   align-items: flex-start;
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-paragraphs);
+  gap: var(--gap);
   flex-direction: column;
 }
 
 [pgs~=textBlock] :is(ol, ul), [pgs~=textBlock]:is(ol, ul) {
   display: flex;
-  gap: var(--gap);
   --gap: var(--gap-details);
+  gap: var(--gap);
   flex-direction: column;
   margin-left: 0;
   padding-left: 1.5em;

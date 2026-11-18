@@ -371,6 +371,8 @@ declare global {
     select: HTMLSelectElement;
     button: HTMLButtonElement;
     list: HTMLUListElement;
+    /** The search field of a selectBoxSearch, null without the option. */
+    search: HTMLInputElement | null;
     open(): void;
     close(): void;
     toggle(): void;
@@ -477,6 +479,8 @@ declare global {
     onDocumentReady(callback: () => void): void;
     escapeHtml(value: unknown): string;
     formatText(value: unknown): string;
+    /** Lower case, without accents and the spaces at the ends: the form two texts are compared in, so "citta" finds "Città". */
+    normalizeText(value: unknown): string;
     warn(scope: string, message: string, ...details: unknown[]): void;
     invalid(scope: string, message: string): TypeError;
   }

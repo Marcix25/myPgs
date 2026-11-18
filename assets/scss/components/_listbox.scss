@@ -3,11 +3,13 @@
 //= LISTBOX
 // the look of a list of options to pick from, the same wherever one is: the suggestions of search and the
 // list of a selectBox take this token from their JavaScript, and a list written by hand can take it too.
-// Only the look is here; where the list lies (under a field, open or closed) is up to the component
-// that owns it. Every rule is under :where, so a component sets these tokens on its own list in one line
+// The whole look of the list is here, and only here: the components that open one (search, selectBox) draw
+// their own field and decide where the list lies and when it shows, never how it looks. Every rule is under
+// :where, so a project changes the look by setting these tokens, on every list or on one alone
 :where([pgs~="listbox"]) {
     --listbox-background: var(--color-white);
-    --listbox-color: var(--color-black);
+    // the color of the text, the one bodyBase gives a <ul> too: the list reads the same as a <ul> or as any other tag
+    --listbox-color: var(--color-text);
     --listbox-border: var(--border-width) var(--border-color) var(--border-style);
     --listbox-borderRadius: var(--borderRadius-paragraphs);
     --listbox-padding: calc(var(--padding-details) / 2);
@@ -16,10 +18,17 @@
     --listbox-offset: 0px;
     --listbox-maxHeight: 30rem;
     --listbox-option-padding: var(--padding-details) var(--padding-paragraphs);
+    // the radius of an option follows the one of the box, less its padding, so the corners run parallel
+    --listbox-option-borderRadius: calc(var(--listbox-borderRadius) - var(--listbox-padding));
     --listbox-option-background-active: var(--hover-background);
     --listbox-option-color-active: var(--hover-color);
     --listbox-option-background-selected: var(--current-background);
     --listbox-option-color-selected: var(--current-color);
+    // the box every icon of an option takes, so the texts line up whatever the glyph
+    --listbox-option-iconSize: 1.25em;
+    // the chevron of a group that opens and closes, and how long it takes to turn
+    --listbox-group-icon: var(--icon-glyph-chevronDown);
+    --listbox-timing: 300ms;
     display: flex;
     flex-direction: column;
     gap: var(--listbox-gap);
@@ -33,6 +42,42 @@
     color: var(--listbox-color);
     border: var(--listbox-border);
     border-radius: var(--listbox-borderRadius);
+    // the text of the list is its own, not the one of the place it opens in (a header, an aside)
+    font-family: var(--font);
+    font-size: var(--font-size-text);
+    font-weight: var(--font-weight-text);
+    line-height: 1.5;
+    text-align: left;
+
+    //## attached
+    // a list joined to the field that opened it (search, selectBox): the component writes on it where it lies,
+    // and the list squares its corners on the side of the field. The field squares its own on its side
+    &[pgs-state~="below"] {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &[pgs-state~="above"] {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    //## nested
+    // a listbox that holds another (the panel of a select box, with its search field over the list): the outer
+    // one is the box and does not scroll, the inner one is only the list, which scrolls, with no box of its own
+    &:has(:where([pgs~="listbox"])) {
+        max-height: none;
+        overflow: visible;
+    }
+
+    :where([pgs~="listbox"]) {
+        --listbox-border: 0;
+        // with its unit: the radius of the options subtracts it in a calc(), where a bare 0 is not a length
+        --listbox-padding: 0px;
+        --listbox-background: transparent;
+        // the options of the inner list follow the outer box, the one that draws the corners
+        --listbox-option-borderRadius: inherit;
+    }
 
     //## option
     // what an option holds before its text (an icon, an svg) sits the gap apart
@@ -41,7 +86,7 @@
         align-items: center;
         gap: var(--gap-details);
         padding: var(--listbox-option-padding);
-        border-radius: calc(var(--listbox-borderRadius) - var(--listbox-padding));
+        border-radius: var(--listbox-option-borderRadius);
         cursor: pointer;
         transition: var(--clickable-transition);
 
@@ -65,6 +110,14 @@
         }
 
         &[aria-disabled="true"] { @include disabled(); }
+
+        // an icon before the text (an icon of any pack, an svg, an image) sits in a box of its own
+        // the size is the flex basis, not the width: a width an icon pack or a theme gives its icons (Font
+        // Awesome from a class, --fa-width) would win over this rule, the basis of a flex item does not care
+        >:where(i, svg, img, [pgs~="icon"]) {
+            flex: 0 0 var(--listbox-option-iconSize);
+            text-align: center;
+        }
     }
 
     //## group
@@ -75,4 +128,39 @@
         font-weight: var(--font-weight-bold);
         opacity: .6;
     }
+
+    //## group that opens and closes
+    // a heading with the state open or closed (written by the component that opens and closes it) takes the
+    // pointer and the chevron, turned while closed. Not on a hidden heading: its display would win over [hidden]
+    :where([pgs~="listbox-group"]:not([hidden])):is([pgs-state~="open"], [pgs-state~="closed"]) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--gap-details);
+        cursor: pointer;
+        @include icon(var(--listbox-group-icon), "::after");
+
+        &::after {
+            flex-shrink: 0;
+
+            @media (prefers-reduced-motion: no-preference) { transition: rotate var(--listbox-timing) ease; }
+        }
+
+        &[pgs-state~="closed"]::after { rotate: -90deg; }
+    }
+
+    //## hidden
+    // an option or a heading its component hides (a filter, a closed group): the display above would show it
+    :where([pgs~="listbox-option"], [pgs~="listbox-group"])[hidden] { display: none; }
+}
+
+//## message
+// a message in place of the options (nothing found, type more): it reads like the heading of a group,
+// without the bold. Outside the list too, for a component that writes it under the list: the padding of
+// the options then falls back to its default
+:where([pgs~="listbox-message"]) {
+    margin: 0;
+    padding: var(--listbox-option-padding, var(--padding-details) var(--padding-paragraphs));
+    cursor: default;
+    opacity: .6;
 }
