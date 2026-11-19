@@ -36,8 +36,10 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | 9 | `pageShell` with its own vertical room (`--pageShell-offsetTop`, `--pageShell-paddingBottom`), sticky sidebar at `--pageShell-asideScroll-top` | the shell has no room above or below of its own: write `pgs="main pageShell"` or put it in a `main`. Those three variables and `--pageShell-asideScroll-maxHeight` are gone -> see [Layout](#layout) | next |
 | 10 | `--search-suggestions-*` custom properties | the list of suggestions is a `listbox`: `--listbox-*` -> see [Search, selectBox and listbox](#search-selectbox-and-listbox) | next |
 | 11 | `@include legend()` | gone: `[pgs~=legend]` takes `label()` itself, options included | next |
-| 12 | the generated slides arrows were children of `slides` | they live in a `_slides-arrows` wrapper: a selector `[pgs~="slides"] > [pgs~="_slides-next"]` stops matching (a descendant selector still works) | 5.0.6 |
+| 12 | the generated slides arrows `_slides-prev` and `_slides-next`, children of `slides` | `_slides-arrows-prev` and `_slides-arrows-next`, in a `_slides-arrows` wrapper: a selector on the old names, or on the arrows as children of `slides`, stops matching. The arrows written by hand keep `slides-prev` / `slides-next` | 5.0.6 - next |
 | 13 | a `pageNav` panel addressed by its `id` | addressed by `pgs-data="pageNavHash[name]"` (the id still works as a fallback); the root takes a bracket, so a project selector on it is `:is([pgs~="pageNav"], [pgs*="pageNav["])` | next |
+| 14 | `footer-top-content`, `footer-brand`, `footer-content` | gone: the footer gives no style to the row of the upper section or to its columns, so they have no token; the layout is `flex` in the markup (`flex['row' 'column-3']` for the row, `flex['column']` for a column). A project selector on the old names stops matching | next |
+| 15 | `search-suggestions` the box of the suggestions, a direct child of the `search` form; the messages `_search-suggestions-placeholder` and `_search-suggestions-empty` in the list; the active suggestion `aria-selected="true"` and the state `selected` | the `search-suggestions` you write is only the list: the JavaScript lays it in a box of its own, `_search-panel` (the `listbox`, what opens and is placed), with one `_search-panel-message` under the list. A selector on `search-suggestions` as the box, or as a child of the form, stops matching; the active suggestion takes the state `active`, `aria-selected` stays `false` -> see [Search, selectBox and listbox](#search-selectbox-and-listbox) | next |
 
 ## Foundation
 
@@ -93,7 +95,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | logo | 4.4rem in a header, 6rem outside | `--logo-height: calc(var(--SIZE) + var(--font-size-text))` (4.6rem) everywhere; set `--logo-height` on the logo itself | 5.0.2 |
 | logo of `footer-brand` | resized by the footer (`aspect-ratio: 1; height: 200px`) | not resized: write `logo['logoFooter']` for the big footer logo | next |
 | links of `footer` | in `footer-top` `--color-primary-strong`, bold, underlined on hover; in `footer-legal` `--footer-color`, underlined on hover | `--footer-color`, always underlined (the underline the link color at half strength), `--footer-color-hover` (default `--color-link`) on hover and keyboard focus, anywhere in the footer; bold in `footer-top`, not in `footer-legal`; a link drawn as a `button` or a `logo` keeps its own look | next |
-| `footer-brand` and the menu of `footer-content` | the brand a column; menu links 5px apart, an icon 18px wide before the text | no layout from the footer: `flex['column']` on `footer-brand`, `flex['column' 'gapDetails']` on the `ul` of the menu; an icon keeps its own size and color | next |
+| `footer-brand` and the menu of `footer-content` | the brand a column; menu links 5px apart, an icon 18px wide before the text | no layout from the footer, and no token (breaking change 14): `flex['column']` on the brand column, `flex['column' 'gapDetails']` on the `ul` of the menu; an icon keeps its own size and color | next |
 | `footer-legal` | padding 60px; a logo on the left, full width below 800px of screen; text, links and buttons 1.3rem | padding `--padding-groups`, wrapping; a logo centered with the rest, full width below 800px of the legal section (container query); text, links and buttons (`--button-size`) at `--footer-legal-fontSize` (1.3rem) | next |
 | `navSmart` items | fixed width `--navSmart-itemMinWidth`; icon 2.2rem, item 4.9rem | `--navSmart-itemMinWidth` or as wide as the label, shrinking toward the label when the bar does not fit the screen; icon `--navSmart-iconSize` 2.8rem, item `--navSmart-itemHeight` 5.5rem; the bar distance is capped at the home indicator | 5.0.3 - 5.0.6 |
 | `slides` track | `--page-padding` inline padding and `--page-edge` margins | no padding or margin of its own (inside a section it is not needed); `slides['slidesEdge']` for slides as wide as the screen | 5.0.4 - 5.0.5 |
@@ -148,15 +150,18 @@ Reading the tables: a flag is written inside the bracket of the component that o
 
 ## Search, selectBox and listbox
 
-The suggestions of `search` and the list of `selectBox` are a `listbox` (`listbox`, `listbox-option`,
-`listbox-group`, also usable by hand); `--listbox-*` set once on `[pgs~="listbox"]` change every list. (next)
+The suggestions of `search` and the options of `selectBox` are a `listbox`, also usable by hand, always with the
+same shape: the box `listbox`, the list in it `listbox-list` (role listbox, the part that scrolls) with
+`listbox-list-option` and `listbox-list-group`, and `listbox-message` in the box under the list. `--listbox-*` set
+once on `[pgs~="listbox"]` change every list. One behavior too: `pgs.listbox.attach(list, settings)`, which search
+and selectBox use (keys, pointer, opening, placing, closing). (next)
 
 | 5.0.0 | now | since |
 | --- | --- | --- |
-| `--search-suggestions-item-background-selected` / `-color-selected` | `--listbox-option-background-selected` / `--listbox-option-color-selected` | next |
-| `--search-suggestions-item-background-hover` / `-color-hover` | `--listbox-option-background-active` / `--listbox-option-color-active` | next |
+| `--search-suggestions-item-background-selected` / `-color-selected` | `--listbox-list-option-background-selected` / `--listbox-list-option-color-selected` | next |
+| `--search-suggestions-item-background-hover` / `-color-hover` | `--listbox-list-option-background-active` / `--listbox-list-option-color-active` | next |
 | `--search-suggestions-offset` / `-maxHeight` / `-padding` | `--listbox-offset` (`0px`) / `--listbox-maxHeight` (`30rem`, was `70vh`) / `--listbox-padding` (`calc(var(--padding-details) / 2)`, also the gap between the options, `--listbox-gap`) | next |
-| `--search-suggestions-item-padding` | `--listbox-option-padding` (`var(--padding-details) var(--padding-paragraphs)`) | next |
+| `--search-suggestions-item-padding` | `--listbox-list-option-padding` (`var(--padding-details) var(--padding-paragraphs)`) | next |
 
 Silent changes and new features of `search`:
 
@@ -166,6 +171,10 @@ Silent changes and new features of `search`:
 - A search without a submit button pads its input inline (`--search-paddingBlock`). (next)
 - An object item can carry its own icon as markup (`icon`), shown before its label in place of
   `searchIconSuggestion`. (next)
+- The keys are those of every listbox: the arrows and Page Up / Page Down stop at the first and the last suggestion
+  (they no longer wrap), disabled and hidden ones are skipped, Home and End stay with the text; a click chooses (was
+  a pointer down); the focus moving to another element of the page closes the list. (next)
+- `instance.panel` (the box), `instance.listbox` (its controller). (next)
 
 ## Content components
 
@@ -255,15 +264,21 @@ grep -rn -- '--search-suggestions-' .
 # 11 legend() mixin. Hit: @include label()
 grep -rn '@include legend' .
 
-# 12 slides arrows as direct children. Hit: use a descendant selector
-grep -rnE 'slides"?\]? *> *\[pgs~="?_slides-(next|prev)' .
+# 12 slides arrows renamed. Hit: _slides-prev -> _slides-arrows-prev, _slides-next -> _slides-arrows-next; select them
+# as descendants of slides, not as children
+grep -rnE '_slides-(next|prev)' .
 
 # 13 pageNav panels and selectors. Hit: add pgs-data="pageNavHash[name]"; write :is([pgs~="pageNav"], [pgs*="pageNav["])
 grep -rn 'pageNav' .
 
-# footer brand and menu. Hit: add logo['logoFooter'] to the logo of footer-brand that should stay big,
-# flex['column'] to footer-brand and flex['column' 'gapDetails'] to the ul of a footer-content menu
-grep -rnE 'footer-(brand|content)' .
+# 14 footer columns without a token. Hit: drop footer-top-content, footer-brand and footer-content; lay the row
+# out with flex['row' 'column-3'] and a column with flex['column']; add logo['logoFooter'] to the logo of the brand
+# that should stay big and flex['column' 'gapDetails'] to the ul of a menu
+grep -rnE 'footer-(top-content|brand|content)' .
+
+# 15 search suggestions as a box. Hit: style the box on _search-panel (or set --listbox-*), the list on
+# search-suggestions; _search-suggestions-placeholder / -empty -> _search-panel-message; state selected -> active
+grep -rnE 'search-suggestions|_search-suggestions-(placeholder|empty)' .
 
 # steps. Hit: add steps['stepsLastHighlight'] to keep the highlighted last circle
 grep -rnE 'pgs="[^"]*\bsteps\b' .
