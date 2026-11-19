@@ -22,13 +22,13 @@
     background-color: var(--search-background);
     color: var(--search-color);
 
-    &:has([pgs~="search-suggestions"][aria-hidden="false"]) {
+    &:has([pgs~="_search-panel"][aria-hidden="false"]) {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
     }
 
     //+ openUp: the list opens above the form, which squares its top corners instead
-    &[pgs-state~="openUp"]:has([pgs~="search-suggestions"][aria-hidden="false"]) {
+    &[pgs-state~="openUp"]:has([pgs~="_search-panel"][aria-hidden="false"]) {
         border-radius: 0 0 var(--search-borderRadius) var(--search-borderRadius);
     }
 
@@ -39,12 +39,12 @@
         // the list lies out of the form, so the ring of the form stops at its bottom edge: the list takes
         // the same ring and the two read as one. The list paints over the bottom of the form's ring, and
         // the clip-path trims the top of its own, which would otherwise draw a line across the seam
-        :where([pgs~="search-suggestions"]) {
+        :where([pgs~="_search-panel"]) {
             @include focusRing();
             clip-path: inset(0 -10px -10px);
         }
 
-        &[pgs-state~="openUp"] :where([pgs~="search-suggestions"]) { clip-path: inset(-10px -10px 0); }
+        &[pgs-state~="openUp"] :where([pgs~="_search-panel"]) { clip-path: inset(-10px -10px 0); }
     }
 
     >:where(input) {
@@ -83,22 +83,22 @@
     // form, so the input takes the same space on its sides as above and below
     &:not(:has(> :is(button:not([type]), button[type="submit"], input[type="submit"]))) >:where(input) { padding-inline: var(--search-paddingBlock); }
 
-    // the list is a listbox (the JavaScript gives it the token), which draws it whole (see Listbox): here it is
-    // only placed and shown while open. It is joined to the form: the form squares its corners on the side of
+    // the panel is the box the JavaScript lays the search-suggestions list in, a listbox, which draws it whole
+    // with the list inside it (see Listbox): here it is only placed and shown while open. It is joined to the form: the form squares its corners on the side of
     // the list, and the list, an absolute box placed inside the border of the form, is pulled out by that
     // border on both sides and lies over the bottom one, so the two borders are one line. The JavaScript
     // tells the list on which side it lies (below or above), and listbox squares its corners there
-    :where([pgs~="search-suggestions"]) {
+    :where([pgs~="_search-panel"]) {
         display: none;
         position: absolute;
         inset: calc(100% + var(--listbox-offset)) calc(var(--search-borderWidth) * -1) auto;
         z-index: var(--zIndex-dropdown);
     }
 
-    &[pgs-state~="open"] :where([pgs~="search-suggestions"]) { display: flex; }
+    &[pgs-state~="open"] :where([pgs~="_search-panel"]) { display: flex; }
 
     //+ openUp: no room below the form and more above, the list lies over it, joined to its top
-    &[pgs-state~="openUp"] :where([pgs~="search-suggestions"]) {
+    &[pgs-state~="openUp"] :where([pgs~="_search-panel"]) {
         inset: auto calc(var(--search-borderWidth) * -1) calc(100% + var(--listbox-offset));
     }
 

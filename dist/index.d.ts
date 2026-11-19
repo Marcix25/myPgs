@@ -257,6 +257,60 @@ declare global {
     home: boolean;
   }
 
+  //== listbox
+  /** What pgs.listbox.attach() takes: the behavior every list of options opened by a field shares. */
+  interface PgsListboxSettings {
+    /** Takes the states open and openUp; a pointer down outside it closes the list. Default: the parent of the box. */
+    owner?: Element;
+    /** The controls the keys work on: aria-activedescendant on all, aria-expanded on those with role combobox. */
+    controls?: Element | Element[];
+    /** The element that opens: the box. Default: the listbox that holds the list. */
+    floating?: Element;
+    /** The options the keys and the pointer reach; default: not hidden and not aria-disabled. */
+    isNavigable?(option: Element): boolean;
+    /** An option became active, before the list scrolls to it. */
+    onActive?(option: Element): void;
+    /** An option was chosen, with a click or Enter. */
+    onChoose?(option: Element, event?: Event): void;
+    onOpen?(): void;
+    /** The list closed, for any reason. */
+    onClose?(): void;
+    /** The reader closed it: Escape, a pointer down outside the owner, the focus leaving it. */
+    onDismiss?(reason: "escape" | "outside" | "focusout"): void;
+  }
+
+  interface PgsListboxController extends PgsInstance<PgsListboxController> {
+    owner: Element;
+    floating: Element;
+    /** Opens the list and places it; on an open list only places it again. */
+    open(): void;
+    close(): void;
+    toggle(): void;
+    isOpen(): boolean;
+    /** Places the open list: below the owner, or above it (openUp) when there is no room below. */
+    position(): void;
+    /** Every listbox-list-option of the list. */
+    options(): Element[];
+    isNavigable(option: Element | null): boolean;
+    /** The option the keys are on, or null. */
+    active(): Element | null;
+    /** Makes an option (or the one at that index) active and scrolls the list to it; null clears it. */
+    setActive(option: Element | number | null): Element | null;
+    /** Moves the active option by step (1, -1, a page), stopping at the ends. */
+    move(step: number): Element | null;
+    first(): Element | null;
+    last(): Element | null;
+    choose(option: Element | number, event?: Event): void;
+    /** The keys of an open list (arrows, Page Up/Down, Home/End outside a text field, Enter, Escape); true when handled. */
+    handleKey(event: KeyboardEvent): boolean;
+  }
+
+  interface PgsListboxModule {
+    /** Attaches the behavior to a list (attaching again replaces the controller before). */
+    attach(list: Element, settings?: PgsListboxSettings): PgsListboxController;
+    api(list: Element): PgsListboxController | undefined;
+  }
+
   //== search
   type PgsSearchSuggestionInput = string | number | {
     label?: string;
@@ -309,7 +363,12 @@ declare global {
 
   interface PgsSearchInstance extends PgsInstance<PgsSearchInstance> {
     input: HTMLInputElement;
+    /** The search-suggestions list, the listbox-list. */
     list: Element;
+    /** The box the JavaScript lays the list in (_search-panel), the listbox: what opens. */
+    panel: HTMLDivElement;
+    /** The listbox controller of the suggestions. */
+    listbox: PgsListboxController;
     configure(options: Partial<PgsSearchOptions>): PgsSearchInstance;
     setSource(source: PgsSearchOptions["source"]): PgsSearchInstance;
     /** Runs a query (the input's own value when none is given) and renders the suggestions. */
@@ -370,9 +429,14 @@ declare global {
     /** The <select> the box stands in for: it keeps the value the form reads. */
     select: HTMLSelectElement;
     button: HTMLButtonElement;
+    /** The list of the options, the listbox-list. */
     list: HTMLUListElement;
+    /** The box after the button that holds the list (_selectBox-panel), the listbox: what opens. */
+    panel: HTMLDivElement;
     /** The search field of a selectBoxSearch, null without the option. */
     search: HTMLInputElement | null;
+    /** The listbox controller of the list. */
+    listbox: PgsListboxController;
     open(): void;
     close(): void;
     toggle(): void;
@@ -503,6 +567,7 @@ declare global {
     navSmart?: PgsModule<PgsNavSmartInstance>;
     notification?: PgsNotificationModule;
     toast?: PgsToastModule;
+    listbox?: PgsListboxModule;
     search?: PgsSearchModule;
     slides?: PgsModule<PgsSlidesInstance>;
     stepTabs?: PgsModule<PgsStepTabsInstance>;
@@ -522,6 +587,8 @@ declare global {
     "pgs:modal:open": CustomEvent<PgsModalEventDetail>;
     "pgs:modal:close": CustomEvent<PgsModalEventDetail>;
     "pgs:pageNav:change": CustomEvent<PgsPageNavChangeDetail>;
+    "pgs:listbox:open": CustomEvent<PgsEventDetail & { owner: Element }>;
+    "pgs:listbox:close": CustomEvent<PgsEventDetail & { owner: Element }>;
     "pgs:search:select": CustomEvent<PgsSearchSelectDetail>;
     "pgs:search:error": CustomEvent<PgsSearchErrorDetail>;
     "pgs:selectBox:change": CustomEvent<PgsSelectBoxChangeDetail>;

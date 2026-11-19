@@ -17,6 +17,7 @@ import "./modules/header.js";
 import "./modules/navSmart.js";
 import "./modules/notification.js";
 import "./modules/toast.js";
+import "./modules/listbox.js";
 import "./modules/search.js";
 import "./modules/formControls.js";
 import "./modules/formAddon.js";

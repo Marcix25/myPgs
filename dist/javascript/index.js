@@ -32,15 +32,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_navSmart_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/navSmart.js */ "./assets/javascript/modules/navSmart.js");
 /* harmony import */ var _modules_notification_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/notification.js */ "./assets/javascript/modules/notification.js");
 /* harmony import */ var _modules_toast_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/toast.js */ "./assets/javascript/modules/toast.js");
-/* harmony import */ var _modules_search_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/search.js */ "./assets/javascript/modules/search.js");
-/* harmony import */ var _modules_formControls_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/formControls.js */ "./assets/javascript/modules/formControls.js");
-/* harmony import */ var _modules_formAddon_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/formAddon.js */ "./assets/javascript/modules/formAddon.js");
-/* harmony import */ var _modules_slides_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/slides.js */ "./assets/javascript/modules/slides.js");
-/* harmony import */ var _modules_stepTabs_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/stepTabs.js */ "./assets/javascript/modules/stepTabs.js");
-/* harmony import */ var _modules_steps_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/steps.js */ "./assets/javascript/modules/steps.js");
-/* harmony import */ var _modules_summary_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/summary.js */ "./assets/javascript/modules/summary.js");
-/* harmony import */ var _modules_tabs_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./modules/tabs.js */ "./assets/javascript/modules/tabs.js");
-/* harmony import */ var _modules_formValidate_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/formValidate.js */ "./assets/javascript/modules/formValidate.js");
+/* harmony import */ var _modules_listbox_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./modules/listbox.js */ "./assets/javascript/modules/listbox.js");
+/* harmony import */ var _modules_search_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/search.js */ "./assets/javascript/modules/search.js");
+/* harmony import */ var _modules_formControls_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/formControls.js */ "./assets/javascript/modules/formControls.js");
+/* harmony import */ var _modules_formAddon_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/formAddon.js */ "./assets/javascript/modules/formAddon.js");
+/* harmony import */ var _modules_slides_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/slides.js */ "./assets/javascript/modules/slides.js");
+/* harmony import */ var _modules_stepTabs_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/stepTabs.js */ "./assets/javascript/modules/stepTabs.js");
+/* harmony import */ var _modules_steps_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/steps.js */ "./assets/javascript/modules/steps.js");
+/* harmony import */ var _modules_summary_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./modules/summary.js */ "./assets/javascript/modules/summary.js");
+/* harmony import */ var _modules_tabs_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./modules/tabs.js */ "./assets/javascript/modules/tabs.js");
+/* harmony import */ var _modules_formValidate_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./modules/formValidate.js */ "./assets/javascript/modules/formValidate.js");
 
 
 
@@ -49,6 +50,7 @@ __webpack_require__.r(__webpack_exports__);
 // lists the ones it uses in mypgs.config.json: its build (mypgs/build) resolves the others to an empty
 // module. The order is the order the modules are published in, which pgs.helper.init walks;
 // core (darkmode, svg) cannot be left out
+
 
 
 
@@ -1864,6 +1866,329 @@ const PGS_dropdown = {
 
 /***/ },
 
+/***/ "./assets/javascript/components/_listbox.js"
+/*!**************************************************!*\
+  !*** ./assets/javascript/components/_listbox.js ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PGS_listbox: () => (/* binding */ PGS_listbox)
+/* harmony export */ });
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+
+
+const API = new WeakMap();
+
+// how many options PageUp and PageDown skip
+const PAGE_STEP = 10;
+
+//# LISTBOX
+// the behavior every list of options opened by a field has in common, the way listbox already is the look
+// they have in common: search and selectBox attach one to their list, and so can a component of a project.
+// It opens and closes the list, places it (below the field, or above it when there is no room below), keeps
+// the active option (the one the keys are on) and scrolls the list to it, moves it with the keys, chooses
+// an option on a click and closes the list when the pointer or the focus leaves the owner. What is chosen,
+// and what a choice does, stays with the component, through its callbacks
+//
+// list is the listbox-list (role listbox), the element of the options; the box around it is the listbox
+// pgs.listbox.attach(list, {
+//     owner,        // the element that takes the states open and openUp, the one a click outside of closes the
+//                   // list (default: the parent of the box)
+//     controls,     // the controls the keys work on (aria-expanded, aria-activedescendant): an element or an array
+//     floating,     // the element that opens: the box, the listbox the list lies in (default: the listbox
+//                   // that holds the list, or the list when there is none)
+//     isNavigable,  // (option) => bool: the options the keys and the pointer can reach (default: not hidden,
+//                   // not aria-disabled)
+//     onActive,     // (option) => void: an option became active, before the list scrolls to it
+//     onChoose,     // (option, event) => void: an option was chosen (a click, Enter)
+//     onOpen,       // () => void: the list opened
+//     onClose,      // () => void: the list closed, for any reason
+//     onDismiss,    // (reason) => void: the reader closed it: "escape", "outside" (a pointer down outside the
+//                   // owner) or "focusout" (the focus left the owner)
+// })
+function PGS_listbox_attach(list, settings = {}) {
+    if (!(list instanceof Element)) throw _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.invalid("listbox.attach", "the first argument must be the element of the list");
+
+    // one controller per list: attaching again replaces the one before
+    API.get(list)?.destroy();
+
+    const floating = settings.floating instanceof Element
+        ? settings.floating
+        : list.parentElement?.closest('[pgs~="listbox"]') ?? list;
+    const owner = settings.owner instanceof Element ? settings.owner : floating.parentElement;
+    const controls = [].concat(settings.controls || []).filter(control => control instanceof Element);
+    // aria-expanded belongs to a combobox (the button of a select box, the field of a search): a plain search
+    // field inside the list takes aria-activedescendant only
+    const expanders = controls.filter(control => control.getAttribute("role") === "combobox");
+    const callbacks = settings;
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    let active = null;
+
+    floating.setAttribute("aria-hidden", "true");
+    expanders.forEach(control => control.setAttribute("aria-expanded", "false"));
+
+    //## options
+    const options = () => Array.from(list.querySelectorAll('[pgs~="listbox-list-option"]'));
+    const navigable = option => Boolean(option) && list.contains(option) && (typeof callbacks.isNavigable === "function"
+        ? Boolean(callbacks.isNavigable(option))
+        : !option.hidden && option.getAttribute("aria-disabled") !== "true");
+    const activeOption = () => (active && list.contains(active) ? active : null);
+
+    const toOption = (target) => {
+        if (target instanceof Element) return target;
+        if (Number.isInteger(target)) return options()[target] ?? null;
+        return null;
+    };
+
+    // the option the keys are on: the state active, which listbox draws, and aria-activedescendant on the
+    // controls. The list scrolls to it, inside itself, without moving the page
+    const setActive = (target) => {
+        const option = toOption(target);
+        if (active) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(active).state.remove("active");
+        active = option && navigable(option) ? option : null;
+
+        if (!active) {
+            controls.forEach(control => control.removeAttribute("aria-activedescendant"));
+            return null;
+        }
+
+        if (!active.id) active.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("listbox-list-option");
+        callbacks.onActive?.(active);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(active).state.add("active");
+        controls.forEach(control => control.setAttribute("aria-activedescendant", active.id));
+
+        const listRect = list.getBoundingClientRect();
+        const optionRect = active.getBoundingClientRect();
+        const top = optionRect.top - listRect.top + list.scrollTop;
+        const bottom = top + optionRect.height;
+        if (top < list.scrollTop) list.scrollTop = top;
+        else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight;
+        return active;
+    };
+
+    // the next option that can be reached from index, in the direction of step; null when there is none
+    const findFrom = (all, index, step) => {
+        for (let current = index; current >= 0 && current < all.length; current += step) {
+            if (navigable(all[current])) return all[current];
+        }
+        return null;
+    };
+
+    const first = () => findFrom(options(), 0, 1);
+    const last = () => {
+        const all = options();
+        return findFrom(all, all.length - 1, -1);
+    };
+
+    // moves the active option by step (1, -1, a page): it stops at the first and at the last option, as a
+    // native select does; with no active option, down starts from the first and up from the last
+    const move = (step) => {
+        const all = options();
+        const current = all.indexOf(activeOption());
+        const direction = step > 0 ? 1 : -1;
+
+        let target;
+        if (current < 0) target = direction > 0 ? findFrom(all, 0, 1) : findFrom(all, all.length - 1, -1);
+        else {
+            const index = Math.min(all.length - 1, Math.max(0, current + step));
+            target = findFrom(all, index, direction) ?? findFrom(all, index, -direction);
+        }
+        return target ? setActive(target) : activeOption();
+    };
+
+    //## open & close
+    const isOpen = () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.contains("open");
+
+    // below the owner, or above it when there is no room below and more above; the floating element takes
+    // below or above (listbox squares its corners on that side) only while it floats against the owner
+    const position = () => {
+        if (!isOpen()) return;
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.remove("openUp");
+        const rect = floating.getBoundingClientRect();
+        const ownerRect = owner.getBoundingClientRect();
+        const up = rect.bottom > window.innerHeight && ownerRect.top > window.innerHeight - ownerRect.bottom;
+        if (up) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.add("openUp");
+
+        const attached = getComputedStyle(floating).position === "absolute";
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.toggle("below", attached && !up);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.toggle("above", attached && up);
+    };
+
+    // opening an open list only places it again (its options may have changed)
+    const open = () => {
+        if (!isOpen()) {
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.add("open");
+            floating.setAttribute("aria-hidden", "false");
+            expanders.forEach(control => control.setAttribute("aria-expanded", "true"));
+            position();
+            _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(list, "pgs:listbox:open", { owner });
+            callbacks.onOpen?.();
+            return;
+        }
+        position();
+    };
+
+    const close = () => {
+        if (!isOpen()) return;
+
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.remove("open");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.remove("openUp");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("below");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("above");
+        floating.setAttribute("aria-hidden", "true");
+        expanders.forEach(control => control.setAttribute("aria-expanded", "false"));
+        setActive(null);
+        _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(list, "pgs:listbox:close", { owner });
+        callbacks.onClose?.();
+    };
+
+    const dismiss = (reason) => {
+        close();
+        callbacks.onDismiss?.(reason);
+    };
+
+    const choose = (target, event) => {
+        const option = toOption(target);
+        if (!navigable(option)) return;
+        setActive(option);
+        callbacks.onChoose?.(option, event);
+    };
+
+    //## keys
+    // the keys of an open list, the same wherever one is: the arrows, Page Up and Page Down move, Home and End go
+    // to the ends (in a text field they stay with the text), Enter chooses the active option, Escape closes.
+    // Returns true when it handled the key, so the component handles the others (Tab, a space, letters)
+    const handleKey = (event) => {
+        if (!isOpen()) return false;
+        const inText = event.target instanceof Element && event.target.matches("input, textarea");
+
+        switch (event.key) {
+            case "ArrowDown":
+                if (event.altKey) return false;
+                event.preventDefault();
+                move(1);
+                return true;
+            case "ArrowUp":
+                if (event.altKey) return false;
+                event.preventDefault();
+                move(-1);
+                return true;
+            case "PageDown":
+                event.preventDefault();
+                move(PAGE_STEP);
+                return true;
+            case "PageUp":
+                event.preventDefault();
+                move(-PAGE_STEP);
+                return true;
+            case "Home":
+            case "End":
+                if (inText) return false;
+                event.preventDefault();
+                setActive(event.key === "Home" ? first() : last());
+                return true;
+            case "Enter":
+                if (!activeOption()) return false;
+                event.preventDefault();
+                choose(activeOption(), event);
+                return true;
+            case "Escape":
+                event.preventDefault();
+                dismiss("escape");
+                return true;
+            default:
+                return false;
+        }
+    };
+
+    //## pointer
+    // the focus stays on the control while the pointer works the list (a field inside the floating element,
+    // the search of a select box, still takes it); a click chooses the option it is on
+    floating.addEventListener("mousedown", (event) => {
+        if (!(event.target instanceof Element && event.target.closest("input, textarea"))) event.preventDefault();
+    }, { signal });
+
+    list.addEventListener("click", (event) => {
+        const option = event.target instanceof Element ? event.target.closest('[pgs~="listbox-list-option"]') : null;
+        if (option && list.contains(option)) choose(option, event);
+    }, { signal });
+
+    // a pointer down outside the owner, or the focus leaving it for another element of the page, closes the list
+    document.addEventListener("pointerdown", (event) => {
+        if (isOpen() && !owner.contains(event.target)) dismiss("outside");
+    }, { signal });
+
+    // the focus that leaves the page (the developer tools, another window, the bar of the browser) leaves the
+    // list open: it is still where the reader left it when the page has the focus again. The focus has no
+    // target yet while it moves, so the check waits for it to land
+    owner.addEventListener("focusout", (event) => {
+        if (!isOpen() || owner.contains(event.relatedTarget)) return;
+        if (event.relatedTarget) {
+            dismiss("focusout");
+            return;
+        }
+        setTimeout(() => {
+            if (isOpen() && document.hasFocus() && !owner.contains(document.activeElement)) dismiss("focusout");
+        }, 0);
+    }, { signal });
+
+    //## API
+    const destroy = () => {
+        if (API.get(list) !== api) return;
+
+        controller.abort();
+        if (active) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(active).state.remove("active");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.remove("open");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(owner).state.remove("openUp");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("below");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("above");
+        controls.forEach(control => control.removeAttribute("aria-activedescendant"));
+        API.delete(list);
+    };
+
+    const api = {
+        element: list,
+        owner,
+        floating,
+        open,
+        close,
+        toggle: () => (isOpen() ? close() : open()),
+        isOpen,
+        position,
+        options,
+        isNavigable: navigable,
+        active: activeOption,
+        setActive,
+        move,
+        first,
+        last,
+        choose,
+        handleKey,
+        destroy,
+        // the controller built again on the same list with the same settings
+        refresh: () => PGS_listbox_attach(list, settings),
+    };
+    API.set(list, api);
+    return api;
+}
+
+function PGS_listbox_api(list) {
+    return API.get(list);
+}
+
+const PGS_listbox = {
+    attach: PGS_listbox_attach,
+    api: PGS_listbox_api,
+};
+
+
+/***/ },
+
 /***/ "./assets/javascript/components/_menu.js"
 /*!***********************************************!*\
   !*** ./assets/javascript/components/_menu.js ***!
@@ -3245,6 +3570,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_search: () => (/* binding */ PGS_search)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _listbox_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_listbox.js */ "./assets/javascript/components/_listbox.js");
+
 
 
 const API = new WeakMap();
@@ -3296,18 +3623,13 @@ const Search = {
         return next;
     },
 
+    // opening, closing and placing the list (below the form, or above it without room below) is the work of
+    // the listbox controller attached to it, the same as for the list of a select box
     closeSearch(search) {
         const data = API.get(search);
         if (!data) return;
 
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("open");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("openUp");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.remove("below");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.remove("above");
-        data.input.setAttribute("aria-expanded", "false");
-        data.input.removeAttribute("aria-activedescendant");
-        data.list.setAttribute("aria-hidden", "true");
-        data.setActiveIndex(-1);
+        data.listbox.close();
         ACTIVE_SEARCHES.delete(search);
     },
 
@@ -3315,21 +3637,8 @@ const Search = {
         const data = API.get(search);
         if (!data || (!force && data.items().length === 0)) return;
 
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.add("open");
-        data.input.setAttribute("aria-expanded", "true");
-        data.list.setAttribute("aria-hidden", "false");
+        data.listbox.open();
         ACTIVE_SEARCHES.add(search);
-
-        // the list opens upward when there is no room for it below and more above, as the list of a select box
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.remove("openUp");
-        const listRect = data.list.getBoundingClientRect();
-        const formRect = search.getBoundingClientRect();
-        const up = listRect.bottom > window.innerHeight && formRect.top > window.innerHeight - formRect.bottom;
-        if (up) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.add("openUp");
-
-        // listbox squares the corners of the list on the side of the form
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.toggle("below", !up);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(data.list).state.toggle("above", up);
     },
 
     placeholderText(search, options) {
@@ -3371,15 +3680,26 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.setAttribute("aria-expanded", "false");
     input.setAttribute("autocomplete", "off");
     list.setAttribute("role", "listbox");
-    // the look of the list and of its options comes from listbox, shared with the other lists of options
-    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("listbox");
     list.setAttribute("aria-labelledby", input.id);
-    list.setAttribute("aria-hidden", "true");
 
+    // the list is written as a <ul> alone, with no need to know listbox: the JavaScript lays it in a box of its
+    // own, the panel, which is the listbox (box, list, message: see Listbox) and the element that opens. The list
+    // inside it is the listbox-list, the message (type more, nothing found) is under it, in the box
+    const panel = document.createElement("div");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("_search-panel");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("listbox");
+    list.replaceWith(panel);
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("listbox-list");
+
+    const message = document.createElement("p");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(message).add("_search-panel-message");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(message).add("listbox-message");
+    message.setAttribute("role", "status");
+    message.hidden = true;
+    panel.append(list, message);
 
     let options = { ...initialOptions };
     let items = [];
-    let activeIndex = -1;
     let timer = null;
     let controller = null;
     let requestNumber = 0;
@@ -3389,42 +3709,35 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         input.setAttribute("aria-busy", String(loading));
     }
 
-    function setActiveIndex(index) {
-        activeIndex = index;
-        const elements = Array.from((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).querySelectorAll("_search-suggestions-item"));
+    // the list behaves as every list of options does (listbox): it opens and closes, it is placed, the keys
+    // and the pointer move the active option and choose. A choice selects the suggestion; the reader closing
+    // the list (Escape, a pointer or the focus outside) also cancels what was still pending
+    const listbox = _listbox_js__WEBPACK_IMPORTED_MODULE_1__.PGS_listbox.attach(list, {
+        owner: search,
+        floating: panel,
+        controls: input,
+        onChoose: option => select(Number.parseInt(option.dataset.index, 10)),
+        onDismiss: () => {
+            cancel();
+            ACTIVE_SEARCHES.delete(search);
+        },
+    });
 
-        elements.forEach((element, itemIndex) => {
-            const selected = itemIndex === activeIndex;
-            element.setAttribute("aria-selected", String(selected));
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).state.toggle("selected", selected);
-        });
-
-        const active = elements[activeIndex];
-        if (active) {
-            input.setAttribute("aria-activedescendant", active.id);
-            active.scrollIntoView({ block: "nearest" });
-        } else {
-            input.removeAttribute("aria-activedescendant");
-        }
+    // the index of the suggestion the keys are on, -1 without one
+    function activeIndex() {
+        const option = listbox.active();
+        return option ? Number.parseInt(option.dataset.index, 10) : -1;
     }
 
-    function moveActive(step) {
-        if (!items.length) return;
-
-        let next = activeIndex;
-        for (let checked = 0; checked < items.length; checked += 1) {
-            next = (next + step + items.length) % items.length;
-            if (!items[next].disabled) {
-                setActiveIndex(next);
-                return;
-            }
-        }
+    function setActiveIndex(index) {
+        listbox.setActive(Number.isInteger(index) && index >= 0 ? index : null);
     }
 
     function clear() {
         items = [];
-        activeIndex = -1;
         list.replaceChildren();
+        message.hidden = true;
+        message.textContent = "";
         Search.closeSearch(search);
     }
 
@@ -3454,7 +3767,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         items.forEach((item, index) => {
             const option = document.createElement("li");
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-item");
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-option");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-list-option");
             option.id = `${list.id}-option-${index}`;
             option.dataset.index = String(index);
             option.setAttribute("role", "option");
@@ -3467,8 +3780,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
         });
 
-        activeIndex = -1;
         list.replaceChildren(fragment);
+        message.hidden = true;
         Search.openSearch(search);
 
         return items;
@@ -3525,31 +3838,21 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         }
     }
 
-    function showMessage(option) {
+    // a message in place of the suggestions, under the empty list: how many letters to type, nothing found
+    function showMessage(text) {
         items = [];
-        activeIndex = -1;
-
-        option.setAttribute("aria-disabled", "true");
-        list.replaceChildren(option);
-
+        list.replaceChildren();
+        message.textContent = text;
+        message.hidden = false;
         Search.openSearch(search, true);
     }
 
     function showPlaceholder() {
-        const option = document.createElement("li");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-placeholder");
-        // drawn by listbox, as a message in place of the options
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-message");
-        option.textContent = Search.placeholderText(search, options);
-        showMessage(option);
+        showMessage(Search.placeholderText(search, options));
     }
 
     function showNoResults() {
-        const option = document.createElement("li");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("_search-suggestions-empty");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(option).add("listbox-message");
-        option.textContent = Search.noResultsText(search);
-        showMessage(option);
+        showMessage(Search.noResultsText(search));
     }
 
     function schedule() {
@@ -3571,7 +3874,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         ACTIVE_SEARCHES.add(search);
     }
 
-    function select(index = activeIndex, submit = options.submitOnSelect) {
+    function select(index = activeIndex(), submit = options.submitOnSelect) {
         const item = items[index];
         if (!item || item.disabled) return null;
 
@@ -3601,32 +3904,20 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         else if (options.searchOnFocus) schedule();
     }
 
+    // the keys of the open list are those of every listbox (arrows, Page Up and Page Down, Enter, Escape;
+    // Home and End stay with the text of the field). Here only what is the search's own
     function onKeydown(event) {
-        if (event.key === "ArrowDown") {
-            if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).state.contains("open")) schedule();
-            if (items.length) {
-                event.preventDefault();
-                moveActive(1);
-            }
+        // the list closed: the arrow down looks again for what the field holds
+        if (event.key === "ArrowDown" && !listbox.isOpen()) {
+            schedule();
             return;
         }
 
-        if (event.key === "ArrowUp" && items.length) {
-            event.preventDefault();
-            moveActive(-1);
-            return;
-        }
+        if (listbox.handleKey(event)) return;
 
-        if (event.key === "Enter" && activeIndex >= 0) {
-            event.preventDefault();
-            select(activeIndex);
-            return;
-        }
-
+        // Escape with the list closed still cancels a search on its way
         if (event.key === "Escape") {
-            event.preventDefault();
             cancel();
-            Search.closeSearch(search);
             return;
         }
 
@@ -3635,13 +3926,6 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             cancel();
             Search.closeSearch(search);
         }
-    }
-
-    function onListPointerDown(event) {
-        const option = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(event.target).closest("_search-suggestions-item");
-        if (!option || !list.contains(option)) return;
-        event.preventDefault();
-        select(Number.parseInt(option.dataset.index, 10));
     }
 
     function onSubmit() {
@@ -3655,6 +3939,10 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
         cancel();
         clear();
+        listbox.destroy();
+        // the list goes back where it was written, as it was, so a new instance finds it again
+        panel.replaceWith(list);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).remove("listbox-list");
         eventController.abort();
         ACTIVE_SEARCHES.delete(search);
         API.delete(search);
@@ -3664,6 +3952,10 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         element: search,
         input,
         list,
+        // the box the list lies in, which opens: the listbox
+        panel,
+        // the listbox controller of the list: open, close, the active option, the keys
+        listbox,
         configure,
         setSource: source => configure({ source }),
         search: runSearch,
@@ -3691,7 +3983,6 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.addEventListener("input", onInput, { signal });
     input.addEventListener("focus", onFocus, { signal });
     input.addEventListener("keydown", onKeydown, { signal });
-    list.addEventListener("pointerdown", onListPointerDown, { signal });
     search.addEventListener("submit", onSubmit, { signal });
     API.set(search, api);
     return api;
@@ -3741,14 +4032,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   PGS_selectBox: () => (/* binding */ PGS_selectBox)
 /* harmony export */ });
 /* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _listbox_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_listbox.js */ "./assets/javascript/components/_listbox.js");
+
 
 
 const API = new WeakMap();
 
 // how long the letters typed one after the other still add up to one search
 const TYPEAHEAD_RESET = 500;
-// how many options PageUp and PageDown skip
-const PAGE_STEP = 10;
 
 //# BUILD
 // a <select> written by the author, inside pgs="selectBox", gets a button and a list of its own that stand
@@ -3808,31 +4099,30 @@ function PGS_selectBox_build(root) {
 
     const list = document.createElement("ul");
     list.id = listId;
-    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("_selectBox-list");
-    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("listbox");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("_selectBox-panel-list");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(list).add("listbox-list");
     list.setAttribute("role", "listbox");
     list.tabIndex = -1;
     if (multiple) list.setAttribute("aria-multiselectable", "true");
 
-    // with a search the list is not alone under the button: a panel holds the field, the list and the
-    // message shown when nothing matches, and the panel is what opens
-    let panel = null;
+    // the panel is the box under the button that opens, the listbox (background, border, radius, padding): it
+    // holds the list, which is only the options and scrolls, and with a search the field over the list and
+    // the message shown when nothing matches
+    const panel = document.createElement("div");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("_selectBox-panel");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("listbox");
+
     let search = null;
     let searchField = null;
     let noResults = null;
     if (searchable) {
-        panel = document.createElement("div");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("_selectBox-panel");
-        // the box of a listbox (background, border, radius, padding), the same as the list it holds
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(panel).add("listbox");
-
         // the field looks like the one of a search (pgs="search"): a pill with the magnifying glass before the input
         searchField = document.createElement("div");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(searchField).add("_selectBox-search");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(searchField).add("_selectBox-panel-search");
 
         search = document.createElement("input");
         search.type = "search";
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).add("_selectBox-search-input");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(search).add("_selectBox-panel-search-input");
         searchField.append(search);
         search.placeholder = searchPlaceholder;
         search.setAttribute("aria-label", searchPlaceholder);
@@ -3842,16 +4132,15 @@ function PGS_selectBox_build(root) {
         search.spellcheck = false;
 
         noResults = document.createElement("p");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(noResults).add("_selectBox-noResults");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(noResults).add("_selectBox-panel-noResults");
         // drawn by listbox, as a message in place of the options
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(noResults).add("listbox-message");
         noResults.setAttribute("role", "status");
         noResults.textContent = noResultsText;
         noResults.hidden = true;
 
-        panel.append(searchField, list, noResults);
     }
-    const floating = panel || list;
+    panel.append(...[searchField, list, noResults].filter(Boolean));
 
     // the chosen options of a selectBoxChips, before the button, each with its own button to take it away
     let chips = null;
@@ -3864,7 +4153,7 @@ function PGS_selectBox_build(root) {
     // the select is still the one the form reads, but no longer the one the reader uses
     select.setAttribute("aria-hidden", "true");
     select.tabIndex = -1;
-    select.after(...[chips, button, floating].filter(Boolean));
+    select.after(...[chips, button, panel].filter(Boolean));
 
     // the button and the list are named by the labels of the select, given an id when they have none
     const labelIds = Array.from(select.labels || []).map(label => {
@@ -3884,11 +4173,12 @@ function PGS_selectBox_build(root) {
     let groups = [];
     // which groups are open, by their label, so a list written again keeps them as they were
     const groupOpen = new Map();
-    let activeIndex = -1;
     let typed = "";
     let typedTimer = 0;
 
     const isOpen = () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.contains("open");
+    const entryOf = item => entries.find(entry => entry.item === item);
+    const indexOf = item => entries.findIndex(entry => entry.item === item);
     const chosenOptions = () => Array.from(select.selectedOptions).filter(option => !(option.hidden && option.value === ""));
     const isFull = () => max > 0 && chosenOptions().length >= max;
     // an option the keys and the pointer can choose: not disabled, not cut by the limit, not filtered out.
@@ -3906,7 +4196,7 @@ function PGS_selectBox_build(root) {
 
             const item = document.createElement("li");
             item.id = `${listId}-${entries.length}`;
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(item).add("listbox-option");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(item).add("listbox-list-option");
             item.setAttribute("role", "option");
             item.replaceChildren(...contentOf(option));
 
@@ -3920,7 +4210,7 @@ function PGS_selectBox_build(root) {
         Array.from(select.children).forEach(child => {
             if (child.tagName === "OPTGROUP") {
                 const header = document.createElement("li");
-                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).add("listbox-group");
+                (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).add("listbox-list-group");
                 header.setAttribute("role", "presentation");
                 header.textContent = child.label;
                 list.append(header);
@@ -4014,15 +4304,15 @@ function PGS_selectBox_build(root) {
 
     const chipOf = (option) => {
         const chip = document.createElement("li");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(chip).add("_selectBox-chip");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(chip).add("_selectBox-chips-item");
 
         const label = document.createElement("span");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).add("_selectBox-chip-label");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(label).add("_selectBox-chips-item-label");
         label.replaceChildren(...contentOf(option));
 
         const remove = document.createElement("button");
         remove.type = "button";
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(remove).add("_selectBox-chip-remove");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(remove).add("_selectBox-chips-item-remove");
         remove.setAttribute("aria-label", `${chipRemoveText} ${labelOf(option).trim()}`);
         remove.dataset.optionIndex = String(option.index);
         remove.disabled = select.disabled;
@@ -4033,96 +4323,53 @@ function PGS_selectBox_build(root) {
 
     const selectedIndex = () => entries.findIndex(entry => entry.option.selected);
 
-    const setActive = (index) => {
-        entries[activeIndex] && (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(entries[activeIndex].item).state.remove("active");
-        activeIndex = index;
-
-        const entry = entries[activeIndex];
-        if (!entry) {
-            button.removeAttribute("aria-activedescendant");
-            search?.removeAttribute("aria-activedescendant");
-            return;
-        }
-
-        // an option the keys reach inside a closed group opens it
-        if (collapsible && entry.group && !groupOpen.get(entry.group.label)) toggleGroup(entry.group, true);
-
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(entry.item).state.add("active");
-        button.setAttribute("aria-activedescendant", entry.item.id);
-        search?.setAttribute("aria-activedescendant", entry.item.id);
-
-        // keeps the item inside the list, without moving the page
-        const listRect = list.getBoundingClientRect();
-        const itemRect = entry.item.getBoundingClientRect();
-        const top = itemRect.top - listRect.top + list.scrollTop;
-        const bottom = top + itemRect.height;
-        if (top < list.scrollTop) list.scrollTop = top;
-        else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight;
-    };
-
-    // the next option that can be chosen from `from` in the direction of `step`, or `from` at the end
-    const findEnabled = (from, step) => {
-        for (let index = from; index >= 0 && index < entries.length; index += step) {
-            if (enabled(entries[index])) return index;
-        }
-        return -1;
-    };
-
-    const move = (step) => {
-        const start = activeIndex < 0 ? (step > 0 ? 0 : entries.length - 1) : activeIndex + step;
-        const clamped = Math.min(entries.length - 1, Math.max(0, start));
-        const index = findEnabled(clamped, step > 0 ? 1 : -1);
-        if (index >= 0) setActive(index);
-    };
-
-    const first = () => findEnabled(0, 1);
-    const last = () => findEnabled(entries.length - 1, -1);
-
     //## open & close
+    // the list behaves as every list of options does (listbox): it opens and closes, it is placed (below the
+    // button, or above it without room below), the keys and the pointer move the active option and choose,
+    // a pointer or the focus outside the box closes it. Here only what is the select box's own
+    const listbox = _listbox_js__WEBPACK_IMPORTED_MODULE_1__.PGS_listbox.attach(list, {
+        owner: root,
+        floating: panel,
+        controls: [button, search].filter(Boolean),
+        // the options the keys and the pointer reach: those of a closed group too, which opens when reached
+        isNavigable: item => enabled(entryOf(item)),
+        onActive: (item) => {
+            const entry = entryOf(item);
+            if (collapsible && entry?.group && !groupOpen.get(entry.group.label)) toggleGroup(entry.group, true);
+        },
+        onChoose: item => choose(indexOf(item)),
+        onClose: () => {
+            // letters typed before closing do not carry over to the next search, nor does the search
+            clearTimeout(typedTimer);
+            typed = "";
+            if (search) {
+                const focusWasInside = document.activeElement === search;
+                search.value = "";
+                filter();
+                // the field is hidden with the list: the focus it held goes back to the button
+                if (focusWasInside) button.focus();
+            }
+        },
+        onDismiss: (reason) => {
+            if (reason === "escape") button.focus();
+        },
+    });
+
+    const setActive = index => listbox.setActive(entries[index]?.item ?? null);
+    const activeIndex = () => indexOf(listbox.active());
+    const first = () => indexOf(listbox.first());
+    const last = () => indexOf(listbox.last());
+
     const open = (index = selectedIndex()) => {
         if (select.disabled || isOpen()) return;
 
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.add("open");
-        button.setAttribute("aria-expanded", "true");
+        listbox.open();
         setActive(enabled(entries[index]) ? index : first());
-
-        // the list opens upward when there is no room for it below and more above
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("openUp");
-        const rect = floating.getBoundingClientRect();
-        const buttonRect = button.getBoundingClientRect();
-        const up = rect.bottom > window.innerHeight && buttonRect.top > window.innerHeight - buttonRect.bottom;
-        if (up) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.add("openUp");
-
-        // listbox squares the corners of the list on the side of the field, when the list floats against it
-        // (a theme that lays it in the flow of the page keeps it whole)
-        const attached = getComputedStyle(floating).position === "absolute";
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.toggle("below", attached && !up);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.toggle("above", attached && up);
-
         // with a search the keys go to its field, which keeps the list working as the button did
         search?.focus({ preventScroll: true });
     };
 
-    const close = () => {
-        if (!isOpen()) return;
-
-        const focusWasInside = search && document.activeElement === search;
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("open");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("openUp");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("below");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(floating).state.remove("above");
-        button.setAttribute("aria-expanded", "false");
-        setActive(-1);
-        // letters typed before closing do not carry over to the next search
-        clearTimeout(typedTimer);
-        typed = "";
-        if (search) {
-            search.value = "";
-            filter();
-        }
-        // the field is hidden with the list: the focus it held goes back to the button
-        if (focusWasInside) button.focus();
-    };
+    const close = () => listbox.close();
 
     const announce = (option) => {
         select.dispatchEvent(new Event("input", { bubbles: true }));
@@ -4169,7 +4416,7 @@ function PGS_selectBox_build(root) {
         typed = typed === char ? char : typed + char;
         const query = typed.toLocaleLowerCase();
         // a word being typed may still match the option it is on; a new letter looks past it
-        const from = isOpen() ? activeIndex : selectedIndex();
+        const from = isOpen() ? activeIndex() : selectedIndex();
         const start = typed.length > 1 ? Math.max(0, from) : from + 1;
         const order = entries.map((entry, index) => (start + index) % entries.length);
         const found = order.find(index => enabled(entries[index]) && entries[index].item.textContent.trim().toLocaleLowerCase().startsWith(query));
@@ -4179,62 +4426,36 @@ function PGS_selectBox_build(root) {
         else setActive(found);
     };
 
-    // the keys of an open list, the same on the button and on the search field; the field keeps the space,
-    // Home and End for its text
+    // the keys of an open list: listbox takes those of every list (arrows, Page Up and Page Down, Home and
+    // End, Enter, Escape); here those of a select: Alt+Up, the space, Tab and the letters
     const onOpenKeys = (event, inSearch) => {
+        if (listbox.handleKey(event)) return;
+
         const { key, altKey } = event;
         const printable = key.length === 1 && !event.ctrlKey && !event.metaKey && !altKey;
 
         switch (key) {
-            case "ArrowDown":
-                event.preventDefault();
-                move(1);
-                break;
             case "ArrowUp":
-                event.preventDefault();
-                if (altKey && multiple) close();
-                else if (altKey) choose(activeIndex);
-                else move(-1);
-                break;
-            case "Home":
-                if (inSearch) break;
-                event.preventDefault();
-                setActive(first());
-                break;
-            case "End":
-                if (inSearch) break;
-                event.preventDefault();
-                setActive(last());
-                break;
-            case "PageDown":
-                event.preventDefault();
-                move(PAGE_STEP);
-                break;
-            case "PageUp":
-                event.preventDefault();
-                move(-PAGE_STEP);
-                break;
-            case "Enter":
-                event.preventDefault();
-                choose(activeIndex);
+            case "ArrowDown":
+                // Alt+Up closes the list, choosing the active option on a single select
+                if (key === "ArrowUp" && altKey) {
+                    event.preventDefault();
+                    if (multiple) close();
+                    else choose(activeIndex());
+                }
                 break;
             case " ":
                 if (inSearch) break;
                 event.preventDefault();
                 // a space in the middle of a word being typed is part of it
                 if (typed) typeahead(key);
-                else choose(activeIndex);
-                break;
-            case "Escape":
-                event.preventDefault();
-                close();
-                button.focus();
+                else choose(activeIndex());
                 break;
             case "Tab":
                 // the focus moves on with the active option chosen, as on a native select; a multiple
                 // select only closes, its choices are the ones already turned on
                 if (multiple) close();
-                else choose(activeIndex);
+                else choose(activeIndex());
                 break;
             default:
                 if (printable && !inSearch) typeahead(key);
@@ -4286,24 +4507,15 @@ function PGS_selectBox_build(root) {
         }, { signal });
     }
 
-    // the focus stays on the button (or on the search field) while the pointer works the list
-    floating.addEventListener("mousedown", (event) => {
-        if (event.target !== search) event.preventDefault();
-    }, { signal });
+    // the heading of a group that opens and closes (the options are listbox's: a click on one chooses it)
     list.addEventListener("click", (event) => {
-        const item = event.target.closest("li");
-        const group = groups.find(candidate => candidate.header === item);
-        if (group) {
-            if (collapsible && !(search && search.value)) toggleGroup(group);
-            return;
-        }
-        const index = entries.findIndex(entry => entry.item === item);
-        if (index >= 0) choose(index);
+        const group = groups.find(candidate => candidate.header === event.target.closest("li"));
+        if (group && collapsible && !(search && search.value)) toggleGroup(group);
     }, { signal });
 
     // a chip takes its option away with its button; a click elsewhere on the chips opens the list
     chips?.addEventListener("click", (event) => {
-        const remove = event.target.closest('[pgs~="_selectBox-chip-remove"]');
+        const remove = event.target.closest('[pgs~="_selectBox-chips-item-remove"]');
         if (!remove) {
             if (!isOpen()) open();
             return;
@@ -4315,14 +4527,6 @@ function PGS_selectBox_build(root) {
         sync();
         // the chip and its button are gone: the focus goes back to the field
         if (!isOpen()) button.focus();
-    }, { signal });
-
-    // a click outside, or the focus leaving the box, closes the list
-    document.addEventListener("pointerdown", (event) => {
-        if (isOpen() && !root.contains(event.target)) close();
-    }, { signal });
-    root.addEventListener("focusout", (event) => {
-        if (!root.contains(event.relatedTarget)) close();
     }, { signal });
 
     // a click on a label of the select, or the focus a script gives it (formValidate on an invalid field),
@@ -4351,13 +4555,12 @@ function PGS_selectBox_build(root) {
 
         controller.abort();
         observer.disconnect();
+        listbox.destroy();
         clearTimeout(typedTimer);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("open");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("openUp");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("empty");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).state.remove("full");
         button.remove();
-        floating.remove();
+        panel.remove();
         chips?.remove();
         select.removeAttribute("aria-hidden");
         select.removeAttribute("tabindex");
@@ -4369,7 +4572,11 @@ function PGS_selectBox_build(root) {
         select,
         button,
         list,
+        // the box the list lies in, which opens: the listbox
+        panel,
         search,
+        // the listbox controller of the list: open, close, the active option, the keys
+        listbox,
         open: () => open(),
         close,
         toggle: () => (isOpen() ? close() : open()),
@@ -4450,8 +4657,8 @@ class PGS_Slides {
         // the check below has to look for either. The ones that are generated go in one wrapper, so the
         // stylesheet places a pair and not two loose buttons: it is made the first time one is needed, and
         // found again after a destroy() and a new init()
-        const needsPrev = !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-prev', '_slides-prev']);
-        const needsNext = !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-next', '_slides-next']);
+        const needsPrev = !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-prev', '_slides-arrows-prev']);
+        const needsNext = !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-next', '_slides-arrows-next']);
 
         if (needsPrev || needsNext) {
             let arrows = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector('_slides-arrows');
@@ -4460,10 +4667,10 @@ class PGS_Slides {
                 arrows = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector('_slides-arrows');
             }
             if (needsPrev) {
-                arrows.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
+                arrows.insertAdjacentHTML("afterbegin", `<button pgs="_slides-arrows-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
             }
             if (needsNext) {
-                arrows.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
+                arrows.insertAdjacentHTML("beforeend", `<button pgs="_slides-arrows-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
             }
         }
 
@@ -4636,8 +4843,8 @@ class PGS_Slides {
 
         //## elements
         this.#createButtonsAndDots();
-        const prevButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-prev', '_slides-prev']);
-        const nextButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-next', '_slides-next']);
+        const prevButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-prev', '_slides-arrows-prev']);
+        const nextButton = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-next', '_slides-arrows-next']);
         // none with slidesNotDots (the module builds no row): the arrows and the observer need no dots
         const dotsContainer = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(slides).querySelector(['slides-dots', '_slides-dots']);
         const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
@@ -7002,6 +7209,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ header: _layout_header_js__WEBPACK_IMPORTED_MODULE_1__.PGS_header });
+
+
+/***/ },
+
+/***/ "./assets/javascript/modules/listbox.js"
+/*!**********************************************!*\
+  !*** ./assets/javascript/modules/listbox.js ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pgs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_pgs.js */ "./assets/javascript/_pgs.js");
+/* harmony import */ var _components_listbox_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_listbox.js */ "./assets/javascript/components/_listbox.js");
+// listbox: left out by a project whose mypgs.config.json does not include it (see assets/modules.json),
+// where the build resolves this file to an empty module. search and formAddon require it: they import the
+// controller themselves, this file only publishes it as pgs.listbox
+
+
+
+_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.registerModules({ listbox: _components_listbox_js__WEBPACK_IMPORTED_MODULE_1__.PGS_listbox });
 
 
 /***/ },

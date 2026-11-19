@@ -1,11 +1,10 @@
 import { pgs } from "../_pgs.js";
+import { PGS_listbox } from "./_listbox.js";
 
 const API = new WeakMap();
 
 // how long the letters typed one after the other still add up to one search
 const TYPEAHEAD_RESET = 500;
-// how many options PageUp and PageDown skip
-const PAGE_STEP = 10;
 
 //# BUILD
 // a <select> written by the author, inside pgs="selectBox", gets a button and a list of its own that stand
@@ -65,31 +64,30 @@ function PGS_selectBox_build(root) {
 
     const list = document.createElement("ul");
     list.id = listId;
-    pgs(list).add("_selectBox-list");
-    pgs(list).add("listbox");
+    pgs(list).add("_selectBox-panel-list");
+    pgs(list).add("listbox-list");
     list.setAttribute("role", "listbox");
     list.tabIndex = -1;
     if (multiple) list.setAttribute("aria-multiselectable", "true");
 
-    // with a search the list is not alone under the button: a panel holds the field, the list and the
-    // message shown when nothing matches, and the panel is what opens
-    let panel = null;
+    // the panel is the box under the button that opens, the listbox (background, border, radius, padding): it
+    // holds the list, which is only the options and scrolls, and with a search the field over the list and
+    // the message shown when nothing matches
+    const panel = document.createElement("div");
+    pgs(panel).add("_selectBox-panel");
+    pgs(panel).add("listbox");
+
     let search = null;
     let searchField = null;
     let noResults = null;
     if (searchable) {
-        panel = document.createElement("div");
-        pgs(panel).add("_selectBox-panel");
-        // the box of a listbox (background, border, radius, padding), the same as the list it holds
-        pgs(panel).add("listbox");
-
         // the field looks like the one of a search (pgs="search"): a pill with the magnifying glass before the input
         searchField = document.createElement("div");
-        pgs(searchField).add("_selectBox-search");
+        pgs(searchField).add("_selectBox-panel-search");
 
         search = document.createElement("input");
         search.type = "search";
-        pgs(search).add("_selectBox-search-input");
+        pgs(search).add("_selectBox-panel-search-input");
         searchField.append(search);
         search.placeholder = searchPlaceholder;
         search.setAttribute("aria-label", searchPlaceholder);
@@ -99,16 +97,15 @@ function PGS_selectBox_build(root) {
         search.spellcheck = false;
 
         noResults = document.createElement("p");
-        pgs(noResults).add("_selectBox-noResults");
+        pgs(noResults).add("_selectBox-panel-noResults");
         // drawn by listbox, as a message in place of the options
         pgs(noResults).add("listbox-message");
         noResults.setAttribute("role", "status");
         noResults.textContent = noResultsText;
         noResults.hidden = true;
 
-        panel.append(searchField, list, noResults);
     }
-    const floating = panel || list;
+    panel.append(...[searchField, list, noResults].filter(Boolean));
 
     // the chosen options of a selectBoxChips, before the button, each with its own button to take it away
     let chips = null;
@@ -121,7 +118,7 @@ function PGS_selectBox_build(root) {
     // the select is still the one the form reads, but no longer the one the reader uses
     select.setAttribute("aria-hidden", "true");
     select.tabIndex = -1;
-    select.after(...[chips, button, floating].filter(Boolean));
+    select.after(...[chips, button, panel].filter(Boolean));
 
     // the button and the list are named by the labels of the select, given an id when they have none
     const labelIds = Array.from(select.labels || []).map(label => {
@@ -141,11 +138,12 @@ function PGS_selectBox_build(root) {
     let groups = [];
     // which groups are open, by their label, so a list written again keeps them as they were
     const groupOpen = new Map();
-    let activeIndex = -1;
     let typed = "";
     let typedTimer = 0;
 
     const isOpen = () => pgs(root).state.contains("open");
+    const entryOf = item => entries.find(entry => entry.item === item);
+    const indexOf = item => entries.findIndex(entry => entry.item === item);
     const chosenOptions = () => Array.from(select.selectedOptions).filter(option => !(option.hidden && option.value === ""));
     const isFull = () => max > 0 && chosenOptions().length >= max;
     // an option the keys and the pointer can choose: not disabled, not cut by the limit, not filtered out.
@@ -163,7 +161,7 @@ function PGS_selectBox_build(root) {
 
             const item = document.createElement("li");
             item.id = `${listId}-${entries.length}`;
-            pgs(item).add("listbox-option");
+            pgs(item).add("listbox-list-option");
             item.setAttribute("role", "option");
             item.replaceChildren(...contentOf(option));
 
@@ -177,7 +175,7 @@ function PGS_selectBox_build(root) {
         Array.from(select.children).forEach(child => {
             if (child.tagName === "OPTGROUP") {
                 const header = document.createElement("li");
-                pgs(header).add("listbox-group");
+                pgs(header).add("listbox-list-group");
                 header.setAttribute("role", "presentation");
                 header.textContent = child.label;
                 list.append(header);
@@ -271,15 +269,15 @@ function PGS_selectBox_build(root) {
 
     const chipOf = (option) => {
         const chip = document.createElement("li");
-        pgs(chip).add("_selectBox-chip");
+        pgs(chip).add("_selectBox-chips-item");
 
         const label = document.createElement("span");
-        pgs(label).add("_selectBox-chip-label");
+        pgs(label).add("_selectBox-chips-item-label");
         label.replaceChildren(...contentOf(option));
 
         const remove = document.createElement("button");
         remove.type = "button";
-        pgs(remove).add("_selectBox-chip-remove");
+        pgs(remove).add("_selectBox-chips-item-remove");
         remove.setAttribute("aria-label", `${chipRemoveText} ${labelOf(option).trim()}`);
         remove.dataset.optionIndex = String(option.index);
         remove.disabled = select.disabled;
@@ -290,96 +288,53 @@ function PGS_selectBox_build(root) {
 
     const selectedIndex = () => entries.findIndex(entry => entry.option.selected);
 
-    const setActive = (index) => {
-        entries[activeIndex] && pgs(entries[activeIndex].item).state.remove("active");
-        activeIndex = index;
-
-        const entry = entries[activeIndex];
-        if (!entry) {
-            button.removeAttribute("aria-activedescendant");
-            search?.removeAttribute("aria-activedescendant");
-            return;
-        }
-
-        // an option the keys reach inside a closed group opens it
-        if (collapsible && entry.group && !groupOpen.get(entry.group.label)) toggleGroup(entry.group, true);
-
-        pgs(entry.item).state.add("active");
-        button.setAttribute("aria-activedescendant", entry.item.id);
-        search?.setAttribute("aria-activedescendant", entry.item.id);
-
-        // keeps the item inside the list, without moving the page
-        const listRect = list.getBoundingClientRect();
-        const itemRect = entry.item.getBoundingClientRect();
-        const top = itemRect.top - listRect.top + list.scrollTop;
-        const bottom = top + itemRect.height;
-        if (top < list.scrollTop) list.scrollTop = top;
-        else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight;
-    };
-
-    // the next option that can be chosen from `from` in the direction of `step`, or `from` at the end
-    const findEnabled = (from, step) => {
-        for (let index = from; index >= 0 && index < entries.length; index += step) {
-            if (enabled(entries[index])) return index;
-        }
-        return -1;
-    };
-
-    const move = (step) => {
-        const start = activeIndex < 0 ? (step > 0 ? 0 : entries.length - 1) : activeIndex + step;
-        const clamped = Math.min(entries.length - 1, Math.max(0, start));
-        const index = findEnabled(clamped, step > 0 ? 1 : -1);
-        if (index >= 0) setActive(index);
-    };
-
-    const first = () => findEnabled(0, 1);
-    const last = () => findEnabled(entries.length - 1, -1);
-
     //## open & close
+    // the list behaves as every list of options does (listbox): it opens and closes, it is placed (below the
+    // button, or above it without room below), the keys and the pointer move the active option and choose,
+    // a pointer or the focus outside the box closes it. Here only what is the select box's own
+    const listbox = PGS_listbox.attach(list, {
+        owner: root,
+        floating: panel,
+        controls: [button, search].filter(Boolean),
+        // the options the keys and the pointer reach: those of a closed group too, which opens when reached
+        isNavigable: item => enabled(entryOf(item)),
+        onActive: (item) => {
+            const entry = entryOf(item);
+            if (collapsible && entry?.group && !groupOpen.get(entry.group.label)) toggleGroup(entry.group, true);
+        },
+        onChoose: item => choose(indexOf(item)),
+        onClose: () => {
+            // letters typed before closing do not carry over to the next search, nor does the search
+            clearTimeout(typedTimer);
+            typed = "";
+            if (search) {
+                const focusWasInside = document.activeElement === search;
+                search.value = "";
+                filter();
+                // the field is hidden with the list: the focus it held goes back to the button
+                if (focusWasInside) button.focus();
+            }
+        },
+        onDismiss: (reason) => {
+            if (reason === "escape") button.focus();
+        },
+    });
+
+    const setActive = index => listbox.setActive(entries[index]?.item ?? null);
+    const activeIndex = () => indexOf(listbox.active());
+    const first = () => indexOf(listbox.first());
+    const last = () => indexOf(listbox.last());
+
     const open = (index = selectedIndex()) => {
         if (select.disabled || isOpen()) return;
 
-        pgs(root).state.add("open");
-        button.setAttribute("aria-expanded", "true");
+        listbox.open();
         setActive(enabled(entries[index]) ? index : first());
-
-        // the list opens upward when there is no room for it below and more above
-        pgs(root).state.remove("openUp");
-        const rect = floating.getBoundingClientRect();
-        const buttonRect = button.getBoundingClientRect();
-        const up = rect.bottom > window.innerHeight && buttonRect.top > window.innerHeight - buttonRect.bottom;
-        if (up) pgs(root).state.add("openUp");
-
-        // listbox squares the corners of the list on the side of the field, when the list floats against it
-        // (a theme that lays it in the flow of the page keeps it whole)
-        const attached = getComputedStyle(floating).position === "absolute";
-        pgs(floating).state.toggle("below", attached && !up);
-        pgs(floating).state.toggle("above", attached && up);
-
         // with a search the keys go to its field, which keeps the list working as the button did
         search?.focus({ preventScroll: true });
     };
 
-    const close = () => {
-        if (!isOpen()) return;
-
-        const focusWasInside = search && document.activeElement === search;
-        pgs(root).state.remove("open");
-        pgs(root).state.remove("openUp");
-        pgs(floating).state.remove("below");
-        pgs(floating).state.remove("above");
-        button.setAttribute("aria-expanded", "false");
-        setActive(-1);
-        // letters typed before closing do not carry over to the next search
-        clearTimeout(typedTimer);
-        typed = "";
-        if (search) {
-            search.value = "";
-            filter();
-        }
-        // the field is hidden with the list: the focus it held goes back to the button
-        if (focusWasInside) button.focus();
-    };
+    const close = () => listbox.close();
 
     const announce = (option) => {
         select.dispatchEvent(new Event("input", { bubbles: true }));
@@ -426,7 +381,7 @@ function PGS_selectBox_build(root) {
         typed = typed === char ? char : typed + char;
         const query = typed.toLocaleLowerCase();
         // a word being typed may still match the option it is on; a new letter looks past it
-        const from = isOpen() ? activeIndex : selectedIndex();
+        const from = isOpen() ? activeIndex() : selectedIndex();
         const start = typed.length > 1 ? Math.max(0, from) : from + 1;
         const order = entries.map((entry, index) => (start + index) % entries.length);
         const found = order.find(index => enabled(entries[index]) && entries[index].item.textContent.trim().toLocaleLowerCase().startsWith(query));
@@ -436,62 +391,36 @@ function PGS_selectBox_build(root) {
         else setActive(found);
     };
 
-    // the keys of an open list, the same on the button and on the search field; the field keeps the space,
-    // Home and End for its text
+    // the keys of an open list: listbox takes those of every list (arrows, Page Up and Page Down, Home and
+    // End, Enter, Escape); here those of a select: Alt+Up, the space, Tab and the letters
     const onOpenKeys = (event, inSearch) => {
+        if (listbox.handleKey(event)) return;
+
         const { key, altKey } = event;
         const printable = key.length === 1 && !event.ctrlKey && !event.metaKey && !altKey;
 
         switch (key) {
-            case "ArrowDown":
-                event.preventDefault();
-                move(1);
-                break;
             case "ArrowUp":
-                event.preventDefault();
-                if (altKey && multiple) close();
-                else if (altKey) choose(activeIndex);
-                else move(-1);
-                break;
-            case "Home":
-                if (inSearch) break;
-                event.preventDefault();
-                setActive(first());
-                break;
-            case "End":
-                if (inSearch) break;
-                event.preventDefault();
-                setActive(last());
-                break;
-            case "PageDown":
-                event.preventDefault();
-                move(PAGE_STEP);
-                break;
-            case "PageUp":
-                event.preventDefault();
-                move(-PAGE_STEP);
-                break;
-            case "Enter":
-                event.preventDefault();
-                choose(activeIndex);
+            case "ArrowDown":
+                // Alt+Up closes the list, choosing the active option on a single select
+                if (key === "ArrowUp" && altKey) {
+                    event.preventDefault();
+                    if (multiple) close();
+                    else choose(activeIndex());
+                }
                 break;
             case " ":
                 if (inSearch) break;
                 event.preventDefault();
                 // a space in the middle of a word being typed is part of it
                 if (typed) typeahead(key);
-                else choose(activeIndex);
-                break;
-            case "Escape":
-                event.preventDefault();
-                close();
-                button.focus();
+                else choose(activeIndex());
                 break;
             case "Tab":
                 // the focus moves on with the active option chosen, as on a native select; a multiple
                 // select only closes, its choices are the ones already turned on
                 if (multiple) close();
-                else choose(activeIndex);
+                else choose(activeIndex());
                 break;
             default:
                 if (printable && !inSearch) typeahead(key);
@@ -543,24 +472,15 @@ function PGS_selectBox_build(root) {
         }, { signal });
     }
 
-    // the focus stays on the button (or on the search field) while the pointer works the list
-    floating.addEventListener("mousedown", (event) => {
-        if (event.target !== search) event.preventDefault();
-    }, { signal });
+    // the heading of a group that opens and closes (the options are listbox's: a click on one chooses it)
     list.addEventListener("click", (event) => {
-        const item = event.target.closest("li");
-        const group = groups.find(candidate => candidate.header === item);
-        if (group) {
-            if (collapsible && !(search && search.value)) toggleGroup(group);
-            return;
-        }
-        const index = entries.findIndex(entry => entry.item === item);
-        if (index >= 0) choose(index);
+        const group = groups.find(candidate => candidate.header === event.target.closest("li"));
+        if (group && collapsible && !(search && search.value)) toggleGroup(group);
     }, { signal });
 
     // a chip takes its option away with its button; a click elsewhere on the chips opens the list
     chips?.addEventListener("click", (event) => {
-        const remove = event.target.closest('[pgs~="_selectBox-chip-remove"]');
+        const remove = event.target.closest('[pgs~="_selectBox-chips-item-remove"]');
         if (!remove) {
             if (!isOpen()) open();
             return;
@@ -572,14 +492,6 @@ function PGS_selectBox_build(root) {
         sync();
         // the chip and its button are gone: the focus goes back to the field
         if (!isOpen()) button.focus();
-    }, { signal });
-
-    // a click outside, or the focus leaving the box, closes the list
-    document.addEventListener("pointerdown", (event) => {
-        if (isOpen() && !root.contains(event.target)) close();
-    }, { signal });
-    root.addEventListener("focusout", (event) => {
-        if (!root.contains(event.relatedTarget)) close();
     }, { signal });
 
     // a click on a label of the select, or the focus a script gives it (formValidate on an invalid field),
@@ -608,13 +520,12 @@ function PGS_selectBox_build(root) {
 
         controller.abort();
         observer.disconnect();
+        listbox.destroy();
         clearTimeout(typedTimer);
-        pgs(root).state.remove("open");
-        pgs(root).state.remove("openUp");
         pgs(root).state.remove("empty");
         pgs(root).state.remove("full");
         button.remove();
-        floating.remove();
+        panel.remove();
         chips?.remove();
         select.removeAttribute("aria-hidden");
         select.removeAttribute("tabindex");
@@ -626,7 +537,11 @@ function PGS_selectBox_build(root) {
         select,
         button,
         list,
+        // the box the list lies in, which opens: the listbox
+        panel,
         search,
+        // the listbox controller of the list: open, close, the active option, the keys
+        listbox,
         open: () => open(),
         close,
         toggle: () => (isOpen() ? close() : open()),

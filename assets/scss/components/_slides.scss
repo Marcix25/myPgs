@@ -80,14 +80,14 @@
     :where([pgs~="_slides-arrows"]) { display: contents; }
 
     // the arrows a hand-written pair leaves in the flow: one line above the track, at the right
-    :where([pgs~="_slides-prev"]),
-    :where([pgs~="_slides-next"]) {
+    :where([pgs~="_slides-arrows-prev"]),
+    :where([pgs~="_slides-arrows-next"]) {
         position: relative;
         z-index: 4;
         order: -1;
 
-        &:where([pgs~="_slides-prev"]) { margin-left: auto; }
-        &:where([pgs~="_slides-next"]) { margin-right: var(--padding-details); }
+        &:where([pgs~="_slides-arrows-prev"]) { margin-left: auto; }
+        &:where([pgs~="_slides-arrows-next"]) { margin-right: var(--padding-details); }
     }
 
     // the generated arrows are built by the module after the page has loaded, so a line of their own
@@ -107,8 +107,8 @@
             gap: var(--gap-paragraphs);
         }
 
-        :where([pgs~="_slides-prev"]),
-        :where([pgs~="_slides-next"]) {
+        :where([pgs~="_slides-arrows-prev"]),
+        :where([pgs~="_slides-arrows-next"]) {
             margin: unset;
             inline-size: var(--slides-arrowSize);
             block-size: var(--slides-arrowSize);
@@ -206,14 +206,14 @@
             pointer-events: none;
         }
 
-        :where([pgs~="_slides-prev"]),
-        :where([pgs~="_slides-next"]) {
+        :where([pgs~="_slides-arrows-prev"]),
+        :where([pgs~="_slides-arrows-next"]) {
             margin: unset;
             pointer-events: auto;
         }
 
-        :where([pgs~="_slides-prev"]) { margin-right: auto; }
-        :where([pgs~="_slides-next"]) { margin-left: auto; }
+        :where([pgs~="_slides-arrows-prev"]) { margin-right: auto; }
+        :where([pgs~="_slides-arrows-next"]) { margin-left: auto; }
     }
 
     //+ option for suggestions

@@ -1,4 +1,5 @@
 import { pgs } from "../_pgs.js";
+import { PGS_listbox } from "./_listbox.js";
 
 const API = new WeakMap();
 // the searches that are open, or have a debounce or a request still pending: what a pointerdown
@@ -49,18 +50,13 @@ const Search = {
         return next;
     },
 
+    // opening, closing and placing the list (below the form, or above it without room below) is the work of
+    // the listbox controller attached to it, the same as for the list of a select box
     closeSearch(search) {
         const data = API.get(search);
         if (!data) return;
 
-        pgs(search).state.remove("open");
-        pgs(search).state.remove("openUp");
-        pgs(data.list).state.remove("below");
-        pgs(data.list).state.remove("above");
-        data.input.setAttribute("aria-expanded", "false");
-        data.input.removeAttribute("aria-activedescendant");
-        data.list.setAttribute("aria-hidden", "true");
-        data.setActiveIndex(-1);
+        data.listbox.close();
         ACTIVE_SEARCHES.delete(search);
     },
 
@@ -68,21 +64,8 @@ const Search = {
         const data = API.get(search);
         if (!data || (!force && data.items().length === 0)) return;
 
-        pgs(search).state.add("open");
-        data.input.setAttribute("aria-expanded", "true");
-        data.list.setAttribute("aria-hidden", "false");
+        data.listbox.open();
         ACTIVE_SEARCHES.add(search);
-
-        // the list opens upward when there is no room for it below and more above, as the list of a select box
-        pgs(search).state.remove("openUp");
-        const listRect = data.list.getBoundingClientRect();
-        const formRect = search.getBoundingClientRect();
-        const up = listRect.bottom > window.innerHeight && formRect.top > window.innerHeight - formRect.bottom;
-        if (up) pgs(search).state.add("openUp");
-
-        // listbox squares the corners of the list on the side of the form
-        pgs(data.list).state.toggle("below", !up);
-        pgs(data.list).state.toggle("above", up);
     },
 
     placeholderText(search, options) {
@@ -124,15 +107,26 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.setAttribute("aria-expanded", "false");
     input.setAttribute("autocomplete", "off");
     list.setAttribute("role", "listbox");
-    // the look of the list and of its options comes from listbox, shared with the other lists of options
-    pgs(list).add("listbox");
     list.setAttribute("aria-labelledby", input.id);
-    list.setAttribute("aria-hidden", "true");
 
+    // the list is written as a <ul> alone, with no need to know listbox: the JavaScript lays it in a box of its
+    // own, the panel, which is the listbox (box, list, message: see Listbox) and the element that opens. The list
+    // inside it is the listbox-list, the message (type more, nothing found) is under it, in the box
+    const panel = document.createElement("div");
+    pgs(panel).add("_search-panel");
+    pgs(panel).add("listbox");
+    list.replaceWith(panel);
+    pgs(list).add("listbox-list");
+
+    const message = document.createElement("p");
+    pgs(message).add("_search-panel-message");
+    pgs(message).add("listbox-message");
+    message.setAttribute("role", "status");
+    message.hidden = true;
+    panel.append(list, message);
 
     let options = { ...initialOptions };
     let items = [];
-    let activeIndex = -1;
     let timer = null;
     let controller = null;
     let requestNumber = 0;
@@ -142,42 +136,35 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         input.setAttribute("aria-busy", String(loading));
     }
 
-    function setActiveIndex(index) {
-        activeIndex = index;
-        const elements = Array.from(pgs(list).querySelectorAll("_search-suggestions-item"));
+    // the list behaves as every list of options does (listbox): it opens and closes, it is placed, the keys
+    // and the pointer move the active option and choose. A choice selects the suggestion; the reader closing
+    // the list (Escape, a pointer or the focus outside) also cancels what was still pending
+    const listbox = PGS_listbox.attach(list, {
+        owner: search,
+        floating: panel,
+        controls: input,
+        onChoose: option => select(Number.parseInt(option.dataset.index, 10)),
+        onDismiss: () => {
+            cancel();
+            ACTIVE_SEARCHES.delete(search);
+        },
+    });
 
-        elements.forEach((element, itemIndex) => {
-            const selected = itemIndex === activeIndex;
-            element.setAttribute("aria-selected", String(selected));
-            pgs(element).state.toggle("selected", selected);
-        });
-
-        const active = elements[activeIndex];
-        if (active) {
-            input.setAttribute("aria-activedescendant", active.id);
-            active.scrollIntoView({ block: "nearest" });
-        } else {
-            input.removeAttribute("aria-activedescendant");
-        }
+    // the index of the suggestion the keys are on, -1 without one
+    function activeIndex() {
+        const option = listbox.active();
+        return option ? Number.parseInt(option.dataset.index, 10) : -1;
     }
 
-    function moveActive(step) {
-        if (!items.length) return;
-
-        let next = activeIndex;
-        for (let checked = 0; checked < items.length; checked += 1) {
-            next = (next + step + items.length) % items.length;
-            if (!items[next].disabled) {
-                setActiveIndex(next);
-                return;
-            }
-        }
+    function setActiveIndex(index) {
+        listbox.setActive(Number.isInteger(index) && index >= 0 ? index : null);
     }
 
     function clear() {
         items = [];
-        activeIndex = -1;
         list.replaceChildren();
+        message.hidden = true;
+        message.textContent = "";
         Search.closeSearch(search);
     }
 
@@ -207,7 +194,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         items.forEach((item, index) => {
             const option = document.createElement("li");
             pgs(option).add("_search-suggestions-item");
-            pgs(option).add("listbox-option");
+            pgs(option).add("listbox-list-option");
             option.id = `${list.id}-option-${index}`;
             option.dataset.index = String(index);
             option.setAttribute("role", "option");
@@ -220,8 +207,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
         });
 
-        activeIndex = -1;
         list.replaceChildren(fragment);
+        message.hidden = true;
         Search.openSearch(search);
 
         return items;
@@ -278,31 +265,21 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         }
     }
 
-    function showMessage(option) {
+    // a message in place of the suggestions, under the empty list: how many letters to type, nothing found
+    function showMessage(text) {
         items = [];
-        activeIndex = -1;
-
-        option.setAttribute("aria-disabled", "true");
-        list.replaceChildren(option);
-
+        list.replaceChildren();
+        message.textContent = text;
+        message.hidden = false;
         Search.openSearch(search, true);
     }
 
     function showPlaceholder() {
-        const option = document.createElement("li");
-        pgs(option).add("_search-suggestions-placeholder");
-        // drawn by listbox, as a message in place of the options
-        pgs(option).add("listbox-message");
-        option.textContent = Search.placeholderText(search, options);
-        showMessage(option);
+        showMessage(Search.placeholderText(search, options));
     }
 
     function showNoResults() {
-        const option = document.createElement("li");
-        pgs(option).add("_search-suggestions-empty");
-        pgs(option).add("listbox-message");
-        option.textContent = Search.noResultsText(search);
-        showMessage(option);
+        showMessage(Search.noResultsText(search));
     }
 
     function schedule() {
@@ -324,7 +301,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         ACTIVE_SEARCHES.add(search);
     }
 
-    function select(index = activeIndex, submit = options.submitOnSelect) {
+    function select(index = activeIndex(), submit = options.submitOnSelect) {
         const item = items[index];
         if (!item || item.disabled) return null;
 
@@ -354,32 +331,20 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         else if (options.searchOnFocus) schedule();
     }
 
+    // the keys of the open list are those of every listbox (arrows, Page Up and Page Down, Enter, Escape;
+    // Home and End stay with the text of the field). Here only what is the search's own
     function onKeydown(event) {
-        if (event.key === "ArrowDown") {
-            if (!pgs(search).state.contains("open")) schedule();
-            if (items.length) {
-                event.preventDefault();
-                moveActive(1);
-            }
+        // the list closed: the arrow down looks again for what the field holds
+        if (event.key === "ArrowDown" && !listbox.isOpen()) {
+            schedule();
             return;
         }
 
-        if (event.key === "ArrowUp" && items.length) {
-            event.preventDefault();
-            moveActive(-1);
-            return;
-        }
+        if (listbox.handleKey(event)) return;
 
-        if (event.key === "Enter" && activeIndex >= 0) {
-            event.preventDefault();
-            select(activeIndex);
-            return;
-        }
-
+        // Escape with the list closed still cancels a search on its way
         if (event.key === "Escape") {
-            event.preventDefault();
             cancel();
-            Search.closeSearch(search);
             return;
         }
 
@@ -388,13 +353,6 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
             cancel();
             Search.closeSearch(search);
         }
-    }
-
-    function onListPointerDown(event) {
-        const option = pgs(event.target).closest("_search-suggestions-item");
-        if (!option || !list.contains(option)) return;
-        event.preventDefault();
-        select(Number.parseInt(option.dataset.index, 10));
     }
 
     function onSubmit() {
@@ -408,6 +366,10 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
 
         cancel();
         clear();
+        listbox.destroy();
+        // the list goes back where it was written, as it was, so a new instance finds it again
+        panel.replaceWith(list);
+        pgs(list).remove("listbox-list");
         eventController.abort();
         ACTIVE_SEARCHES.delete(search);
         API.delete(search);
@@ -417,6 +379,10 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         element: search,
         input,
         list,
+        // the box the list lies in, which opens: the listbox
+        panel,
+        // the listbox controller of the list: open, close, the active option, the keys
+        listbox,
         configure,
         setSource: source => configure({ source }),
         search: runSearch,
@@ -444,7 +410,6 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.addEventListener("input", onInput, { signal });
     input.addEventListener("focus", onFocus, { signal });
     input.addEventListener("keydown", onKeydown, { signal });
-    list.addEventListener("pointerdown", onListPointerDown, { signal });
     search.addEventListener("submit", onSubmit, { signal });
     API.set(search, api);
     return api;

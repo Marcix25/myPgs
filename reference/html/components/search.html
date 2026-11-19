@@ -1,16 +1,16 @@
 <!--
 /**
  * @title Search
- * @description Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. An object item can carry its own icon, as icon: markup, shown before its label in place of searchIconSuggestion; that markup is inserted as HTML, so it must be written by the author, never taken from remote text. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions list as a direct child is left alone, with a warning in the console.
+ * @description Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. An object item can carry its own icon, as icon: markup, shown before its label in place of searchIconSuggestion; that markup is inserted as HTML, so it must be written by the author, never taken from remote text. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions list as a direct child is left alone, with a warning in the console. The list behaves as every listbox does (it is attached with pgs.listbox, whose controller is instance.listbox): the arrows and Page Up and Page Down move the active suggestion, stopping at the first and the last and skipping the disabled ones, Home and End stay with the text of the field, Enter chooses, Escape closes and cancels a search on its way, a click chooses, and a pointer or the focus outside the form closes it.
  *
  * @pgs
  * - search: identifies the search element used by Search. Without a submit button (a button of type submit, or with no type) the input takes --search-paddingBlock on its sides too, so the text does not touch the edges.
- * - search-suggestions: identifies the search-suggestions element used by Search. The JavaScript gives it listbox, which draws the list and its options (see Listbox); joined to the form, it takes the background, the color and the radius of the search (--search-background, --search-color, --search-borderRadius), the outline of the form goes on round it, and it lies --listbox-offset under the form.
+ * - search-suggestions: the list of the suggestions, written empty as a direct child of the form (a <ul>), with no need to know listbox: the JavaScript lays it in a box of its own, _search-panel, and gives it listbox-list (see Listbox).
  *
  * @pgs-generated
- * - _search-suggestions-item: one suggestion in the list, rebuilt from the configured source at every keystroke; it also takes listbox-option, which draws it.
- * - _search-suggestions-placeholder: shown instead of the suggestion list while the query is shorter than minLength, guiding how many more characters to type; it also takes listbox-message, which draws it.
- * - _search-suggestions-empty: shown instead of the suggestion list when a completed search returns no items; it also takes listbox-message, which draws it.
+ * - _search-panel: the box the JavaScript lays the search-suggestions list in, in its place in the form; it also takes listbox, which alone draws it with the list and the message (see Listbox): the search only places it and shows it while open. It is joined to the form: the form squares its corners on the side of the box, the box lies over the border of the form so the two borders are one line, it takes the state below or above, with which listbox squares its corners on that side, the focus ring of the form goes on round it, and it lies --listbox-offset under the form (over it with openUp). destroy() takes it away and puts the list back where it was written.
+ * - _search-panel-message: in the box under the empty list, the message in place of the suggestions (role status): how many more characters to type while the query is shorter than minLength, or nothing found when a completed search returns no items; it also takes listbox-message, which draws it.
+ * - _search-suggestions-item: one suggestion in the list, rebuilt from the configured source at every keystroke; it also takes listbox-list-option, which draws it.
  *
  * @pgs-options
  * - searchMinWidth: inside search's own bracket, sets a minimum width for the field from the mobile breakpoint up, so it doesn't shrink to fit a narrow container.
@@ -22,12 +22,11 @@
  *
  * @pgs-state
  * - open: identifies the open element used by Search.
- * - openUp: on an open search whose suggestions open above the form, because there is no room for them below: the list is joined to the top of the form, which squares its top corners instead of the bottom ones. The list itself takes the state below or above, with which listbox squares its corners on the side of the form.
- * - below: on the open suggestions, which lie under the form; listbox squares their top corners. See Listbox.
- * - above: on the open suggestions with openUp, which lie over the form; listbox squares their bottom corners. See Listbox.
+ * - openUp: on an open search whose suggestions open above the form, because there is no room for them below: the box of the suggestions is joined to the top of the form, which squares its top corners instead of the bottom ones. The box itself takes the state below or above, with which listbox squares its corners on the side of the form.
+ * - below: on the open box of the suggestions (_search-panel), which lies under the form; listbox squares their top corners. See Listbox.
+ * - above: on the open box of the suggestions with openUp, which lies over the form; listbox squares their bottom corners. See Listbox.
  * - loading: identifies the loading element used by Search.
  * - error: identifies the error element used by Search.
- * - selected: identifies the selected element used by Search.
  *
  * @api
  * - pgs.search.init(root): initializes matching elements within the specified root.
@@ -41,14 +40,14 @@
  * - instance.cancel(): cancels the pending debounce and the request in flight.
  * - instance.select(index, submit): picks the suggestion at index (the active one when omitted), writes its value in the input, closes the list, dispatches pgs:search:select and calls onSelect; submit (submitOnSelect by default) also submits the form. Returns the item, or null when there is none or it is disabled.
  * - instance.refresh(): destroys the instance and builds it again from the markup, keeping the options given to configure(), and returns the new instance; it no longer re-runs the query, search() does.
- * - instance.destroy(): cancels what is pending, empties the list, removes every listener and releases the instance; pgs.search.init(root) builds it again.
+ * - instance.destroy(): cancels what is pending, empties the list, puts it back in the form in place of its box, removes every listener and releases the instance; pgs.search.init(root) builds it again.
  * - instance.items(): returns a copy of the suggestions shown.
  * - instance.isOpen(): returns true while the list of suggestions is open.
  * - instance.isLoading(): returns true while a request is in flight.
- * - instance.setActiveIndex(index): marks the suggestion at index as the selected one and points aria-activedescendant at it; -1 clears it.
+ * - instance.setActiveIndex(index): makes the suggestion at index the active one (the one the keys are on) and points aria-activedescendant at it; -1 clears it.
  *
  * @related
- * - listbox: draws the list of suggestions and each suggestion (listbox-option); see Listbox.
+ * - listbox: draws the box of the suggestions, the list and each suggestion (listbox-list, listbox-list-option); see Listbox.
  * - listbox-message: draws the message shown in place of the suggestions (too few letters, nothing found); see Listbox.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: provides the base styling for search controls.

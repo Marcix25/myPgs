@@ -14,7 +14,7 @@
         "formControls": { "scss": "components/formControls", "js": "formControls", "requires": ["form"] },
         "formValidate": { "js": "formValidate", "requires": ["alerts", "toast"] },
         "icon": { "scss": "components/icon" },
-        "listbox": { "scss": "components/listbox" },
+        "listbox": { "scss": "components/listbox", "js": "listbox" },
         "logo": { "scss": "components/logo" },
         "menu": { "scss": "components/menu", "js": "menu", "requires": ["dropdown", "button", "icon"] },
         "modal": { "scss": "components/modal", "js": "modal", "requires": ["button", "icon"] },

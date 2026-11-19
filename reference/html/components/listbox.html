@@ -1,24 +1,46 @@
 <!--
 /**
  * @title Listbox
- * @description The look of a list of options to pick from, the same wherever one is: the suggestions of Search and the list of a select box take it from their JavaScript, and a list written by hand can take it too. Listbox alone decides how the list looks: its box, its text (--font-size-text and --font-weight-text, its own and not the one of the place it opens in), its options, the headings of its groups and its messages. A component that opens one draws only its own field and decides where the list lies and when it shows: it never changes how the list looks. Every rule is under :where, so a project changes the look by setting the tokens below: once on [pgs~="listbox"] for every list, or on one list alone. A list written by hand takes role="listbox", its options role="option" and aria-selected, as the components write them.
+ * @description The look of a list of options to pick from, the same wherever one is: the suggestions of Search and the options of a select box take it from their JavaScript, and a list written by hand can take it too. It has always the same shape: the listbox is the box, the listbox-list inside it holds the options (listbox-list-option) and the headings of their groups (listbox-list-group), and a listbox-message, in the box under the list, stands in for the options when there are none to show. A component lays its own field in the box too, over the list (the search of a select box). Listbox alone decides how it looks: the box, its text (--font-size-text and --font-weight-text, its own and not the one of the place it opens in), the options, the headings and the message. A component that opens one draws only its own field and decides where the box lies and when it shows: it never changes how it looks. Every rule is under :where, so a project changes the look by setting the tokens below: once on [pgs~="listbox"] for every list, or on one alone. A list written by hand takes role="listbox" on the listbox-list, role="option" and aria-selected on its options, as the components write them. The behavior is shared too: pgs.listbox.attach(list, settings) gives a list opened by a field the one way every list opens, is placed, moves with the keys and chooses, and search and the select box use it. It raises pgs:listbox:open and pgs:listbox:close on the list, with detail { element, owner }.
  *
  * @pgs
- * - listbox: the list of options: a column of them with --listbox-gap between, on --listbox-background with --listbox-color, inside --listbox-border and --listbox-borderRadius, with --listbox-padding round them and a scroll past --listbox-maxHeight. --listbox-offset is read by the component that lays the list under its control, as the space between the two.
- * - listbox-option: one option of the list, with --listbox-option-padding and --listbox-option-borderRadius, which follows the radius of the list less its padding (in a listbox inside another, the one of the outer box). What it holds before its text (an icon of any pack, an svg, an image) sits a gap apart, in a box --listbox-option-iconSize wide, so the texts line up whatever the glyph. The option the keys are on (pgs-state active) and the one under the pointer take --listbox-option-background-active and --listbox-option-color-active, the selected one (aria-selected="true") --listbox-option-background-selected and --listbox-option-color-selected, a disabled one (aria-disabled="true") is dimmed, and one with the hidden attribute is not shown, as a filter or a closed group of its component wants.
- * - listbox-group: the heading of a group of options, small and dimmed, which the keys skip; hidden with the hidden attribute, like an option. With the state open or closed it is a heading that opens and closes its group (the component does that): it takes the pointer and --listbox-group-icon (the chevron) at its end, turned while closed in --listbox-timing.
- * - listbox-message: a message in place of the options, such as nothing found or how many more letters to type: dimmed like a group heading, without the bold, and no pointer. The suggestions of Search and the select box with a search write it; outside a listbox it takes the default padding of the options.
+ * - listbox: the box: on --listbox-background with --listbox-color, inside --listbox-border and --listbox-borderRadius, with --listbox-padding round what it holds, which lies in a column --listbox-gap apart, and no taller than --listbox-maxHeight. The box does not scroll, its list does. --listbox-offset is read by the component that lays the box under its field, as the space between the two.
+ * - listbox-list: the list of the options (role listbox), inside the box: --listbox-gap between its options, it takes the room the box leaves and scrolls alone. With nothing to show (no option, or every one hidden) it takes no room in the box.
+ * - listbox-list-option: one option of the list, with --listbox-list-option-padding and --listbox-list-option-borderRadius, which follows the radius of the box less its padding. What it holds before its text (an icon of any pack, an svg, an image) sits a gap apart, in a box --listbox-list-option-iconSize wide, so the texts line up whatever the glyph. The option the keys are on (pgs-state active) and the one under the pointer take --listbox-list-option-background-active and --listbox-list-option-color-active, the selected one (aria-selected="true") --listbox-list-option-background-selected and --listbox-list-option-color-selected, which the pointer does not change, a disabled one (aria-disabled="true") is dimmed, and one with the hidden attribute is not shown, as a filter or a closed group of its component wants.
+ * - listbox-list-group: the heading of a group of options in the list, small and dimmed, which the keys skip; hidden with the hidden attribute, like an option. With the state open or closed it is a heading that opens and closes its group (the component does that): it takes the pointer and --listbox-list-group-icon (the chevron) at its end, turned while closed in --listbox-timing.
+ * - listbox-message: in the box under the list, a message in place of the options, such as nothing found or how many more letters to type: dimmed like a group heading, without the bold, and no pointer; hidden with the hidden attribute. Search and the select box with a search write it.
  *
  * @pgs-state
- * - active: on the listbox-option the keys are on, written by the component that owns the list.
- * - below: on a listbox joined under the field that opened it (a search, a select box): it squares its top corners, the side of the field.
- * - above: on a listbox joined over the field that opened it, when there was no room below: it squares its bottom corners.
- * - open: on a listbox-group whose group is open, in a list where the groups open and close.
- * - closed: on a listbox-group whose group is closed: its options are hidden and the chevron is turned.
+ * - active: on the listbox-list-option the keys are on, written by the component that owns the list.
+ * - below: on the box of a listbox joined under the field that opened it (a search, a select box), written by pgs.listbox while it floats against it: it squares its top corners, the side of the field.
+ * - above: on the box of a listbox joined over the field that opened it, when there was no room below: it squares its bottom corners.
+ * - closed: on a listbox-list-group whose group is closed: its options are hidden and the chevron is turned.
+ * - open: on the owner of a list attached with pgs.listbox.attach while the list is open (the form of a search, a select box); and on a listbox-list-group whose group is open, in a list where the groups open and close.
+ * - openUp: on the owner while its list opens above it, because there is no room below.
+ *
+ * @api
+ * - pgs.listbox.attach(list, settings): attaches the behavior to a listbox-list and returns its controller (the instance below); attaching again replaces the one before. settings: owner (takes open and openUp, a pointer down outside it closes the list; default the parent of the box), controls (an element or an array: aria-activedescendant on all, aria-expanded on those with role combobox), floating (the element that opens; default the listbox that holds the list), isNavigable(option) (the options the keys and the pointer reach; default not hidden and not aria-disabled), onActive(option), onChoose(option, event), onOpen(), onClose(), onDismiss(reason) with reason escape, outside or focusout (the focus moved to another element of the page: the focus leaving the page, for the developer tools or another window, keeps the list open).
+ * - pgs.listbox.api(list): returns the controller attached to the list.
+ * - instance.open(): opens the list and places it below the owner, or above it without room below; on an open list it only places it again.
+ * - instance.close(): closes the list and clears the active option.
+ * - instance.toggle(): opens or closes the list.
+ * - instance.isOpen(): returns true while the list is open.
+ * - instance.position(): places the open list again.
+ * - instance.options(): returns every listbox-list-option of the list.
+ * - instance.isNavigable(option): returns whether the keys and the pointer reach the option.
+ * - instance.active(): returns the option the keys are on, or null.
+ * - instance.setActive(option): makes the option (an element or an index) active, writes aria-activedescendant and scrolls the list to it without moving the page; null clears it.
+ * - instance.move(step): moves the active option by step (1, -1, a page of 10), stopping at the first and the last.
+ * - instance.first(): returns the first option the keys reach.
+ * - instance.last(): returns the last option the keys reach.
+ * - instance.choose(option, event): makes the option active and calls onChoose.
+ * - instance.handleKey(event): handles a key of the open list (the arrows, Page Up and Page Down, Home and End outside a text field, Enter on the active option, Escape) and returns true, false for any other key, which the component handles.
+ * - instance.destroy(): removes the listeners and the states it wrote.
+ * - instance.refresh(): attaches it again with the same settings and returns the new controller.
  *
  * @related
- * - search: its list of suggestions is a listbox; see Search.
- * - selectBox: its list of options is a listbox; see Form Add-ons.
+ * - search: the box of its suggestions is a listbox, its list the listbox-list; see Search.
+ * - selectBox: its panel is a listbox, its list the listbox-list; see Form Add-ons.
  * - icon: draws the glyph before the text of an option; see Icon for the whole set.
  * - icon-star: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
  *
@@ -27,30 +49,35 @@
 -->
 
 <demo demo-h2="Examples"></demo>
-<demo demo-h3="Listbox" demo-description="A list written by hand: a group heading, the selected option, one with an icon before its text and a disabled one."></demo>
+<demo demo-h3="Listbox" demo-description="A list written by hand: the box, the list in it with a group heading, the selected option, one with an icon before its text and a disabled one."></demo>
 <section demo="component">
-    <ul pgs="listbox" role="listbox" aria-label="Countries">
-        <li pgs="listbox-group" role="presentation">Europe</li>
-        <li pgs="listbox-option" role="option" aria-selected="true">Italy</li>
-        <li pgs="listbox-option" role="option" aria-selected="false"><i pgs="icon['icon-star']" aria-hidden="true"></i>France</li>
-        <li pgs="listbox-option" role="option" aria-selected="false" aria-disabled="true">Germany</li>
-    </ul>
+    <div pgs="listbox">
+        <ul pgs="listbox-list" role="listbox" aria-label="Countries">
+            <li pgs="listbox-list-group" role="presentation">Europe</li>
+            <li pgs="listbox-list-option" role="option" aria-selected="true">Italy</li>
+            <li pgs="listbox-list-option" role="option" aria-selected="false"><i pgs="icon['icon-star']" aria-hidden="true"></i>France</li>
+            <li pgs="listbox-list-option" role="option" aria-selected="false" aria-disabled="true">Germany</li>
+        </ul>
+    </div>
 </section>
 
 <demo demo-h3="Groups that open and close" demo-description="Headings with the state open or closed: the closed group hides its options (hidden), and the script that owns the list turns the states over on a click."></demo>
 <section demo="component">
-    <ul pgs="listbox" role="listbox" aria-label="Countries">
-        <li pgs="listbox-group" pgs-state="open" role="presentation">Europe</li>
-        <li pgs="listbox-option" role="option" aria-selected="false">Italy</li>
-        <li pgs="listbox-option" role="option" aria-selected="false">France</li>
-        <li pgs="listbox-group" pgs-state="closed" role="presentation">America</li>
-        <li pgs="listbox-option" role="option" aria-selected="false" hidden>Brazil</li>
-    </ul>
+    <div pgs="listbox">
+        <ul pgs="listbox-list" role="listbox" aria-label="Countries">
+            <li pgs="listbox-list-group" pgs-state="open" role="presentation">Europe</li>
+            <li pgs="listbox-list-option" role="option" aria-selected="false">Italy</li>
+            <li pgs="listbox-list-option" role="option" aria-selected="false">France</li>
+            <li pgs="listbox-list-group" pgs-state="closed" role="presentation">America</li>
+            <li pgs="listbox-list-option" role="option" aria-selected="false" hidden>Brazil</li>
+        </ul>
+    </div>
 </section>
 
-<demo demo-h3="Listbox with a message" demo-description="listbox-message in place of the options, here because nothing matched what was typed."></demo>
+<demo demo-h3="Listbox with a message" demo-description="listbox-message under the list, in place of the options, here because nothing matched what was typed: the empty list takes no room."></demo>
 <section demo="component">
-    <ul pgs="listbox" role="listbox" aria-label="Countries">
-        <li pgs="listbox-message" role="option" aria-disabled="true">No country found</li>
-    </ul>
+    <div pgs="listbox">
+        <ul pgs="listbox-list" role="listbox" aria-label="Countries"></ul>
+        <p pgs="listbox-message" role="status">No country found</p>
+    </div>
 </section>

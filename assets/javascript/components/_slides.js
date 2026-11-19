@@ -24,8 +24,8 @@ class PGS_Slides {
         // the check below has to look for either. The ones that are generated go in one wrapper, so the
         // stylesheet places a pair and not two loose buttons: it is made the first time one is needed, and
         // found again after a destroy() and a new init()
-        const needsPrev = !pgs(EL).querySelector(['slides-prev', '_slides-prev']);
-        const needsNext = !pgs(EL).querySelector(['slides-next', '_slides-next']);
+        const needsPrev = !pgs(EL).querySelector(['slides-prev', '_slides-arrows-prev']);
+        const needsNext = !pgs(EL).querySelector(['slides-next', '_slides-arrows-next']);
 
         if (needsPrev || needsNext) {
             let arrows = pgs(EL).querySelector('_slides-arrows');
@@ -34,10 +34,10 @@ class PGS_Slides {
                 arrows = pgs(EL).querySelector('_slides-arrows');
             }
             if (needsPrev) {
-                arrows.insertAdjacentHTML("afterbegin", `<button pgs="_slides-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
+                arrows.insertAdjacentHTML("afterbegin", `<button pgs="_slides-arrows-prev button['btnIconOnly' 'btnMini']" type="button" aria-label="Previous slide"> <i pgs="icon['icon-chevronDown'] rotate['rot90']"></i></button>`);
             }
             if (needsNext) {
-                arrows.insertAdjacentHTML("beforeend", `<button pgs="_slides-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
+                arrows.insertAdjacentHTML("beforeend", `<button pgs="_slides-arrows-next button['btnIconOnly' 'btnMini']" type="button" aria-label="Next slide"> <i pgs="icon['icon-chevronDown'] rotate['rot270']"></i></button>`);
             }
         }
 
@@ -210,8 +210,8 @@ class PGS_Slides {
 
         //## elements
         this.#createButtonsAndDots();
-        const prevButton = pgs(slides).querySelector(['slides-prev', '_slides-prev']);
-        const nextButton = pgs(slides).querySelector(['slides-next', '_slides-next']);
+        const prevButton = pgs(slides).querySelector(['slides-prev', '_slides-arrows-prev']);
+        const nextButton = pgs(slides).querySelector(['slides-next', '_slides-arrows-next']);
         // none with slidesNotDots (the module builds no row): the arrows and the observer need no dots
         const dotsContainer = pgs(slides).querySelector(['slides-dots', '_slides-dots']);
         const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
