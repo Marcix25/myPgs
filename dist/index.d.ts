@@ -363,10 +363,10 @@ declare global {
 
   interface PgsSearchInstance extends PgsInstance<PgsSearchInstance> {
     input: HTMLInputElement;
-    /** The search-suggestions list, the listbox-list. */
-    list: Element;
-    /** The box the JavaScript lays the list in (_search-panel), the listbox: what opens. */
-    panel: HTMLDivElement;
+    /** The list of the suggestions the JavaScript builds in the box (_search-suggestions-list), the listbox-list. */
+    list: HTMLUListElement;
+    /** The search-suggestions box, the listbox: what opens. */
+    panel: Element;
     /** The listbox controller of the suggestions. */
     listbox: PgsListboxController;
     configure(options: Partial<PgsSearchOptions>): PgsSearchInstance;

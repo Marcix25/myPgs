@@ -39,7 +39,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | 12 | the generated slides arrows `_slides-prev` and `_slides-next`, children of `slides` | `_slides-arrows-prev` and `_slides-arrows-next`, in a `_slides-arrows` wrapper: a selector on the old names, or on the arrows as children of `slides`, stops matching. The arrows written by hand keep `slides-prev` / `slides-next` | 5.0.6 - next |
 | 13 | a `pageNav` panel addressed by its `id` | addressed by `pgs-data="pageNavHash[name]"` (the id still works as a fallback); the root takes a bracket, so a project selector on it is `:is([pgs~="pageNav"], [pgs*="pageNav["])` | next |
 | 14 | `footer-top-content`, `footer-brand`, `footer-content` | gone: the footer gives no style to the row of the upper section or to its columns, so they have no token; the layout is `flex` in the markup (`flex['row' 'column-3']` for the row, `flex['column']` for a column). A project selector on the old names stops matching | next |
-| 15 | `search-suggestions` the box of the suggestions, a direct child of the `search` form; the messages `_search-suggestions-placeholder` and `_search-suggestions-empty` in the list; the active suggestion `aria-selected="true"` and the state `selected` | the `search-suggestions` you write is only the list: the JavaScript lays it in a box of its own, `_search-panel` (the `listbox`, what opens and is placed), with one `_search-panel-message` under the list. A selector on `search-suggestions` as the box, or as a child of the form, stops matching; the active suggestion takes the state `active`, `aria-selected` stays `false` -> see [Search, selectBox and listbox](#search-selectbox-and-listbox) | next |
+| 15 | `search-suggestions` a list (`<ul>`), the list of the suggestions and its box at once, with `_search-suggestions-item` and the messages `_search-suggestions-placeholder` and `_search-suggestions-empty` in it; the active suggestion `aria-selected="true"` and the state `selected` | `search-suggestions` is the box, written as a `<div>` (a `<ul>` is left alone, with a warning): the JavaScript makes it the `listbox` and builds in it the list `_search-suggestions-list` with the suggestions `_search-suggestions-list-item`, and one `_search-suggestions-message` under the list. The active suggestion takes the state `active`, `aria-selected` stays `false` -> see [Search, selectBox and listbox](#search-selectbox-and-listbox) | next |
 
 ## Foundation
 
@@ -276,9 +276,10 @@ grep -rn 'pageNav' .
 # that should stay big and flex['column' 'gapDetails'] to the ul of a menu
 grep -rnE 'footer-(top-content|brand|content)' .
 
-# 15 search suggestions as a box. Hit: style the box on _search-panel (or set --listbox-*), the list on
-# search-suggestions; _search-suggestions-placeholder / -empty -> _search-panel-message; state selected -> active
-grep -rnE 'search-suggestions|_search-suggestions-(placeholder|empty)' .
+# 15 search suggestions as a box. Hit: write search-suggestions as a <div>; _search-suggestions-item ->
+# _search-suggestions-list-item; _search-suggestions-placeholder / -empty -> _search-suggestions-message;
+# state selected -> active
+grep -rnE 'search-suggestions|_search-suggestions-(item|placeholder|empty)' .
 
 # steps. Hit: add steps['stepsLastHighlight'] to keep the highlighted last circle
 grep -rnE 'pgs="[^"]*\bsteps\b' .

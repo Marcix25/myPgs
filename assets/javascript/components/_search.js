@@ -88,9 +88,15 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     if (API.has(search)) return API.get(search);
 
     const input = search.querySelector('input[type="search"]');
-    const list = pgs.helper.directChild(search, "search-suggestions");
-    if (!input || !list) {
-        pgs.helper.warn("search.init", "a search needs an input[type=\"search\"] and a search-suggestions list as its direct child", search);
+    // the box of the suggestions, written empty as a direct child of the form: an element that can hold the list
+    // (a <div>), not a list itself
+    const panel = pgs.helper.directChild(search, "search-suggestions");
+    if (!input || !panel) {
+        pgs.helper.warn("search.init", "a search needs an input[type=\"search\"] and a search-suggestions box as its direct child", search);
+        return;
+    }
+    if (panel.matches("ul, ol")) {
+        pgs.helper.warn("search.init", "search-suggestions is the box of the suggestions, which holds their list: write it as a <div>, not a <ul>", search);
         return;
     }
 
@@ -98,7 +104,24 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     const { signal } = eventController;
 
     if (!input.id) input.id = pgs.helper.uniqueId("search-input");
-    if (!list.id) list.id = pgs.helper.uniqueId("search-suggestions");
+
+    // the box is the listbox (box, list, message: see Listbox) and the element that opens. The JavaScript builds
+    // in it the list of the suggestions (the listbox-list) and, under it, the message (type more, nothing found)
+    pgs(panel).add("listbox");
+
+    const list = document.createElement("ul");
+    pgs(list).add("_search-suggestions-list");
+    pgs(list).add("listbox-list");
+    list.id = panel.id ? `${panel.id}-list` : pgs.helper.uniqueId("search-suggestions-list");
+    list.setAttribute("role", "listbox");
+    list.setAttribute("aria-labelledby", input.id);
+
+    const message = document.createElement("p");
+    pgs(message).add("_search-suggestions-message");
+    pgs(message).add("listbox-message");
+    message.setAttribute("role", "status");
+    message.hidden = true;
+    panel.replaceChildren(list, message);
 
     input.setAttribute("role", "combobox");
     input.setAttribute("aria-autocomplete", "list");
@@ -106,24 +129,6 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     input.setAttribute("aria-controls", list.id);
     input.setAttribute("aria-expanded", "false");
     input.setAttribute("autocomplete", "off");
-    list.setAttribute("role", "listbox");
-    list.setAttribute("aria-labelledby", input.id);
-
-    // the list is written as a <ul> alone, with no need to know listbox: the JavaScript lays it in a box of its
-    // own, the panel, which is the listbox (box, list, message: see Listbox) and the element that opens. The list
-    // inside it is the listbox-list, the message (type more, nothing found) is under it, in the box
-    const panel = document.createElement("div");
-    pgs(panel).add("_search-panel");
-    pgs(panel).add("listbox");
-    list.replaceWith(panel);
-    pgs(list).add("listbox-list");
-
-    const message = document.createElement("p");
-    pgs(message).add("_search-panel-message");
-    pgs(message).add("listbox-message");
-    message.setAttribute("role", "status");
-    message.hidden = true;
-    panel.append(list, message);
 
     let options = { ...initialOptions };
     let items = [];
@@ -193,7 +198,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         const fragment = document.createDocumentFragment();
         items.forEach((item, index) => {
             const option = document.createElement("li");
-            pgs(option).add("_search-suggestions-item");
+            pgs(option).add("_search-suggestions-list-item");
             pgs(option).add("listbox-list-option");
             option.id = `${list.id}-option-${index}`;
             option.dataset.index = String(index);
@@ -367,9 +372,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         cancel();
         clear();
         listbox.destroy();
-        // the list goes back where it was written, as it was, so a new instance finds it again
-        panel.replaceWith(list);
-        pgs(list).remove("listbox-list");
+        // the box goes back as it was written, empty, so a new instance builds it again
+        panel.replaceChildren();
+        pgs(panel).remove("listbox");
         eventController.abort();
         ACTIVE_SEARCHES.delete(search);
         API.delete(search);
@@ -378,8 +383,9 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     const api = {
         element: search,
         input,
+        // the list of the suggestions the JavaScript builds in the box (the listbox-list)
         list,
-        // the box the list lies in, which opens: the listbox
+        // the search-suggestions box, which opens: the listbox
         panel,
         // the listbox controller of the list: open, close, the active option, the keys
         listbox,

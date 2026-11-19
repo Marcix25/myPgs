@@ -1487,11 +1487,13 @@
         "pgs-data": []
     },
     "search": {
-        "pgs": [],
+        "pgs": [
+            "search-suggestions"
+        ],
         "pgs-generated": [
-            "_search-panel",
-            "_search-panel-message",
-            "_search-suggestions-item"
+            "_search-suggestions-list",
+            "_search-suggestions-list-item",
+            "_search-suggestions-message"
         ],
         "pgs-options": [
             "searchMinWidth"
