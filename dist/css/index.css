@@ -3641,8 +3641,8 @@
   overflow: auto;
   overscroll-behavior: contain;
   max-height: 100%;
-  margin-right: calc(var(--modal-content-padding) * -1);
-  padding-right: var(--modal-content-padding);
+  margin-inline: calc(var(--modal-content-padding) * -1);
+  padding-inline: var(--modal-content-padding);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):has(~ :where([pgs~=modal-dialog-content-header])) {

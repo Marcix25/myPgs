@@ -140,8 +140,8 @@
             overscroll-behavior: contain;
             max-height: 100%;
             // it takes the right padding of the panel too: the scrollbar runs along the edge of the panel
-            margin-right: calc(var(--modal-content-padding) * -1);
-            padding-right: var(--modal-content-padding);
+            margin-inline: calc(var(--modal-content-padding) * -1);
+            padding-inline: var(--modal-content-padding);
 
             &:has(~:where([pgs~="modal-dialog-content-header"])) { padding-top: calc(var(--modal-content-padding) / 2); }
 
