@@ -20,7 +20,7 @@ const Search = {
     normalizeItem(item) {
         if (typeof item === "string" || typeof item === "number") {
             const value = String(item).trim();
-            return value ? { label: value, value, disabled: false, icon: "", data: item } : null;
+            return value ? { label: value, value, disabled: false, icon: "", group: "", data: item } : null;
         }
 
         if (!item || typeof item !== "object") return null;
@@ -34,6 +34,8 @@ const Search = {
             disabled: Boolean(item.disabled),
             // markup of the item's own icon, written by the author's source: it replaces searchIconSuggestion for this item
             icon: typeof item.icon === "string" ? item.icon.trim() : "",
+            // the group the item belongs to: the items that follow each other with the same group get one heading
+            group: typeof item.group === "string" ? item.group.trim() : "",
             data: Object.prototype.hasOwnProperty.call(item, "data") ? item.data : item,
         };
     },
@@ -196,7 +198,19 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         }
 
         const fragment = document.createDocumentFragment();
+        let group = "";
         items.forEach((item, index) => {
+            // a heading over the items of a group, whenever the group changes; the keys and the pointer skip it
+            if (item.group && item.group !== group) {
+                const heading = document.createElement("li");
+                pgs(heading).add("_search-suggestions-list-group");
+                pgs(heading).add("listbox-list-group");
+                heading.setAttribute("role", "presentation");
+                heading.textContent = item.group;
+                fragment.append(heading);
+            }
+            group = item.group;
+
             const option = document.createElement("li");
             pgs(option).add("_search-suggestions-list-item");
             pgs(option).add("listbox-list-option");

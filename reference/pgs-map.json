@@ -1492,6 +1492,7 @@
         ],
         "pgs-generated": [
             "_search-suggestions-list",
+            "_search-suggestions-list-group",
             "_search-suggestions-list-item",
             "_search-suggestions-message"
         ],

@@ -318,6 +318,8 @@ declare global {
     disabled?: boolean;
     /** Markup of the item's own icon, inserted as HTML in place of searchIconSuggestion: never put remote text in it. */
     icon?: string;
+    /** The group of the item: the items that follow each other with the same group get one heading over them. */
+    group?: string;
     data?: unknown;
   };
 
@@ -327,6 +329,8 @@ declare global {
     disabled: boolean;
     /** The item's own icon markup, an empty string when it has none. */
     icon: string;
+    /** The group of the item, an empty string when it has none. */
+    group: string;
     data: unknown;
   }
 
