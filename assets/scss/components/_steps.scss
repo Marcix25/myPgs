@@ -11,7 +11,9 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         align-items: start;
         position: relative;
         --steps-circle-size: var(--heading-size-h3);
-        --steps-circle-color: var(--color-primary-soft);
+        // the circle reads as the current state, as a current button does
+        --steps-circle-background: var(--current-background);
+        --steps-circle-color: var(--current-color);
         --steps-line-size: 2px;
         --steps-line-color: var(--border-color);
 
@@ -32,7 +34,9 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         :where([pgs~="_steps-step-circle"]) {
             min-width: var(--steps-circle-size);
             aspect-ratio: 1;
-            background: var(--steps-circle-color);
+            background: var(--steps-circle-background);
+            // the number and the icon take it alike: an icon draws itself in currentColor
+            color: var(--steps-circle-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -40,8 +44,6 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
             border-radius: var(--borderRadius-elements);
             font-weight: var(--font-weight-bold);
             text-align: center;
-
-            :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-black); }
         }
 
         //## LINE
@@ -90,13 +92,8 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
     // the circle of the last step in the primary color: the goal the steps lead to
     &:where([pgs*="'stepsLastHighlight'"]) {
         :where([pgs~="steps-step"]):last-child {
-            :where([pgs~="steps-step-circle"]),
-            :where([pgs~="_steps-step-circle"]) {
-                background-color: var(--color-primary);
-                color: var(--color-primary-text);
-
-                :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
-            }
+            --steps-circle-background: var(--color-primary);
+            --steps-circle-color: var(--color-primary-text);
         }
     }
 }

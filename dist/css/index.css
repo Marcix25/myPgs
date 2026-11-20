@@ -4210,7 +4210,8 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) {
   align-items: start;
   position: relative;
   --steps-circle-size: var(--heading-size-h3);
-  --steps-circle-color: var(--color-primary-soft);
+  --steps-circle-background: var(--current-background);
+  --steps-circle-color: var(--current-color);
   --steps-line-size: 2px;
   --steps-line-color: var(--border-color);
 }
@@ -4230,7 +4231,8 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=step
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) {
   min-width: var(--steps-circle-size);
   aspect-ratio: 1;
-  background: var(--steps-circle-color);
+  background: var(--steps-circle-background);
+  color: var(--steps-circle-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4238,11 +4240,6 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_ste
   border-radius: var(--borderRadius-elements);
   font-weight: var(--font-weight-bold);
   text-align: center;
-}
-
-ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]),
-ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]) {
-  color: var(--color-black);
 }
 
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-line]),
@@ -4279,15 +4276,9 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]):last-child :where
   opacity: 0;
 }
 
-ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where([pgs~=steps-step]):last-child :where([pgs~=steps-step-circle]),
-ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-circle]) {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-}
-
-ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where([pgs~=steps-step]):last-child :where([pgs~=steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]),
-ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where([pgs~=steps-step]):last-child :where([pgs~=_steps-step-circle]) :where(i, [pgs~=icon], [pgs*="icon["]) {
-  color: var(--color-whiteFixed);
+ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where([pgs~=steps-step]):last-child {
+  --steps-circle-background: var(--color-primary);
+  --steps-circle-color: var(--color-primary-text);
 }
 
 :is([pgs~=table], [pgs*="table["]):is(table),
@@ -4366,15 +4357,15 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 [pgs~=tabs] :where([pgs~=tabs-panels]) :where([pgs~=tabs-panels-content])[hidden] {
-  display: none;
+  display: none !important;
 }
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-container]) :where([pgs~=stepTabs-container-tab]) {
-  display: none;
+  display: flex;
 }
 
-[pgs~=stepTabs] :where([pgs~=stepTabs-container]) :where([pgs~=stepTabs-container-tab])[pgs-state~=active] {
-  display: flex;
+[pgs~=stepTabs] :where([pgs~=stepTabs-container]) :where([pgs~=stepTabs-container-tab]):not([pgs-state~=active]) {
+  display: none !important;
 }
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-next]) {
@@ -4412,18 +4403,16 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=completed] {
   cursor: pointer;
-  background: var(--color-primary-soft);
-  color: var(--color-primary-strong);
+  --button-background: var(--button-background-twoState);
+  --button-color: var(--button-color-twoState);
+  --button-borderColor: var(--button-borderColor-twoState);
 }
 
 [pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] {
-  background: var(--current-background);
-  color: var(--current-color);
+  --button-background: var(--button-background-current);
+  --button-color: var(--button-color-current);
+  --button-borderColor: var(--button-borderColor-current);
   scale: 1.2;
-}
-
-[pgs~=stepTabs] :where([pgs~=stepTabs-dots]) :where([pgs~=_stepTabs-dots-dot])[pgs-state~=active] :where(i, [pgs~=icon], [pgs*="icon["]) {
-  color: var(--color-whiteFixed);
 }
 
 [pgs~=summary] {

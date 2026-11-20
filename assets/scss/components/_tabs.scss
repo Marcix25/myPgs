@@ -8,7 +8,9 @@
 
     :where([pgs~="tabs-panels"]) {
         :where([pgs~="tabs-panels-content"]) {
-            &[hidden] { display: none; }
+            // a hidden panel stays hidden whatever its own display: a layout token on it (flex[...]) comes
+            // later in the CSS with the same weight and would show it
+            &[hidden] { display: none !important; }
         }
     }
 }

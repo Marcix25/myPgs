@@ -188,6 +188,8 @@ Silent changes and new features of `search`:
 | `menu` submenus | shown open until the module ran, the menu as wide as all of them for a moment | hidden from the first paint while their item is neither a `dropdown` nor open; without JavaScript they stay hidden and the item's own link still leads to its page | next |
 | `table` | zebra and hover by default | plain base (breaking change 8); `tableBordered` draws a line round every cell and round the table, radius `--borderRadius-paragraphs` | next |
 | `steps` | the last circle highlighted | every circle the same; `steps['stepsLastHighlight']` for the old look; the content is at least the circle plus `5rem` tall | next |
+| `steps` circle | `--color-primary-soft` behind it, the number in the text color, the icon black; `--steps-circle-color` was the background | the current state: `--steps-circle-background` (`--current-background`) and `--steps-circle-color` (`--current-color`) for the number and the icon. A `--steps-circle-color` set by a project now colors the text: move it to `--steps-circle-background` | next |
+| `stepTabs` dots | completed: `--color-primary-soft` / `--color-primary-strong`; active: `--current-*`, the icon `--color-whiteFixed` | the button's own state colors: active `--button-*-current`, completed `--button-*-twoState`; the icon takes the color of the dot | next |
 | `accordion` open | a box with a background | keeps the divider lines, no background or radius; `accordion['accOpenBox']` (or on `accordionContainer`) for the box; the lines next to an open accordion fade out | next |
 | `badge` | weight `--font-weight-title` (800) | 600 | next |
 | `modal` page lock | `overflow: clip` on an `<html>` with `htmlBase` while a modal is open | the page is not locked: the html only gets the pointer cursor, and the dialog and `modal-dialog-content-scroll` keep the wheel (`overscroll-behavior: contain`) | next |
@@ -283,6 +285,9 @@ grep -rnE 'search-suggestions|_search-suggestions-(item|placeholder|empty)' .
 
 # steps. Hit: add steps['stepsLastHighlight'] to keep the highlighted last circle
 grep -rnE 'pgs="[^"]*\bsteps\b' .
+
+# steps circle. Hit: --steps-circle-color is now the text of the circle, its background is --steps-circle-background
+grep -rn -- '--steps-circle-color' .
 
 # accordion. Hit: add accordion['accOpenBox'] (or on accordionContainer) to keep the open box
 grep -rnE 'pgs="[^"]*\baccordion(Container)?\b' .

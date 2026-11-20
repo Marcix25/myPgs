@@ -13,7 +13,7 @@
  * - stepTabs-next: the control that goes on a step; the module disables it on the last one, and on a step marked locked.
  *
  * @pgs-generated
- * - _stepTabs-dots-dot: one dot per tab, created inside stepTabs-dots, showing the icon declared by that tab's stepTabsIcon option.
+ * - _stepTabs-dots-dot: one dot per tab, created inside stepTabs-dots, showing the icon declared by that tab's stepTabsIcon option. It is an icon-only button and its states take the button's own colors: the dot of the current step the current ones (--button-*-current, from --current-*), the dot of a step behind it the twoState ones (--button-*-twoState, from --twoState-*), the dots ahead the plain button; the icon takes the color of the dot.
  *
  * @pgs-data
  * - stepTabsIcon: the icon drawn in this tab's dot, in brackets, in one of three shapes. Markup, opening with a "<", is built as written, which is what puts every icon set in reach — including the ones a class cannot describe, such as stepTabsIcon[<span class='material-symbols-outlined'>check</span>] or stepTabsIcon[<i data-lucide='check'></i>]; write the inner attributes with single quotes, since the value already lives inside one, and mark your own element with pgs='icon' so it gets the same box the dot gives an icon — without it a set that renders its name as text has nothing sizing it. A plain name is a built-in glyph, as in stepTabsIcon[icon-circleCheck]. Anything else is a class list for whatever set the page loaded, written through untouched, as in stepTabsIcon[bi-check] or stepTabsIcon[bi bi-star]. Leave it out and the dot gets icon-circle.

@@ -6,9 +6,11 @@
             //option for suggestions
             &[pgs-data~="stepTabsIcon[]"] {}
 
-            display: none;
+            display: flex;
 
-            &[pgs-state~=active] { display: flex; }
+            // a step that is not the current one stays hidden whatever its own display: a layout token on it
+            // (flex['column']) is stronger than this rule and would show every step together
+            &:not([pgs-state~=active]) { display: none !important; }
         }
     }
 
@@ -43,18 +45,22 @@
             border-radius: 50%;
             --icon-size: 1.8rem;
 
+            // the dot is a button: its states set the button's own values, as a button flag does, and the
+            // icon takes the color of the button
+            // a step behind the current one: done, and a click goes back to it
             &[pgs-state~=completed] {
                 cursor: pointer;
-                background: var(--color-primary-soft);
-                color: var(--color-primary-strong);
+                --button-background: var(--button-background-twoState);
+                --button-color: var(--button-color-twoState);
+                --button-borderColor: var(--button-borderColor-twoState);
             }
 
+            // the current step
             &[pgs-state~=active] {
-                background: var(--current-background);
-                color: var(--current-color);
+                --button-background: var(--button-background-current);
+                --button-color: var(--button-color-current);
+                --button-borderColor: var(--button-borderColor-current);
                 scale: 1.2;
-
-                :where(i, [pgs~="icon"], [pgs*="icon\5B"]) { color: var(--color-whiteFixed); }
             }
         }
     }
