@@ -2686,6 +2686,12 @@ function initializeModal(MODAL) {
         // panel of the page) is not this modal's to close, and neither is the one this modal is written
         // inside of, which stays open under it
         document.querySelectorAll("dialog[pgs~='modal-dialog'][open]").forEach((dlg) => { if (dlg !== DIALOG && !dlg.contains(MODAL)) dlg.close(); });
+        // the page is locked while a modal is open (_modal.scss): the width of its scrollbar becomes the padding
+        // that keeps it in place. Measured only while no modal locks it yet: under a nested one it would read 0
+        if (!document.querySelector("dialog[pgs~='modal-dialog'][open]")) {
+            const root = document.documentElement;
+            root.style.setProperty("--_modal-scrollbarWidth", `${Math.max(0, window.innerWidth - root.clientWidth)}px`);
+        }
         // the native close puts the focus back where it was when the dialog opened. A browser that gives a
         // click to the closest focusable ancestor of the button (Safari, and Firefox on macOS: a <li tabindex="-1">
         // in a slide) would put it back on that ancestor, with its focus ring; focused first, the button is what

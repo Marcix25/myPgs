@@ -3531,6 +3531,8 @@
 
 :where([pgs~=htmlBase]):has([pgs~=modal-dialog][open]) {
   cursor: pointer;
+  overflow: hidden;
+  padding-right: var(--_modal-scrollbarWidth, 0px);
 }
 
 :is([pgs~=modal], [pgs*="modal["]) {

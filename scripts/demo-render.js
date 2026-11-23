@@ -525,7 +525,9 @@ function renderDocumentationHtml(data, markup, basename, cssText) {
 function renderHeadingBlockHtml(title, description, level) {
     if (!title && !description) return "";
     const heading = title ? `<${level} class="demoContent-heading demoContent-heading-${level}">${escapeHtml(title)}</${level}>` : "";
-    const desc = description ? `<p>${escapeHtml(description)}</p>` : "";
+    // a description is often long: every sentence is a paragraph of its own, a small gap apart
+    const sentences = description ? escapeHtml(description).split(/(?<=\.) (?=[A-Z])/) : [];
+    const desc = sentences.length ? `<div class="demoContent-description" pgs="flex['column' 'gapDetails']">${sentences.map(sentence => `<p>${sentence}</p>`).join("")}</div>` : "";
     return `<div class="demoContent-heading" pgs="flex['column' 'gapParagraphs']">${heading}${desc}</div>`;
 }
 

@@ -296,7 +296,6 @@ body {
     }
 }
 
-
 .demoContent-heading-h2 {
     margin-top: calc(var(--gap-sections) - var(--gap-elements));
 }

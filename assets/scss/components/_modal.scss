@@ -7,12 +7,16 @@
 // this element anywhere in the document independently of the wrapper. The flag selectors below
 // don't check _dialog specifically — see AGENTS-DEVELOPMENT.md for why a bracket flag never
 // needs to be scoped to the token that carries it.
-// the page is not locked while a pgs modal is open: the dialog and modal-dialog-content-scroll keep the wheel
-// with overscroll-behavior: contain. It reads the html token and the pgs dialog, never the bare html and dialog tags
+// the page is locked while a pgs modal is open: overscroll-behavior: contain on the dialog keeps the wheel only
+// where there is something to scroll, and Chrome and Safari hand it to the page under a modal shorter than the
+// screen. The room the scrollbar of the page took is kept as padding (--_modal-scrollbarWidth, measured by
+// _modal.js before it opens), so the page does not move; scrollbar-gutter would keep it as a strip outside
+// the screen the dialog covers, and the backdrop would not reach it. It reads the html token and the pgs
+// dialog, never the bare html and dialog tags
 :where([pgs~="htmlBase"]):has([pgs~="modal-dialog"][open]) {
     cursor: pointer;
-    // overflow: clip;
-    // scrollbar-gutter: stable ;
+    overflow: hidden;
+    padding-right: var(--_modal-scrollbarWidth, 0px);
 }
 
 //# MODAL
