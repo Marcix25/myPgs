@@ -37,8 +37,8 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 - `--pageShell-aside-width`
 - `--pageShell-asideShadow-maskEnd`
+- `--pageShell-asideShadow-maskSize`
 - `--pageShell-asideShadow-maskStart`
-- `--pageShell-asideShadow-sizeMaskImage`
 - `--pageShell-content-width`
 - `--pageShell-gap`
 - `--pageShell-paddingInline`
@@ -46,12 +46,12 @@ Responsive page layout that combines main content with zero, one or two sidebars
 
 ## Output
 
-Eight page-shell HTML configurations with two, one, or no sidebars, with shellAsideScroll, its shadow variant, or neither.
+Eight page-shell HTML configurations with one or two sidebars, with shellAsideScroll, its shadow variant, or neither.
 ## Page Shell
 
 The shell without shellAsideScroll: every sidebar scrolls with the page, like any other column.
 
-### Not scroll - Two sidebars
+### Without scroll - Two sidebars
 
 Shell with a sidebar on both sides of the main content.
 
@@ -77,7 +77,7 @@ Shell with a sidebar on both sides of the main content.
 </div>
 ```
 
-### Not scroll - Single sidebar
+### Without scroll - Single sidebar
 
 Default-width shell with a single sidebar before the main content.
 
@@ -97,7 +97,7 @@ Default-width shell with a single sidebar before the main content.
 </div>
 ```
 
-### Not scroll - Sidebar after content
+### Without scroll - Sidebar after content
 
 Shell with the sidebar placed after the main content instead of before it.
 
@@ -118,7 +118,7 @@ Shell with the sidebar placed after the main content instead of before it.
 </div>
 ```
 
-### Not scroll - Inside a section
+### Without scroll - Inside a section
 
 shellNested drops the padding of the shell on the sides, for a shell inside an element that already has its own: here a section, so the sidebar and the content line up with its heading.
 

@@ -23,7 +23,7 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 ## JavaScript API
 
 - `pgs.tabs.init(root)`: initializes tabs inside the specified Document or Element, including the root when it is tabs. Tabs without a direct tabs-list and tabs-panels, or with a different number of tabs and panels, are skipped with a warning in the console.
-- `pgs.tabs.api(element)`: returns the instance associated with an initialized tabs root.
+- `pgs.tabs.api(element)`: returns the instance associated with an initialized tabs root. Besides its methods, the instance carries element: the tabs root; list: the tabs-list; panels: the tabs-panels wrapper.
 - `instance.goTo(index)`: selects the zero-based tab and its matching panel, and throws a TypeError when the index is not an integer inside the range.
 - `instance.getCurrent()`: returns the zero-based index of the selected tab.
 - `instance.refresh()`: destroys the instance and initializes these tabs again from their current markup and state, then returns the new instance.
@@ -46,7 +46,7 @@ A tabbed interface with a wrapping list of controls and one visible panel at a t
 
 ## Output
 
-A wrapping tab list above a bordered panel, with the active tab joined visually to its content.
+A card holding a wrapping row of tab buttons above the panels, the selected tab in the current look and only its panel shown; then the same with tabsHistory, which keeps the selected tab in the URL.
 ## Examples
 
 ### Tabs

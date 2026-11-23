@@ -4,13 +4,15 @@ import { PGS_invalid } from "./_warn.js";
 // the elements a module's init(root) has to look at: the root itself when it carries the token,
 // then everything under it. Every module resolves its roots through here, so pgs.helper.init(el) on a
 // node that was just inserted behaves the same whichever component the node is. `token` takes the
-// same string or array that pgs().querySelectorAll does
-export function PGS_roots(root, token) {
+// same string or array that pgs().querySelectorAll does, a comma-separated string included, which is
+// split here too so the check on the root itself sees each token. `scope` names the call in the
+// error, so a module can pass its own ("menu.init")
+export function PGS_roots(root, token, scope = "helper.roots") {
     if (!(root instanceof Document || root instanceof Element)) {
-        throw PGS_invalid("helper.init", "root must be a Document or an Element");
+        throw PGS_invalid(scope, "root must be a Document or an Element");
     }
 
-    const tokens = [].concat(token);
+    const tokens = [].concat(token).flatMap(item => String(item).split(",")).map(item => item.trim()).filter(Boolean);
     const roots = Array.from(pgs(root).querySelectorAll(tokens));
 
     if (root instanceof Element && tokens.some(item => pgs(root).contains(item))) roots.unshift(root);

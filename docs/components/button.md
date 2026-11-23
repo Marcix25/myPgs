@@ -10,8 +10,8 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ## PGS Options (component brackets)
 
-- `btnForHeader`: for a button in a header: no border style, and a long label breaks instead of overflowing.
-- `btnReverse`: reverses the visual order of the text and icon on the button.
+- `btnForHeader`: for a button in a header: a long label breaks instead of overflowing. It keeps the border of the button: add btnTransparent or btnText for a button with none.
+- `btnReverse`: for a button whose icon is written after the label: moves the short padding to the right side, next to the icon. It does not reorder anything, so the icon has to be written last in the markup.
 - `btnIconBoth`: for an icon on each side of the label, a glyph before it and a chevron after it for example: the short padding on both sides, instead of on the side of the one icon.
 - `btnStrong`: applies the variant with stronger visual emphasis.
 - `btnIconOnly`: identifies a compact button composed primarily of an icon.
@@ -21,7 +21,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `btnCurrent`: gives the button the current look — the color, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
 - `btnForNavSmart`: sizes the button as an item of the floating navSmart bar: icon above the label, no background, pill-shaped, and the current look for the page you are on (aria-current) or the panel that is open (aria-expanded). Next to btnIconOnly it drops the label's minimum width and becomes a square as wide as the bar is tall.
 - `btnTransparent`: drops the background and the border at rest, so only the label shows; on hover it fills like any other button. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
-- `btnText`: text only, with a 3 px bottom edge that is transparent at rest, secondary on hover and primary when the button is current. The label stays black and the background transparent in every state, with no radius and no shadow, so it never fills in on hover, aria-current or checked. It has no padding on the sides (--button-paddingInline: 0px), so the label and its bottom edge are exactly as wide as the text.
+- `btnText`: text only: no border, no radius, no shadow and a transparent background in every state, so it never fills in on hover, aria-current or checked. Only the label color changes: --clickable-onlyText-color at rest, --hover-onlyText-color on hover, --current-onlyText-color when it is current (with btnCurrent) and --twoState-onlyText-color when checked (with btnTwoState). It has no padding on the sides (--button-paddingInline: 0px), so the button is exactly as wide as the label.
 - `btnNotHover`: the button does not answer the pointer, so it keeps its look on hover; a button that is a container for something else, such as a search form or a step dot, takes it.
 - `btnPrimary`: applies the primary color palette.
 - `btnSecondary`: replaces the primary button accent with the secondary color palette.
@@ -39,10 +39,10 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 ### PGS Options (component brackets)
 
-- `row`: arranges the button examples in a flexible row.
+- `row`: lays the three two-state buttons of the checked example side by side.
 - `wrap`: lets that row break instead of overflowing.
-- `gapParagraphs`: spaces the two buttons that share the text-only example, and the three two-state buttons.
-- `icon-arrowRight`: the glyph that points forward.
+- `gapParagraphs`: spaces the three two-state buttons of the checked example.
+- `icon-arrowRight`: the glyph that points forward, from the myIcons pack the demo loads: it is not one of the glyphs mypgs carries.
 - `icon-chevronDown`: the glyph after the label of the button with an icon on each side.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
@@ -70,6 +70,8 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `--button-paddingInline`
 - `--button-paddingInline-short`
 - `--button-shadow`
+- `--button-shadow-current`
+- `--button-shadow-hover`
 - `--button-shadow-twoState`
 - `--button-size`
 
@@ -101,7 +103,7 @@ A disabled button is dimmed, shows the not-allowed cursor and does not react to 
 
 ### Reversed order
 
-Places the icon after the text using btnReverse.
+The icon is written after the label, and btnReverse moves the short padding to that side.
 
 ```html
 <button pgs="button['btnReverse']" type="button">
@@ -184,7 +186,7 @@ btnCurrent turns on the look of the button the page is on: aria-current=&quot;pa
 
 ### Text only
 
-Only the text, black in every state, with a bottom edge that is secondary on hover and primary when the button is current.
+Only the label, with no background, border or side padding in any state: its color follows --clickable-onlyText-color at rest and --hover-onlyText-color on hover.
 
 ```html
 <button pgs="button['btnText']" type="button">

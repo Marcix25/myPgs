@@ -5,13 +5,13 @@
 :is([pgs~="card"], [pgs*="card\5B"]) {
     --card-padding: var(--padding-elements);
     --card-borderRadius: calc(var(--borderRadius-paragraphs) + var(--card-padding));
-    --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
+    --card-img-borderRadius: var(--card-borderRadius) var(--card-borderRadius) 0 0;
     --card-background: var(--color-box-transparent);
     --card-img-padding: 0;
-    --card-horizontal-img-grow: 2;
-    --card-horizontal-img-minHeight: 300px;
-    --card-horizontal-content-grow: 3;
-    --card-horizontal-borderRadius-item: var(--card-borderRadius) 0 0 var(--card-borderRadius);
+    --card-img-grow-horizontal: 2;
+    --card-img-minHeight-horizontal: 300px;
+    --card-content-grow-horizontal: 3;
+    --card-img-borderRadius-horizontal: var(--card-borderRadius) 0 0 var(--card-borderRadius);
     display: flex;
     flex-direction: column;
     background: var(--card-background);
@@ -27,8 +27,8 @@
     &:where(:not(:has(> :is([pgs~="card-content"], [pgs~="card-img"], [pgs~="card-imgForChild"])))) { padding: var(--card-padding); }
 
     //## LINK
+    // a card written on an <a> keeps the root's flex column: only the link look is added here
     &:where(a) {
-        display: block;
         transition: var(--clickable-transition);
         border: var(--border-width) var(--border-color) var(--border-style);
         border-color: var(--clickable-borderColor);
@@ -42,6 +42,7 @@
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 --card-background: var(--hover-background);
+                border-color: var(--hover-borderColor);
                 color: var(--hover-color);
             }
         }
@@ -65,7 +66,7 @@
         height: auto;
         margin: 0;
         object-fit: cover;
-        border-radius: var(--card-borderRadius-item);
+        border-radius: var(--card-img-borderRadius);
     }
 
     //## card-content
@@ -85,22 +86,22 @@
     // the children of the row layout shared by cardHorizontal and cardHorizontalFixed
     @mixin _cardHorizontal() {
         :where([pgs~="card-content"]) {
-            border-radius: var(--card-horizontal-borderRadius-item);
+            border-radius: var(--card-img-borderRadius-horizontal);
             flex-basis: 0;
-            flex-grow: var(--card-horizontal-content-grow);
+            flex-grow: var(--card-content-grow-horizontal);
         }
 
         :where([pgs~="card-img"]),
         :where([pgs~="card-imgForChild"]) {
-            border-radius: var(--card-horizontal-borderRadius-item);
+            border-radius: var(--card-img-borderRadius-horizontal);
             flex-basis: 0;
-            flex-grow: var(--card-horizontal-img-grow);
-            min-height: var(--card-horizontal-img-minHeight);
+            flex-grow: var(--card-img-grow-horizontal);
+            min-height: var(--card-img-minHeight-horizontal);
         }
 
         :where([pgs~="card-imgForChild"])>* {
             height: 100%;
-            border-radius: var(--card-horizontal-borderRadius-item);
+            border-radius: var(--card-img-borderRadius-horizontal);
         }
     }
 

@@ -2,7 +2,7 @@
 
 # Pagination
 
-Links to the pages of a list split in several pages, such as an archive, a shop or search results. Each page is a button you write, the one the reader is on carries aria-current="page" and btnCurrent; the component lays them in a row that wraps and draws the ellipsis between distant pages. --pagination-justify aligns the row (flex-start by default, center or flex-end), --pagination-gap spaces it.
+Links to the pages of a list split in several pages, such as an archive, a shop or search results. Each page is a button you write, the one the reader is on carries aria-current="page" and btnCurrent; the component lays them in a row that wraps and draws the ellipsis between distant pages. --pagination-justifyContent aligns the row (flex-start by default, center or flex-end), --pagination-gap spaces it.
 
 ## PGS
 
@@ -32,7 +32,7 @@ Links to the pages of a list split in several pages, such as an archive, a shop 
 
 - `--pagination-ellipsis-color`
 - `--pagination-gap`
-- `--pagination-justify`
+- `--pagination-justifyContent`
 
 ## Output
 

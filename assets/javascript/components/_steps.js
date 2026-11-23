@@ -17,7 +17,7 @@ function PGS_steps_build(steps) {
         if (generatedCircle && !authoredCircle) generatedCircle.textContent = index + 1;
         else if (!authoredCircle) {
             const circle = document.createElement("span");
-            pgs(circle).add("_steps-step-circle")
+            pgs(circle).add("_steps-step-circle");
             circle.textContent = index + 1;
             li.insertAdjacentElement("afterbegin", circle);
         }
@@ -26,7 +26,7 @@ function PGS_steps_build(steps) {
         // same dual form as the circle above
         if (!pgs.helper.directChild(li, ["steps-step-line", "_steps-step-line"])) {
             const line = document.createElement("span");
-            pgs(line).add("_steps-step-line")
+            pgs(line).add("_steps-step-line");
             li.insertAdjacentElement("afterbegin", line);
         }
     });

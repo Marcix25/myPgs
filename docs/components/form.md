@@ -7,7 +7,7 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 ## PGS
 
 - `form`: identifies the form container: a column, spaced by --form-gap (the paragraph gap by default). It styles no control of its own: each label, input, select, textarea, checkbox, radio, legend and fieldset takes its token. It also draws the asterisk on the label or legend of a required control.
-- `label`: the label of a control. Outside a field it is plain text above the control, in --label-color, --label-size (1.1em) and --label-weight (bold) (labelBox gives it a box), on the label itself or on a span inside the label that wraps the control. It is styled only when it sits right before its control, or wraps it: a label with a for that names a control further away is left plain. A label right after a checkbox or a radio is the text of that control instead, and it stays on its line. In a field it is the floating label: no box, one line, partly transparent, over the control. --label-gap is the room between the label and its control (the detail gap by default), the same wherever the two are written: inside a wrapper, in a div, in a grid, or next to each other in a column. A label written right before its control as a direct child of a form, a fieldset or a flex['column'] gives the gap of that column back, so the column does not add its own gap to it. It also dims when its control is disabled, is hidden together with a hidden control and gets the asterisk when the control after it is required.
+- `label`: the label of a control. Outside a field it is plain text above the control, in --label-color, --label-fontSize (1.1em) and --label-weight (bold) (labelBox gives it a box), on the label itself or on a span inside the label that wraps the control. Every element with the token takes this look; what reads the control (the gap given back, the dimming, the hiding and the asterisk below) only sees the control right after the label or inside it, so a label with a for that names a control further away keeps the look but none of those. A label right after a checkbox or a radio is the text of that control instead, and it stays on its line. In a field it is the floating label: no box, one line, partly transparent, over the control. --label-gap is the room between the label and its control (the detail gap by default), the same wherever the two are written: inside a wrapper, in a div, in a grid, or next to each other in a column. A label written right before its control as a direct child of a form, a fieldset or a flex['column'] gives the gap of that column back, so the column does not add its own gap to it. It also dims when its control is disabled, is hidden together with a hidden control and gets the asterisk when the control after it is required.
 - `input`: applies shared styling to an input. A password input uses the browser's own font; a search, number, date, time, datetime-local, month or week input is a row with the picker icon first. The look reads --input-padding, --input-border, --input-borderRadius and --input-background. In a field the input takes the padding of the field and room above for the label, and the label floats while the input is empty; the field adds the background and the radius around both, and no border.
 - `textarea`: applies shared styling to a <textarea>. In a field it also takes the token input, so that the label floats over it.
 - `radio`: styles a group of native radio inputs while preserving their shared name and selection behavior. The box has --radio-background and --radio-borderColor, the dot of a checked radio is --radio-color, each with a -hover and a -checked one; a disabled radio is dimmed. --radio-gap is the space between the box and the text (half the paragraph gap). The label is a flex row: write its text in a <span>, and any link or <strong> inside that span, so the spaces around them are kept.
@@ -79,25 +79,26 @@ const form = pgs(document).querySelector("form");
 
 const password = form.querySelector('input[name="password"]');
 const confirmPassword = form.querySelector('input[name="confirmPassword"]');
-if (!password || !confirmPassword) return;
 
-const formValidate = new pgs.helper.formValidate(form);
+if (password && confirmPassword) {
+    const formValidate = new pgs.helper.formValidate(form);
 
-//== new rules
-formValidate.addNewRule(() => {
-    if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-        pgs(confirmPassword).data.setValueBrackets("formMessage", "Passwords do not match");
-        return [confirmPassword, password];
-    }
-});
+    //== new rules
+    formValidate.addNewRule(() => {
+        if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
+            pgs(confirmPassword).data.setValueBrackets("formMessage", "Passwords do not match");
+            return [confirmPassword, password];
+        }
+    });
 
-//== validate
-formValidate.validator(event => {
-    const values = Object.fromEntries(new FormData(form));
+    //== validate
+    formValidate.validator(event => {
+        const values = Object.fromEntries(new FormData(form));
 
-    // Replace this log with a request to your backend.
-    console.log(values);
-}, "submit");
+        // Replace this log with a request to your backend.
+        console.log(values);
+    }, "submit");
+}
 ```
 
 ## Examples

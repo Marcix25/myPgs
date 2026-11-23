@@ -2,7 +2,7 @@
 
 # General
 
-Standalone utilities for shadow, cursor, image fitting, list styling and forced color scheme. Border, outline and radius utilities moved to their own reference, Border; the hover treatment moved to Hover.
+Standalone utilities for shadow, cursor, image fitting, list styling, forced color scheme and accessibility. Border, outline and radius utilities have their own reference, Border.
 
 ## PGS
 
@@ -16,6 +16,12 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 - `textBlock`: a column of running text: its items start at the left, its lists take the list markers, a rule spans the whole width and the first three headings have --margin-elements above them.
 - `lightmode`: forces the light color scheme on a subtree, whatever the page theme is.
 - `darkmode`: forces the dark color scheme on a subtree, whatever the page theme is.
+- `hidden`: hides an element in every case (display none, important), for content kept in the markup only as a payload or a template.
+- `visuallyHidden`: hides content visually while keeping it available to assistive technology.
+- `visuallyHiddenFocusable`: hides content like visuallyHidden until it or one of its children receives focus, then shows it in place.
+- `skipLink`: a link hidden like visuallyHidden that appears fixed in the top left corner, with the focus ring, while it has keyboard focus.
+- `focusRing`: shows the shared focus ring when the element has keyboard focus.
+- `motionReduce`: shortens animations and transitions to almost nothing, and turns smooth scrolling off, when the user prefers reduced motion.
 
 ## PGS Options (component brackets)
 
@@ -44,7 +50,7 @@ Standalone utilities for shadow, cursor, image fitting, list styling and forced 
 
 ## Output
 
-One example per utility, grouped by shadow, interaction, images, lists and color scheme.
+One example per utility, grouped by shadow, interaction, images, lists, text block, color scheme and accessibility.
 ## Examples
 
 ### Shadow
@@ -114,4 +120,17 @@ Pins a subtree to one color scheme, ignoring the current page theme.
 <div pgs="box darkmode">
     <p>darkmode</p>
 </div>
+```
+
+### Accessibility
+
+Content hidden from sight but not from assistive technology, a skip link and a focusable element that appear on keyboard focus, the shared focus ring, reduced motion, and an element that is never shown. Press Tab to see the focus states.
+
+```html
+<a pgs="skipLink" href="#general-accessibility">skipLink</a>
+<button pgs="focusRing" type="button">focusRing</button>
+<span pgs="box">visuallyHidden<span pgs="visuallyHidden">: this part is read only by assistive technology</span></span>
+<a pgs="visuallyHiddenFocusable" href="#general-accessibility">visuallyHiddenFocusable</a>
+<span pgs="box motionReduce">motionReduce</span>
+<span pgs="hidden">hidden: never shown</span>
 ```

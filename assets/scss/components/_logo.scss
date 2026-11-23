@@ -9,7 +9,7 @@
     // a logo is usually a link: never underlined, wherever it sits (a footer underlines its links)
     text-decoration: none;
     --logo-height: calc(var(--SIZE) + var(--font-size-text));
-    --logo-textSize: 20px;
+    --logo-text-fontSize: 20px;
     --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 
     //## DARKMODE
@@ -41,7 +41,7 @@
 
         :where([pgs~="logo-text"]) {
             font-family: var(--font-heading);
-            font-size: var(--logo-textSize);
+            font-size: var(--logo-text-fontSize);
             font-weight: var(--font-weight-bold);
             text-wrap: nowrap;
         }
@@ -51,7 +51,7 @@
     // the big logo of a footer's brand column: the image in a square box 200px tall, the text at 4rem
     &:where([pgs*="'logoFooter'"]) {
         --logo-height: 200px;
-        --logo-textSize: 4.0rem;
+        --logo-text-fontSize: 4.0rem;
 
         >:where([pgs~="logo-image"]) { aspect-ratio: 1; }
     }

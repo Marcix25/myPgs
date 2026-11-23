@@ -3,7 +3,7 @@
 [pgs~="stepTabs"] {
     :where([pgs~="stepTabs-container"]) {
         :where([pgs~="stepTabs-container-tab"]) {
-            //option for suggestions
+            // read by the JavaScript only, declared here so editors suggest it
             &[pgs-data~="stepTabsIcon[]"] {}
 
             display: flex;
@@ -19,7 +19,7 @@
         --button-color: var(--color-primary-text);
     }
 
-    //read by the JavaScript only, declared here so editors suggest it: styling comes from the button component
+    // read by the JavaScript only, declared here so editors suggest them: their look comes from the button component
     :where([pgs~="stepTabs-prev"]),
     :where([pgs~="stepTabs-restart"]) {}
 

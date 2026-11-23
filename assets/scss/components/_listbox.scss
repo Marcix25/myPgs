@@ -28,7 +28,7 @@
     --listbox-list-option-background-selected: var(--current-background);
     --listbox-list-option-color-selected: var(--current-color);
     // the box every icon of an option takes, so the texts line up whatever the glyph
-    --listbox-list-option-iconSize: 1.25em;
+    --listbox-list-option-icon-size: 1.25em;
     // the chevron of a group that opens and closes, and how long it takes to turn
     --listbox-list-group-icon: var(--icon-glyph-chevronDown);
     --listbox-timing: 300ms;
@@ -51,7 +51,7 @@
     line-height: 1.5;
     text-align: left;
 
-    //- attached
+    //## attached
     // a list joined to the field that opened it (search, selectBox): the component writes on it where it lies,
     // and the list squares its corners on the side of the field. The field squares its own on its side
     &[pgs-state~="below"] {
@@ -122,7 +122,7 @@
         // the size is the flex basis, not the width: a width an icon pack or a theme gives its icons (Font
         // Awesome from a class, --fa-width) would win over this rule, the basis of a flex item does not care
         >:where(i, svg, img, [pgs~="icon"]) {
-            flex: 0 0 var(--listbox-list-option-iconSize);
+            flex: 0 0 var(--listbox-list-option-icon-size);
             text-align: center;
         }
     }

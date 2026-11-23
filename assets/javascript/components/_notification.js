@@ -2,8 +2,9 @@ import { pgs } from "../_pgs.js";
 import { fn_alert } from "./_alerts.js";
 import { PGS_modal } from "./_modal.js";
 
-// the controller of each bell's click listener, and the notificationLoad elements already read
-const BELLS = new WeakMap();
+// the bells already bound (their listener lives as long as the bell), and the notificationLoad
+// elements already read
+const BELLS = new WeakSet();
 const LOADED = new WeakSet();
 
 //# PGS_notification
@@ -113,8 +114,7 @@ const fn_notification = {
         this._getBells(root).forEach(bell => {
             if (BELLS.has(bell)) return;
 
-            const controller = new AbortController();
-            BELLS.set(bell, controller);
+            BELLS.add(bell);
             this._missingBellReported = false;
 
             // a hand-written counter keeps the bare name; a generated one gets the underscore,
@@ -134,7 +134,7 @@ const fn_notification = {
                 // open already: this click closes it, and nothing moves
                 if (!api.isOpen()) this._applyPosition(bell);
                 api.toggle();
-            }, { signal: controller.signal });
+            });
         });
     },
 

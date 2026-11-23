@@ -1,11 +1,11 @@
 <!--
 /**
  * @title Summary
- * @description Long content collapsed to a few lines, with a button that expands it. The module measures the content against the collapsed height, --summary-lines lines of text (3 by default), and only shows the button when there is something hidden: content that already fits keeps the button out of the page and out of the accessibility tree, so nothing offers to expand what is fully visible. The summary-button is required: a summary without one is skipped, with a warning in the console. The two labels of that button come from the summaryShowMore and summaryShowLess data keys, then from the options passed to init, then from the English defaults.
+ * @description Long content collapsed to a few lines, with a button that expands it. The module measures the content against the collapsed height, --summary-lines lines of text (3 by default), and only shows the button when there is something hidden: content that already fits keeps the button out of the page and out of the accessibility tree, so nothing offers to expand what is fully visible. The summary-content and the summary-button are both required, as direct children: a summary without either is skipped, with a warning in the console. The two labels of that button come from the summaryShowMore and summaryShowLess data keys, then from the options passed to init, then from the English defaults.
  *
  * @pgs
  * - summary: identifies the root the module initializes, and the element the instance is stored against.
- * - summary-content: the collapsed content, cut to --summary-lines lines while it is closed.
+ * - summary-content: the collapsed content, cut to --summary-lines lines while it is closed. Required, as a direct child of the summary: markup without it is skipped with a warning in the console.
  * - summary-button: the control that expands and collapses the content. Required, as a direct child of the summary, so you place it yourself: markup without it is skipped with a warning in the console.
  *
  * @pgs-data

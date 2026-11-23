@@ -135,6 +135,8 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     let options = { ...initialOptions };
     let items = [];
     let timer = null;
+    // true while select() gives the focus back to the field, so that focus does not search again
+    let refocusing = false;
     let controller = null;
     let requestNumber = 0;
 
@@ -331,7 +333,11 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
         const { detail } = pgs.helper.dispatch(search, "pgs:search:select", { item, index, value: item.value, input });
         options.onSelect?.(detail);
 
+        // the list was just closed on a choice: the focus coming back to the field must not reopen it
+        // (onFocus would run the search again with searchOnFocus)
+        refocusing = true;
         input.focus();
+        refocusing = false;
         if (submit && typeof search.requestSubmit === "function") search.requestSubmit();
         return item;
     }
@@ -346,6 +352,7 @@ function initializeSearch(search, initialOptions = DEFAULT_OPTIONS) {
     }
 
     function onFocus() {
+        if (refocusing) return;
         if (items.length) Search.openSearch(search);
         else if (options.searchOnFocus) schedule();
     }

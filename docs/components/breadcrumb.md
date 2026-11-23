@@ -14,10 +14,10 @@ Hierarchical navigation that shows the current page path with links, separators,
 - `--breadcrumb-color`
 - `--breadcrumb-color-current`
 - `--breadcrumb-color-hover`
+- `--breadcrumb-fontSize`
 - `--breadcrumb-separator-color`
 - `--breadcrumb-separator-gap`
 - `--breadcrumb-separator-type`
-- `--breadcrumb-size`
 
 ## Output
 

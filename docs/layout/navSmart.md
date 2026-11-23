@@ -2,7 +2,7 @@
 
 # NavSmart
 
-A floating navigation bar pinned to the bottom of the screen, made of frosted pills: the way a phone's tab bar looks. Every navSmart-element is one pill, and the pills sit side by side, so a group of links and a lone button (a profile, a search) read as separate shapes. The pill takes the frosted surface of the box component (the same look as boxNavSmart), so it needs no other token, and every item inside it is a plain button of the button component with btnForNavSmart: a link of a nav list, or a button written straight in the element. An item shows its icon above its label, at least --navSmart-itemMinWidth wide (wider when its label is), and when the bar does not fit the screen the items shrink toward the width of their label instead of running off it. The item the page is on, marked with aria-current="page", or the one whose panel is open, kept in step by modal-button through aria-expanded, is highlighted as a smaller pill inside the bigger one. The bar spans the width only to center its pills: the empty space on either side lets the clicks through to the page.
+A floating navigation bar pinned to the bottom of the screen, made of frosted pills: the way a phone's tab bar looks. Every navSmart-element is one pill, and the pills sit side by side, so a group of links and a lone button (a profile, a search) read as separate shapes. The pill takes the frosted surface of the box component (the same look as boxNavSmart), so it needs no other token, and every item inside it is a plain button of the button component with btnForNavSmart: a link of a nav list, or a button written straight in the element. An item shows its icon above its label, at least --navSmart-item-minWidth wide (wider when its label is), and when the bar does not fit the screen the items shrink toward the width of their label instead of running off it. The item the page is on, marked with aria-current="page", or the one whose panel is open, kept in step by modal-button through aria-expanded, is highlighted as a smaller pill inside the bigger one. The bar spans the width only to center its pills: the empty space on either side lets the clicks through to the page.
 
 ## PGS
 
@@ -11,12 +11,12 @@ A floating navigation bar pinned to the bottom of the screen, made of frosted pi
 
 ## PGS States
 
-- `installedApp`: set by pgs.navSmart on a bar when the site runs as an installed app (added to the Home Screen), where the bar keeps --navSmart-edgePWA from the edges of the screen instead of the page padding, to stay clear of the phone's home indicator. Safari on iOS reports it through navigator.standalone, not through the display-mode media query.
+- `installedApp`: set by pgs.navSmart on a bar when the site runs as an installed app (added to the Home Screen), where the bar keeps --navSmart-edge-pwa from the edges of the screen instead of the page padding, to stay clear of the phone's home indicator. Safari on iOS reports it through navigator.standalone, not through the display-mode media query.
 
 ## JavaScript API
 
 - `pgs.navSmart.init(root)`: measures the bars inside the specified root, or the root itself when it is one; runs automatically on page load and again via pgs.helper.init(root) for a bar added later. The bar pinned to the screen publishes --_navSmart-height, the whole distance from the bottom edge of the screen to the top of the bar (the pills plus the gap the bar keeps from the edge, and the safe area on a phone), and --_navSmart-heightScroll, kept equal to it (the header publishes the same pair). Both are 0 while the bar is hidden, for instance by a media query. A navSmart written as an example inside a page flows with it, takes no room at the bottom and never owns them. Padding the end of a page by either one keeps its last lines from sitting under the bar.
-- `pgs.navSmart.api(element)`: the instance of one bar, with element, destroy() and refresh(). destroy() disconnects its observers and listeners; the height custom properties (--_header-height, --_header-heightScroll, --_navSmart-height, --_navSmart-heightScroll) are 0px while the page has none.
+- `pgs.navSmart.api(element)`: the instance of one bar, with element, destroy() and refresh(). destroy() disconnects its observers and listeners, and the bar stops owning --_navSmart-height and --_navSmart-heightScroll even while it stays in the page: another pinned bar takes them over, or they go to 0px when none is left.
 
 ## Related elements
 
@@ -49,12 +49,12 @@ A floating navigation bar pinned to the bottom of the screen, made of frosted pi
 ## CSS Variables
 
 - `--navSmart-edge`
-- `--navSmart-edgeHomeIndicator`
-- `--navSmart-edgePWA`
+- `--navSmart-edge-homeIndicator`
+- `--navSmart-edge-pwa`
 - `--navSmart-gap`
-- `--navSmart-iconSize`
-- `--navSmart-itemHeight`
-- `--navSmart-itemMinWidth`
+- `--navSmart-icon-size`
+- `--navSmart-item-height`
+- `--navSmart-item-minWidth`
 
 ## Output
 
@@ -70,9 +70,9 @@ A pill of links and a pill with one button, side by side. aria-current=&quot;pag
     <div pgs="navSmart-element">
         <nav aria-label="Main menu">
             <ul>
-                <li><a pgs="button['btnForNavSmart']" href="/" aria-current="page"><i pgs="icon['icon-home']"></i> Home</a></li>
-                <li><a pgs="button['btnForNavSmart']" href="/services"><i pgs="icon['icon-gear']"></i> Services</a></li>
-                <li><a pgs="button['btnForNavSmart']" href="/about"><i pgs="icon['icon-circleInfo']"></i> About</a></li>
+                <li><a pgs="button['btnForNavSmart']" href="/" aria-current="page"><i pgs="icon['icon-home']" aria-hidden="true"></i> Home</a></li>
+                <li><a pgs="button['btnForNavSmart']" href="/services"><i pgs="icon['icon-gear']" aria-hidden="true"></i> Services</a></li>
+                <li><a pgs="button['btnForNavSmart']" href="/about"><i pgs="icon['icon-circleInfo']" aria-hidden="true"></i> About</a></li>
             </ul>
         </nav>
     </div>
@@ -109,9 +109,9 @@ An item with no label takes no minimum width: add btnIconOnly next to btnForNavS
     <div pgs="navSmart-element">
         <nav aria-label="Main menu">
             <ul>
-                <li><a pgs="button['btnForNavSmart']" href="/" aria-current="page"><i pgs="icon['icon-home']"></i> Home</a></li>
-                <li><a pgs="button['btnForNavSmart']" href="/services"><i pgs="icon['icon-gear']"></i> Services</a></li>
-                <li><a pgs="button['btnForNavSmart']" href="/about"><i pgs="icon['icon-circleInfo']"></i> About</a></li>
+                <li><a pgs="button['btnForNavSmart']" href="/" aria-current="page"><i pgs="icon['icon-home']" aria-hidden="true"></i> Home</a></li>
+                <li><a pgs="button['btnForNavSmart']" href="/services"><i pgs="icon['icon-gear']" aria-hidden="true"></i> Services</a></li>
+                <li><a pgs="button['btnForNavSmart']" href="/about"><i pgs="icon['icon-circleInfo']" aria-hidden="true"></i> About</a></li>
             </ul>
         </nav>
     </div>

@@ -8,7 +8,10 @@ const API = new WeakMap();
 function createToggle(link) {
     const button = document.createElement("button");
     button.type = "button";
-    button.innerHTML = `<i pgs="icon['icon-chevronDown']"></i>`;
+    button.innerHTML = `<i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>`;
+    // the button draws only an icon: its name comes from the link it opens the submenu of
+    const text = link.textContent.trim();
+    button.setAttribute("aria-label", text ? `Show the submenu of ${text}` : "Show the submenu");
 
     pgs(button).add("_menu-submenuButton", "button['btnMini' 'btnIconOnly']");
     link.insertAdjacentElement("afterend", button);

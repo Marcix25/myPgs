@@ -1,5 +1,5 @@
 //= DEPRECATED
-// names kept only so projects written before the rename keep working; removed in version 6.
+// names kept only so projects written before the rename keep working; removed in version 7.
 // The texts step was renamed paragraphs, because "texts" led to it being used for the space
 // between small pieces of text, which is what the details step is for. Every alias reads the
 // new value, so it renders exactly as paragraphs does. Overriding an old --*-texts variable no

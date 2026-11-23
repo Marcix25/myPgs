@@ -24,9 +24,9 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 ## PGS Options (component brackets)
 
 - `slidesShadowDesktop`: fades the slides out at the edges from the tablet width up, only on the side that still has slides to reach.
-- `slidesAnimationScale`: scales each slide by how much of it is in view, through the --_slides-visiblePercent custom property the module writes on it; a slide sits at 1 before the first pass of the observer.
+- `slidesAnimationScale`: scales the content of each slide by how much of the slide is in view, through the --_slides-visiblePercent custom property the module writes on the slide's first child (the card, in the examples), so a slide holds its content in one element; the content sits at 1 before the first pass of the observer.
 - `slidesSingleScroll`: an arrow advances by a single slide, counted from the one the snap is resting on, instead of jumping past every slide currently in view.
-- `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of at the top right above them, where they are laid out of the flow with their room kept above the track from the first paint (--slides-arrowSize, plus the paragraph gap), so the page does not move when the module builds them. An arrow written by hand (slides-prev, slides-next) is not moved either way: only the generated ones are.
+- `slidesArrowsCenter`: puts the arrows the module builds over the slides again, one on each side at the middle of their height, instead of at the top right above them, where they are laid out of the flow with their room kept above the track from the first paint (--slides-arrows-size, plus the paragraph gap), so the page does not move when the module builds them. An arrow written by hand (slides-prev, slides-next) is not moved either way: only the generated ones are.
 - `slidesNotDots`: the slides have no dots; the module does not build the row, and no room is kept under them. A row written by hand (slides-dots) is the author's and stays as written, so do not write one with this option.
 - `slidesEdge`: for slides as wide as the screen (a section with no padding of its own): the track keeps --page-padding on its inline sides, and the first and the last slide are held on the content column by their margin above --page-width, so the slides run to the edge of the screen while the first one starts under the title. Inside a section, which already holds the column, it is not needed and would add the padding twice.
 - `slidesFullWidth`: each slide fills the full width of the track instead of the default fixed measure, at every breakpoint.
@@ -40,7 +40,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 ## JavaScript API
 
 - `pgs.slides.init(root)`: initializes matching elements within the specified root.
-- `pgs.slides.api(element)`: returns the instance associated with the specified initialized element.
+- `pgs.slides.api(element)`: returns the instance associated with the specified initialized element. Besides its methods, the instance carries element: the slides root; container: the slides-container, the track that scrolls.
 - `instance.prev()`: moves to the previous slide.
 - `instance.next()`: moves to the next slide.
 - `instance.goTo(index)`: scrolls to the zero-based slide at that position; throws a TypeError when index is not an integer between 0 and the last slide.
@@ -56,10 +56,10 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 ### PGS
 
-- `card`: uses the related card component or utility in this example.
-- `card-img`: uses the related card-img component or utility in this example.
+- `card`: the content of each slide in the examples; see Card and Box.
+- `card-img`: the image at the top of each card.
 - `card-content`: groups the textual content of each slide card.
-- `img`: uses the related img component or utility in this example.
+- `img`: sizes the image of the card; see General.
 
 ### PGS Options (component brackets)
 
@@ -70,15 +70,17 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `icon`: draws the chevron inside each of the two generated buttons; see Icon for the whole set.
 - `icon-chevronDown`: the glyph in both generated buttons, rotated to point left or right.
 - `rotate`: rotates the chevron; the previous button uses its 90 option to point left, the next button its 270 option to point right.
-- `btnIconOnly`: styles the previous and next actions generated at runtime; belongs to the button component.
+- `button`: the two arrows the module generates are buttons; see Button.
+- `btnIconOnly`: shapes the generated arrows as icon-only buttons; belongs to the button component.
+- `btnMini`: the compact size of the generated arrows; see Button.
 
 ## CSS Variables
 
-- `--slides-arrowSize`
-- `--slides-arrowsSpace`
+- `--slides-arrows-size`
+- `--slides-arrows-space`
 - `--slides-maskEnd`
+- `--slides-maskSize`
 - `--slides-maskStart`
-- `--slides-sizeMaskImage`
 - `--slides-width`
 - `--slides-width-mobile`
 - `--slides-width-tablet`

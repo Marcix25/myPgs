@@ -33,10 +33,12 @@
     "files": [
         "assets/",
         "dist/",
+        "docs/",
         "plugins/",
         "reference/html/",
         "reference/pgs-map.json",
         "AGENTS.md",
+        "AGENTS-DEVELOPMENT.md",
         "AGENTS-USAGE.md",
         "README.md",
         "migration.md"

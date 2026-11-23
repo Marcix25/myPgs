@@ -22,7 +22,7 @@ Grid layouts: a responsive column-N grid that drops to fewer columns at each bre
 - `colSpanXl`: inside gridChild's own bracket, spans 4 columns (--gridChild-colSpan-xl).
 - `colSpanXxl`: inside gridChild's own bracket, spans 5 columns (--gridChild-colSpan-xxl).
 - `gapDetails`: the detail gap between the items (a quarter of the base size, for small pieces of text in a row: icon and label, meta info); also sets --gap.
-- `gapParagraphs`: the paragraph gap between the items; also sets --gap, the gap a column-N row computes its widths with.
+- `gapParagraphs`: the paragraph gap between the items, the same one a grid has with no gap option; also sets --gap.
 - `gapElements`: the element gap between the items, and --gap with it.
 - `gapGroups`: the double gap between the items, and --gap with it.
 - `gapSections`: the section gap between the items, and --gap with it; meant for large page blocks, since it also spaces the rows.
@@ -133,9 +133,14 @@ gridNotDefault keeps only display: grid: the gap and the width are the element's
 
 ### Gap
 
-The three smaller gap scales between grid items, from the paragraph gap to the group gap, plus gapNone; gapSections, the page-block scale, is too large to show here. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
+The four smaller gap scales between grid items, from the detail gap to the group gap, plus gapNone; gapSections, the page-block scale, is too large to show here. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
 
 ```html
+<div pgs="grid['column-4' 'gapDetails']">
+    <span pgs="box">gapDetails</span>
+    <span pgs="box">gapDetails</span>
+    <span pgs="box">gapDetails</span>
+</div>
 <div pgs="grid['column-4' 'gapParagraphs']">
     <span pgs="box">gapParagraphs</span>
     <span pgs="box">gapParagraphs</span>

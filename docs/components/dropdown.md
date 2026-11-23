@@ -8,7 +8,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 - `dropdown`: identifies the container initialized by the dropdown module.
 - `dropdown-button`: identifies the control that opens or closes the content.
-- `dropdown-content`: identifies the panel positioned relative to the control.
+- `dropdown-content`: identifies the panel positioned relative to the control. It has to be a direct child of the dropdown.
 
 ## PGS Options (component brackets)
 
@@ -29,7 +29,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 ## JavaScript API
 
-- `pgs.dropdown.init(root)`: initializes unregistered dropdowns within the specified Document or Element, including the element itself when it is a dropdown. A dropdown without a dropdown-content is skipped, with a warning in the console.
+- `pgs.dropdown.init(root)`: initializes unregistered dropdowns within the specified Document or Element, including the element itself when it is a dropdown. A dropdown without a dropdown-content as a direct child is skipped, with a warning in the console.
 - `pgs.dropdown.api(element)`: returns the instance associated with an initialized dropdown root.
 - `instance.open()`: opens the dropdown and closes any other open dropdowns.
 - `instance.close()`: closes the current dropdown.
@@ -48,7 +48,7 @@ Popup component that connects a control to content positioned relative to its tr
 
 ### PGS Options (component brackets)
 
-- `btnReverse`: reverses text and icon on the example buttons and belongs to the button component.
+- `btnReverse`: a button flag: moves the short padding to the right, since the chevron of the example buttons is written after the label.
 - `icon-chevronDown`: the glyph that says this button opens something.
 
 ## CSS Variables
@@ -61,7 +61,7 @@ Popup component that connects a control to content positioned relative to its tr
 - `--dropdown-borderWidth`
 - `--dropdown-color`
 - `--dropdown-display`
-- `--dropdown-inline-size`
+- `--dropdown-inlineSize`
 - `--dropdown-maxBlockSize`
 - `--dropdown-maxInlineSize`
 - `--dropdown-padding`

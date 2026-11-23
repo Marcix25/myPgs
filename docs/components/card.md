@@ -31,17 +31,17 @@ Reusable surfaces for presenting structured card content or grouping simpler con
 
 - `--card-background`
 - `--card-borderRadius`
-- `--card-borderRadius-item`
-- `--card-horizontal-borderRadius-item`
-- `--card-horizontal-content-grow`
-- `--card-horizontal-img-grow`
-- `--card-horizontal-img-minHeight`
+- `--card-content-grow-horizontal`
+- `--card-img-borderRadius`
+- `--card-img-borderRadius-horizontal`
+- `--card-img-grow-horizontal`
+- `--card-img-minHeight-horizontal`
 - `--card-img-padding`
 - `--card-padding`
 
 ## Output
 
-Standard, wrapped-image, clickable, horizontal, and compact cards followed by standard, compact, and clickable boxes.
+Standard, wrapped-image, clickable, horizontal, fixed horizontal and compact cards, followed by standard, clickable and compact boxes and the frosted boxNavSmart pill.
 ## Examples
 
 ### Standard card

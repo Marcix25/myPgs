@@ -112,8 +112,6 @@ SYSTEM_QUERY?.addEventListener?.("change", () => {
     if (followsSystem()) setDarkmodeStatus(false);
 });
 
-
-
 //# INIT
 // applies the stored theme to the root as soon as the bundle is parsed in the head, so a
 // reload never paints the wrong one first
@@ -125,7 +123,7 @@ if (typeof document !== "undefined") setDarkmodeStatus();
 // darkmodeToggle-light and a darkmodeToggle-dark in it (and a darkmodeToggle-system in one with three states),
 // and the stylesheet shows the one of the current state
 function PGS_darkmode_init(root = document) {
-    const buttons = pgs.helper.roots(root, "darkmodeToggle").filter(button => !INITIALIZED_BUTTONS.has(button));
+    const buttons = pgs.helper.roots(root, "darkmodeToggle", "darkmode.init").filter(button => !INITIALIZED_BUTTONS.has(button));
 
     buttons.forEach(button => {
         INITIALIZED_BUTTONS.add(button);
@@ -133,7 +131,7 @@ function PGS_darkmode_init(root = document) {
         button.addEventListener("click", () => hasThreeStates(button) ? nextOfThree() : setDarkmodeStatus(true));
     });
 
-    pgs.helper.roots(root, "darkmodeButtons").forEach(group => {
+    pgs.helper.roots(root, "darkmodeButtons", "darkmode.init").forEach(group => {
         const buttons = Array.from(pgs(group).querySelectorAll(Object.keys(BUTTON_MODES))).filter(button => !INITIALIZED_BUTTONS.has(button));
 
         buttons.forEach(button => {

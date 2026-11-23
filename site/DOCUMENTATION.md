@@ -2,7 +2,7 @@
 
 This explains the pipeline behind everything under `reference/html/`, `docs/`, and this `site/`
 folder: where a component's documentation actually lives, how it turns into the generated Markdown
-and into `site/build/home.html` — the site's home page, see "Pre-baking the demo" below for how it
+and into `site/build/demo.html` — the reference page of the site, see "Pre-baking the demo" below for how it
 is assembled — and what to do when you add or change something.
 
 ## The three places involved
@@ -14,7 +14,7 @@ is assembled — and what to do when you add or change something.
    hand; edit the `reference/html` source and regenerate.
 3. **`site/`** (this folder) — a browsable reference with working examples, pre-baked by
    `npm run sitebuild`: `scripts/demo-render.js` turns every `reference/html` file into its panel, and
-   `scripts/build-site-static.js` merges it with a hand-authored shell into `site/build/home.html` —
+   `scripts/build-site-static.js` merges it with a hand-authored shell and `site/page/demo.html` into `site/build/demo.html` —
    see "Pre-baking the demo" below for the full split between `assets/`, `parts/`, `build/` and
    `page/`. The site's own CSS/JS/images live under `site/assets/css/`, `site/assets/js/`,
    `site/assets/img/` and `site/assets/font/`, the shell in `site/index.html` and its fragments under `site/parts/`; every
@@ -253,8 +253,9 @@ three things in `demo-render.js` need a manual entry for it to actually show up 
 2. **`referenceFiles`** (an array near the top of the file) — add `"<category>/<name>.html"`. Its
    position in the array is the file's position in the nav; a category's *first* appearance in this
    array is where that whole category section is inserted.
-3. **`ENTRY_ICONS`** — add `"<category>/<name>.html": "fa-solid-icon-name"` (any Font Awesome
-   solid icon class) for its nav icon; falls back to a generic square icon if omitted.
+3. **`ENTRY_ICONS`** — add `"<category>/<name>.html": "<name>"`, a pgs glyph name without the
+   `icon-` prefix (`"sliders"`, `"layout"`), for its nav icon, rendered as `icon['icon-<name>']`;
+   falls back to `DEFAULT_ENTRY_ICON` (`"circle"`) if omitted.
 
 Then rebuild with `npm run sitebuild`, and only if the example needs real interactivity add a
 `configureXDemo()` function to `assets/js/demo.js` as above and call it from `boot()`.
@@ -273,8 +274,9 @@ Then rebuild with `npm run sitebuild`, and only if the example needs real intera
   Margin, padding and border have one root per side, each with its own side code in the flag
   (`marginTop['mgTpElements']`, `borderTop['bdTpThin']`). The documented exceptions are flex/grid's
   layout flags (`column`, `gapElements`, `itemCenter`, ...), and the `icon-*` glyphs. A `pgs-data` key keeps its prefix always (`formFieldError`,
-  `headerCompactFrom`): that attribute is flat, with no bracket to give a bare key context. See
-  `migration.md` for the move from the old attribute grammar.
+  `headerCompactFrom`): that attribute is flat, with no bracket to give a bare key context. The move
+  from the old attribute grammar (`pgs-option`) is in the `migration.md` of the `v5.0.0` tag
+  (`git show v5.0.0:migration.md`).
 - **A plain reusable utility with no component family** (`block`, `minWidth0`, `truncate`,
   `cursorNotAllowed`) has no prefix and no bracket: it is written directly as a `pgs` value.
 
@@ -288,7 +290,10 @@ npm run docs:generate              # validates every reference/html file, writes
 npm run sitebuild                  # pre-bakes site/build/ — see the section below
 ```
 
-Run all four, in that order, after touching anything under `assets/` or `reference/html/`. The order
+After touching anything under `assets/` or `reference/html/`, run `npm run precommit`
+(`scripts/precommit.js`): it runs, in this order and stopping at the first failure, `npx webpack`,
+`node scripts/generate-pgs-map.js`, `npm run docs:generate`, `npm run sitebuild`, `npm test` and
+`git diff --check`, then prints the checklist. Run the commands above one by one only to repeat a single step. The order
 is not cosmetic: `generate-pgs-map.js` and `build-site-static.js` read `dist/css/index.css`, so a map
 or a demo built before webpack describes the previous compile. `docs:generate` reads the SCSS and
 JavaScript sources instead, so it is the one step that does not need the build.

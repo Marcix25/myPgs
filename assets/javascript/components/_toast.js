@@ -25,10 +25,13 @@ const fn_toast = {
         if (!containerToast) {
             containerToast = document.createElement("div");
             pgs(containerToast).add("_toast");
-            containerToast.setAttribute("aria-live", "polite");
-            containerToast.setAttribute("aria-relevant", "additions");
             document.body.appendChild(containerToast);
         }
+
+        // a container written by hand is announced like the generated one, unless its author chose
+        // other values
+        if (!containerToast.hasAttribute("aria-live")) containerToast.setAttribute("aria-live", "polite");
+        if (!containerToast.hasAttribute("aria-relevant")) containerToast.setAttribute("aria-relevant", "additions");
 
         return containerToast;
     },

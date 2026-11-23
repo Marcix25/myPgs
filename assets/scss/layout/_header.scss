@@ -6,7 +6,6 @@
     --header-gap: var(--gap-elements);
     --header-background: var(--color-white-transparent);
     --header-color: var(--color-black);
-    --header-compactBottom-active: 0;
     --header-compact-breakpoint: 100px;
     z-index: var(--zIndex-header);
     position: fixed;
@@ -30,6 +29,9 @@
         padding-inline: var(--header-paddingInline);
         pointer-events: auto;
 
+        // option for suggestions: an empty rule that only names the three groups, so the pgs map
+        // (scripts/generate-pgs-map.js reads the SCSS source) lists them for the editor;
+        // alwaysOn is written nowhere else, since it has no style of its own
         :where([pgs~="header-element-onlyCompact"]),
         :where([pgs~="header-element-onlyFull"]),
         :where([pgs~="header-element-alwaysOn"]) {}
@@ -57,10 +59,10 @@
     }
 
     //+ OPTION
-    /*  forces the compact layout at a breakpoint even when the content would still fit,
-        so a wide header can be compact on purpose. Only the value is declared here: the
-        JavaScript reads --header-compact-breakpoint and adds the compact state below it.
-        headerCompactFrom[600] takes over with its own pixel value. */
+    // forces the compact layout at a breakpoint even when the content would still fit,
+    // so a wide header can be compact on purpose. Only the value is declared here: the
+    // JavaScript reads --header-compact-breakpoint and adds the compact state below it.
+    // headerCompactFrom[600] takes over with its own pixel value
     &[pgs*="'headerCompactWatch'"] {
         --header-compact-breakpoint: #{$watch};
     }
@@ -85,12 +87,12 @@
         --header-compact-breakpoint: #{$laptop};
     }
 
-    //option for suggestions: headerMain and headerScroll are plain flags, read by the
-    //JavaScript only
+    // option for suggestions: headerMain and headerScroll are plain flags, read by the
+    // JavaScript only
     &[pgs*="'headerMain'"],
     &[pgs*="'headerScroll'"] {}
 
-    //option for suggestions: headerCompactFrom[600] carries its own pixel value, read from pgs-data
+    // option for suggestions: headerCompactFrom[600] carries its own pixel value, read from pgs-data
     &[pgs-data~="headerCompactFrom[]"] {}
 
     &[pgs*="'headerBottom'"] {
@@ -117,8 +119,5 @@
             :where([pgs~="header-element-onlyFull"]) { display: none; }
             :where([pgs~="header-element-onlyCompact"]) { display: contents; }
         }
-
-        // bottom: follows the compact state, so it honors the chosen breakpoint
-        &[pgs*="'headerCompactBottom'"] { --header-compactBottom-active: 1; }
     }
 }

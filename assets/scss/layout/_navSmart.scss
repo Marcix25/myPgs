@@ -8,15 +8,15 @@
 //# NAVSMART
 :is([pgs~="navSmart"], [pgs*="navSmart\5B"]) {
     --navSmart-gap: var(--gap-details);
-    --navSmart-edgePWA: 2.0rem;
+    --navSmart-edge-pwa: 2.0rem;
     --navSmart-edge: calc(var(--page-padding) / 2);
-    --navSmart-itemMinWidth: 7.2rem;
-    --navSmart-iconSize: 2.8rem;
-    --navSmart-itemHeight: 5.5rem;
-    --navSmart-edgeHomeIndicator: 2.1rem;
+    --navSmart-item-minWidth: 7.2rem;
+    --navSmart-icon-size: 2.8rem;
+    --navSmart-item-height: 5.5rem;
+    --navSmart-edge-homeIndicator: 2.1rem;
     position: fixed;
     inset-inline: 0;
-    bottom: max(var(--navSmart-edge), min(env(safe-area-inset-bottom, 0px), var(--navSmart-edgeHomeIndicator)));
+    bottom: max(var(--navSmart-edge), min(env(safe-area-inset-bottom, 0px), var(--navSmart-edge-homeIndicator)));
     z-index: var(--zIndex-navSmart);
     display: flex;
     justify-content: center;
@@ -31,8 +31,8 @@
     // viewport-fit=cover, so the bar keeps a fixed distance there instead. Safari on iOS does not
     // answer the display-mode media query for a site added to the Home Screen, so _navSmart.js
     // marks the bar with the installedApp state too
-    @media (display-mode: standalone) { --navSmart-edge: var(--navSmart-edgePWA); }
-    &[pgs-state~="installedApp"] { --navSmart-edge: var(--navSmart-edgePWA); }
+    @media (display-mode: standalone) { --navSmart-edge: var(--navSmart-edge-pwa); }
+    &[pgs-state~="installedApp"] { --navSmart-edge: var(--navSmart-edge-pwa); }
 
     //## ELEMENT
     // one pill, drawn by box with boxNavSmart. Its padding is the gap between the highlighted item
@@ -62,7 +62,7 @@
         }
 
         // the items, whatever holds them (a list entry, a modal wrapper, or the button itself): as wide as
-        // --navSmart-itemMinWidth, or as their label when that is wider, and when the bar does not fit the
+        // --navSmart-item-minWidth, or as their label when that is wider, and when the bar does not fit the
         // screen they shrink toward the width of their label instead of overflowing it. It is a width, not
         // a flex-basis, because the pill is sized from what its items say they are; the floor is the label
         // (min-content), which the width alone would let overflow, and the pill and what holds the items
@@ -71,7 +71,7 @@
         :where(li, [pgs~="modal"], [pgs*="modal\5B"]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
         >[pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
             width: auto;
-            min-width: var(--navSmart-itemMinWidth);
+            min-width: var(--navSmart-item-minWidth);
         }
 
         :where(li, [pgs~="modal"], [pgs*="modal\5B"])>[pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) { flex: 1 1 auto; }

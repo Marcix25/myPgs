@@ -1,9 +1,9 @@
 //= COLOR
 // every color family below is one root with its palette folded into the flag name (bgPrimary,
-// txtQuaternaryDark, ...) instead of a separate bare token per color (only the two icon colors
-// are bare tokens) — the same fold as margin/padding/border/section/utilities. border and outline's own color flags
-// (bdPrimary, otlPrimary, ...) live in base/_border.scss instead, alongside the thickness flags
-// they share a bracket with.
+// txtQuaternaryDark, ...) instead of a separate bare token per color, the same fold as
+// margin/padding/border/section/utilities. The border and outline colors live in base/_border.scss:
+// the border has a root of its own for them, borderColor['bdPrimary'], and the outline keeps them in
+// its bracket next to the width, outline['otlThin' 'otlPrimary']
 //# BACKGROUND COLORS
 [pgs*="background\5B"] {
     &[pgs*="'bgTransparent'"] { background: transparent; }

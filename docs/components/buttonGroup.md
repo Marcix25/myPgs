@@ -39,10 +39,6 @@ A set of buttons on a background of its own, with padding, rounded corners and a
 - `icon-sun`: the glyph of the light theme.
 - `icon-moon`: the glyph of the dark theme.
 
-### Other
-
-- `menuHorizontal`: lays the menu out as a row; see Menu.
-
 ## CSS Variables
 
 - `--buttonGroup-background`

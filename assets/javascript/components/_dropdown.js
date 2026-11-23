@@ -17,8 +17,10 @@ function getDropdownTrigger(dropdown, content) {
     return dropdownButton || children.find(child => !isDropdownContent(child)) || dropdown;
 }
 
+// only a direct child: the stylesheet hides and shows the content with a child combinator
+// (_dropdown.scss), so a nested one would open in the script but never in the page
 function getDropdownContent(dropdown) {
-    return pgs.helper.directChild(dropdown, "dropdown-content") || pgs(dropdown).querySelector("dropdown-content");
+    return pgs.helper.directChild(dropdown, "dropdown-content");
 }
 
 function getPosition(dropdown) {
@@ -40,7 +42,9 @@ function updatePosition(dropdown) {
     if (!data || !data.isOpen()) return;
 
     const { trigger, content } = data;
-    const { side, align } = getPosition(dropdown);
+    const { align } = getPosition(dropdown);
+    // the side the content really ends up on, which the flips below may change from the requested one
+    let { side } = getPosition(dropdown);
     const triggerRect = trigger.getBoundingClientRect();
     const contentRect = content.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
@@ -69,10 +73,10 @@ function updatePosition(dropdown) {
 
     if (side === "left" && left < VIEWPORT_GAP) {
         left = triggerRect.right + VIEWPORT_GAP;
-    }
-
-    if (side === "right" && left + contentRect.width > viewportWidth - VIEWPORT_GAP) {
+        side = "right";
+    } else if (side === "right" && left + contentRect.width > viewportWidth - VIEWPORT_GAP) {
         left = triggerRect.left - contentRect.width - VIEWPORT_GAP;
+        side = "left";
     }
 
     left = clamp(left, VIEWPORT_GAP, maxLeft);
@@ -188,7 +192,7 @@ function initializeDropdown(DROPDOWN) {
 
     const CONTENT = getDropdownContent(DROPDOWN);
     if (!CONTENT) {
-        pgs.helper.warn("dropdown.init", "a dropdown needs a dropdown-content child, skipped", DROPDOWN);
+        pgs.helper.warn("dropdown.init", "a dropdown needs a dropdown-content as a direct child, skipped", DROPDOWN);
         return;
     }
 

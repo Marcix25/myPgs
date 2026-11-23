@@ -1,11 +1,11 @@
 <!--
 /**
  * @title Toast
- * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel: the toast is the same card, only one at a time and timed, in its own fixed container. Both are the shared alert card underneath (see Alerts): this component only manages the single floating stack and the countdown bar around it. Full JSON field list is under @pgs-data "toast"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message, title-close and duration keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine, both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop the navigation), and pgs:alert:close on the toast element right before it is removed, whether by the dismiss button or by its own timeout (detail: element, id, type, title, description), once however the two overlap.
+ * @description Toast markup, configuration, behavior, and usage example. An ephemeral, auto-dismissing message shown one at a time (e.g. "saved", "error"). Split from Notification, which is a persistent, manually-dismissed panel: the toast is the same card, only one at a time and timed, in its own fixed container. Both are the shared alert card underneath (see Alerts): this component only manages the single floating container; the countdown bar is the alert's own (see Alerts). Every JSON field is annotated in the PGS Data fields block, and every JS option in the JavaScript Usage example. The JSON form and the JS options now use the same names; the previous message, title-close and duration keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine, both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop the navigation), and pgs:alert:close on the toast element right before it is removed, whether by the dismiss button or by its own timeout (detail: element, id, type, title, description), once however the two overlap.
  *
  * @pgs
- * - toastLoad: creates one toast from a JSON object on page load; see @pgs-data "toast" for every accepted field.
- * - toast: write it yourself, bare like this, to place the container elsewhere; the module leaves it alone and never generates a second one. Leave it empty, because its content is replaced at every toast.
+ * - toastLoad: creates one toast from a JSON object on page load; every accepted field is in the PGS Data fields block. Only one toast is shown at a time, so with several comma-separated objects in the same pgs-data each one replaces the one before and only the last stays on screen.
+ * - toast: write it yourself, bare like this, to place the container elsewhere; the module never generates a second one. Leave it empty, because its content is replaced at every toast. Like the generated one it gets aria-live="polite" and aria-relevant="additions", unless it already carries its own.
  *
  * @pgs-generated
  * - _toast: the container the toasts are shown in, appended at the end of the body when no toast was written by hand. It also carries, for the toast being shown, the position written in its pgs-data.
@@ -17,20 +17,20 @@
  * - toastBottom: a value of the position field: the same, against the bottom edge instead of the top.
  *
  * @pgs-data
- * - toast: JSON object read by toastLoad on page load; a new toast replaces whatever is currently shown — every field, with its accepted values and its default, is annotated in the reference below.
+ * - toast: JSON object read by toastLoad on page load; a new toast replaces whatever is currently shown. Every field, with its accepted values and its default, is annotated in the PGS Data fields block.
  *
  * @api
  * - pgs.toast.init(root): scans root for toastLoad and shows its toast; runs automatically on page load and again via pgs.helper.init(root) for content added later.
  * - pgs.toast.trigger(root): alias of pgs.toast.init(root).
- * - pgs.toast.error(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
- * - pgs.toast.success(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
- * - pgs.toast.info(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
- * - pgs.toast.warning(optionsOrTitle): a title string, or an options object — see the full field reference in the commented example below.
+ * - pgs.toast.error(optionsOrTitle): a title string, or an options object — every option is annotated in the JavaScript Usage example.
+ * - pgs.toast.success(optionsOrTitle): a title string, or an options object — every option is annotated in the JavaScript Usage example.
+ * - pgs.toast.info(optionsOrTitle): a title string, or an options object — every option is annotated in the JavaScript Usage example.
+ * - pgs.toast.warning(optionsOrTitle): a title string, or an options object — every option is annotated in the JavaScript Usage example.
  * - pgs.toast.neutral(optionsOrTitle): the plain toast, same arguments as the others; it has no title or glyph of its own, so pass at least a description.
  * - pgs.toast.deleteAll(): removes the currently shown toast, if any.
  *
  * @related
- * - alerts: owns the card itself and the engine that builds it (icon, content, dismiss button, action buttons, timeout, events — see its own @pgs-generated for every _alert* token); this component only manages the fixed stacking container and the countdown bar around it.
+ * - alerts: owns the card itself and the engine that builds it (icon, content, dismiss button, action buttons, timeout, countdown bar, events — see its own @pgs-generated for every _alert* token); this component only manages the fixed container.
  * - alertNeutral: the plain severity option owned by Alerts, carried by a card of type neutral; no colour, no glyph and no title of its own, so the card stays on the box surface.
  * - alertSuccess: the success severity option owned by Alerts, carried by a card of type success.
  * - alertError: the error severity option owned by Alerts, carried by a card of type error.
@@ -93,6 +93,7 @@
 
 <script type="application/json">
     toast[{
+        "id": null,                     // reported as id by pgs:alert:buttonClick and pgs:alert:close; omitted gets a generated one
         "title": "",                    // omitted falls back to the title of the type
         "description": "",              // plain text under the title; a newline becomes a line break
         "type": "info",                 // neutral | error | success | warning | info, and anything else falls back to info
@@ -109,7 +110,7 @@
                 "close": true,          // dismisses the toast after the click; false keeps it, e.g. for a link
                 "optionButton": null    // option added to the button's own bracket, e.g. btnMini; see Button
             }
-        ],
+        ]
     }]
 </script>
 

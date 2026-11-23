@@ -113,7 +113,8 @@ import "mypgs/style.css";</code></pre>
         <div class="exampleSource" data-kind="javascript">
             <strong class="exampleSource-title">webpack.config.js</strong>
             <button type="button" class="exampleSource-copy" pgs="button['btnIconOnly'] height['heightAuto']" aria-label="Copy the code"><i pgs="icon['icon-copy']" aria-hidden="true"></i></button>
-<pre><code class="language-javascript">const modules = require("mypgs/build").pgsModules();
+<pre><code class="language-javascript">const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const modules = require("mypgs/build").pgsModules();
 
 module.exports = [
     {
@@ -133,6 +134,7 @@ module.exports = [
                 }],
             }],
         },
+        plugins: [new MiniCssExtractPlugin()],
     },
 ];</code></pre>
         </div>

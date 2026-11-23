@@ -92,8 +92,8 @@ $accordionGap: 1.0rem;
 
     //+ OPTION
     //+ accAutoOpen
-    //read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
-    //keeps it open when another one in the group is opened
+    // read by the JavaScript only, declared here so editors suggest it: opens the panel on load and
+    // keeps it open when another one in the group is opened
     &:where([pgs*="'accAutoOpen'"]) {}
 
     //+ accOpenBox
@@ -114,7 +114,7 @@ $accordionGap: 1.0rem;
         }
     }
 
-    //- STATE OPEN - NOT OPEN
+    //## STATE OPEN
     // only its own button and content, never those of an accordion nested inside the open panel,
     // which keeps its own closed state
     &[pgs-state~=open] {

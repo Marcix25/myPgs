@@ -4,7 +4,7 @@
  * @description Search markup, configuration, behavior, and usage example. Two custom events bubble from the search root: pgs:search:select when a suggestion is chosen (detail: element, item, index, value, input) and pgs:search:error when the source rejects (detail: element, error, query), which also adds the error state. An aborted request is not an error and dispatches nothing. The label of a suggestion is escaped, so a source can return any text. An object item can carry its own icon, as icon: markup, shown before its label in place of searchIconSuggestion; that markup is inserted as HTML, so it must be written by the author, never taken from remote text. An object item can also carry a group, as group: text: the items that follow each other with the same group get one heading over them, which the keys and the pointer skip (a source that groups its items returns them already in order, group after group, and the items with no group first: one after a group would read as part of it); the limit counts the items, not the headings. Leaving the field with Tab, or pressing outside the search, closes the list and cancels the pending debounce and the request in flight, so the list cannot open again afterwards. A search with no input[type=search] or no search-suggestions box as a direct child, or with a search-suggestions written as a list (<ul>, <ol>), is left alone, with a warning in the console. The list behaves as every listbox does (it is attached with pgs.listbox, whose controller is instance.listbox): the arrows and Page Up and Page Down move the active suggestion, stopping at the first and the last and skipping the disabled ones, Home and End stay with the text of the field, Enter chooses, Escape closes and cancels a search on its way, a click chooses, and a pointer or the focus outside the form closes it.
  *
  * @pgs
- * - search: identifies the search element used by Search. Without a submit button (a button of type submit, or with no type) the input takes --search-paddingBlock on its sides too, so the text does not touch the edges.
+ * - search: the root the module initializes, a <form role="search"> holding an input[type=search] and the search-suggestions box as direct children, and the element the instance is stored against. Without a submit button (a button of type submit, or with no type) the input takes --search-paddingBlock on its sides too, so the text does not touch the edges.
  * - search-suggestions: the box of the suggestions, written empty as a direct child of the form (a <div>, not a list: it holds the list), with no need to know listbox. The JavaScript gives it listbox, which alone draws it with the list and the message it builds inside (see Listbox): the search only places it and shows it while open. It is joined to the form: the form squares its corners on the side of the box, the box lies over the border of the form so the two borders are one line, it takes the state below or above, with which listbox squares its corners on that side, the focus ring of the form goes on round it, and it lies --listbox-offset under the form (over it with openUp). destroy() empties it again.
  *
  * @pgs-generated
@@ -22,16 +22,16 @@
  * - searchIconSuggestion: overrides the markup shown before each suggestion's label, as searchIconSuggestion[your markup]. Defaults to a magnifying glass icon. An item with its own icon (icon: markup in the source) shows that one instead.
  *
  * @pgs-state
- * - open: identifies the open element used by Search.
+ * - open: on the search while the list of suggestions is open; the stylesheet shows the box only then.
  * - openUp: on an open search whose suggestions open above the form, because there is no room for them below: the box of the suggestions is joined to the top of the form, which squares its top corners instead of the bottom ones. The box itself takes the state below or above, with which listbox squares its corners on the side of the form.
  * - below: on the open box of the suggestions (search-suggestions), which lies under the form; listbox squares their top corners. See Listbox.
  * - above: on the open box of the suggestions with openUp, which lies over the form; listbox squares their bottom corners. See Listbox.
- * - loading: identifies the loading element used by Search.
- * - error: identifies the error element used by Search.
+ * - loading: on the search while a request of the source is in flight (what isLoading() reads). No stylesheet of the library reads it: it is a hook for the page's own style, a spinner for example.
+ * - error: on the search once the source has rejected, and taken off by the next search. No stylesheet of the library reads it: it is a hook for the page's own style.
  *
  * @api
  * - pgs.search.init(root): initializes matching elements within the specified root.
- * - pgs.search.api(element): returns the instance associated with the specified initialized element.
+ * - pgs.search.api(element): returns the instance associated with the specified initialized element. Besides its methods, the instance carries element: the search root; input: the input[type=search] of the search; panel: the search-suggestions box, the element that opens; list: the list of the suggestions the module builds in the box (_search-suggestions-list); listbox: the listbox controller of the list, which opens and closes it, keeps the active option and reads the keys (see Listbox).
  * - instance.configure(options): merges the options into the ones the instance already has and returns the instance.
  * - instance.setSource(source): sets the source of the results, a shortcut for configure({ source }).
  * - instance.search(query): runs the search for the query, the current value of the input when omitted, and resolves with the items it rendered; it is what re-runs the current query.
@@ -52,18 +52,17 @@
  * - listbox-message: draws the message shown in place of the suggestions (too few letters, nothing found); see Listbox.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: provides the base styling for search controls.
- * - modal: uses the related modal component or utility in this example.
- * - modal-button: uses the related modal-button component or utility in this example.
- * - modal-close: uses the related modal-close component or utility in this example.
- * - modal-dialog-content: the panel drawn inside the dialog, and the element every position and width option sizes.
- * - dialogSmall: shrinks the dialog content to a third of the page width instead of filling the viewport.
+ * - modal: holds the search of the mobile overlay example, opened from an icon button; see Modal.
+ * - modal-button: the icon button that opens that overlay.
+ * - modal-close: the button inside the form that closes the overlay.
+ * - modal-dialog-content: the panel of the overlay, laid out as a row around the form.
+ * - dialogSmall: keeps the panel of the overlay narrow, a third of the page width; see Modal.
  * - background: applies a background color, one of the palette below picked in its bracket.
  * - bgTransparent: inside background's own bracket, sets a fully transparent background.
  * - blur: applies a backdrop blur behind the dialog for a frosted-glass effect.
  * - row: sets the horizontal direction inside the flex bracket.
  * - nowrap: inside flex's own bracket, keeps the field and the button of the searchMinWidth example on one row.
- * - section: uses the related section component or utility in this example.
- * - modalContainerPGS: identifies the modalContainerPGS element used by Search.
+ * - modalContainerPGS: moves the dialog of the overlay into the first element carrying the pgs token header (the site header, in the example), as a mobile navigation would; see Modal.
  * - btnIconOnly: presents search and close actions as icon buttons.
  * - btnTransparent: keeps the submit button flat inside the field, so only the icon shows.
  * - icon: draws the glyph at the start of every suggestion; see Icon for the whole set.

@@ -269,6 +269,9 @@ function PGS_listbox_attach(list, settings = {}) {
         pgs(floating).state.remove("below");
         pgs(floating).state.remove("above");
         controls.forEach(control => control.removeAttribute("aria-activedescendant"));
+        // the states this controller wrote: a list with no controller is neither hidden nor expanded
+        floating.removeAttribute("aria-hidden");
+        expanders.forEach(control => control.removeAttribute("aria-expanded"));
         API.delete(list);
     };
 

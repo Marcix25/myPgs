@@ -73,15 +73,42 @@
     }
 
     //+ tableBordered
-    // a line round every cell and round the table, with rounded corners
+    // a line round every cell and round the table, with rounded corners. A collapsed table draws no
+    // border-radius, so this one keeps its borders separate, with no space between them: the table draws
+    // the outer line, each cell only the line on its right and the one under it, and the last column and
+    // the last row leave theirs to the table, so every line stays one line thick. overflow and the radius of
+    // the corner cells keep their background (the header's) inside the round corners
     &:where([pgs*="'tableBordered'"]) {
         &:is(table),
         :where(table) {
+            border-collapse: separate;
+            border-spacing: 0;
             border-radius: var(--borderRadius-paragraphs);
             border: var(--border-width) var(--border-color) var(--border-style);
             overflow: hidden;
 
-            :where(th, td) { border: var(--border-width) var(--border-color) var(--border-style); }
+            :where(th, td) {
+                border: 0 var(--border-color) var(--border-style);
+                border-right-width: var(--border-width);
+                border-bottom-width: var(--border-width);
+
+                &:last-child { border-right-width: 0; }
+            }
+
+            // the last row of the last part of the table (tbody or tfoot; the parser always puts the rows in one)
+            >:where(:last-child) >:where(tr:last-child) >:where(th, td) { border-bottom-width: 0; }
+
+            // the corner cells take the round corner too, the inner one, where a browser does not clip a table
+            // with overflow; the first part is the one no other part comes before (a caption can sit above it)
+            >:where(thead, tbody, tfoot):not(:where(thead, tbody, tfoot) ~ *) >:where(tr:first-child) {
+                >:where(:first-child) { border-top-left-radius: calc(var(--borderRadius-paragraphs) - var(--border-width)); }
+                >:where(:last-child) { border-top-right-radius: calc(var(--borderRadius-paragraphs) - var(--border-width)); }
+            }
+
+            >:where(:last-child) >:where(tr:last-child) {
+                >:where(:first-child) { border-bottom-left-radius: calc(var(--borderRadius-paragraphs) - var(--border-width)); }
+                >:where(:last-child) { border-bottom-right-radius: calc(var(--borderRadius-paragraphs) - var(--border-width)); }
+            }
         }
     }
 }

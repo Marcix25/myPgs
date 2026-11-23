@@ -29,7 +29,7 @@ Collection of compact indicators for displaying categories, priorities, and visu
 ### PGS Options (component brackets)
 
 - `icon-circleInfo`: the information mark.
-- `icon-close`: the cross that dismisses.
+- `icon-circleXmark`: the error mark.
 - `icon-triangleExclamation`: the warning mark.
 
 ## Output
@@ -114,7 +114,7 @@ Badge representing an error, paired with an icon.
 
 ```html
 <span pgs="badge['badgeError']">
-    <i pgs="icon['icon-close']" aria-hidden="true"></i>
+    <i pgs="icon['icon-circleXmark']" aria-hidden="true"></i>
     Error
 </span>
 ```

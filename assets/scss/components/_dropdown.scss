@@ -7,7 +7,7 @@
     --dropdown-border: var(--dropdown-borderWidth) var(--dropdown-borderColor) var(--border-style);
     --dropdown-borderRadius: var(--borderRadius-paragraphs);
     --dropdown-padding: var(--padding-details);
-    --dropdown-inline-size: max-content;
+    --dropdown-inlineSize: max-content;
     --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
     --dropdown-maxBlockSize: calc(100dvh - 2rem);
     --dropdown-display: block;
@@ -17,8 +17,10 @@
     --_dropdown-arrow-inset: calc(var(--dropdown-arrow-size) + var(--dropdown-borderRadius));
     position: relative;
 
+    // read by the JavaScript only: empty rules, never compiled, that scripts/generate-pgs-map.js
+    // reads so the option and the data key are listed for the editor suggestions
     &:where([pgs*="'drpHover'"]) {}
-    [pgs-data~="dropdownPosition[]"] {}
+    &[pgs-data~="dropdownPosition[]"] {}
     &:not([pgs-state~="open"])>:where([pgs~="dropdown-content"]) { display: none; }
     &[pgs-state~="open"]>:where([pgs~="dropdown-content"]) { display: var(--dropdown-display); }
 
@@ -26,7 +28,7 @@
         position: fixed;
         inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
         z-index: var(--zIndex-dropdown);
-        inline-size: var(--dropdown-inline-size);
+        inline-size: var(--dropdown-inlineSize);
         max-inline-size: var(--dropdown-maxInlineSize);
         max-block-size: var(--dropdown-maxBlockSize);
         overflow: auto;

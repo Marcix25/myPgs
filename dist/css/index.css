@@ -1,12 +1,6 @@
 /*!*****************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./assets/scss/index.scss ***!
   \*****************************************************************************************************************/
-@charset "UTF-8";
-/*
-|--------------------------------------------------------------------------
-| Base
-|--------------------------------------------------------------------------
-*/
 :where([pgs~=htmlBase]):root {
   --SIZE: 3.0rem;
   --SIZE-details: calc(var(--SIZE) / 4);
@@ -223,7 +217,6 @@
   height: auto;
   overflow: hidden;
   -webkit-user-drag: none;
-  user-drag: none;
   pointer-events: none;
   color-scheme: light;
   object-fit: contain;
@@ -496,21 +489,16 @@
   --button-shadow: var(--button-shadow-twoState);
 }
 
-/*
-|--------------------------------------------------------------------------
-| Components
-|--------------------------------------------------------------------------
-*/
 :is([pgs~=card], [pgs*="card["]) {
   --card-padding: var(--padding-elements);
   --card-borderRadius: calc(var(--borderRadius-paragraphs) + var(--card-padding));
-  --card-borderRadius-item: var(--card-borderRadius) var(--card-borderRadius) 0 0;
+  --card-img-borderRadius: var(--card-borderRadius) var(--card-borderRadius) 0 0;
   --card-background: var(--color-box-transparent);
   --card-img-padding: 0;
-  --card-horizontal-img-grow: 2;
-  --card-horizontal-img-minHeight: 300px;
-  --card-horizontal-content-grow: 3;
-  --card-horizontal-borderRadius-item: var(--card-borderRadius) 0 0 var(--card-borderRadius);
+  --card-img-grow-horizontal: 2;
+  --card-img-minHeight-horizontal: 300px;
+  --card-content-grow-horizontal: 3;
+  --card-img-borderRadius-horizontal: var(--card-borderRadius) 0 0 var(--card-borderRadius);
   display: flex;
   flex-direction: column;
   background: var(--card-background);
@@ -524,7 +512,6 @@
 }
 
 :is([pgs~=card], [pgs*="card["]):where(a) {
-  display: block;
   transition: var(--clickable-transition);
   border: var(--border-width) var(--border-color) var(--border-style);
   border-color: var(--clickable-borderColor);
@@ -539,6 +526,7 @@
 @media (hover: hover) and (pointer: fine) {
   :is([pgs~=card], [pgs*="card["]):where(a):hover {
     --card-background: var(--hover-background);
+    border-color: var(--hover-borderColor);
     color: var(--hover-color);
   }
 }
@@ -558,7 +546,7 @@
   height: auto;
   margin: 0;
   object-fit: cover;
-  border-radius: var(--card-borderRadius-item);
+  border-radius: var(--card-img-borderRadius);
 }
 
 :is([pgs~=card], [pgs*="card["]) :where([pgs~=card-content]) {
@@ -591,20 +579,20 @@
 
 @container (min-width: 430px) {
   :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-content]) {
-    border-radius: var(--card-horizontal-borderRadius-item);
+    border-radius: var(--card-img-borderRadius-horizontal);
     flex-basis: 0;
-    flex-grow: var(--card-horizontal-content-grow);
+    flex-grow: var(--card-content-grow-horizontal);
   }
   :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-img]),
   :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-imgForChild]) {
-    border-radius: var(--card-horizontal-borderRadius-item);
+    border-radius: var(--card-img-borderRadius-horizontal);
     flex-basis: 0;
-    flex-grow: var(--card-horizontal-img-grow);
-    min-height: var(--card-horizontal-img-minHeight);
+    flex-grow: var(--card-img-grow-horizontal);
+    min-height: var(--card-img-minHeight-horizontal);
   }
   :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontal'"]) :where([pgs~=card-imgForChild]) > * {
     height: 100%;
-    border-radius: var(--card-horizontal-borderRadius-item);
+    border-radius: var(--card-img-borderRadius-horizontal);
   }
 }
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) {
@@ -612,22 +600,22 @@
 }
 
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-content]) {
-  border-radius: var(--card-horizontal-borderRadius-item);
+  border-radius: var(--card-img-borderRadius-horizontal);
   flex-basis: 0;
-  flex-grow: var(--card-horizontal-content-grow);
+  flex-grow: var(--card-content-grow-horizontal);
 }
 
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-img]),
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-imgForChild]) {
-  border-radius: var(--card-horizontal-borderRadius-item);
+  border-radius: var(--card-img-borderRadius-horizontal);
   flex-basis: 0;
-  flex-grow: var(--card-horizontal-img-grow);
-  min-height: var(--card-horizontal-img-minHeight);
+  flex-grow: var(--card-img-grow-horizontal);
+  min-height: var(--card-img-minHeight-horizontal);
 }
 
 :is([pgs~=card], [pgs*="card["]):where([pgs*="'cardHorizontalFixed'"]) :where([pgs~=card-imgForChild]) > * {
   height: 100%;
-  border-radius: var(--card-horizontal-borderRadius-item);
+  border-radius: var(--card-img-borderRadius-horizontal);
 }
 
 :is([pgs~=box], [pgs*="box["]) {
@@ -775,11 +763,11 @@
 
 :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]) {
   --label-borderRadius: var(--borderRadius-paragraphs);
-  --label-left: var(--label-borderRadius);
+  --label-offsetInline: var(--label-borderRadius);
   --label-paddingInline: var(--padding-paragraphs);
   --label-paddingBlock: 0px;
   --label-color: var(--color-black);
-  --label-size: 1.1em;
+  --label-fontSize: 1.1em;
   --label-weight: var(--font-weight-bold);
   --label-gap: var(--gap-details);
   cursor: pointer;
@@ -792,7 +780,7 @@
   width: fit-content;
   max-width: 100%;
   margin-bottom: var(--label-gap);
-  font-size: var(--label-size);
+  font-size: var(--label-fontSize);
   font-weight: var(--label-weight);
 }
 
@@ -805,7 +793,7 @@
   cursor: not-allowed !important;
 }
 
-:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):not(legend):has([hidden], + [hidden], [pgs~=hidden], + [pgs~=hidden], [type=hidden], + [type=hidden]) {
+:where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):not(legend):has(:is(input, select, textarea):is([hidden], [pgs~=hidden], [type=hidden]), + :is([hidden], [pgs~=hidden], [type=hidden])) {
   display: none !important;
 }
 
@@ -849,8 +837,8 @@
 
 :where([pgs~=label], [pgs*="label["], [pgs~=legend], [pgs*="legend["]):where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
   --label-gap: 0px;
-  max-width: calc(100% - var(--label-left) * 2);
-  transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
+  max-width: calc(100% - var(--label-offsetInline) * 2);
+  transform: translateX(var(--label-offsetInline)) translateY(calc(var(--label-borderWidth) + 0.2px));
   padding-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -862,7 +850,7 @@
   --radio-isChecked: 0;
   --radio-dot-size: calc(var(--radio-size) / 1.5);
   --radio-gap: calc(var(--gap-paragraphs) /2);
-  --radio-borderStyleWidth: var(--border-style) var(--border-width);
+  --radio-border: var(--border-style) var(--border-width);
   --radio-background: var(--clickable-background);
   --radio-background-hover: var(--hover-background);
   --radio-background-checked: var(--twoState-background);
@@ -894,7 +882,7 @@
   vertical-align: top;
   background: var(--radio-background);
   color: var(--radio-color);
-  border: var(--radio-borderStyleWidth);
+  border: var(--radio-border);
   border-color: var(--radio-borderColor);
   transition: var(--clickable-transition);
   border-radius: 50%;
@@ -945,14 +933,14 @@
 }
 
 [pgs~=radio] {
-  --checkboxRadio-labelColor: var(--color-black);
+  --radio-label-color: var(--color-black);
 }
 
 [pgs~=radio]:where(label),
 [pgs~=radio] :where(label) {
   -webkit-user-select: none;
   user-select: none;
-  color: var(--checkboxRadio-labelColor);
+  color: var(--radio-label-color);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -995,10 +983,10 @@
   --checkbox-size: 2.0rem;
   --checkbox-isChecked: 0;
   --checkbox-icon: var(--icon-glyph-check);
-  --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
+  --checkbox-icon-size: calc(var(--checkbox-size) * 1.6);
   --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
   --checkbox-gap: calc(var(--gap-paragraphs) /2);
-  --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
+  --checkbox-border: var(--border-style) var(--border-width);
   --checkbox-background: var(--clickable-background);
   --checkbox-background-hover: var(--hover-background);
   --checkbox-background-checked: var(--twoState-background);
@@ -1031,11 +1019,11 @@
   vertical-align: top;
   background: var(--checkbox-background);
   color: var(--checkbox-color);
-  border: var(--checkbox-borderStyleWidth);
+  border: var(--checkbox-border);
   border-color: var(--checkbox-borderColor);
   border-radius: var(--checkbox-borderRadius);
   transition: var(--clickable-transition);
-  --icon-size: var(--checkbox-iconSize);
+  --icon-size: var(--checkbox-icon-size);
 }
 
 [pgs~=checkbox]:where(input[type=checkbox])::after,
@@ -1095,14 +1083,14 @@
 }
 
 [pgs~=checkbox] {
-  --checkboxRadio-labelColor: var(--color-black);
+  --checkbox-label-color: var(--color-black);
 }
 
 [pgs~=checkbox]:where(label),
 [pgs~=checkbox] :where(label) {
   -webkit-user-select: none;
   user-select: none;
-  color: var(--checkboxRadio-labelColor);
+  color: var(--checkbox-label-color);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -1182,27 +1170,29 @@
   --label-border: var(--color-error) var(--border-style);
   --checkbox-background: var(--color-error-soft);
   --radio-background: var(--color-error-soft);
-  --checkboxRadio-labelColor: var(--color-error);
+  --checkbox-label-color: var(--color-error);
+  --radio-label-color: var(--color-error);
+  --toggle-label-color: var(--color-error);
 }
 
 [pgs~=range] {
   --range-size: 2.0rem;
-  --range-thumbWidth: calc(var(--range-size) + 2px + var(--border-width) * 2);
+  --range-thumb-width: calc(var(--range-size) + 2px + var(--border-width) * 2);
   --range-background: var(--clickable-background);
-  --range-background-progress: var(--twoState-background);
-  --range-background-thumb: var(--twoState-color);
-  --range-background-thumb-hover: var(--hover-color);
+  --range-progress-background: var(--twoState-background);
+  --range-thumb-background: var(--twoState-color);
+  --range-thumb-background-hover: var(--hover-color);
   --_range-progress: 0;
   --_range-inset: calc(2px - var(--border-width));
-  --_range-fill: calc(var(--_range-inset) + var(--_range-progress) * (100% - var(--range-thumbWidth) - var(--_range-inset) * 2) + var(--range-thumbWidth) / 2);
+  --_range-fill: calc(var(--_range-inset) + var(--_range-progress) * (100% - var(--range-thumb-width) - var(--_range-inset) * 2) + var(--range-thumb-width) / 2);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   width: 100%;
   height: calc(var(--range-size) + var(--border-width) * 2);
   padding-inline: var(--_range-inset);
-  color: var(--range-background-thumb);
-  background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
+  color: var(--range-thumb-background);
+  background: linear-gradient(to right, var(--range-progress-background) var(--_range-fill), var(--range-background) var(--_range-fill));
   border: var(--border-width) var(--border-style) var(--clickable-borderColor);
   outline: none;
   border-radius: var(--borderRadius-paragraphs);
@@ -1213,7 +1203,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   [pgs~=range]:hover:where(:not(:disabled)) {
-    color: var(--range-background-thumb-hover);
+    color: var(--range-thumb-background-hover);
   }
 }
 [pgs~=range]::-webkit-slider-thumb {
@@ -1400,12 +1390,12 @@
 }
 
 :is([pgs~=select], [pgs*="select["]):not([multiple]), :is([pgs~=select], [pgs*="select["])[size="1"] {
-  --select-chevronInset: var(--select-padding);
-  --select-chevronSize: .5rem;
-  padding-right: calc(var(--select-chevronInset) * 2 + var(--select-chevronSize) * 2);
+  --select-chevron-inset: var(--select-padding);
+  --select-chevron-size: .5rem;
+  padding-right: calc(var(--select-chevron-inset) * 2 + var(--select-chevron-size) * 2);
   background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
-  background-position: calc(100% - var(--select-chevronInset) - var(--select-chevronSize)) 50%, calc(100% - var(--select-chevronInset)) 50%;
-  background-size: var(--select-chevronSize) var(--select-chevronSize);
+  background-position: calc(100% - var(--select-chevron-inset) - var(--select-chevron-size)) 50%, calc(100% - var(--select-chevron-inset)) 50%;
+  background-size: var(--select-chevron-size) var(--select-chevron-size);
   background-repeat: no-repeat;
 }
 
@@ -1461,7 +1451,7 @@
   --listbox-list-option-color-active: var(--hover-color);
   --listbox-list-option-background-selected: var(--current-background);
   --listbox-list-option-color-selected: var(--current-color);
-  --listbox-list-option-iconSize: 1.25em;
+  --listbox-list-option-icon-size: 1.25em;
   --listbox-list-group-icon: var(--icon-glyph-chevronDown);
   --listbox-timing: 300ms;
   display: flex;
@@ -1540,7 +1530,7 @@
 }
 
 :where([pgs~=listbox]) :where([pgs~=listbox-list-option]) > :where(i, svg, img, [pgs~=icon]) {
-  flex: 0 0 var(--listbox-list-option-iconSize);
+  flex: 0 0 var(--listbox-list-option-icon-size);
   text-align: center;
 }
 
@@ -1603,6 +1593,9 @@
 
 :is([pgs~=button], [pgs*="button["]) {
   --button-shadow: unset;
+  --button-shadow-hover: unset;
+  --button-shadow-current: unset;
+  --button-shadow-twoState: unset;
   --button-color: var(--clickable-color);
   --button-color-hover: var(--hover-color);
   --button-color-current: var(--current-color);
@@ -1752,8 +1745,6 @@
   --button-shadow: unset;
   --button-borderColor: transparent;
   --button-borderWidth: 0px 0px 0px 0px;
-  --button-color-hover: var(--color-primary);
-  --button-color-current: var(--color-secondary);
   --button-borderRadius: 0px;
   --button-background: transparent;
   --button-background-current: transparent;
@@ -1788,19 +1779,26 @@
   box-shadow: var(--button-shadow-current);
 }
 
+:is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"]):where([aria-expanded=true]) {
+  color: var(--button-color-current);
+  background: var(--button-background-current);
+  border-color: var(--button-borderColor-current);
+  box-shadow: var(--button-shadow-current);
+}
+
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"]) {
   --button-size: .35rem;
   --button-height: auto;
   --button-fontSize: 1.1rem;
   --button-borderRadius: 999px;
   --button-gap: .2rem;
-  --icon-size: var(--navSmart-iconSize, 2.2rem);
+  --icon-size: var(--navSmart-icon-size, 2.2rem);
   padding-inline: calc(var(--button-size) * 4);
   justify-content: center;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  min-height: var(--navSmart-itemHeight, auto);
+  min-height: var(--navSmart-item-height, auto);
   white-space: nowrap;
   font-weight: var(--font-weight-text);
 }
@@ -1808,7 +1806,7 @@
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnForNavSmart'"])[pgs*="'btnIconOnly'"] {
   padding-inline: var(--button-paddingBlock);
   min-width: 100%;
-  width: var(--navSmart-itemHeight, auto);
+  width: var(--navSmart-item-height, auto);
 }
 
 :is([pgs~=button], [pgs*="button["]):where([pgs*="'btnStrong'"]) {
@@ -2104,7 +2102,7 @@
 
 [pgs~=toggle] {
   --toggle-size: 2.0rem;
-  --toggle-borderStyleWidth: var(--border-style) var(--border-width);
+  --toggle-border: var(--border-style) var(--border-width);
   --toggle-rail-background: var(--clickable-background);
   --toggle-rail-background-hover: var(--hover-background);
   --toggle-rail-background-checked: var(--twoState-background);
@@ -2120,14 +2118,14 @@
   gap: var(--gap);
   flex-direction: row;
   flex-wrap: nowrap;
-  --checkboxRadio-labelColor: var(--color-black);
+  --toggle-label-color: var(--color-black);
 }
 
 [pgs~=toggle]:where(label),
 [pgs~=toggle] :where(label) {
   -webkit-user-select: none;
   user-select: none;
-  color: var(--checkboxRadio-labelColor);
+  color: var(--toggle-label-color);
   position: relative;
   text-align: left;
   line-height: var(--checkbox-size, var(--radio-size));
@@ -2204,7 +2202,7 @@
   width: calc(var(--toggle-size) * 2);
   min-width: calc(var(--toggle-size) * 2);
   height: var(--toggle-size);
-  border: var(--toggle-borderStyleWidth);
+  border: var(--toggle-border);
   border-color: inherit;
 }
 
@@ -2263,7 +2261,7 @@
   --selectBox-chips-item-color: var(--current-color);
   --selectBox-chips-item-borderRadius: var(--borderRadius-paragraphs);
   --selectBox-chips-item-padding: calc(var(--padding-details) / 2) var(--padding-details);
-  --selectBox-chips-item-removeIcon: var(--icon-glyph-close);
+  --selectBox-chips-item-remove-icon: var(--icon-glyph-close);
   position: relative;
   display: block;
   width: 100%;
@@ -2630,7 +2628,7 @@
   cursor: pointer;
   opacity: 0.7;
   --icon-size: .8em;
-  --icon: var(--selectBox-chips-item-removeIcon);
+  --icon: var(--selectBox-chips-item-remove-icon);
 }
 
 :is([pgs~=selectBox], [pgs*="selectBox["]) > :where([pgs~=_selectBox-chips]) :where([pgs~=_selectBox-chips-item-remove])::before {
@@ -2843,7 +2841,7 @@
   --label-paddingBlock: var(--field-padding) .25em;
   --label-paddingInline: var(--field-padding);
   --label-background: transparent;
-  --label-size: 1em;
+  --label-fontSize: 1em;
   position: absolute;
   top: 0;
   left: 0;
@@ -2900,8 +2898,8 @@
 }
 
 :is([pgs~=menu], [pgs*="menu["]) {
-  --menu-gap-column: var(--gap-details);
-  --menu-gap-row: var(--gap-paragraphs);
+  --menu-columnGap: var(--gap-details);
+  --menu-rowGap: var(--gap-paragraphs);
   --menu-submenuButton-translateX: calc(var(--gap-paragraphs) * -1);
 }
 
@@ -2909,8 +2907,8 @@
   display: flex;
   font-weight: var(--font-weight-bold);
   align-items: center;
-  column-gap: var(--menu-gap-column);
-  row-gap: var(--menu-gap-row);
+  column-gap: var(--menu-columnGap);
+  row-gap: var(--menu-rowGap);
   flex-wrap: nowrap;
 }
 
@@ -3004,10 +3002,6 @@
   border-left: var(--border-width) var(--border-color) var(--border-style);
 }
 
-:is([pgs~=menu], [pgs*="menu["]) :where(ul) :where(ul) > :where(li):has(ul):not([pgs-state~=open]) :where(ul), :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuVertical'"]) :where(ul) > :where(li):has(ul):not([pgs-state~=open]) :where(ul), :is([pgs~=menu], [pgs*="menu["]):not([pgs*="'menuHorizontal'"]) :where(ul) > :where(li):has(ul):not([pgs-state~=open]) :where(ul) {
-  display: none;
-}
-
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuIconOnlyCurrent'"]) :where(a):not([aria-current]:not([aria-current=false])) {
   padding-left: var(--button-paddingInline);
 }
@@ -3021,7 +3015,7 @@
 }
 
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li) :where(a) {
-  margin-right: calc(var(--button-paddingBlock) * -1);
+  margin-right: calc(var(--button-paddingInline) / -2);
 }
 
 :is([pgs~=menu], [pgs*="menu["]):where([pgs*="'menuShort'"]) > :where(ul) > :where(li) :where(a)[aria-current=page] {
@@ -3252,14 +3246,14 @@
 }
 
 [pgs~=breadcrumb] {
-  --breadcrumb-size: 1.4rem;
+  --breadcrumb-fontSize: 1.4rem;
   --breadcrumb-color: var(--color-primary-strong);
   --breadcrumb-color-hover: var(--hover-color);
   --breadcrumb-color-current: var(--current-color);
   --breadcrumb-separator-type: "/";
   --breadcrumb-separator-color: var(--color-primary-soft);
   --breadcrumb-separator-gap: var(--gap-details);
-  font-size: var(--breadcrumb-size);
+  font-size: var(--breadcrumb-fontSize);
   line-height: 1;
   list-style: none;
   margin: 0;
@@ -3310,7 +3304,7 @@
 
 [pgs~=pagination] {
   --pagination-gap: var(--gap-details);
-  --pagination-justify: flex-start;
+  --pagination-justifyContent: flex-start;
   --pagination-ellipsis-color: var(--color-text);
   list-style: none;
   margin: 0;
@@ -3318,7 +3312,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: var(--pagination-justify);
+  justify-content: var(--pagination-justifyContent);
   gap: var(--pagination-gap);
 }
 
@@ -3427,7 +3421,7 @@
   --dropdown-border: var(--dropdown-borderWidth) var(--dropdown-borderColor) var(--border-style);
   --dropdown-borderRadius: var(--borderRadius-paragraphs);
   --dropdown-padding: var(--padding-details);
-  --dropdown-inline-size: max-content;
+  --dropdown-inlineSize: max-content;
   --dropdown-maxInlineSize: min(400px, calc(100vw - 16px));
   --dropdown-maxBlockSize: calc(100dvh - 2rem);
   --dropdown-display: block;
@@ -3450,7 +3444,7 @@
   position: fixed;
   inset: var(--_dropdown-top) auto auto var(--_dropdown-left);
   z-index: var(--zIndex-dropdown);
-  inline-size: var(--dropdown-inline-size);
+  inline-size: var(--dropdown-inlineSize);
   max-inline-size: var(--dropdown-maxInlineSize);
   max-block-size: var(--dropdown-maxBlockSize);
   overflow: auto;
@@ -3551,9 +3545,9 @@
   --modal-backdrop: var(--backdrop);
   --modal-background: var(--color-background);
   --modal-color: var(--color-black);
-  --modal-content-padding: var(--padding-elements);
+  --modal-dialog-content-padding: var(--padding-elements);
   --modal-offset: var(--gap-paragraphs);
-  --modal-borderRadius: calc(var(--borderRadius-details) + var(--modal-content-padding));
+  --modal-borderRadius: calc(var(--borderRadius-details) + var(--modal-dialog-content-padding));
   --modal-animation-timing: 333ms;
   --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
   border: none;
@@ -3614,7 +3608,7 @@
   background: var(--modal-background);
   color: var(--modal-color);
   border-radius: var(--modal-borderRadius);
-  padding: var(--modal-content-padding);
+  padding: var(--modal-dialog-content-padding);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) {
@@ -3625,8 +3619,8 @@
   flex-wrap: nowrap;
   z-index: 1;
   border-bottom: var(--border-width) var(--border-color) var(--border-style);
-  padding-bottom: calc(var(--modal-content-padding) / 2);
-  margin-bottom: calc(var(--modal-content-padding) / 2);
+  padding-bottom: calc(var(--modal-dialog-content-padding) / 2);
+  margin-bottom: calc(var(--modal-dialog-content-padding) / 2);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header])[tabindex="-1"]:focus {
@@ -3638,6 +3632,10 @@
   margin-left: auto;
 }
 
+:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]):has(~ :where([pgs~=modal-dialog-content-scroll])) {
+  margin-bottom: 0;
+}
+
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]):has(:where([pgs~=modal-dialog-content-scroll])) {
   max-height: 100%;
   overflow: hidden;
@@ -3647,27 +3645,27 @@
   overflow: auto;
   overscroll-behavior: contain;
   max-height: 100%;
-  margin-inline: calc(var(--modal-content-padding) * -1);
-  padding-inline: var(--modal-content-padding);
-}
-
-:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):has(~ :where([pgs~=modal-dialog-content-header])) {
-  padding-top: calc(var(--modal-content-padding) / 2);
+  margin-inline: calc(var(--modal-dialog-content-padding) * -1);
+  padding-inline: var(--modal-dialog-content-padding);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):not(:has(~ :where([pgs~=modal-dialog-content-footer]))) {
-  margin-bottom: calc(var(--modal-content-padding) * -1);
-  padding-bottom: var(--modal-content-padding);
+  margin-bottom: calc(var(--modal-dialog-content-padding) * -1);
+  padding-bottom: var(--modal-dialog-content-padding);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-scroll]):has(~ :where([pgs~=modal-dialog-content-footer])) {
-  padding-bottom: calc(var(--modal-content-padding) / 2);
+  padding-bottom: calc(var(--modal-dialog-content-padding) / 2);
+}
+
+:where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-header]) ~ :where([pgs~=modal-dialog-content-scroll]) {
+  padding-top: calc(var(--modal-dialog-content-padding) / 2);
 }
 
 :where(dialog[pgs~=modal-dialog]) :where([pgs~=modal-dialog-content]) :where([pgs~=modal-dialog-content-footer]) {
-  --modal-footer-gap: var(--gap-details);
+  --modal-dialog-content-footer-gap: var(--gap-details);
   display: flex;
-  --gap: var(--modal-footer-gap);
+  --gap: var(--modal-dialog-content-footer-gap);
   gap: var(--gap);
   flex-direction: row;
   flex-wrap: wrap;
@@ -3675,7 +3673,7 @@
   align-items: center;
   flex-shrink: 0;
   border-top: var(--border-width) var(--border-color) var(--border-style);
-  padding-top: calc(var(--modal-content-padding) / 2);
+  padding-top: calc(var(--modal-dialog-content-padding) / 2);
 }
 
 :where(dialog[pgs~=modal-dialog]) > :where([pgs~=modal-close]),
@@ -3800,8 +3798,8 @@
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'modalSheet'"]) :where([pgs~=modal-dialog-content]) {
   width: 100%;
   border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
-  padding-top: calc(var(--modal-content-padding) + 1.2rem);
-  padding-bottom: calc(var(--modal-content-padding) + env(safe-area-inset-bottom, 0px));
+  padding-top: calc(var(--modal-dialog-content-padding) + 1.2rem);
+  padding-bottom: calc(var(--modal-dialog-content-padding) + env(safe-area-inset-bottom, 0px));
 }
 
 :where(dialog[pgs~=modal-dialog]):where([pgs*="'dialogAnimationZoom'"], [pgs*="'dialogAnimationLeft'"], [pgs*="'dialogAnimationRight'"], [pgs*="'dialogAnimationTop'"], [pgs*="'dialogAnimationBottom'"]):is([pgs-state~=animationIn], [pgs-state~=animationOut]) {
@@ -3984,12 +3982,12 @@
   isolation: isolate;
   height: max-content;
   justify-content: center;
-  --slides-sizeMaskImage: 40px;
+  --slides-maskSize: 40px;
   --slides-width: calc(var(--page-width) /2.3);
   --slides-width-tablet: 100%;
   --slides-width-mobile: 100%;
-  --slides-arrowSize: 3.6rem;
-  --slides-arrowsSpace: calc(var(--slides-arrowSize) + var(--gap-paragraphs));
+  --slides-arrows-size: 3.6rem;
+  --slides-arrows-space: calc(var(--slides-arrows-size) + var(--gap-paragraphs));
 }
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-container]) {
@@ -4059,7 +4057,7 @@
 }
 
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=slides-container]) {
-  margin-top: var(--slides-arrowsSpace);
+  margin-top: var(--slides-arrows-space);
 }
 
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows]) {
@@ -4074,8 +4072,8 @@
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows-prev]),
 :is([pgs~=slides], [pgs*="slides["]):not(:has([pgs~=slides-prev], [pgs~=slides-next])):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows-next]) {
   margin: unset;
-  inline-size: var(--slides-arrowSize);
-  block-size: var(--slides-arrowSize);
+  inline-size: var(--slides-arrows-size);
+  block-size: var(--slides-arrows-size);
 }
 
 :is([pgs~=slides], [pgs*="slides["]):not([pgs*="'slidesNotDots'"], :has([pgs~=slides-dots])) {
@@ -4092,9 +4090,28 @@
 
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot]),
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]) {
+  width: 1.5rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  border: var(--border-complete);
+  border-color: var(--clickable-borderColor);
   cursor: pointer;
+  background-color: var(--clickable-background);
+  transition: var(--clickable-transition);
+  margin-block: auto;
 }
 
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot])[pgs-state~=active],
+:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot])[pgs-state~=active] {
+  background-color: var(--current-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=slides-dots]) :where([pgs~=_slides-dots-dot]):hover,
+  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]):hover {
+    background-color: var(--hover-background);
+  }
+}
 :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) {
   width: 80%;
   margin-top: 1px;
@@ -4108,27 +4125,6 @@
 @media (prefers-reduced-motion: no-preference) {
   :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) {
     transition: all 300ms;
-  }
-}
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]) {
-  width: 1.5rem;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  border: var(--border-complete);
-  border-color: var(--clickable-borderColor);
-  cursor: pointer;
-  background-color: var(--clickable-background);
-  transition: var(--clickable-transition);
-  margin-block: auto;
-}
-
-:is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot])[pgs-state~=active] {
-  background-color: var(--current-color);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  :is([pgs~=slides], [pgs*="slides["]) :where([pgs~=_slides-dots]) :where([pgs~=_slides-dots-dot]):hover {
-    background-color: var(--hover-background);
   }
 }
 :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesEdge'"]):not([pgs*="'slidesArrowsCenter'"]) :where([pgs~=_slides-arrows]) {
@@ -4200,12 +4196,20 @@
     mask-image: linear-gradient(to right, transparent 0, black var(--slides-maskStart, 0px), black calc(100% - var(--slides-maskEnd)), transparent 100%);
   }
   :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesShadowDesktop'"]):where(:not(:has([pgs~=slides-container-slide]:first-child[pgs-state~=view]))) :where([pgs~=slides-container]) {
-    --slides-maskStart: var(--slides-sizeMaskImage);
+    --slides-maskStart: var(--slides-maskSize);
   }
   :is([pgs~=slides], [pgs*="slides["]):where([pgs*="'slidesShadowDesktop'"]):where(:not(:has([pgs~=slides-container-slide]:last-child[pgs-state~=view]))) :where([pgs~=slides-container]) {
-    --slides-maskEnd: var(--slides-sizeMaskImage);
+    --slides-maskEnd: var(--slides-maskSize);
   }
 }
+:where(ol:is([pgs~=steps], [pgs*="steps["])) {
+  --steps-step-circle-size: var(--heading-size-h3);
+  --steps-step-circle-background: var(--current-background);
+  --steps-step-circle-color: var(--current-color);
+  --steps-step-line-size: 2px;
+  --steps-step-line-color: var(--border-color);
+}
+
 ol:is([pgs~=steps], [pgs*="steps["]) {
   color: var(--color-black);
   isolation: isolate;
@@ -4215,11 +4219,6 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) {
   display: flex;
   align-items: start;
   position: relative;
-  --steps-circle-size: var(--heading-size-h3);
-  --steps-circle-background: var(--current-background);
-  --steps-circle-color: var(--current-color);
-  --steps-line-size: 2px;
-  --steps-line-color: var(--border-color);
 }
 
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-content]) {
@@ -4229,16 +4228,16 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=step
   flex-direction: column;
   margin-bottom: var(--margin-details);
   padding-bottom: calc(var(--gap-elements) / 2);
-  min-height: calc(var(--steps-circle-size) + 5rem);
+  min-height: calc(var(--steps-step-circle-size) + 5rem);
   width: 100%;
 }
 
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-circle]),
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_steps-step-circle]) {
-  min-width: var(--steps-circle-size);
+  min-width: var(--steps-step-circle-size);
   aspect-ratio: 1;
-  background: var(--steps-circle-background);
-  color: var(--steps-circle-color);
+  background: var(--steps-step-circle-background);
+  color: var(--steps-step-circle-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4252,19 +4251,19 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=step
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_steps-step-line]) {
   display: block;
   position: absolute;
-  top: calc(var(--steps-circle-size) + 15px);
+  top: calc(var(--steps-step-circle-size) + 15px);
   left: 0;
-  height: calc(100% - (var(--steps-circle-size) + 30px));
-  width: var(--steps-circle-size);
+  height: calc(100% - (var(--steps-step-circle-size) + 30px));
+  width: var(--steps-step-circle-size);
   z-index: -1;
 }
 
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=steps-step-line])::before,
 ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]) :where([pgs~=_steps-step-line])::before {
   content: "";
-  width: var(--steps-line-size);
-  background: var(--steps-line-color);
-  border-radius: var(--steps-line-size);
+  width: var(--steps-step-line-size);
+  background: var(--steps-step-line-color);
+  border-radius: var(--steps-step-line-size);
   height: 100%;
   position: absolute;
   bottom: -3px;
@@ -4283,8 +4282,8 @@ ol:is([pgs~=steps], [pgs*="steps["]) :where([pgs~=steps-step]):last-child :where
 }
 
 ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where([pgs~=steps-step]):last-child {
-  --steps-circle-background: var(--color-primary);
-  --steps-circle-color: var(--color-primary-text);
+  --steps-step-circle-background: var(--color-primary);
+  --steps-step-circle-color: var(--color-primary-text);
 }
 
 :is([pgs~=table], [pgs*="table["]):is(table),
@@ -4352,6 +4351,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 :is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table),
 :is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) {
+  border-collapse: separate;
+  border-spacing: 0;
   border-radius: var(--borderRadius-paragraphs);
   border: var(--border-width) var(--border-color) var(--border-style);
   overflow: hidden;
@@ -4359,7 +4360,39 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) :where(th, td),
 :is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) :where(th, td) {
-  border: var(--border-width) var(--border-color) var(--border-style);
+  border: 0 var(--border-color) var(--border-style);
+  border-right-width: var(--border-width);
+  border-bottom-width: var(--border-width);
+}
+
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) :where(th, td):last-child,
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) :where(th, td):last-child {
+  border-right-width: 0;
+}
+
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) > :where(:last-child) > :where(tr:last-child) > :where(th, td),
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) > :where(:last-child) > :where(tr:last-child) > :where(th, td) {
+  border-bottom-width: 0;
+}
+
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) > :where(thead, tbody, tfoot):not(:where(thead, tbody, tfoot) ~ *) > :where(tr:first-child) > :where(:first-child),
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) > :where(thead, tbody, tfoot):not(:where(thead, tbody, tfoot) ~ *) > :where(tr:first-child) > :where(:first-child) {
+  border-top-left-radius: calc(var(--borderRadius-paragraphs) - var(--border-width));
+}
+
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) > :where(thead, tbody, tfoot):not(:where(thead, tbody, tfoot) ~ *) > :where(tr:first-child) > :where(:last-child),
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) > :where(thead, tbody, tfoot):not(:where(thead, tbody, tfoot) ~ *) > :where(tr:first-child) > :where(:last-child) {
+  border-top-right-radius: calc(var(--borderRadius-paragraphs) - var(--border-width));
+}
+
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) > :where(:last-child) > :where(tr:last-child) > :where(:first-child),
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) > :where(:last-child) > :where(tr:last-child) > :where(:first-child) {
+  border-bottom-left-radius: calc(var(--borderRadius-paragraphs) - var(--border-width));
+}
+
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]):is(table) > :where(:last-child) > :where(tr:last-child) > :where(:last-child),
+:is([pgs~=table], [pgs*="table["]):where([pgs*="'tableBordered'"]) :where(table) > :where(:last-child) > :where(tr:last-child) > :where(:last-child) {
+  border-bottom-right-radius: calc(var(--borderRadius-paragraphs) - var(--border-width));
 }
 
 [pgs~=tabs] :where([pgs~=tabs-panels]) :where([pgs~=tabs-panels-content])[hidden] {
@@ -4481,8 +4514,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --badge-background: var(--color-box);
   --badge-color: var(--color-black);
   --badge-size: 0.85rem;
-  --badge-textSize: 1.25rem;
-  --badge-iconSize: 1.10rem;
+  --badge-fontSize: 1.25rem;
+  --badge-icon-size: 1.10rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4494,7 +4527,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   border-radius: var(--borderRadius-paragraphs);
   background: var(--badge-background);
   color: var(--badge-color);
-  font-size: var(--badge-textSize);
+  font-size: var(--badge-fontSize);
   font-weight: 600;
   line-height: 1;
   text-decoration: none;
@@ -4504,8 +4537,8 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=badge], [pgs*="badge["]) :where(i, [pgs~=icon], [pgs*="icon["]) {
   color: var(--badge-color);
-  font-size: var(--badge-iconSize);
-  --icon-size: var(--badge-iconSize);
+  font-size: var(--badge-icon-size);
+  --icon-size: var(--badge-icon-size);
   scale: 1.3;
 }
 
@@ -4566,7 +4599,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --alert-content-title-color: var(--alert-accent);
   --alert-padding: var(--padding-paragraphs);
   --alert-gap: var(--gap-paragraphs);
-  --alert-iconSize: 3.5rem;
+  --alert-icon-size: 3.5rem;
   --_alert-timeout: initial;
   --_alert-timer: color-mix(in srgb, var(--alert-background) 95%, var(--color-black) 5%);
   display: grid;
@@ -4586,6 +4619,11 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   margin-block: calc(var(--gap-paragraphs) / 2);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) {
+    transition: opacity 300ms ease;
+  }
+}
 :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]),
 :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-icon]) {
   grid-area: icon;
@@ -4596,12 +4634,12 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   min-block-size: 2.4rem;
   color: var(--alert-accent);
   line-height: 1;
-  --icon-size: var(--alert-iconSize);
+  --icon-size: var(--alert-icon-size);
 }
 
 :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=alert-icon]) :where(img),
 :is([pgs~=alert], [pgs*="alert["], [pgs~=_alert], [pgs*="_alert["]) :where([pgs~=_alert-icon]) :where(img) {
-  width: var(--alert-iconSize);
+  width: var(--alert-icon-size);
   aspect-ratio: 1;
 }
 
@@ -4740,7 +4778,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 [pgs~=_notification-dialog] {
-  --modal-content-padding: 0;
+  --modal-dialog-content-padding: 0;
   --modal-background: transparent;
 }
 
@@ -4814,7 +4852,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --search-borderRadius: calc(var(--borderRadius-paragraphs) + (var(--search-height) /2));
   --search-background: var(--color-box);
   --search-color: var(--color-black);
-  --search-border: var(--border-width) var(--border-color) var(--border-style);
   --search-borderWidth: var(--border-width);
   --search-borderColor: var(--border-color);
   position: relative;
@@ -4924,7 +4961,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   color: var(--color-black);
   text-decoration: none;
   --logo-height: calc(var(--SIZE) + var(--font-size-text));
-  --logo-textSize: 20px;
+  --logo-text-fontSize: 20px;
   --logo-filter: invert(1) hue-rotate(180deg) brightness(1.5);
 }
 
@@ -4960,25 +4997,20 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=logo], [pgs*="logo["]):has(:where([pgs~=logo-text])) :where([pgs~=logo-text]) {
   font-family: var(--font-heading);
-  font-size: var(--logo-textSize);
+  font-size: var(--logo-text-fontSize);
   font-weight: var(--font-weight-bold);
   text-wrap: nowrap;
 }
 
 :is([pgs~=logo], [pgs*="logo["]):where([pgs*="'logoFooter'"]) {
   --logo-height: 200px;
-  --logo-textSize: 4.0rem;
+  --logo-text-fontSize: 4.0rem;
 }
 
 :is([pgs~=logo], [pgs*="logo["]):where([pgs*="'logoFooter'"]) > :where([pgs~=logo-image]) {
   aspect-ratio: 1;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Layout
-|--------------------------------------------------------------------------
-*/
 [pgs~=main] {
   --main-paddingTop: var(--page-top);
   --main-paddingBottom: var(--page-bottom);
@@ -5189,9 +5221,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] {
   --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
   gap: var(--gap);
@@ -5237,6 +5266,33 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
   }
 }
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpan"] {
+  --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
+  flex-grow: var(--_flexChild-span);
+  flex-shrink: 0;
+  flex-basis: calc((100% + var(--_flex-gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--_flex-gap));
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanS'"] {
+  --_flexChild-col: var(--flexChild-colSpan-s, 1);
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanM'"] {
+  --_flexChild-col: var(--flexChild-colSpan-m, 2);
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanL'"] {
+  --_flexChild-col: var(--flexChild-colSpan-l, 3);
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanXl'"] {
+  --_flexChild-col: var(--flexChild-colSpan-xl, 4);
+}
+
+:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanXxl'"] {
+  --_flexChild-col: var(--flexChild-colSpan-xxl, 5);
+}
+
 :is([pgs~=flex], [pgs*="flex["])[pgs*="'column-1'"] {
   --gap: var(--gap-paragraphs);
   --_flex-gap: var(--gap);
@@ -5605,33 +5661,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
     flex-basis: calc((100% - var(--_flex-gap) * 0) / 1);
   }
 }
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpan"] {
-  --_flexChild-span: min(var(--_flexChild-col), var(--_flex-cols, 1));
-  flex-grow: var(--_flexChild-span);
-  flex-shrink: 0;
-  flex-basis: calc((100% + var(--_flex-gap)) * var(--_flexChild-span) / var(--_flex-cols, 1) - var(--_flex-gap));
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanS'"] {
-  --_flexChild-col: var(--flexChild-colSpan-s, 1);
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanM'"] {
-  --_flexChild-col: var(--flexChild-colSpan-m, 2);
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanL'"] {
-  --_flexChild-col: var(--flexChild-colSpan-l, 3);
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanXl'"] {
-  --_flexChild-col: var(--flexChild-colSpan-xl, 4);
-}
-
-:is([pgs~=flex], [pgs*="flex["])[pgs*="'column-"] > :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'colSpanXxl'"] {
-  --_flexChild-col: var(--flexChild-colSpan-xxl, 5);
-}
-
 :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexInitial'"] {
   flex: 0 1 auto;
 }
@@ -5649,7 +5678,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 
 :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexValue'"] {
-  flex: 1 1 var(--flex-flexValue, auto);
+  flex: 1 1 var(--flexChild-basis, auto);
 }
 
 :is([pgs~=flexChild], [pgs*="flexChild["])[pgs*="'flexS'"] {
@@ -7343,12 +7372,12 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
     --pageShell-asideShadow-maskStart: 0px;
   }
   to {
-    --pageShell-asideShadow-maskStart: var(--pageShell-asideShadow-sizeMaskImage);
+    --pageShell-asideShadow-maskStart: var(--pageShell-asideShadow-maskSize);
   }
 }
 @keyframes pageShell-asideShadow-end {
   from {
-    --pageShell-asideShadow-maskEnd: var(--pageShell-asideShadow-sizeMaskImage);
+    --pageShell-asideShadow-maskEnd: var(--pageShell-asideShadow-maskSize);
   }
   to {
     --pageShell-asideShadow-maskEnd: 0px;
@@ -7360,7 +7389,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --pageShell-gap: var(--gap-elements);
   --pageShell-content-width: var(--page-width);
   --pageShell-aside-width: 20rem;
-  --pageShell-asideShadow-sizeMaskImage: var(--gap-elements);
+  --pageShell-asideShadow-maskSize: var(--gap-elements);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas: "content";
@@ -7423,17 +7452,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --pageShell-width: calc(var(--pageShell-content-width) + (var(--pageShell-aside-width) * 2) + (var(--pageShell-gap) * 2) + (var(--pageShell-paddingInline) * 2));
 }
 
-:is([pgs~=pageShell], [pgs*="pageShell["]) {
-  /*
-      columns: one track per area, so a sidebar that is not there leaves no track
-      and no gap. The sidebar tracks are auto and take their size from the sidebar
-      width, so they collapse by themselves once a @container band stacks the
-      children — no minmax is needed to keep the rows inside the shell.
-      :where keeps the compositions at the same specificity, so source order decides
-      and the two-sidebar case comes last.
-  */
-}
-
 :is([pgs~=pageShell], [pgs*="pageShell["]):where(:has(> :where([pgs~=pageShell-aside]) + :where([pgs~=pageShell-content]))) {
   grid-template-columns: auto 1fr;
   grid-template-areas: "asideLeft content";
@@ -7447,14 +7465,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 :is([pgs~=pageShell], [pgs*="pageShell["]):where(:has(> :where([pgs~=pageShell-aside]) + :where([pgs~=pageShell-content])):has(> :where([pgs~=pageShell-content]) + :where([pgs~=pageShell-aside]))) {
   grid-template-columns: auto 1fr auto;
   grid-template-areas: "asideLeft content asideRight";
-}
-
-:is([pgs~=pageShell], [pgs*="pageShell["]) {
-  /*
-      A band can never target the shell itself: the shell is the query container
-      and nothing can query its own container. So each band re-places the children,
-      one block per type of shell.
-  */
 }
 
 @container (max-width: 900px) {
@@ -7566,7 +7576,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 }
 @container (min-width: 900px) {
   :is([pgs~=pageShell], [pgs*="pageShell["])[pgs*="'shellAsideShadow'"] :where([pgs~=pageShell-aside]) {
-    --pageShell-asideShadow-maskEnd: var(--pageShell-asideShadow-sizeMaskImage);
+    --pageShell-asideShadow-maskEnd: var(--pageShell-asideShadow-maskSize);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-maskStart), black calc(100% - var(--pageShell-asideShadow-maskEnd)), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, black var(--pageShell-asideShadow-maskStart), black calc(100% - var(--pageShell-asideShadow-maskEnd)), transparent 100%);
   }
@@ -7575,7 +7585,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
       --pageShell-asideShadow-maskEnd: 0px;
       animation: pageShell-asideShadow-start linear both, pageShell-asideShadow-end linear both;
       animation-timeline: scroll(self), scroll(self);
-      animation-range: 0 var(--pageShell-asideShadow-sizeMaskImage), calc(100% - var(--pageShell-asideShadow-sizeMaskImage)) 100%;
+      animation-range: 0 var(--pageShell-asideShadow-maskSize), calc(100% - var(--pageShell-asideShadow-maskSize)) 100%;
     }
   }
 }
@@ -7585,7 +7595,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --header-gap: var(--gap-elements);
   --header-background: var(--color-white-transparent);
   --header-color: var(--color-black);
-  --header-compactBottom-active: 0;
   --header-compact-breakpoint: 100px;
   z-index: var(--zIndex-header);
   position: fixed;
@@ -7636,13 +7645,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 :is([pgs~=header], [pgs*="header["]) dialog[pgs~=modal-dialog][open] {
   z-index: -1;
-}
-
-:is([pgs~=header], [pgs*="header["]) {
-  /*  forces the compact layout at a breakpoint even when the content would still fit,
-      so a wide header can be compact on purpose. Only the value is declared here: the
-      JavaScript reads --header-compact-breakpoint and adds the compact state below it.
-      headerCompactFrom[600] takes over with its own pixel value. */
 }
 
 :is([pgs~=header], [pgs*="header["])[pgs*="'headerCompactWatch'"] {
@@ -7699,21 +7701,17 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   display: contents;
 }
 
-:is([pgs~=header], [pgs*="header["])[pgs-state~=compact][pgs*="'headerCompactBottom'"] {
-  --header-compactBottom-active: 1;
-}
-
 :is([pgs~=navSmart], [pgs*="navSmart["]) {
   --navSmart-gap: var(--gap-details);
-  --navSmart-edgePWA: 2.0rem;
+  --navSmart-edge-pwa: 2.0rem;
   --navSmart-edge: calc(var(--page-padding) / 2);
-  --navSmart-itemMinWidth: 7.2rem;
-  --navSmart-iconSize: 2.8rem;
-  --navSmart-itemHeight: 5.5rem;
-  --navSmart-edgeHomeIndicator: 2.1rem;
+  --navSmart-item-minWidth: 7.2rem;
+  --navSmart-icon-size: 2.8rem;
+  --navSmart-item-height: 5.5rem;
+  --navSmart-edge-homeIndicator: 2.1rem;
   position: fixed;
   inset-inline: 0;
-  bottom: max(var(--navSmart-edge), min(env(safe-area-inset-bottom, 0px), var(--navSmart-edgeHomeIndicator)));
+  bottom: max(var(--navSmart-edge), min(env(safe-area-inset-bottom, 0px), var(--navSmart-edge-homeIndicator)));
   z-index: var(--zIndex-navSmart);
   display: flex;
   justify-content: center;
@@ -7725,11 +7723,11 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 @media (display-mode: standalone) {
   :is([pgs~=navSmart], [pgs*="navSmart["]) {
-    --navSmart-edge: var(--navSmart-edgePWA);
+    --navSmart-edge: var(--navSmart-edge-pwa);
   }
 }
 :is([pgs~=navSmart], [pgs*="navSmart["])[pgs-state~=installedApp] {
-  --navSmart-edge: var(--navSmart-edgePWA);
+  --navSmart-edge: var(--navSmart-edge-pwa);
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) {
@@ -7797,7 +7795,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where(li, [pgs~=modal], [pgs*="modal["]):not(dialog *):has(> [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"])),
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
   width: auto;
-  min-width: var(--navSmart-itemMinWidth);
+  min-width: var(--navSmart-item-minWidth);
 }
 
 :is([pgs~=navSmart], [pgs*="navSmart["]) :where([pgs~=navSmart-element]) :where(li, [pgs~=modal], [pgs*="modal["]) > [pgs*="'btnForNavSmart'"]:not([pgs*="'btnIconOnly'"]) {
@@ -7810,7 +7808,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   --footer-background: var(--color-box);
   --footer-colorScheme: inherit;
   --footer-paddingBlock: calc(var(--gap-sections) / 3);
-  --footer-titleSize: 2rem;
+  --footer-title-fontSize: 2rem;
   --footer-borderColor: var(--color-boxDark-transparent);
   --footer-legal-fontSize: 1.3rem;
   background: var(--footer-background);
@@ -7841,7 +7839,7 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
 
 [pgs~=footer] :where([pgs~=footer-top]) {
   padding-block: var(--footer-paddingBlock);
-  --heading-size-h2: var(--footer-titleSize);
+  --heading-size-h2: var(--footer-title-fontSize);
   --heading-size-h3: var(--font-size-text);
 }
 
@@ -7881,11 +7879,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
     justify-content: center;
   }
 }
-/*
-|--------------------------------------------------------------------------
-| Patterns
-|--------------------------------------------------------------------------
-*/
 [pgs*="background["][pgs*="'bgTransparent'"] {
   background: transparent;
 }
@@ -9008,11 +9001,6 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   object-fit: fill;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Deprecated (removed in version 6)
-|--------------------------------------------------------------------------
-*/
 :where([pgs~=htmlBase]):root {
   --SIZE-texts: var(--SIZE-paragraphs);
   --padding-texts: var(--padding-paragraphs);

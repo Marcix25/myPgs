@@ -7,20 +7,14 @@
 $pgs-exclude: () !default;
 
 @function pgs-module($name) { @return not list.index($pgs-exclude, $name); }
-/*
-|--------------------------------------------------------------------------
-| Base
-|--------------------------------------------------------------------------
-*/
-@include meta.load-css("base/variables");
+
+//# BASE
+@include meta.load-css("base/variables", $with: ("pgs-header": pgs-module("header"), "pgs-navSmart": pgs-module("navSmart")));
 @include meta.load-css("base/zIndex");
 @include meta.load-css("base/body");
 @include meta.load-css("base/darkmode");
-/*
-|--------------------------------------------------------------------------
-| Components
-|--------------------------------------------------------------------------
-*/
+
+//# COMPONENTS
 @if pgs-module("card") { @include meta.load-css("components/card"); }
 @if pgs-module("form") { @include meta.load-css("components/form"); }
 @if pgs-module("formControls") { @include meta.load-css("components/formControls"); }
@@ -49,11 +43,8 @@ $pgs-exclude: () !default;
 @if pgs-module("toast") { @include meta.load-css("components/toast"); }
 @if pgs-module("search") { @include meta.load-css("components/search"); }
 @if pgs-module("logo") { @include meta.load-css("components/logo"); }
-/*
-|--------------------------------------------------------------------------
-| Layout
-|--------------------------------------------------------------------------
-*/
+
+//# LAYOUT
 @include meta.load-css("layout/section");
 @include meta.load-css("layout/flex");
 @include meta.load-css("layout/grid");
@@ -66,18 +57,12 @@ $pgs-exclude: () !default;
 @if pgs-module("header") { @include meta.load-css("layout/header"); }
 @if pgs-module("navSmart") { @include meta.load-css("layout/navSmart"); }
 @if pgs-module("footer") { @include meta.load-css("layout/footer"); }
-/*
-|--------------------------------------------------------------------------
-| Patterns
-|--------------------------------------------------------------------------
-*/
+
+//# PATTERNS
 @include meta.load-css("base/color");
 @include meta.load-css("base/border");
 @include meta.load-css("base/typography");
 @include meta.load-css("base/general");
-/*
-|--------------------------------------------------------------------------
-| Deprecated (removed in version 6)
-|--------------------------------------------------------------------------
-*/
+
+//# DEPRECATED (REMOVED IN VERSION 6)
 @include meta.load-css("base/deprecated");

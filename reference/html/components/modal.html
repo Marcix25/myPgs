@@ -9,7 +9,7 @@
  * - modal-dialog-content: the panel drawn inside the dialog, and the element every position and width option sizes.
  * - modal-dialog-content-header: the fixed heading area at the top of the panel; it is also what takes focus when the dialog opens.
  * - modal-dialog-content-scroll: the part of the panel that scrolls, leaving the header and the footer still. Its scrollbar runs along the right edge of the panel; when it is the last part of the panel the text scrolls down to the bottom edge, over a footer it is cut by the footer's border.
- * - modal-dialog-content-footer: the actions of the panel, a Cancel and a confirm for example, under the part that scrolls: a row on the right, with --modal-footer-gap between the buttons, that wraps on a narrow screen, with a border above it like the one under the header. It stays in view only next to a modal-dialog-content-scroll, which is what gives up the room; without one the whole dialog scrolls and the footer is at the bottom of the panel. A modal-close written in it closes the modal and does not take the place of the generated close button.
+ * - modal-dialog-content-footer: the actions of the panel, a Cancel and a confirm for example, under the part that scrolls: a row on the right, with --modal-dialog-content-footer-gap between the buttons, that wraps on a narrow screen, with a border above it like the one under the header. It stays in view only next to a modal-dialog-content-scroll, which is what gives up the room; without one the whole dialog scrolls and the footer is at the bottom of the panel. A modal-close written in it closes the modal and does not take the place of the generated close button.
  * - modal-close: write one yourself, bare like this, anywhere inside the wrapper or the dialog to place the close button yourself; the module leaves it alone and never generates a second one. Every modal-close of the modal closes it, so there can be more than one: a cross in the header and a Cancel in the footer. One written in the modal-dialog-content-footer does not count as the close button, and the cross is still generated; a modal-close of another modal written inside the dialog closes only that one. Written on the modal-button itself, it makes that button a toggle: it opens the dialog when closed and closes it when open, the way a hamburger that turns into a cross does, and no close button is generated in the dialog.
  *
  * @pgs-generated
@@ -22,10 +22,10 @@
  * - dialogCenter: centers the dialog content both horizontally and vertically. Without it the content sits at the top and is centered only horizontally; it replaces that default on both axes, so it is not combined with dialogLeft, dialogRight, dialogTop or dialogBottom.
  * - dialogDisableBackdropClose: keeps a click on the backdrop from closing the dialog, so it only closes through its own controls or its API.
  * - dialogDragClose: on a touch screen, dragging the panel down follows the finger and fades the backdrop, the way PhotoSwipe pulls a photo away; let go past 15% of the screen height, or with a quick flick, and it carries on down and the dialog closes, otherwise it springs back. A drag only starts where nothing would scroll instead: outside form fields, and with the panel and the dialog scrolled to their top.
- * - dialogFull: expands the dialog content to the full width of the viewport, instead of capping it at the page width.
+ * - dialogFull: lets the panel take the whole width of the dialog (the viewport less the page padding), instead of the page width it is capped at by default.
  * - dialogLeft: aligns the dialog content to the left edge of the viewport, instead of the horizontal center.
- * - dialogMedium: shrinks the dialog content to half the page width instead of filling the viewport.
- * - dialogSmall: shrinks the dialog content to a third of the page width instead of filling the viewport.
+ * - dialogMedium: narrows the panel to half the page width, instead of the page width it is capped at by default; where the screen is narrower it takes the whole width.
+ * - dialogSmall: narrows the panel to a third of the page width, instead of the page width it is capped at by default; where the screen is narrower it takes the whole width.
  * - dialogRight: aligns the dialog content to the right edge of the viewport, instead of the horizontal center.
  * - dialogTop: aligns the dialog content to the top of the viewport. This is already the default height, so it only changes anything when it replaces dialogBottom or dialogCenter, as a script that swaps position options does.
  * - dialogTopLevel: leaves the dialog inside its wrapper and opens it with showModal(), on the browser's top layer above everything else, instead of moving it into a container and opening it with show().
@@ -49,22 +49,17 @@
  *
  * @api
  * - pgs.modal.init(root): initializes matching elements within the specified root, the root itself included.
- * - pgs.modal.api(element): returns the instance associated with the specified initialized element.
+ * - pgs.modal.api(element): returns the instance associated with the specified initialized element. Besides its methods, the instance carries element: the modal wrapper; button: the modal-button of this modal (never one of a modal written inside its dialog), or null when it opens only through the API; dialog: the dialog element, wherever it has been moved; closeButton: the generated cross, or the first modal-close written outside the footer.
  * - instance.open(): opens the dialog, and does nothing when it is already open.
  * - instance.close(): closes the dialog.
  * - instance.toggle(): opens the dialog, or closes it when it is already open.
  * - instance.refresh(): destroys the instance and builds it again from the markup, re-reading the dialog and the options, and returns the new instance.
- * - instance.destroy(): removes every listener, observer and pending timer of the instance and releases it, leaving the generated markup where it is; pgs.modal.init(root) builds the instance again.
+ * - instance.destroy(): removes every listener, observer and pending timer of the instance and releases it, leaving the generated markup where it is; pgs.modal.init(root) builds the instance again. An open dialog is closed first, with the modals written inside it, and pgs:modal:close is dispatched; a dialog moved out of a wrapper that is no longer in the page is removed with it.
  * - instance.isOpen(): returns true while the dialog is open.
  *
  * @related
- * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - modal-container-pgs-demo: demo-only target token for the modalContainerPGS example; write your own token on your own real target instead.
- * - button: uses the related button component or utility in this example.
- * - column: vertically organizes modal content.
- * - gapElements: applies element spacing to modal content.
- * - row: arranges the dialog actions in a row.
- * - justifyEnd: pushes the dialog actions to the end of that row.
+ * - button: draws the buttons that open the modals and the actions of the footer; see Button.
  * - btnStrong: applies stronger emphasis to the save action.
  * - icon: draws the cross inside the generated close button; see Icon for the whole set.
  * - icon-close: the glyph in that button.

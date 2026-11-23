@@ -2,7 +2,7 @@
 
 # Breakpoints
 
-Responsive visibility built on the shared breakpoint scale: watch 315px, mobile 430px, phablet 615px, tablet 800px, notebook 900px and laptop 1100px. hide alone, with no bracket, always hides — every breakpoint instead lives inside hide's own bracket, crossing the two queries with the two directions: Media reads the viewport, Container reads the nearest ancestor marked with pgs="container", Down hides at or below the width, Up hides from the width upwards. Combine more than one to hide outside a range, e.g. hide['hideMediaDownTablet' 'hideMediaUpLaptop'] to show an element only between Tablet and Laptop.
+Responsive visibility built on the shared breakpoint scale: watch 320px, mobile 430px, phablet 600px, tablet 800px, notebook 900px and laptop 1100px. hide alone, with no bracket, always hides — every breakpoint instead lives inside hide's own bracket, crossing the two queries with the two directions: Media reads the viewport, Container reads the nearest ancestor marked with pgs="container", Down hides at or below the width, Up hides from the width upwards. Combine more than one to hide outside a range, e.g. hide['hideMediaDownTablet' 'hideMediaUpLaptop'] to show an element only between Tablet and Laptop.
 
 ## PGS
 
@@ -10,27 +10,27 @@ Responsive visibility built on the shared breakpoint scale: watch 315px, mobile 
 
 ## PGS Options (component brackets)
 
-- `hideMediaDownWatch`: hides an element when the viewport is 315px wide or narrower.
+- `hideMediaDownWatch`: hides an element when the viewport is 320px wide or narrower.
 - `hideMediaDownMobile`: hides an element when the viewport is 430px wide or narrower.
-- `hideMediaDownPhablet`: hides an element when the viewport is 615px wide or narrower.
+- `hideMediaDownPhablet`: hides an element when the viewport is 600px wide or narrower.
 - `hideMediaDownTablet`: hides an element when the viewport is 800px wide or narrower.
 - `hideMediaDownNotebook`: hides an element when the viewport is 900px wide or narrower.
 - `hideMediaDownLaptop`: hides an element when the viewport is 1100px wide or narrower.
-- `hideMediaUpWatch`: hides an element when the viewport is at least 315px wide.
+- `hideMediaUpWatch`: hides an element when the viewport is at least 320px wide.
 - `hideMediaUpMobile`: hides an element when the viewport is at least 430px wide.
-- `hideMediaUpPhablet`: hides an element when the viewport is at least 615px wide.
+- `hideMediaUpPhablet`: hides an element when the viewport is at least 600px wide.
 - `hideMediaUpTablet`: hides an element when the viewport is at least 800px wide.
 - `hideMediaUpNotebook`: hides an element when the viewport is at least 900px wide.
 - `hideMediaUpLaptop`: hides an element when the viewport is at least 1100px wide.
-- `hideContainerDownWatch`: hides an element when its nearest container is 315px wide or narrower.
+- `hideContainerDownWatch`: hides an element when its nearest container is 320px wide or narrower.
 - `hideContainerDownMobile`: hides an element when its nearest container is 430px wide or narrower.
-- `hideContainerDownPhablet`: hides an element when its nearest container is 615px wide or narrower.
+- `hideContainerDownPhablet`: hides an element when its nearest container is 600px wide or narrower.
 - `hideContainerDownTablet`: hides an element when its nearest container is 800px wide or narrower.
 - `hideContainerDownNotebook`: hides an element when its nearest container is 900px wide or narrower.
 - `hideContainerDownLaptop`: hides an element when its nearest container is 1100px wide or narrower.
-- `hideContainerUpWatch`: hides an element when its nearest container is at least 315px wide.
+- `hideContainerUpWatch`: hides an element when its nearest container is at least 320px wide.
 - `hideContainerUpMobile`: hides an element when its nearest container is at least 430px wide.
-- `hideContainerUpPhablet`: hides an element when its nearest container is at least 615px wide.
+- `hideContainerUpPhablet`: hides an element when its nearest container is at least 600px wide.
 - `hideContainerUpTablet`: hides an element when its nearest container is at least 800px wide.
 - `hideContainerUpNotebook`: hides an element when its nearest container is at least 900px wide.
 - `hideContainerUpLaptop`: hides an element when its nearest container is at least 1100px wide.
@@ -40,7 +40,7 @@ Responsive visibility built on the shared breakpoint scale: watch 315px, mobile 
 ### PGS
 
 - `flex`: provides the flex layout; direction and spacing are flags in its bracket.
-- `container`: establishes the inline-size container the containerDown* and containerUp* options are measured against; without it they fall back to the nearest container in the page, or never match at all.
+- `container`: establishes the inline-size container the hideContainerDown* and hideContainerUp* options are measured against; without it they fall back to the nearest container in the page, or never match at all.
 - `box`: makes each example visible as a surface.
 
 ### PGS Options (component brackets)
@@ -57,7 +57,7 @@ One example per query type, resizing with the viewport and with a local containe
 
 ### Viewport visibility
 
-mediaDown* and mediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.
+hideMediaDown* and hideMediaUp* read the viewport width, so they answer to the browser window whatever the element is nested in. Resize the window to see them appear and disappear.
 
 ```html
 <span pgs="box hide['hideMediaDownMobile']">hide['hideMediaDownMobile']</span>
@@ -68,7 +68,7 @@ mediaDown* and mediaUp* read the viewport width, so they answer to the browser w
 
 ### Container visibility
 
-containerDown* and containerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.
+hideContainerDown* and hideContainerUp* read the width of the nearest ancestor marked pgs=&quot;container&quot;, so the same element reacts to the space it actually sits in rather than to the window. Mark that ancestor, or nothing will ever match.
 
 ```html
 <div pgs="container">

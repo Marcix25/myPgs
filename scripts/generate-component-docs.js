@@ -558,9 +558,10 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     });
 
     documentation.api.forEach(item => {
-        const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*)+)\([^)]*\)$/);
+        // a method with its arguments, or a property the instance or the module carries (instance.value)
+        const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*)+)(?:\([^)]*\))?$/);
         if (!signature) {
-            errors.push(createError(file, `Invalid API signature: "${item.key}".`, "Use a callable signature, for example pgs.modal.api(element) or instance.open().", "@api", item.key));
+            errors.push(createError(file, `Invalid API signature: "${item.key}".`, "Use a callable signature, for example pgs.modal.api(element) or instance.open(), or a property, for example instance.element.", "@api", item.key));
             return;
         }
 

@@ -7,28 +7,28 @@
  * - stepTabs: identifies the root the module initializes, and the element the instance is stored against.
  * - stepTabs-dots: the row the dots are built into; its content is replaced on initialization, one dot per step. (Optional)
  * - stepTabs-container: the wrapper holding the steps, and the only place the module looks for them.
- * - stepTabs-container-tab: one step, a direct child of stepTabs-container, shown when it is the current one.
+ * - stepTabs-container-tab: one step, a direct child of stepTabs-container, shown when it is the current one. The module focuses it when the wizard moves to it, so it needs a tabindex: write tabindex="-1" (out of the Tab order), as the example does; a step written without one gets it from the module, and loses it again with destroy().
  * - stepTabs-prev: the control that goes back a step; the module disables it on the first one.
  * - stepTabs-restart: the control that returns to the first step and restores the locks the markup declared.
- * - stepTabs-next: the control that goes on a step; the module disables it on the last one, and on a step marked locked.
+ * - stepTabs-next: the control that goes on a step; the module disables it on the last one, and on a step marked locked. It has the primary look of its own: --button-background is --color-primary and --button-color --color-primary-text, as btnPrimary does on a button.
  *
  * @pgs-generated
  * - _stepTabs-dots-dot: one dot per tab, created inside stepTabs-dots, showing the icon declared by that tab's stepTabsIcon option. It is an icon-only button and its states take the button's own colors: the dot of the current step the current ones (--button-*-current, from --current-*), the dot of a step behind it the twoState ones (--button-*-twoState, from --twoState-*), the dots ahead the plain button; the icon takes the color of the dot.
  *
  * @pgs-data
- * - stepTabsIcon: the icon drawn in this tab's dot, in brackets, in one of three shapes. Markup, opening with a "<", is built as written, which is what puts every icon set in reach — including the ones a class cannot describe, such as stepTabsIcon[<span class='material-symbols-outlined'>check</span>] or stepTabsIcon[<i data-lucide='check'></i>]; write the inner attributes with single quotes, since the value already lives inside one, and mark your own element with pgs='icon' so it gets the same box the dot gives an icon — without it a set that renders its name as text has nothing sizing it. A plain name is a built-in glyph, as in stepTabsIcon[icon-circleCheck]. Anything else is a class list for whatever set the page loaded, written through untouched, as in stepTabsIcon[bi-check] or stepTabsIcon[bi bi-star]. Leave it out and the dot gets icon-circle.
+ * - stepTabsIcon: the icon drawn in this tab's dot, in brackets, in one of three shapes. Markup, opening with a "<", is built as written, which is what puts every icon set in reach — including the ones a class cannot describe, such as stepTabsIcon[<span class='material-symbols-outlined'>check</span>] or stepTabsIcon[<i data-lucide='check'></i>]; write the inner attributes with single quotes, since the value already lives inside one, and mark your own element with pgs='icon' so it gets the same box the dot gives an icon — without it a set that renders its name as text has nothing sizing it. A name starting with icon- is a built-in glyph, as in stepTabsIcon[icon-circleCheck]. Anything else is a class list for whatever set the page loaded, written through untouched, as in stepTabsIcon[bi-check] or stepTabsIcon[bi bi-star]. Leave it out and the dot gets icon-circle.
  *
  * @pgs-state
- * - active: written by the module on the current step and on its dot.
+ * - active: written by the module on the current step and on its dot, which also carries aria-current="step".
  * - completed: written by the module on the dots of the steps already behind the current one.
  * - locked: the one state written by hand as well: a step carrying it holds the next button down until it is taken off, and restart puts it back on every step that had it.
  *
  * @api
  * - pgs.stepTabs.init(root): initializes matching elements within the specified root.
- * - pgs.stepTabs.api(element): returns the instance associated with the specified initialized element.
+ * - pgs.stepTabs.api(element): returns the instance associated with the specified initialized element. Besides its methods, the instance carries element: the stepTabs root; container: the stepTabs-container that holds the steps.
  * - instance.restart(): returns to the first tab and restores the locks declared in the markup.
  * - instance.goTo(index, scroll): moves to the zero-based step; throws a TypeError when index is not an integer between 0 and the last step. Pass false as the second argument to move without scrolling the wizard into view.
- * - instance.next(): moves on a step, staying on the last one.
+ * - instance.next(): moves on a step, staying on the last one and, like the next button, on a step marked locked.
  * - instance.prev(): moves back a step, staying on the first one.
  * - instance.toggleLock(index, lock): locks or unlocks the step at that position, lock defaulting to true, and redraws the controls; throws a TypeError when index is not an integer between 0 and the last step.
  * - instance.destroy(): removes the listeners and the observer of the instance and forgets it; the dots the module generated stay in the markup.
@@ -41,7 +41,7 @@
  * - column: sets the vertical direction inside the flex bracket.
  * - gapElements: applies element spacing to the step tab container.
  * - row: sets the horizontal direction inside the flex bracket.
- * - button: uses the related button component or utility in this example.
+ * - button: draws the previous, restart and next controls; the dots the module builds are buttons too. See Button.
  * - btnReverse: reverses text and icon on the example buttons and belongs to the button component.
  * - icon: draws the glyph inside a dot when the tab does not name its own; see Icon for the whole set.
  * - icon-circle: the glyph a dot gets by default.

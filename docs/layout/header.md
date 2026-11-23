@@ -14,7 +14,6 @@ Responsive header that measures available space, switches between its full and c
 
 ## PGS Options (component brackets)
 
-- `headerCompactBottom`: moves header-element to the bottom of the viewport while the header is compact, so it follows the chosen breakpoint.
 - `headerCompactWatch`: forces the compact layout from the watch width down, even when the content still fits.
 - `headerCompactMobile`: forces the compact layout from the mobile width down, even when the content still fits.
 - `headerCompactPhablet`: forces the compact layout from the phablet width down, even when the content still fits.
@@ -22,7 +21,7 @@ Responsive header that measures available space, switches between its full and c
 - `headerCompactNotebook`: forces the compact layout from the notebook width down, even when the content still fits.
 - `headerCompactLaptop`: forces the compact layout from the laptop width down, even when the content still fits.
 - `headerBottom`: pins the header to the bottom of the viewport instead of the top, at the paragraph margin from the edge. Each header-element becomes a frosted rounded box as wide as its content, with the paragraph gap between its items.
-- `headerScroll`: hides the header while scrolling down and shows it again while scrolling up.
+- `headerScroll`: hides the header while scrolling down and shows it again while scrolling up, only on a window up to 900px tall: on a taller one, where the header costs little of the page, it stays in place and comes back if the window grows past 900px while it is hidden.
 - `headerMain`: marks the header that owns --_header-height and --_header-heightScroll, the properties that push the page content down. Only needed on a page with more than one header; without it the first one keeps them.
 
 ## PGS Data
@@ -65,7 +64,7 @@ Responsive header that measures available space, switches between its full and c
 ### PGS Options (component brackets)
 
 - `btnTransparent`: the appearance of the navigation links, in the full-layout row and once they stack in the compact panel alike.
-- `btnForHeader`: for a link or button of the header: no border style, and a long label breaks instead of overflowing; belongs to the button component.
+- `btnForHeader`: for a link or button of the header: a long label breaks instead of overflowing; the border is the button's own (btnTransparent or btnText for none); belongs to the button component.
 - `btnPaddingEqual`: sets the same padding on every side of a navigation link instead of the wider left/right default; belongs to the button component.
 - `row`: sets the horizontal direction inside the flex bracket.
 - `nowrap`: uses the related nowrap component or utility in this example.
@@ -98,7 +97,6 @@ Responsive header that measures available space, switches between its full and c
 - `--header-background`
 - `--header-color`
 - `--header-compact-breakpoint`
-- `--header-compactBottom-active`
 - `--header-gap`
 - `--header-paddingBlock`
 - `--header-paddingInline`
@@ -191,7 +189,7 @@ Code only, since a header is fixed to the viewport: headerCompactTablet turns th
         </div>
 
         <div pgs="header-element-onlyFull">
-            <nav pgs="menu['menuHorizontal']" aria-label="Compact menu">
+            <nav pgs="menu['menuHorizontal']" aria-label="Main menu">
                 <ul>
                     <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
                     <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
@@ -208,53 +206,7 @@ Code only, since a header is fixed to the viewport: headerCompactTablet turns th
                 <dialog>
                     <div pgs="modal-dialog-content padding['pdDetails']">
                         <div pgs="modal-dialog-content-scroll flex['column']">
-                            <nav pgs="menu" aria-label="Compact compact menu">
-                                <ul pgs="buttonGroup['btgVertical' 'btgFill']">
-                                    <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
-                                    <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-        </div>
-    </div>
-</header>
-```
-
-### Compact at the bottom (headerCompactBottom)
-
-Code only: while the header is compact, headerCompactBottom moves header-element to the bottom of the viewport, within reach of the thumb; in the full layout it stays at the top.
-
-```html
-<header pgs="header['headerCompactBottom']">
-    <div pgs="header-element blur">
-        <div pgs="header-element-alwaysOn">
-            <a aria-label="Logo" pgs="logo" href="/">
-                <span pgs="logo-text">MyPGS</span>
-            </a>
-        </div>
-
-        <div pgs="header-element-onlyFull">
-            <nav pgs="menu['menuHorizontal']" aria-label="Bottom compact menu">
-                <ul>
-                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
-                    <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <div pgs="header-element-onlyCompact">
-            <div pgs="modal['dialogRight']" pgs-data="modalContainerPGS[header]">
-                <button pgs="button['btnIconOnly' 'btnForHeader'] modal-button modal-close" type="button" aria-label="Open menu">
-                    <i pgs="icon['icon-hamburgerTwo']" aria-hidden="true"></i>
-                </button>
-
-                <dialog>
-                    <div pgs="modal-dialog-content padding['pdDetails']">
-                        <div pgs="modal-dialog-content-scroll flex['column']">
-                            <nav pgs="menu" aria-label="Bottom compact compact menu">
+                            <nav pgs="menu" aria-label="Compact menu">
                                 <ul pgs="buttonGroup['btgVertical' 'btgFill']">
                                     <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
                                     <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
@@ -283,7 +235,7 @@ Code only: headerBottom pins the header to the bottom of the viewport, at the pa
         </div>
 
         <div pgs="header-element-onlyFull">
-            <nav pgs="menu['menuHorizontal']" aria-label="Bottom menu">
+            <nav pgs="menu['menuHorizontal']" aria-label="Main menu">
                 <ul>
                     <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
                     <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
@@ -300,7 +252,7 @@ Code only: headerBottom pins the header to the bottom of the viewport, at the pa
                 <dialog>
                     <div pgs="modal-dialog-content padding['pdDetails']">
                         <div pgs="modal-dialog-content-scroll flex['column']">
-                            <nav pgs="menu" aria-label="Bottom compact menu">
+                            <nav pgs="menu" aria-label="Compact menu">
                                 <ul pgs="buttonGroup['btgVertical' 'btgFill']">
                                     <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
                                     <li><a pgs="button['btnTransparent']" href="/about">About</a></li>
@@ -317,7 +269,7 @@ Code only: headerBottom pins the header to the bottom of the viewport, at the pa
 
 ### Hidden while scrolling down (headerScroll)
 
-Code only: headerScroll hides the header while the page scrolls down and shows it again as soon as it scrolls up; the header carries hiddenByScroll while it is hidden.
+Code only: headerScroll hides the header while the page scrolls down and shows it again as soon as it scrolls up, on a window up to 900px tall; on a taller one the header stays in place. The header carries hiddenByScroll while it is hidden.
 
 ```html
 <header pgs="header['headerScroll']">
@@ -329,7 +281,7 @@ Code only: headerScroll hides the header while the page scrolls down and shows i
         </div>
 
         <div pgs="header-element-onlyFull">
-            <nav pgs="menu['menuHorizontal']" aria-label="Scroll menu">
+            <nav pgs="menu['menuHorizontal']" aria-label="Main menu">
                 <ul>
                     <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/">Home</a></li>
                     <li><a pgs="button['btnTransparent' 'btnForHeader']" href="/about">About</a></li>
@@ -346,7 +298,7 @@ Code only: headerScroll hides the header while the page scrolls down and shows i
                 <dialog>
                     <div pgs="modal-dialog-content padding['pdDetails']">
                         <div pgs="modal-dialog-content-scroll flex['column']">
-                            <nav pgs="menu" aria-label="Scroll compact menu">
+                            <nav pgs="menu" aria-label="Compact menu">
                                 <ul pgs="buttonGroup['btgVertical' 'btgFill']">
                                     <li><a pgs="button['btnTransparent']" href="/">Home</a></li>
                                     <li><a pgs="button['btnTransparent']" href="/about">About</a></li>

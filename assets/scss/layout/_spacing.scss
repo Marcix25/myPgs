@@ -1,10 +1,10 @@
-//= SPACING: margin, padding
+//= SPACING - MARGIN - PADDING
 // a shared base root for margin and padding (all four sides), plus a separate root per
 // direction (marginBlock, paddingTop, ...) — each direction's own root reads its own
 // --{root}-sign custom property (--marginTop-sign, ...; base uses the shared --margin-sign), flipped
 // to -1 by that direction's own Negative flag (mgBlNegative, mgTpNegative, ...) and read with a
-// plain `, 1)` fallback, so mgTpNegative negates only margin-top even when combined with a
-// base-level mgParagraphs/mgElements/etc in the same bracket. Padding has no negative variant at all,
+// plain `, 1)` fallback, so marginTop['mgTpNegative'] negates only margin-top, even on an element
+// that also has margin['mgElements'] (whose own --margin-sign stays 1). Padding has no negative variant at all,
 // since negative padding isn't a real thing. The scale is the same one gap uses: details (smallest, a quarter),
 // paragraphs (half, also the default), elements (base size), groups (double), sections (viewport-based, biggest).
 //# MARGIN

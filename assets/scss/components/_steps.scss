@@ -1,5 +1,16 @@
 @use "../mixin/mixin" as *;
 
+// the defaults sit on the list, so a value set there reaches every step and one set on a step changes that
+// step only; in a :where() of their own they weigh nothing, so the list takes a value from any selector
+:where(ol:is([pgs~="steps"], [pgs*="steps\5B"])) {
+    --steps-step-circle-size: var(--heading-size-h3);
+    // the circle reads as the current state, as a current button does
+    --steps-step-circle-background: var(--current-background);
+    --steps-step-circle-color: var(--current-color);
+    --steps-step-line-size: 2px;
+    --steps-step-line-color: var(--border-color);
+}
+
 ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
     color: var(--color-black);
     // the connector line sits at z-index -1: its own stacking context keeps it from sliding behind the background of an ancestor
@@ -10,12 +21,6 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         display: flex;
         align-items: start;
         position: relative;
-        --steps-circle-size: var(--heading-size-h3);
-        // the circle reads as the current state, as a current button does
-        --steps-circle-background: var(--current-background);
-        --steps-circle-color: var(--current-color);
-        --steps-line-size: 2px;
-        --steps-line-color: var(--border-color);
 
         //## CONTENT
         :where([pgs~="steps-step-content"]) {
@@ -23,7 +28,7 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
             margin-bottom: var(--margin-details);
             padding-bottom: calc(var(--gap-elements) / 2);
             // only the room the line needs to show between this circle and the next one
-            min-height: calc(var(--steps-circle-size) + 5rem);
+            min-height: calc(var(--steps-step-circle-size) + 5rem);
             width: 100%;
         }
 
@@ -32,11 +37,11 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
         // _steps.js), so every check here needs both
         :where([pgs~="steps-step-circle"]),
         :where([pgs~="_steps-step-circle"]) {
-            min-width: var(--steps-circle-size);
+            min-width: var(--steps-step-circle-size);
             aspect-ratio: 1;
-            background: var(--steps-circle-background);
+            background: var(--steps-step-circle-background);
             // the number and the icon take it alike: an icon draws itself in currentColor
-            color: var(--steps-circle-color);
+            color: var(--steps-step-circle-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -53,18 +58,18 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
             $space: 15px;
             display: block;
             position: absolute;
-            top: calc(var(--steps-circle-size) + $space );
+            top: calc(var(--steps-step-circle-size) + $space );
             left: 0;
-            height: calc(100% - (var(--steps-circle-size) + ($space * 2)));
-            width: var(--steps-circle-size);
+            height: calc(100% - (var(--steps-step-circle-size) + ($space * 2)));
+            width: var(--steps-step-circle-size);
             z-index: -1;
 
             //### line
             &::before {
                 content: "";
-                width: var(--steps-line-size);
-                background: var(--steps-line-color);
-                border-radius: var(--steps-line-size);
+                width: var(--steps-step-line-size);
+                background: var(--steps-step-line-color);
+                border-radius: var(--steps-step-line-size);
                 height: 100%;
                 position: absolute;
                 bottom: -3px;
@@ -92,8 +97,8 @@ ol:is([pgs~="steps"], [pgs*="steps\5B"]) {
     // the circle of the last step in the primary color: the goal the steps lead to
     &:where([pgs*="'stepsLastHighlight'"]) {
         :where([pgs~="steps-step"]):last-child {
-            --steps-circle-background: var(--color-primary);
-            --steps-circle-color: var(--color-primary-text);
+            --steps-step-circle-background: var(--color-primary);
+            --steps-step-circle-color: var(--color-primary-text);
         }
     }
 }

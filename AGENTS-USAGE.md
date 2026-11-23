@@ -8,7 +8,7 @@ This guide is for AI/Codex agents working in a project that consumes the `mypgs`
 
 - HTML `pgs` attributes shared by markup, SCSS, and JavaScript;
 - reusable layouts, components, CSS variables, and SCSS mixins;
-- JavaScript behaviors for accordions, alerts, dropdowns, menus, modals, notifications, toasts, page navigation (`pageNav`), search, slides, steps, step tabs, tabs, summaries, form validation, headers, the floating `navSmart` bar, range sliders (`pgs.range`), and dark mode;
+- JavaScript behaviors for accordions, alerts, dropdowns, menus, modals, notifications, toasts, page navigation (`pageNav`), search, a listbox (`pgs.listbox`), a select box (`pgs.selectBox`), slides, steps, step tabs, tabs, summaries, form validation, headers, the floating `navSmart` bar, range sliders (`pgs.range`), and dark mode;
 - canonical HTML examples in the package `reference/` directory;
 - compiled CSS and JavaScript in `dist/`.
 
@@ -39,7 +39,7 @@ Write custom CSS or JavaScript only when the required pattern does not exist in 
 - Runtime states belong in `pgs-state`, for example `open`, `active`, `completed`, `locked`, `success`, `errorForm`, `errorField`, `errorFieldset`, and `errorLabel`.
 - CSS flags and JavaScript-only boolean flags both belong inside their own component bracket, as `pgs="flex['column' 'wrap']"` or `pgs="header['headerScroll']"`. Only a genuine `key[payload]` value passed from HTML to JavaScript, such as `headerCompactFrom[600]`, belongs in `pgs-data`. Copy their exact syntax from the relevant reference instead of guessing it.
 - Composable search uses `pgs="search"` as its visual and behavioral root and optionally `pgs="search-suggestions"`, an empty `<div>` (the box of the suggestions: the JavaScript builds the list in it). Configure its source through `pgs.search.api(element)?.configure({ source })` and keep it backend-independent.
-- `pgs="icon"` draws a glyph from the library's own inline SVG, with an `icon`-prefixed flag in its bracket choosing which one, as in `<i pgs="icon['icon-check']"></i>`. It needs no icon font: every icon the library builds for itself goes through it. Only those glyphs are inside the mypgs stylesheet (`docs/components/icon.md` lists them); every other glyph (`icon-arrowRight`, `icon-star`, `icon-bell`, ...) is in the separate `@marcix/myicons` package, whose `style.css` or `style.min.css` is loaded after mypgs and is written with the same option. A project that uses a glyph outside that list must load it, or the element draws nothing. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how another icon set gets the same box and placement the library gives an `<i>`, so `<span pgs="icon" class="material-symbols-outlined">check</span>` is sized and placed like one. `pgs="icon['iconBoxed']"` is a different thing — it turns the element into the circular surface a glyph sits inside, and it belongs to Icon too.
+- `pgs="icon"` draws a glyph from the library's own inline SVG, with an `icon`-prefixed flag in its bracket choosing which one, as in `<i pgs="icon['icon-check']"></i>`. It needs no icon font: every icon the library builds for itself goes through it. Only those glyphs are inside the mypgs stylesheet (`docs/components/icon.md` lists them); every other glyph (`icon-arrowRight`, `icon-heart`, `icon-bell`, ...) is in the separate `@marcix/myicons` package, whose `style.css` or `style.min.css` is loaded after mypgs and is written with the same option. A project that uses a glyph outside that list must load it, or the element draws nothing. Written on its own, with no option, it draws nothing and only marks the element as an icon: that is how another icon set gets the same box and placement the library gives an `<i>`, so `<span pgs="icon" class="material-symbols-outlined">check</span>` is sized and placed like one. `pgs="icon['iconBoxed']"` is a different thing — it turns the element into the circular surface a glyph sits inside, and it belongs to Icon too.
 - A glyph that neither mypgs nor `@marcix/myicons` has is never an inline `<svg>` and never a new `pgs` token (tokens belong to the library). Define the drawing as a custom property and paint it from a project class that still sits on `pgs="icon"`: `:root { --icon-glyph-cookie: url("data:image/svg+xml,..."); }`, then `.icon-cookie:is([pgs~="icon"], [pgs*="icon\5B"]) { --icon: var(--icon-glyph-cookie); &::before { @include svgBase64(var(--icon)); } }` (plain CSS: `mask: var(--icon-glyph-cookie) center/contain no-repeat` plus the `-webkit-` prefix on `::before`). The markup is `<i class="icon-cookie" pgs="icon"></i>`, and `iconMedium`, `iconLarge`, `iconBoxed`, `--icon-size` and `--icon-color` work on it. The `:is()` is needed because `[pgs~="icon"]` alone misses `icon['iconLarge']`. The SVG needs a single `viewBox`, filled paths only (no `stroke`, no fixed colors), `fill-rule='evenodd'` for holes, and in the data URI `<` and `>` written as `%3C` and `%3E` with single quotes inside `url("...")`. If the glyph will serve several projects, add it to the myIcons pack instead.
 
 The complete page must enable the library through the current tokens shown in `reference/html/base/body.html`. Do not infer the root markup from the demo.
@@ -69,14 +69,32 @@ fighting over the same DOM. `mypgs`'s own entry sets `globalThis.pgs` once it lo
 helper needing it should read the ambient global (`pgs(...)`, `pgs.toast.info(...)`, etc.) instead
 of importing it.
 
+A second bundle can keep writing `import { pgs } from "mypgs"` when its build declares the package as
+an external, so the import resolves at runtime to the copy the first bundle already published
+(`globalThis.mypgs`, which holds `{ pgs }`) instead of bundling a second one. With webpack:
+
+```js
+// webpack.config.js of the second bundle
+externals: { mypgs: "mypgs" },
+```
+
+The bundle that includes mypgs must load first (blocking, or earlier in the page), or the external
+is `undefined` when the second bundle runs. This is how the `PGS_theme-*` child themes reuse the
+library of `PGS_theme`.
+
 Load the SCSS source and public mixins:
 
 ```scss
 @use "sass:meta";
 @use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as *;
 
-@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
+// set by modules.sass when the project has a mypgs.config.json, empty otherwise
+$pgs-exclude: () !default;
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss", $with: ("pgs-exclude": $pgs-exclude));
 ```
+
+Keep the `$with`: `meta.load-css` loads the library as its own module, so without it the `$pgs-exclude`
+that `modules.sass` prepends to the entry never reaches the library and every component is compiled.
 
 Import only the mixins when the project does not need the library stylesheet source:
 
@@ -88,9 +106,11 @@ Import only the mixins when the project does not need the library stylesheet sou
 
 A project that compiles the sources can keep its bundle to the components it uses: it lists them in
 `mypgs.config.json` (`{ "include": ["button", "icon", "modal"] }`, the names of `mypgs/modules.json`;
+read from the folder the build runs from, `process.cwd()`, unless `pgsModules({ config })` names another file;
 every part not listed is left out, a new one of the library too) and passes `require("mypgs/build").pgsModules()` to its build: `alias` to the
-`resolve.alias` of the JavaScript bundle, `sass` to the `additionalData` of `sass-loader`, or `vite()`
-as a Vite plugin. The README has the full setup.
+`resolve.alias` of the JavaScript bundle, `sass` to the `additionalData` of `sass-loader` (the SCSS entry
+must pass `$pgs-exclude` on through `$with`, as above), or `vite()` as a Vite plugin. The README has the
+full setup.
 
 - Build the list from what the project uses: search it (templates, PHP, JS, content) for the tokens and the
   `pgs.<module>` API. A component not listed has no CSS and no JavaScript, and `pgs.<module>` is `undefined`.
@@ -104,7 +124,7 @@ as a Vite plugin. The README has the full setup.
 - Icon size comes from `--icon-size`, which the components set per context and you can override. Color follows the text color, or `--icon-color` when you set it.
 - Reuse existing properties such as `--color-primary`, `--color-box`, `--color-text`, `--padding-elements`, `--page-padding`, `--gap-paragraphs`, `--gap-elements`, `--gap-sections`, `--borderRadius-elements`, `--borderRadius-paragraphs`, `--border-width`, `--border-color`, `--border-complete`, `--outline-width`, `--outline-color`, `--box-shadow`, and `--focus-visible`.
 - Pick the spacing step by what it separates, the same for gap, margin, padding and border radius: `details` (a quarter of `--SIZE`) between small pieces of text in a row, such as an icon and its label, a date next to an author or a badge next to a title; `paragraphs` (half) between paragraphs and blocks of text; `elements` between components; `groups` between groups of components; `sections` between sections. Do not use `paragraphs` for small pieces of text just because they are text.
-- The `texts` step (`gapTexts`, `mgTexts`, `pdTexts`, `radTexts`, `--gap-texts`, `--padding-texts`, ...) is deprecated and removed in version 6: it was renamed `paragraphs`, with the same value. Never write it in new code, and replace it with `paragraphs` when you edit a file that still has it.
+- The `texts` step (`gapTexts`, `mgTexts`, `pdTexts`, `radTexts`, `--gap-texts`, `--padding-texts`, ...) is deprecated and removed in version 7: it was renamed `paragraphs`, with the same value. Never write it in new code, and replace it with `paragraphs` when you edit a file that still has it.
 - Use existing layout and component mixins instead of rewriting them.
 - Compose custom buttons with `buttonBase` plus the variant mixins you need (`buttonIconOnly`, `buttonMini`, `buttonVertical`, `buttonTransparent`, `buttonText`, ...; see `assets/scss/mixin/_mx-button.scss` for the list). Variant mixins do not include the base styles. `button`, `box` and `card` (a link) carry a plain CSS hover of their own; there is no shared hover token to write.
 - Configure dropdown placement with `pgs-data="dropdownPosition[side align]"`, for example `dropdownPosition[top left]`, `dropdownPosition[bottom right]`, or `dropdownPosition[left center]`.

@@ -2,17 +2,18 @@
 
 //= MENU
 :is([pgs~="menu"], [pgs*="menu\5B"]) {
-    // Only the gap tokens are menu's own (--menu-gap-*); the colors come from the button tokens.
-    --menu-gap-column: var(--gap-details);
-    --menu-gap-row: var(--gap-paragraphs);
+    // the gaps (--menu-rowGap, --menu-columnGap) and the shift of the submenu toggle (--menu-submenuButton-translateX) are menu's own;
+    // the colors come from the button tokens
+    --menu-columnGap: var(--gap-details);
+    --menu-rowGap: var(--gap-paragraphs);
     --menu-submenuButton-translateX: calc(var(--gap-paragraphs) * -1);
 
     :where(ul) {
         display: flex;
         font-weight: var(--font-weight-bold);
         align-items: center;
-        column-gap: var(--menu-gap-column);
-        row-gap: var(--menu-gap-row);
+        column-gap: var(--menu-columnGap);
+        row-gap: var(--menu-rowGap);
         flex-wrap: nowrap;
 
         //## Content
@@ -123,8 +124,6 @@
                     margin-left: var(--margin-paragraphs);
                     border-left: var(--border-width) var(--border-color) var(--border-style);
                 }
-
-                &:not([pgs-state~=open]) :where(ul) { display: none; }
             }
         }
     }
@@ -146,7 +145,8 @@
             }
 
             :where(a) {
-                margin-right: calc(var(--button-paddingBlock) * -1);
+                // half the side padding of the link: the gap between two labels drops from twice it to one and a half
+                margin-right: calc(var(--button-paddingInline) / -2);
 
                 &[aria-current=page] {
                     z-index: 1;

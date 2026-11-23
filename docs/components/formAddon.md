@@ -19,13 +19,13 @@ The field box that wraps a label and its control, and additional form controls f
 - `_selectBox-button-value`: inside the button, the text of the chosen option.
 - `_selectBox-panel`: the box after the button that opens, joined to it: it holds the list and, with selectBoxSearch, the search field over the list and the message for no match; it also takes listbox, which draws it as the box (see Listbox).
 - `_selectBox-panel-list`: the list of the options (role listbox), inside the panel; it also takes listbox-list, which makes it the only part that scrolls, its options listbox-list-option (aria-selected on the chosen one) and the label of an optgroup listbox-list-group.
-- `_selectBox-panel-search`: with selectBoxSearch, the search field at the top of the panel, drawn like the field of a search: a pill on --selectBox-panel-search-background with --selectBox-panel-search-color and the magnifying glass before the input, --selectBox-panel-search-height tall with --selectBox-panel-search-paddingBlock above and below.
+- `_selectBox-panel-search`: with selectBoxSearch, the search field at the top of the panel, drawn like the field of a search: a pill on --selectBox-panel-search-background with --selectBox-panel-search-color and the magnifying glass before the input, --selectBox-panel-search-height tall with --selectBox-panel-search-paddingBlock above and below the input and on both sides of the field (despite its name, it is the padding-inline of the pill too).
 - `_selectBox-panel-search-input`: the input of that field (type search), with no box of its own; it takes the focus while the list is open and the keys of the list work in it.
 - `_selectBox-panel-noResults`: with selectBoxSearch, the message under the list when nothing matches the search (role status); it also takes listbox-message, which draws it.
 - `_selectBox-chips`: with selectBoxChips, the list of the chosen options before the button.
 - `_selectBox-chips-item`: one chosen option in the chips, reading --selectBox-chips-item-background, --selectBox-chips-item-color, --selectBox-chips-item-borderRadius and --selectBox-chips-item-padding.
 - `_selectBox-chips-item-label`: the text of a chip, with what the <template> of its option holds.
-- `_selectBox-chips-item-remove`: the button of a chip that takes its option away, drawn with --selectBox-chips-item-removeIcon (the cross) and named by selectBoxChipRemove and the text of the option.
+- `_selectBox-chips-item-remove`: the button of a chip that takes its option away, drawn with --selectBox-chips-item-remove-icon (the cross) and named by selectBoxChipRemove and the text of the option.
 
 ## PGS Options (component brackets)
 
@@ -110,7 +110,7 @@ Checkbox presented as a switch with a rail and movable thumb.
 ```html
 <label pgs="toggle">
     <span>Enable Wi-Fi</span>
-    <input type="checkbox" name="darkMode" value="enabled">
+    <input type="checkbox" name="wifi" value="enabled">
 </label>
 ```
 
@@ -143,17 +143,17 @@ Multiple checkbox chips grouped into a compact segmented selector.
 <fieldset pgs="chips">
     <legend pgs="legend">Chip checkbox</legend>
     <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="checkbox" name="plan" value="red" checked>
+        <input type="checkbox" name="colors" value="red" checked>
         Red
     </label>
 
     <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="checkbox" name="plan" value="blue">
+        <input type="checkbox" name="colors" value="blue">
         Blue
     </label>
 
     <label pgs="button['btnMini' 'btnTwoState']">
-        <input type="checkbox" name="plan" value="green">
+        <input type="checkbox" name="colors" value="green">
         Green
     </label>
 </fieldset>

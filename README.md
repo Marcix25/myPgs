@@ -6,7 +6,7 @@ The library provides a design-system foundation: layouts, spacing, colors, butto
 
 ## What it includes
 
-- `assets/scss/`: SCSS sources divided into base, layouts, components, and mixins.
+- `assets/scss/`: SCSS sources divided into base, layout, components, and mixins.
 - `assets/javascript/`: the `pgs` helper, JavaScript components, and helpers.
 - `reference/`: canonical HTML references for components, layouts, and guides.
 - `dist/css/`: compiled CSS.
@@ -56,8 +56,14 @@ To compile a single CSS file, import the SCSS sources:
 ```scss
 @use "sass:meta";
 @use "../../node_modules/mypgs/assets/scss/mixin/mixin.scss" as * ;
-@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss");
+
+// set by modules.sass when the project has a mypgs.config.json (see below), empty otherwise
+$pgs-exclude: () !default;
+@include meta.load-css("../../node_modules/mypgs/assets/scss/index.scss", $with: ("pgs-exclude": $pgs-exclude));
 ```
+
+`meta.load-css` loads the library as its own module, so a `$pgs-exclude` set in the entry does not reach it
+unless it is passed through `$with`, as above.
 
 To import only the mixins:
 
@@ -68,7 +74,8 @@ To import only the mixins:
 ### Only what a project uses
 
 Every component is in the bundle by default. A project can list the ones it uses in a
-`mypgs.config.json` next to its build config, by the names of
+`mypgs.config.json` in the folder the build runs from (`pgsModules()` reads it from `process.cwd()`;
+`pgsModules({ config: "path/to/mypgs.config.json" })` reads another one), by the names of
 [`assets/modules.json`](assets/modules.json):
 
 ```json
@@ -86,7 +93,8 @@ const modules = require("mypgs/build").pgsModules();
 
 // the JavaScript bundle: a module left out becomes an empty one
 resolve: { alias: modules.alias },
-// the SCSS bundle: sets $pgs-exclude (every part not included) before the library is loaded
+// the SCSS bundle: prepends $pgs-exclude (every part not included) to the entry, which passes it
+// to the library through the $with of meta.load-css (see SCSS above)
 { loader: "sass-loader", options: { additionalData: modules.sass } },
 ```
 
@@ -108,9 +116,11 @@ from `pgs` (`pgs.slides` is `undefined`), and `formValidate` left out removes `p
 ### Markup
 
 `pgs` identifies components and holds their CSS flags, quoted inside each component's bracket.
-`pgs-data` holds JavaScript configuration, only as `key[payload]` values.
-`pgs-state` holds runtime state. See [migration.md](migration.md) when updating older markup;
-the retired `pgs-option` attribute is no longer supported.
+`pgs-data` holds JavaScript configuration, only as `key[payload]` values; the one bare key is
+`tabsHistory` (`pgs-data="tabsHistory"`, the same as `tabsHistory[tab]`).
+`pgs-state` holds runtime state. See [migration.md](migration.md) when updating from 5.0.8; the move from 4.x,
+with the retired `pgs-option` attribute (no longer supported) and the old attribute grammar, is in the
+`migration.md` of the `v5.0.0` tag.
 
 ```html
 <div pgs="flex['column' 'wrap' 'flexCenter']">
@@ -163,11 +173,14 @@ reference source before creating new markup.
 - [formAddon](docs/components/formAddon.md)
 - [formControls](docs/components/formControls.md)
 - [icon](docs/components/icon.md)
+- [listbox](docs/components/listbox.md)
 - [logo](docs/components/logo.md)
 - [menu](docs/components/menu.md)
 - [modal](docs/components/modal.md)
 - [notification](docs/components/notification.md)
 - [pageNav](docs/components/pageNav.md)
+- [pagination](docs/components/pagination.md)
+- [rating](docs/components/rating.md)
 - [search](docs/components/search.md)
 - [slides](docs/components/slides.md)
 - [steps](docs/components/steps.md)

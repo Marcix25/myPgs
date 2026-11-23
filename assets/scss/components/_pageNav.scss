@@ -28,35 +28,37 @@
     // here fights a combined utility over `display`
     :where([pgs~="pageNav-panels"]) {
         :where([pgs~="pageNav-panels-content"]) {
-            //read by the JavaScript only, declared here so editors suggest it: the name of the panel in the URL hash
+            // read by the JavaScript only, declared here so editors suggest it: the name of the panel in the URL hash
             &[pgs-data~="pageNavHash[]"] {}
 
             display: none;
             &[pgs-state~="active"] { display: block; }
         }
 
+        //### LOADING
+        // until the module has marked a panel active every panel is hidden and the wrapper would stand empty: a
+        // light band sweeps across it instead, a sign the page is still loading
         &:not(:has([pgs~="pageNav-panels-content"][pgs-state~="active"])) {
-        position: relative;
-        overflow: hidden;
+            position: relative;
+            overflow: hidden;
 
-        &::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg,
-                    transparent 25%,
-                    var(--color-box-transparent) 50%,
-                    transparent 75%);
-            transform: translateX(-100%);
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(90deg,
+                        transparent 25%,
+                        var(--color-box-transparent) 50%,
+                        transparent 75%);
+                transform: translateX(-100%);
 
-            // an endless shimmer: only for a visitor who has not asked for less motion
-            @media (prefers-reduced-motion: no-preference) { animation: pageNavLoading 1.4s ease-in-out infinite; }
-        }
+                // an endless shimmer: only for a visitor who has not asked for less motion
+                @media (prefers-reduced-motion: no-preference) { animation: pageNavLoading 1.4s ease-in-out infinite; }
+            }
 
-        @keyframes pageNavLoading {
-            to { transform: translateX(100%); }
-        }
-
+            @keyframes pageNavLoading {
+                to { transform: translateX(100%); }
+            }
         }
     }
 

@@ -69,9 +69,9 @@
     --modal-backdrop: var(--backdrop);
     --modal-background: var(--color-background);
     --modal-color: var(--color-black);
-    --modal-content-padding: var(--padding-elements);
+    --modal-dialog-content-padding: var(--padding-elements);
     --modal-offset: var(--gap-paragraphs);
-    --modal-borderRadius: calc(var(--borderRadius-details) + var(--modal-content-padding));
+    --modal-borderRadius: calc(var(--borderRadius-details) + var(--modal-dialog-content-padding));
     // dialogAnimation*: duration and curve of every opening and closing animation (PhotoSwipe's own defaults)
     --modal-animation-timing: 333ms;
     --modal-animation-easing: cubic-bezier(0.4, 0, 0.22, 1);
@@ -113,15 +113,15 @@
         background: var(--modal-background);
         color: var(--modal-color);
         border-radius: var(--modal-borderRadius);
-        padding: var(--modal-content-padding);
+        padding: var(--modal-dialog-content-padding);
 
         //#### HEADER
         :where([pgs~="modal-dialog-content-header"]) {
             @include row(nowrap);
             z-index: 1;
             border-bottom: var(--border-width) var(--border-color) var(--border-style);
-            padding-bottom: calc(var(--modal-content-padding) / 2);
-            margin-bottom: calc(var(--modal-content-padding) / 2);
+            padding-bottom: calc(var(--modal-dialog-content-padding) / 2);
+            margin-bottom: calc(var(--modal-dialog-content-padding) / 2);
 
             // same as the dialog's own &:focus above: this is the initial-focus landing
             // point (see _modal.js), never reached via Tab
@@ -131,6 +131,10 @@
             :where([pgs~="_modal-close"]) {
                 margin-left: auto;
             }
+
+            // over a part that scrolls, the room under the border goes inside that part (its padding-top,
+            // below): the text scrolls up to the border and is cut by it, as it is by the border of a footer
+            &:has(~ :where([pgs~="modal-dialog-content-scroll"])) { margin-bottom: 0; }
         }
 
         //### SCROLL
@@ -144,33 +148,34 @@
             overscroll-behavior: contain;
             max-height: 100%;
             // it takes the right padding of the panel too: the scrollbar runs along the edge of the panel
-            margin-inline: calc(var(--modal-content-padding) * -1);
-            padding-inline: var(--modal-content-padding);
-
-            &:has(~:where([pgs~="modal-dialog-content-header"])) { padding-top: calc(var(--modal-content-padding) / 2); }
+            margin-inline: calc(var(--modal-dialog-content-padding) * -1);
+            padding-inline: var(--modal-dialog-content-padding);
 
             // the last part of the panel takes its bottom padding too: the text scrolls down to the bottom edge,
             // with no empty strip under it that looks like the end
             &:not(:has(~ :where([pgs~="modal-dialog-content-footer"]))) {
-                margin-bottom: calc(var(--modal-content-padding) * -1);
-                padding-bottom: var(--modal-content-padding);
+                margin-bottom: calc(var(--modal-dialog-content-padding) * -1);
+                padding-bottom: var(--modal-dialog-content-padding);
             }
 
             // over a footer the text is cut by its border, and the room at the end of the scroll stays inside
-            &:has(~ :where([pgs~="modal-dialog-content-footer"])) { padding-bottom: calc(var(--modal-content-padding) / 2); }
+            &:has(~ :where([pgs~="modal-dialog-content-footer"])) { padding-bottom: calc(var(--modal-dialog-content-padding) / 2); }
         }
+
+        // under a header: the room the header no longer keeps under its border (see the header above)
+        :where([pgs~="modal-dialog-content-header"]) ~ :where([pgs~="modal-dialog-content-scroll"]) { padding-top: calc(var(--modal-dialog-content-padding) / 2); }
 
         //#### FOOTER
         // the actions of the panel (a Cancel, a confirm), under the part that scrolls and always in view: the
         // mirror of the header, a row on the right that wraps on a narrow screen
         :where([pgs~="modal-dialog-content-footer"]) {
-            --modal-footer-gap: var(--gap-details);
-            @include row(wrap, var(--modal-footer-gap));
+            --modal-dialog-content-footer-gap: var(--gap-details);
+            @include row(wrap, var(--modal-dialog-content-footer-gap));
             justify-content: flex-end;
             align-items: center;
             flex-shrink: 0;
             border-top: var(--border-width) var(--border-color) var(--border-style);
-            padding-top: calc(var(--modal-content-padding) / 2);
+            padding-top: calc(var(--modal-dialog-content-padding) / 2);
         }
     }
 
@@ -183,7 +188,7 @@
         z-index: 1;
     }
 
-    //# OPTION
+    //+ OPTION
     //+ TOP LEVEL
     &:where([pgs*="'dialogTopLevel'"]) {
         overflow-y: auto;
@@ -270,7 +275,7 @@
         :where([pgs~="modal-dialog-content"]) { max-width: min(calc(var(--page-width)/2), 100%); }
     }
 
-    //### Full
+    //### FULL
     &:where([pgs*="'dialogFull'"]) {
         :where([pgs~="modal-dialog-content"]) { max-width: 100%; }
     }
@@ -317,8 +322,8 @@
         :where([pgs~="modal-dialog-content"]) {
             width: 100%;
             border-radius: var(--modal-borderRadius) var(--modal-borderRadius) 0 0;
-            padding-top: calc(var(--modal-content-padding) + 1.2rem);
-            padding-bottom: calc(var(--modal-content-padding) + env(safe-area-inset-bottom, 0px));
+            padding-top: calc(var(--modal-dialog-content-padding) + 1.2rem);
+            padding-bottom: calc(var(--modal-dialog-content-padding) + env(safe-area-inset-bottom, 0px));
         }
     }
 

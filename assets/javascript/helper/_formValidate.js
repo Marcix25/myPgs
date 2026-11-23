@@ -11,7 +11,6 @@ function findDataDescendant(root, keys) {
     return null;
 }
 
-
 // the instance of every form: building a second one on the same form replaces the first
 // (see the constructor)
 const INSTANCES = new WeakMap();
@@ -36,6 +35,8 @@ export class PGS_formValidate {
         if (!options || typeof options !== "object" || Array.isArray(options)) {
             throw pgs.helper.invalid("helper.formValidate", "options must be an object");
         }
+        // every option is checked before the form is touched, so an invalid one leaves it as it was
+        this.#validateMessages(options.message);
 
         this.container = form;
         this._rules = [];
@@ -55,14 +56,17 @@ export class PGS_formValidate {
 
         this.container.setAttribute("novalidate", "");
 
-        // a click on a field clears its error. One listener on the form serves every field, the
-        // ones added after this point too, so validate() has nothing to attach and can run any
-        // number of times without stacking listeners
-        this.container.addEventListener("click", event => this.#clearErrorOnClick(event), { signal: this.#controller.signal });
+        // a field clears its error as soon as it is used: a click, a keystroke (input) or a choice made
+        // without the pointer (change, as a select or a file picker fires it). One listener per event
+        // on the form serves every field, the ones added after this point too, so validate() has
+        // nothing to attach and can run any number of times without stacking listeners
+        for (const type of ["click", "input", "change"]) {
+            this.container.addEventListener(type, event => this.#clearErrorOnUse(event), { signal: this.#controller.signal });
+        }
     }
 
     //# DESTROY
-    // removes the listeners the instance added to the form: the click that clears an error and
+    // removes the listeners the instance added to the form: the ones that clear an error and
     // every validator(). The state, the novalidate attribute and the messages stay as they are
     destroy() {
         this.#controller.abort();
@@ -95,8 +99,8 @@ export class PGS_formValidate {
         return { root: this.container, container };
     }
 
-    #clearErrorOnClick(event) {
-        const field = event.target.closest("input, textarea, select");
+    #clearErrorOnUse(event) {
+        const field = event.target.closest?.("input, textarea, select");
         if (!field) return;
 
         // the field that failed, or the fieldset that did when the control is one of its group
@@ -282,7 +286,9 @@ export class PGS_formValidate {
 
         //## CHECKBOX 
         // required: it can be a single required checkbox (it has to be checked)
-        // or a checkbox group (same name) with at least one box ticked
+        // or a checkbox group (same name) with at least one box ticked. As for the radios, one
+        // required box makes its whole group required, and a box of the group that is not marked
+        // required answers for it too
         const checkboxes = Array.from(container.querySelectorAll('input[type="checkbox"]')).filter((c) => !c.disabled);
         const requiredCheckboxSingles = [];
         const requiredCheckboxGroups = new Map(); // name -> [elements]
@@ -296,15 +302,15 @@ export class PGS_formValidate {
                 continue;
             }
 
-            // grouped by name, so a group answers as one field
-            if (!requiredCheckboxGroups.has(name)) requiredCheckboxGroups.set(name, []);
-            requiredCheckboxGroups.get(name).push(c);
+            // grouped by name, so a group answers as one field: every enabled box of that name
+            if (!requiredCheckboxGroups.has(name)) {
+                requiredCheckboxGroups.set(name, checkboxes.filter(box => this.#help.getGroupName(box) === name));
+            }
         }
         const checkboxGroupErrors = [];
         for (const [name, group] of requiredCheckboxGroups.entries()) {
-            // a real group (>= 2) needs at least one box ticked
-            // a lone box behaves as a single required field, and a group that sits in a fieldset
-            // reports the fieldset, even when only one of its boxes is required
+            // a group needs at least one box ticked; a lone box behaves as a single required field.
+            // A group that sits in a fieldset reports the fieldset
             const anyChecked = group.some((c) => c.checked);
             if (!anyChecked) {
                 checkboxGroupErrors.push(group[0].closest("fieldset") || group[0]);

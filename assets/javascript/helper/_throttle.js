@@ -29,7 +29,17 @@ export function PGS_rafThrottle(callback) {
 export function PGS_watchDocument(callback, options = { childList: true, subtree: true }) {
     if (typeof document === "undefined" || typeof MutationObserver === "undefined") return null;
 
-    const observer = new MutationObserver(PGS_rafThrottle(() => callback()));
+    const throttled = PGS_rafThrottle(() => callback());
+    const observer = new MutationObserver(throttled);
     observer.observe(document.documentElement, options);
+
+    // a change seen just before disconnect() would still call back on the next frame: disconnecting
+    // drops that pending call too
+    const disconnect = observer.disconnect.bind(observer);
+    observer.disconnect = () => {
+        throttled.cancel();
+        disconnect();
+    };
+
     return observer;
 }

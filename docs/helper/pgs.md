@@ -2,7 +2,7 @@
 
 # PGS
 
-The `pgs(root)` function is how every component finds and edits its own markup: it wraps a Document or Element and returns read/write helpers for the pgs, pgs-data and pgs-state attributes, so nothing in the library — or in your own code — needs to hand-write an attribute selector. querySelector/querySelectorAll work on a Document too; every other method needs an Element and throws otherwise.
+The `pgs(root)` function is how every component finds and edits its own markup: it wraps a Document or Element and returns read/write helpers for the pgs, pgs-data and pgs-state attributes, so nothing in the library — or in your own code — needs to hand-write an attribute selector. querySelector/querySelectorAll work on a Document too. On a Document, closest, add, remove, toggle, contains and assigning value throw a TypeError, reading value returns undefined, and state, option and data are undefined. pgs(root) itself throws a TypeError when root is missing or has no querySelector/querySelectorAll.
 
 ## JavaScript API
 
@@ -13,6 +13,8 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 - `instance.remove(...tokens)`: removes the given pgs tokens and returns the instance.
 - `instance.toggle(token, force)`: flips the token, or forces it on/off when force is passed, and returns the resulting boolean state.
 - `instance.contains(token)`: checks whether the component token is present, including its bracket form; contains("button") also matches button['btnMini'].
+- `instance.value`: the raw pgs attribute, or null when there is none; assigning a string replaces it and assigning null removes it.
+- `instance.state(...states)`: the same as instance.state.add(...states), and returns instance.state.
 - `instance.state.add(...states)`: adds one or more pgs-state values.
 - `instance.state.remove(...states)`: removes the given pgs-state values.
 - `instance.state.toggle(state, force)`: flips or forces a pgs-state value and returns the result.
@@ -20,7 +22,8 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 - `instance.state.querySelector(state)`: returns the first descendant carrying the given pgs-state value; also accepts an array or a comma-separated list.
 - `instance.state.querySelectorAll(state)`: returns every matching descendant.
 - `instance.state.closest(state)`: returns the nearest ancestor carrying the given pgs-state value, the element itself included, or null.
-- `instance.option.add(...flags)`: adds a CSS or JavaScript-only boolean flag. add() derives the owner from the flag's own prefix, the lowercase run before the first uppercase letter or a -, and merges into that component's bracket only when the prefix is the component's full name (the icon-* glyphs, and card*, box*, badge*, menu*, logo*, slides*, header* flags such as cardMini, badgeDot, menuVertical); otherwise the flag becomes its own bare pgs token. Every flag with an abbreviated prefix falls in that second group — btn*, mrg*, pad*, brd*, sct*, acc*, drp*, shell*, tgl*, ... — since btn or acc is not the component's own name, so add() cannot derive button or accordion from it. To add a shortened flag into its bracket, call the base pgs(el).add("component['flag']") directly, naming the component. Never touches pgs-data.
+- `instance.state.value`: the raw pgs-state attribute, or null; assigning a string replaces it and assigning null removes it.
+- `instance.option.add(...flags)`: adds a CSS or JavaScript-only boolean flag. add() derives the owner from the flag's own prefix, the lowercase run before the first uppercase letter or a -, and merges into that component's bracket only when the prefix is the component's full name (the icon-* glyphs, and card*, box*, badge*, menu*, logo*, slides*, header* flags such as cardMini, badgeDot, menuVertical); otherwise the flag becomes its own bare pgs token. Every flag with an abbreviated prefix falls in that second group — btn*, mg*, pd*, bd*, sct*, acc*, drp*, shell*, tgl*, ... — since btn or acc is not the component's own name, so add() cannot derive button or accordion from it. To add a shortened flag into its bracket, call the base pgs(el).add("component['flag']") directly, naming the component. Never touches pgs-data.
 - `instance.option.remove(...keys)`: removes a flag by key, bare or nested in a bracket, preserving the rest. Never touches pgs-data.
 - `instance.option.toggle(key, force)`: flips or forces a flag and returns the resulting boolean state. Never touches pgs-data.
 - `instance.option.contains(key)`: checks whether a flag is present, bare or nested in a bracket. Never checks pgs-data.
@@ -29,6 +32,7 @@ The `pgs(root)` function is how every component finds and edits its own markup: 
 - `instance.option.closest(key)`: returns the nearest ancestor carrying that flag, the element itself included, or null.
 - `instance.data.getValueBrackets(key)`: returns the payload inside a key[payload] pgs-data entry, or undefined. Never checks the pgs bracket.
 - `instance.data.setValueBrackets(key, value)`: sets or replaces a single parameterized pgs-data entry. Never touches the pgs bracket.
+- `instance.data.value`: the raw pgs-data attribute, or null; assigning a string replaces it and assigning null removes it.
 - `pgs.registerModules(modules)`: exposes an object of named modules directly as properties of pgs, refusing to silently overwrite one already registered.
 
 ## Related elements

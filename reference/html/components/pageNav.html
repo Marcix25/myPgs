@@ -7,7 +7,7 @@
  * - pageNav: identifies the root initialized by the module; usually the page's own <body>, since the panels it switches are whole pages, not a fragment of one.
  * - pageNav-list: identifies one navigation list of links; write as many as the layout needs, they all stay in sync.
  * - pageNav-list-item: identifies a link, whose href="#name" names the panel it selects.
- * - pageNav-panels: identifies the wrapper around every panel.
+ * - pageNav-panels: identifies the wrapper around every panel. Until the module has marked a panel active, every panel is hidden and the wrapper shows a light band sweeping across it instead of standing empty, a sign the page is still loading (still, with no sweep, for a visitor who asked for reduced motion).
  * - pageNav-panels-content: identifies one panel, addressed by its pageNavHash. Hidden by default, with no [hidden] to write by hand — give its own content's layout to an inner wrapper, not to this element.
  * - pageNav-back: the button that goes from a panel back to the list, shown only by pageNavDrillDown in its narrow layout while a panel is open; write it as a <button type="button">, anywhere inside the root (above the panels, or in each one). It takes the browser's own back when the list is the entry before the panel, so the history keeps one entry per screen; a panel opened from a link elsewhere (a bookmark, a shared link) has no list before it, so the entry turns into the list in place. Back on the list, the page is scrolled where the list was left.
  * - pageNav-home: marks what belongs to the first screen of pageNavDrillDown together with the list, such as the sidebar that holds it or a title above it: in the narrow layout it hides with the list while a panel is open.
@@ -24,7 +24,7 @@
  *
  * @api
  * - pgs.pageNav.init(root): initializes pageNav inside the specified Document or Element, including the root when it is pageNav.
- * - pgs.pageNav.api(element): returns the instance associated with an initialized pageNav root.
+ * - pgs.pageNav.api(element): returns the instance associated with an initialized pageNav root. Besides its methods, the instance carries element: the pageNav root; panels: the pageNav-panels wrapper.
  * - instance.select(name): navigates to the panel with that pageNavHash (or id), the same as following a link to #name, and applies it right away; throws a TypeError when no panel has that name.
  * - instance.getCurrent(): returns the zero-based index of the currently visible panel, in document order.
  * - instance.getCurrentPanel(): returns the currently visible panel element.
@@ -53,7 +53,7 @@
  * - icon-chevronRight: the chevron at the end of each link on a phone.
  * - icon-chevronLeft: the chevron of the back button.
  *
- * @return Two synchronized link lists above a bordered panel, the visible one always matching the URL hash, then a pageShell with pageNavDrillDown: while the shell stacks its sidebar the list is the first screen and a panel opens on its own with a back button.
+ * @return Two synchronized link lists above the panels, the visible panel always matching the URL hash, then a pageShell with pageNavDrillDown: while the shell stacks its sidebar the list is the first screen and a panel opens on its own with a back button.
  */
 -->
 

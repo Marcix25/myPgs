@@ -30,6 +30,11 @@ function PGS_stepTabs_build(tabsWizard) {
     const eventController = new AbortController();
     const { signal } = eventController;
 
+    // a step takes the focus when the wizard moves to it, which a section only can with a tabindex: -1 keeps
+    // it out of the Tab order. One the author wrote stays; the ones added here go again with destroy()
+    const addedTabindex = allTab.filter(tab => !tab.hasAttribute("tabindex"));
+    addedTabindex.forEach(tab => tab.setAttribute("tabindex", "-1"));
+
     //## CREATE DOTS
     const tabDots = [];
     if (dots) {
@@ -91,6 +96,9 @@ function PGS_stepTabs_build(tabsWizard) {
         tabDots.forEach((dot, i) => {
             pgs(dot).state.toggle("active", i === current);
             pgs(dot).state.toggle("completed", i < current);
+            // the dot of the current step is announced as such, as the dot of a slide in view is
+            if (i === current) dot.setAttribute("aria-current", "step");
+            else dot.removeAttribute("aria-current");
         });
     }
 
@@ -111,7 +119,8 @@ function PGS_stepTabs_build(tabsWizard) {
         updateDots();
 
         if (scroll && !tabsWizard.closest("dialog")) {
-            tab.focus();
+            // the smooth scroll below brings the wizard into view: a focus that scrolled too would jump there first
+            tab.focus({ preventScroll: true });
             tabsWizard.scrollIntoView({ behavior: "smooth", block: "start" });
         }
 
@@ -145,6 +154,7 @@ function PGS_stepTabs_build(tabsWizard) {
         if (API.get(tabsWizard) !== api) return;
         eventController.abort();
         observer.disconnect();
+        addedTabindex.forEach(tab => tab.removeAttribute("tabindex"));
         API.delete(tabsWizard);
     };
 
@@ -160,7 +170,8 @@ function PGS_stepTabs_build(tabsWizard) {
             goTo(index, scroll);
         },
         // at either end there is nowhere to go: the index does not change, so nothing is dispatched
-        next: () => { if (current < total - 1) goTo(current + 1); },
+        // like the next button: a locked step holds it too
+        next: () => { if (current < total - 1 && !pgs(allTab[current]).state.contains("locked")) goTo(current + 1); },
         prev: () => { if (current > 0) goTo(current - 1); },
         toggleLock: (step, lock = true) => {
             if (!Number.isInteger(step) || step < 0 || step >= total) {

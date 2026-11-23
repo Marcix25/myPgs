@@ -21,14 +21,14 @@
  * - column: organizes text contained in the sidebars.
  * - gapElements: applies element spacing in the main sections.
  *
- * @return Eight page-shell HTML configurations with two, one, or no sidebars, with shellAsideScroll, its shadow variant, or neither.
+ * @return Eight page-shell HTML configurations with one or two sidebars, with shellAsideScroll, its shadow variant, or neither.
  */
 -->
 
 
 <demo demo-h2="Page Shell" demo-description="The shell without shellAsideScroll: every sidebar scrolls with the page, like any other column."></demo>
 
-<demo demo-h3="Not scroll - Two sidebars" demo-description="Shell with a sidebar on both sides of the main content."></demo>
+<demo demo-h3="Without scroll - Two sidebars" demo-description="Shell with a sidebar on both sides of the main content."></demo>
 <section demo="component">
     <div pgs="pageShell">
         <aside pgs="pageShell-aside">
@@ -52,7 +52,7 @@
 </section>
 
 
-<demo demo-h3="Not scroll - Single sidebar" demo-description="Default-width shell with a single sidebar before the main content."></demo>
+<demo demo-h3="Without scroll - Single sidebar" demo-description="Default-width shell with a single sidebar before the main content."></demo>
 <section demo="component">
     <div pgs="pageShell">
         <aside pgs="pageShell-aside">
@@ -70,7 +70,7 @@
 </section>
 
 
-<demo demo-h3="Not scroll - Sidebar after content" demo-description="Shell with the sidebar placed after the main content instead of before it."></demo>
+<demo demo-h3="Without scroll - Sidebar after content" demo-description="Shell with the sidebar placed after the main content instead of before it."></demo>
 <section demo="component">
     <div pgs="pageShell">
 
@@ -89,7 +89,7 @@
 </section>
 
 
-<demo demo-h3="Not scroll - Full width" demo-description="shellFullPage expands the shell to the full available width, with a single sidebar before the main content."></demo>
+<demo demo-h3="Without scroll - Full width" demo-description="shellFullPage expands the shell to the full available width, with a single sidebar before the main content."></demo>
 <section demo="component">
     <div pgs="pageShell['shellFullPage']">
         <aside pgs="pageShell-aside">
@@ -104,7 +104,7 @@
             </section>
 
 
-<demo demo-h3="Not scroll - Inside a section" demo-description="shellNested drops the padding of the shell on the sides, for a shell inside an element that already has its own: here a section, so the sidebar and the content line up with its heading."></demo>
+<demo demo-h3="Without scroll - Inside a section" demo-description="shellNested drops the padding of the shell on the sides, for a shell inside an element that already has its own: here a section, so the sidebar and the content line up with its heading."></demo>
 <section demo="component">
     <section pgs="section">
         <h2>Account</h2>
@@ -126,10 +126,6 @@
 
 
 <demo demo-h2="Page Shell - Scroll" demo-description="The same shell with shellAsideScroll, so a sidebar sticks beside the content and scrolls on its own, plus its shadow variant."></demo>
-
-        </main>
-    </div>
-</section>
 
 
 <demo demo-h3="Single sidebar" demo-description="Default-width shell with a single sidebar before the main content, scrolling on its own with shellAsideScroll."></demo>

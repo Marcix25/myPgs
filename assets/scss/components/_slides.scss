@@ -23,13 +23,13 @@
     isolation: isolate;
     height: max-content;
     justify-content: center;
-    --slides-sizeMaskImage: 40px;
+    --slides-maskSize: 40px;
     --slides-width: calc(var(--page-width) /2.3);
     --slides-width-tablet: 100%;
     --slides-width-mobile: 100%;
     // the generated arrows are 36px at the usual root size, and the track keeps that much room above it (plus the paragraph gap)
-    --slides-arrowSize: 3.6rem;
-    --slides-arrowsSpace: calc(var(--slides-arrowSize) + var(--gap-paragraphs));
+    --slides-arrows-size: 3.6rem;
+    --slides-arrows-space: calc(var(--slides-arrows-size) + var(--gap-paragraphs));
 
     //## CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
@@ -79,7 +79,8 @@
     // its buttons are then laid out as the flex items of the slides, like a hand-written pair would be
     :where([pgs~="_slides-arrows"]) { display: contents; }
 
-    // the arrows a hand-written pair leaves in the flow: one line above the track, at the right
+    // the generated arrows, wherever they stay in the flow (next to a hand-written arrow, see below): one line
+    // above the track, at the right
     :where([pgs~="_slides-arrows-prev"]),
     :where([pgs~="_slides-arrows-next"]) {
         position: relative;
@@ -96,7 +97,7 @@
     // hand-written arrow (the author's, it stays in the flow) nor for slidesArrowsCenter (it lays them
     // over the slides)
     &:not(:has([pgs~="slides-prev"], [pgs~="slides-next"])):not([pgs*="'slidesArrowsCenter'"]) {
-        :where([pgs~="slides-container"]) { margin-top: var(--slides-arrowsSpace); }
+        :where([pgs~="slides-container"]) { margin-top: var(--slides-arrows-space); }
 
         :where([pgs~="_slides-arrows"]) {
             position: absolute;
@@ -110,8 +111,8 @@
         :where([pgs~="_slides-arrows-prev"]),
         :where([pgs~="_slides-arrows-next"]) {
             margin: unset;
-            inline-size: var(--slides-arrowSize);
-            block-size: var(--slides-arrowSize);
+            inline-size: var(--slides-arrows-size);
+            block-size: var(--slides-arrows-size);
         }
     }
 
@@ -131,21 +132,8 @@
         flex-wrap: wrap;
         gap: var(--gap-details);
 
-        :where([pgs~="_slides-dots-dot"]) { cursor: pointer; }
-    }
-
-    // the module tags every child of the row, a hand-written one included, with _slides-dots-dot
-    :where([pgs~="_slides-dots"]) {
-        width: 80%;
-        margin-top: 1px;
-        max-width: max-content;
-        z-index: 3;
-        position: absolute;
-        bottom: 0;
-        transform: translateY(calc(100% + var(--gap-paragraphs)));
-
-        @media (prefers-reduced-motion: no-preference) { transition: all 300ms; }
-
+        // the module tags every child of the row, a hand-written one included, with _slides-dots-dot,
+        // so both rows draw the same dots
         :where([pgs~="_slides-dots-dot"]) {
             width: 1.5rem;
             aspect-ratio: 1;
@@ -166,6 +154,19 @@
                 &:hover { background-color: var(--hover-background); }
             }
         }
+    }
+
+    // the generated row: placed under the track, in the room kept for it
+    :where([pgs~="_slides-dots"]) {
+        width: 80%;
+        margin-top: 1px;
+        max-width: max-content;
+        z-index: 3;
+        position: absolute;
+        bottom: 0;
+        transform: translateY(calc(100% + var(--gap-paragraphs)));
+
+        @media (prefers-reduced-motion: no-preference) { transition: all 300ms; }
     }
 
     //+ slidesEdge
@@ -259,11 +260,11 @@
             // has inherits: false); the root only decides, through :has(), whether the edge slide is in view
             // fade on the left until the first slide is reached
             &:where(:not(:has([pgs~="slides-container-slide"]:first-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) {
-                --slides-maskStart: var(--slides-sizeMaskImage);
+                --slides-maskStart: var(--slides-maskSize);
             }
 
             // fade on the right until the last slide is reached
-            &:where(:not(:has([pgs~="slides-container-slide"]:last-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-sizeMaskImage); }
+            &:where(:not(:has([pgs~="slides-container-slide"]:last-child[pgs-state~="view"]))) :where([pgs~="slides-container"]) { --slides-maskEnd: var(--slides-maskSize); }
         }
     }
 }

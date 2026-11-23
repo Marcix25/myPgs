@@ -74,7 +74,8 @@ function initializeSummary(summary, initialMessages) {
 
     if (!content.id) content.id = pgs.helper.uniqueId("summary-content");
 
-    button.type ||= "button";
+    // .type reads "submit" on a button with no type, so only the attribute tells it was left out
+    if (button.matches("button") && !button.hasAttribute("type")) button.type = "button";
     button.setAttribute("aria-controls", content.id);
 
     function isOpen() {

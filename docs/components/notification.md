@@ -2,11 +2,11 @@
 
 # Notification
 
-Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only notificationBell, a plain button: there can be as many as the page needs, and every one of them opens and closes the same single panel. pgs.notification builds that panel, a modal (see Modal), the first time a notification arrives or a bell is clicked, so nothing else is written on the page. Opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. With no notificationBell on the page the notifications are still kept, but nothing can open the panel, so a warning is written to the console. Split from Toast, which is ephemeral and auto-dismissing. Both are the shared alert card underneath (see Alerts): this component only manages the group around it. Full JSON field list is under @pgs-data "notification"; full JS options list is under each @api method below. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine (see Alerts), both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on a notification element right before it is removed, whether by its own dismiss button or by deleteAll() below (detail: element, id, type, title, description).
+Notification markup, configuration, behavior, and usage example. A persistent, manually-dismissed panel of messages. Author only notificationBell, a plain button: there can be as many as the page needs, and every one of them opens and closes the same single panel. pgs.notification builds that panel, a modal (see Modal), the first time a notification arrives or a bell is clicked, so nothing else is written on the page. Opening any other dialog on the page (e.g. the mobile menu) closes it automatically, and vice versa. With no notificationBell on the page the notifications are still kept, but nothing can open the panel, so a warning is written to the console. Split from Toast, which is ephemeral and auto-dismissing. Both are the shared alert card underneath (see Alerts): this component only manages the group around it. Every JSON field is annotated in the PGS Data fields block, and every JS option in the JavaScript Usage example. The JSON form and the JS options now use the same names; the previous message and title-close keys are still accepted as aliases. Two custom events are dispatched, owned by the shared alert engine (see Alerts), both bubbling: pgs:alert:buttonClick on a buttons[] element when clicked (detail: element, id, buttonId, type, title, description, link; cancelable — call event.preventDefault() to stop a link's navigation and finish async work first), and pgs:alert:close on a notification element right before it is removed, whether by its own dismiss button or by deleteAll() below (detail: element, id, type, title, description).
 
 ## PGS
 
-- `notificationLoad`: creates one or more notifications from comma-separated JSON objects on page load; see @pgs-data "notification" for every accepted field.
+- `notificationLoad`: creates one or more notifications from comma-separated JSON objects on page load; every accepted field is in the PGS Data fields block.
 - `notificationBell`: a plain button that opens and closes the notification panel each time it is clicked. Flags in its bracket (dialogLeft, dialogRight, dialogTop, dialogBottom, dialogCenter) say where the panel opens when this bell is the one clicked; an axis it leaves out keeps the default, and the size is never the bell's choice. The JavaScript gives it aria-haspopup and keeps aria-expanded in step with the panel, for every bell on the page.
 - `notificationBell-counter`: write one yourself, bare like this, inside notificationBell to place it yourself; the module leaves it alone and never generates a second one.
 
@@ -20,16 +20,16 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 
 ## PGS Data
 
-- `notification`: JSON object (or several, comma-separated) read by notificationLoad on page load — every field, with its accepted values and its default, is annotated in the reference below.
+- `notification`: JSON object (or several, comma-separated) read by notificationLoad on page load. Every field, with its accepted values and its default, is annotated in the PGS Data fields block.
 
 ## JavaScript API
 
 - `pgs.notification.init(root)`: scans root for notificationLoad and initializes them (including the bell counter); runs automatically on page load and again via pgs.helper.init(root) for content added later. Opening/closing the dialog itself is handled by pgs.modal (see Modal).
 - `pgs.notification.trigger(root)`: alias of pgs.notification.init(root).
-- `pgs.notification.error(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
-- `pgs.notification.success(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
-- `pgs.notification.info(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
-- `pgs.notification.warning(optionsOrTitle)`: a title string, or an options object — see the full field reference in the commented example below.
+- `pgs.notification.error(optionsOrTitle)`: a title string, or an options object — every option is annotated in the JavaScript Usage example.
+- `pgs.notification.success(optionsOrTitle)`: a title string, or an options object — every option is annotated in the JavaScript Usage example.
+- `pgs.notification.info(optionsOrTitle)`: a title string, or an options object — every option is annotated in the JavaScript Usage example.
+- `pgs.notification.warning(optionsOrTitle)`: a title string, or an options object — every option is annotated in the JavaScript Usage example.
 - `pgs.notification.neutral(optionsOrTitle)`: the plain notification, same arguments as the others; it has no title or glyph of its own, so pass at least a description.
 - `pgs.notification.deleteAll()`: closes every notification in the panel by calling each one's own close, the same as clicking its dismiss button — so each still dispatches its own pgs:alert:close.
 
@@ -67,6 +67,9 @@ Notification markup, configuration, behavior, and usage example. A persistent, m
 - `modal-dialog-content`: identifies the JS-generated styled content area inside the dialog, wrapping notifications.
 - `btnMini`: keeps the generated panel-close button small; see Button.
 - `dialogTop`: the default height of the panel, and a flag a notificationBell can carry; see Modal.
+- `dialogSmall`: the width of the panel, written by pgs.notification on the modal it builds; see Modal.
+- `dialogAnimationRight`: the panel slides in from the right, written with dialogRight (the default); see Modal.
+- `dialogAnimationLeft`: the panel slides in from the left, written instead when the bell clicked carries dialogLeft; see Modal.
 - `icon-circleXmark`: the glyph of the error type.
 - `icon-circleCheck`: the glyph of the success type.
 - `icon-circleInfo`: the glyph of the info type.

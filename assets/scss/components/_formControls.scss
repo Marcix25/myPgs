@@ -10,16 +10,16 @@
     $space: 2px;
     --range-size: 2.0rem;
     // the whole width of the thumb, its border included
-    --range-thumbWidth: calc(var(--range-size) + #{$space} + var(--border-width) * 2);
+    --range-thumb-width: calc(var(--range-size) + #{$space} + var(--border-width) * 2);
     --range-background: var(--clickable-background);
-    --range-background-progress: var(--twoState-background);
-    --range-background-thumb: var(--twoState-color);
-    --range-background-thumb-hover: var(--hover-color);
+    --range-progress-background: var(--twoState-background);
+    --range-thumb-background: var(--twoState-color);
+    --range-thumb-background-hover: var(--hover-color);
     // where the thumb is, from 0 to 1: written on the slider by pgs.range (components/_range.js) as the value moves, 0 until it has run. The thumb travels the track less its own width and the space on both sides, and the painted part stops at its middle
     --_range-progress: 0;
     // the thumb sits $space from the outer edge of the track, that is inside its border
     --_range-inset: calc(#{$space} - var(--border-width));
-    --_range-fill: calc(var(--_range-inset) + var(--_range-progress) * (100% - var(--range-thumbWidth) - var(--_range-inset) * 2) + var(--range-thumbWidth) / 2);
+    --_range-fill: calc(var(--_range-inset) + var(--_range-progress) * (100% - var(--range-thumb-width) - var(--_range-inset) * 2) + var(--range-thumb-width) / 2);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -27,8 +27,8 @@
     // as tall as the rail of toggle, which draws its border outside its size
     height: calc(var(--range-size) + var(--border-width) * 2);
     padding-inline: var(--_range-inset);
-    color: var(--range-background-thumb);
-    background: linear-gradient(to right, var(--range-background-progress) var(--_range-fill), var(--range-background) var(--_range-fill));
+    color: var(--range-thumb-background);
+    background: linear-gradient(to right, var(--range-progress-background) var(--_range-fill), var(--range-background) var(--_range-fill));
     border: var(--border-width) var(--border-style) var(--clickable-borderColor);
     outline: none;
     border-radius: var(--borderRadius-paragraphs);
@@ -37,7 +37,7 @@
     cursor: pointer;
 
     @media (hover: hover) and (pointer: fine) {
-        &:hover:where(:not(:disabled)) { color: var(--range-background-thumb-hover); }
+        &:hover:where(:not(:disabled)) { color: var(--range-thumb-background-hover); }
     }
 
     //## thumb (WebKit) (Firefox)
@@ -135,12 +135,12 @@
     // (size="1"): it opens as a drop-down then
     &:not([multiple]),
     &[size="1"] {
-        --select-chevronInset: var(--select-padding);
-        --select-chevronSize: .5rem;
-        padding-right: calc(var(--select-chevronInset) * 2 + var(--select-chevronSize) * 2);
+        --select-chevron-inset: var(--select-padding);
+        --select-chevron-size: .5rem;
+        padding-right: calc(var(--select-chevron-inset) * 2 + var(--select-chevron-size) * 2);
         background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
-        background-position: calc(100% - var(--select-chevronInset) - var(--select-chevronSize)) 50%, calc(100% - var(--select-chevronInset)) 50%;
-        background-size: var(--select-chevronSize) var(--select-chevronSize);
+        background-position: calc(100% - var(--select-chevron-inset) - var(--select-chevron-size)) 50%, calc(100% - var(--select-chevron-inset)) 50%;
+        background-size: var(--select-chevron-size) var(--select-chevron-size);
         background-repeat: no-repeat;
     }
 

@@ -28,7 +28,7 @@ function getCompactBreakpoint(header) {
 const OVERFLOW_TOLERANCE = 2;
 
 //# RESIZE
-// a header only reaches here once it holds a header-element (see getReadyHeaders). Every observer and
+// a header only reaches here once it holds a header-element (see initHeader). Every observer and
 // throttle it starts is released by the function it returns
 function initResize(header) {
     const headerElements = pgs(header).querySelectorAll("header-element");
@@ -63,7 +63,7 @@ function initResize(header) {
             setCompact(overflows);
         }
 
-        //## Resize
+        //## RESIZE
         // throttled to avoid ResizeObserver loop warnings
         const scheduleCompact = pgs.helper.rafThrottle(() => compact(selectHeader));
 
@@ -74,7 +74,7 @@ function initResize(header) {
         const childObserver = new MutationObserver(scheduleCompact);
         childObserver.observe(selectHeader, { childList: true, subtree: true });
 
-        //## After load
+        //## AFTER LOAD
         // the first measurement can come before the page is done: a web font still loading or a menu
         // not yet in its final shape make the full layout look wider than it is. The header learns
         // too big a width, goes compact, and from there nothing changes its size to make it look
@@ -97,27 +97,22 @@ function initResize(header) {
             loaded.abort();
         });
 
-        //## initial check
+        //## INITIAL CHECK
         compact(selectHeader);
     });
 
     return () => releases.forEach(release => release());
 }
 
-
 //# HEADER HEIGHT
 // returns the throttled measure, so the module can ask for another one when a sibling header goes
 // away, and the function that releases the observer and the throttle
 function initHeight(header, signal) {
-    //## GET HEADER HEIGHT ELEMENT
-    function getHeaderHeightElement(header) {
-        const isCompactBottom = window.getComputedStyle(header).getPropertyValue("--header-compactBottom-active").trim() === "1";
-        return isCompactBottom ? pgs(header).querySelector("header-element") || header : header;
-    }
-
-    // FOR --_header-height and --_header-heightScroll
+    //## PRIMARY HEADER
+    // the one header that publishes --_header-height and --_header-heightScroll: the headerMain
+    // one, or else the first live header in the page
     function getPrimaryHeader() {
-        const headers = getReadyHeaders();
+        const headers = getLiveHeaders();
         return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
     }
 
@@ -129,7 +124,7 @@ function initHeight(header, signal) {
         if (getPrimaryHeader() !== header) return;
 
         const wordPressBar = parseInt(window.getComputedStyle(document.documentElement).marginTop, 10) || 0;
-        const height = getHeaderHeightElement(header).offsetHeight + wordPressBar;
+        const height = header.offsetHeight + wordPressBar;
         const scrollHeight = pgs(header).state.contains("hiddenByScroll") ? 0 : height;
 
         document.documentElement.style.setProperty("--_header-height", `${height}px`);
@@ -159,13 +154,11 @@ function initHeight(header, signal) {
     };
 }
 
-
-
-
-
 //# SCROLL
 // hides the header while the reader scrolls down and brings it back on the way up, on screens
 // up to 900px tall, where a pinned header costs too much of the page
+const SCROLL_MAX_HEIGHT = 900;
+
 function initScroll(header, signal) {
     if (!pgs(header).option.contains("headerScroll")) return;
 
@@ -177,17 +170,29 @@ function initScroll(header, signal) {
         pgs(header).state.toggle("hiddenByScroll", hidden);
     }
 
+    // a window that grows past the limit while the header is hidden would otherwise keep it hidden
+    // for good, since nothing below brings it back on a tall screen
+    function showIfTall() {
+        if (window.innerHeight > SCROLL_MAX_HEIGHT && pgs(header).state.contains("hiddenByScroll")) setHidden(false);
+    }
+
     window.addEventListener("scroll", () => {
         const currentScrollY = window.scrollY;
 
-        if (window.innerHeight <= 900) {
-            setHidden(currentScrollY >= 80 && currentScrollY > lastScrollY);
-        }
+        if (window.innerHeight <= SCROLL_MAX_HEIGHT) setHidden(currentScrollY >= 80 && currentScrollY > lastScrollY);
+        else showIfTall();
 
         lastScrollY = currentScrollY;
     }, { passive: true, signal });
-}
 
+    window.addEventListener("resize", showIfTall, { signal });
+
+    // destroy() gives the header back as it found it: no inline transform, no hiddenByScroll
+    signal.addEventListener("abort", () => {
+        headerElements.forEach(element => element.style.transform = "");
+        pgs(header).state.remove("hiddenByScroll");
+    }, { once: true });
+}
 
 //# PRELOAD
 // --_header-height and --_header-heightScroll have a "dummy preload" default in the stylesheet, so a
@@ -195,12 +200,11 @@ function initScroll(header, signal) {
 // that room for good, under the footer, the toast and the modal: with no header in the document
 // the properties are published as 0 instead, and a header that arrives later measures them again
 function publishPreload() {
-    if (typeof document === "undefined" || getReadyHeaders().length) return;
+    if (typeof document === "undefined" || getLiveHeaders().length) return;
 
     document.documentElement.style.setProperty("--_header-height", "0px");
     document.documentElement.style.setProperty("--_header-heightScroll", "0px");
 }
-
 
 //# INSTANCES
 const API = new WeakMap();
@@ -276,13 +280,16 @@ function initHeader(header) {
     return api;
 }
 
-// a header is only ready once it holds a header-element, which is where every measurement happens
-function getReadyHeaders() {
-    return Array.from(pgs(document).querySelectorAll("header")).filter(header => pgs(header).querySelector("header-element"));
+// the headers in the page that have a live instance, in document order. A header is only built once
+// it holds a header-element, which is where every measurement happens, and one whose destroy() was
+// called no longer counts even while it stays in the page, so what it published goes to another
+// header or back to 0
+function getLiveHeaders() {
+    return Array.from(pgs(document).querySelectorAll("header")).filter(header => API.has(header));
 }
 
 function PGS_header_init(root = document) {
-    pgs.helper.roots(root, "header").forEach(header => {
+    pgs.helper.roots(root, "header", "header.init").forEach(header => {
         STOPPED.delete(header);
         initHeader(header);
     });

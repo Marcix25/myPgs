@@ -6,13 +6,13 @@ pgs.helper gathers the small functions the library itself is built on, public so
 
 ## JavaScript API
 
-- `pgs.helper.roots(root, token)`: the elements inside the given Document or Element that carry the token, the root itself first when it carries it too; token also accepts an array. Throws a TypeError when root is neither a Document nor an Element.
+- `pgs.helper.roots(root, token, scope)`: the elements inside the given Document or Element that carry the token, the root itself first when it carries it too; token also accepts an array or a comma-separated string. Throws a TypeError when root is neither a Document nor an Element, whose message names scope, the call that was made ("menu.init"; "helper.roots" when it is left out).
 - `pgs.helper.directChildren(parent, token)`: the children of parent, not the deeper descendants, that carry the token or any of the tokens in an array.
 - `pgs.helper.directChild(parent, token)`: the first of them, or null.
 - `pgs.helper.uniqueId(prefix)`: "prefix-1", "prefix-2" and so on, one counter per prefix, for the ids a script generates.
 - `pgs.helper.dispatch(target, name, detail, options)`: dispatches a CustomEvent that bubbles and whose detail always carries element, the target; pass { cancelable: true } only for an event whose default action the listener may stop. Returns the event.
 - `pgs.helper.rafThrottle(callback)`: returns a function that runs the callback at most once per animation frame, with the arguments of the last call; its cancel() drops a call that has not run yet.
-- `pgs.helper.watchDocument(callback, options)`: calls back once per frame while nodes arrive in the document, for a script that has to find markup added later. Returns the MutationObserver, so it can be disconnected, or null when there is no document.
+- `pgs.helper.watchDocument(callback, options)`: calls back once per frame while nodes arrive in the document, for a script that has to find markup added later. Returns the MutationObserver, so it can be disconnected (which also drops a call still waiting for its frame), or null when there is no document.
 - `pgs.helper.onDocumentReady(callback)`: runs the callback once the DOM is parsed, straight away when it already is; does nothing without a document.
 - `pgs.helper.escapeHtml(value)`: the text with & < > " ' turned into entities, for a string that goes into innerHTML.
 - `pgs.helper.formatText(value)`: escapeHtml, then **bold** as strong and line breaks as br, the same small subset the alert card accepts.

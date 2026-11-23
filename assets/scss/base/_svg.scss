@@ -1,5 +1,7 @@
-// Intentionally not imported by index.scss: the maintainer keeps this file for the documentation
-// generator. The --svg-color-N defaults below only apply when an author imports it.
+// Intentionally not imported by index.scss. scripts/generate-component-docs.js reads every file under
+// assets/scss: this one is the source it pairs with reference/html/base/svg.html (same name), and the
+// only place --svg-color-1 and --svg-color-2 are written out, so the CSS Variables list of the svg page
+// comes from here. The --svg-color-N defaults below only apply when an author imports it
 
 //# SVG Change Color
 html:has([pgs~="svgChangeColor"]) {

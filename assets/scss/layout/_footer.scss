@@ -11,7 +11,7 @@
     --footer-background: var(--color-box);
     --footer-colorScheme: inherit;
     --footer-paddingBlock: calc(var(--gap-sections) / 3);
-    --footer-titleSize: 2rem;
+    --footer-title-fontSize: 2rem;
     --footer-borderColor: var(--color-boxDark-transparent);
     --footer-legal-fontSize: 1.3rem;
     background: var(--footer-background);
@@ -48,7 +48,7 @@
     //# TOP
     :where([pgs~="footer-top"]) {
         padding-block: var(--footer-paddingBlock);
-        --heading-size-h2: var(--footer-titleSize);
+        --heading-size-h2: var(--footer-title-fontSize);
         --heading-size-h3: var(--font-size-text);
     }
 

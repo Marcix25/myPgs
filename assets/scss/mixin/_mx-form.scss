@@ -2,7 +2,7 @@
 @use "mx-responsive" as *;
 @use "mx-elements" as *;
 
-//= FORM 
+//= FORM
 //# REQUIRED & DISABLED
 //## REQUIRED
 @mixin required() {
@@ -48,12 +48,12 @@
 // the same label written with its own token (legend), options included: legend['labelBox']
 @mixin label() {
     --label-borderRadius: var(--borderRadius-paragraphs);
-    --label-left: var(--label-borderRadius);
+    --label-offsetInline: var(--label-borderRadius);
     // the padding is read here too: a field sets it on its label, which has no box
     --label-paddingInline: var(--padding-paragraphs);
     --label-paddingBlock: 0px;
     --label-color: var(--color-black);
-    --label-size: 1.1em;
+    --label-fontSize: 1.1em;
     --label-weight: var(--font-weight-bold);
     // the room between the label and its control, the same inside a wrapper and next to the control
     --label-gap: var(--gap-details);
@@ -67,7 +67,7 @@
     width: fit-content;
     max-width: 100%;
     margin-bottom: var(--label-gap);
-    font-size: var(--label-size);
+    font-size: var(--label-fontSize);
     font-weight: var(--label-weight);
 
 
@@ -81,8 +81,10 @@
     &:where(:has(+ [disabled], > [disabled])) { @include disabled(); }
 
     //## hidden
-    // not a legend: what follows it is the content of its fieldset, not a control of its own
-    &:not(legend):has([hidden], + [hidden], [pgs~="hidden"], + [pgs~="hidden"], [type="hidden"], + [type="hidden"]) { display: none !important; }
+    // the control it wraps or the one right after it is hidden, never any other hidden element inside it
+    // (an icon, a span the script toggles). Not a legend: what follows it is the content of its fieldset,
+    // not a control of its own
+    &:not(legend):has(:is(input, select, textarea):is([hidden], [pgs~="hidden"], [type="hidden"]), + :is([hidden], [pgs~="hidden"], [type="hidden"])) { display: none !important; }
 
     //## required
     // only the control right after the label, or inside the element right after it: a required control
@@ -114,8 +116,8 @@
     // are written. labelTabNoGap is the old name of the same tab
     &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
         --label-gap: 0px;
-        max-width: calc(100% - (var(--label-left)*2));
-        transform: translateX(var(--label-left)) translateY(calc(var(--label-borderWidth) + 0.2px));
+        max-width: calc(100% - (var(--label-offsetInline)*2));
+        transform: translateX(var(--label-offsetInline)) translateY(calc(var(--label-borderWidth) + 0.2px));
         padding-bottom: 0;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -125,14 +127,15 @@
 
 //### LABEL - checkbox radio
 // the label of a checkbox or a radio, for the one that holds the control and for the ones inside a group
-@mixin labelCheckboxAndRadio() {
-    --checkboxRadio-labelColor: var(--color-black);
+// $name is the token that includes it (checkbox, radio, toggle), so the color is --checkbox-label-color and so on
+@mixin labelCheckboxAndRadio($name) {
+    --#{$name}-label-color: var(--color-black);
 
     &:where(label),
     :where(label) {
         -webkit-user-select: none;
         user-select: none;
-        color: var(--checkboxRadio-labelColor);
+        color: var(--#{$name}-label-color);
         position: relative;
         text-align: left;
         line-height: var(--checkbox-size, var(--radio-size));
@@ -195,7 +198,6 @@
     &:where([type="password"]) { font-family: initial; }
 
     &:where([type="search"], [type="number"], [type="datetime-local"], [type="date"], [type="month"], [type="week"], [type="time"]) {
-        // width: clamp(50px, 100%, 300px);
         display: flex;
 
         &::-webkit-calendar-picker-indicator {
@@ -256,10 +258,10 @@
     --checkbox-size: 2.0rem;
     --checkbox-isChecked: 0;
     --checkbox-icon: var(--icon-glyph-check);
-    --checkbox-iconSize: calc(var(--checkbox-size) * 1.6);
+    --checkbox-icon-size: calc(var(--checkbox-size) * 1.6);
     --checkbox-borderRadius: calc(var(--checkbox-size) / 4);
     --checkbox-gap: calc(var(--gap-paragraphs) /2);
-    --checkbox-borderStyleWidth: var(--border-style) var(--border-width);
+    --checkbox-border: var(--border-style) var(--border-width);
     //
     --checkbox-background: var(--clickable-background);
     --checkbox-background-hover: var(--hover-background);
@@ -292,11 +294,11 @@
         vertical-align: top;
         background: var(--checkbox-background);
         color: var(--checkbox-color);
-        border: var(--checkbox-borderStyleWidth);
+        border: var(--checkbox-border);
         border-color: var(--checkbox-borderColor);
         border-radius: var(--checkbox-borderRadius);
         transition: var(--clickable-transition);
-        --icon-size: var(--checkbox-iconSize);
+        --icon-size: var(--checkbox-icon-size);
 
         //### ICON CHECK
         &::after {
@@ -357,7 +359,7 @@
     --radio-isChecked: 0;
     --radio-dot-size: calc(var(--radio-size) / 1.5);
     --radio-gap: calc(var(--gap-paragraphs) /2);
-    --radio-borderStyleWidth: var(--border-style) var(--border-width);
+    --radio-border: var(--border-style) var(--border-width);
     //
     --radio-background: var(--clickable-background);
     --radio-background-hover: var(--hover-background);
@@ -388,7 +390,7 @@
         vertical-align: top;
         background: var(--radio-background);
         color: var(--radio-color);
-        border: var(--radio-borderStyleWidth);
+        border: var(--radio-border);
         border-color: var(--radio-borderColor);
         transition: var(--clickable-transition);
         border-radius: 50%;
@@ -490,12 +492,15 @@
             --label-border: var(--color-error) var(--border-style);
             --checkbox-background: var(--color-error-soft);
             --radio-background: var(--color-error-soft);
-            --checkboxRadio-labelColor: var(--color-error);
+            --checkbox-label-color: var(--color-error);
+            --radio-label-color: var(--color-error);
+            --toggle-label-color: var(--color-error);
         }
     }
 
-    //option for suggestions: set on the field that fails, or on a descendant of the
-    //fieldset that does, to override its default error title and text
+    // read by the JavaScript only: empty rules, never compiled, that scripts/generate-pgs-map.js reads so
+    // the data keys are listed for the editor suggestions. Set on the field that fails, or on a descendant
+    // of the fieldset that does, to override its default error title and text
     [pgs-data~="formMessageTitle[]"],
     [pgs-data~="formMessage[]"] {}
 }

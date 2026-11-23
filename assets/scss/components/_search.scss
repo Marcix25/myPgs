@@ -6,7 +6,6 @@
     --search-borderRadius: calc(var(--borderRadius-paragraphs) + (var(--search-height) /2));
     --search-background: var(--color-box);
     --search-color: var(--color-black);
-    --search-border: var(--border-width) var(--border-color) var(--border-style);
     --search-borderWidth: var(--border-width);
     --search-borderColor: var(--border-color);
     position: relative;
@@ -27,7 +26,7 @@
         border-bottom-left-radius: 0;
     }
 
-    //+ openUp: the list opens above the form, which squares its top corners instead
+    // openUp (a state): the list opens above the form, which squares its top corners instead
     &[pgs-state~="openUp"]:has([pgs~="search-suggestions"][aria-hidden="false"]) {
         border-radius: 0 0 var(--search-borderRadius) var(--search-borderRadius);
     }
@@ -97,7 +96,7 @@
 
     &[pgs-state~="open"] :where([pgs~="search-suggestions"]) { display: flex; }
 
-    //+ openUp: no room below the form and more above, the list lies over it, joined to its top
+    // openUp (a state): no room below the form and more above, the list lies over it, joined to its top
     &[pgs-state~="openUp"] :where([pgs~="search-suggestions"]) {
         inset: auto calc(var(--search-borderWidth) * -1) calc(100% + var(--listbox-offset));
     }

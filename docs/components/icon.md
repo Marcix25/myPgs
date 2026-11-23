@@ -13,6 +13,7 @@ The glyphs the library draws itself, as inline SVG rather than a font. The token
 - `iconBoxed`: turns the element into the circular surface a glyph sits inside. It is the container and says nothing about what it holds, so a built-in glyph and an icon from any other set sit in it alike.
 - `iconMedium`: sets --icon-size to 1.5em, a preset for a glyph that needs to stand out a little more than the size it inherits from the surrounding text.
 - `iconLarge`: sets --icon-size to 2.25em, the next preset up from iconMedium (the same step of one and a half), for a glyph that has to stand out clearly from the text around it.
+- `iconDuo`: next to icon-hamburgerTwo, the only two-layer glyph, `icon['icon-hamburgerTwo' 'iconDuo']`: draws it as two layers, one bar on ::before and one on ::after, so a component can color or animate each bar on its own. Without it the same glyph draws flat, as one shape.
 - `icon-chevronDown`: chevron pointing down, for anything that expands in place.
 - `icon-check`: tick, for a confirmed or checked state.
 - `icon-close`: cross, for dismissing a surface.

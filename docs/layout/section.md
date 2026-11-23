@@ -19,7 +19,7 @@ Section variants that control width, padding, and specific content treatment whi
 - `sctFull`: inside section's own bracket, identifies a section that spans the full available width.
 - `sctSpecificity`: inside section's own bracket, identifies a section that applies a specific structure to its child.
 - `sctMax`: inside section's own bracket, identifies a section with an extended maximum width.
-- `sctNoPadding`: inside section's own bracket, identifies a section without standard padding.
+- `sctNoPadding`: inside section's own bracket, drops the padding on the sides, so the content reaches the edges of the page column; the width stays capped at --page-width.
 - `sctEdge`: inside section's own bracket, makes the section a full-width row that bleeds off the edge of the screen and lines the text up with the page column on the other side: the text goes in a section-edgeLeft or a section-edgeRight and every other child (an image, a video) takes what the text leaves, never narrower than half of the page. The text block is at most the page width divided by --section-edge-textDivisor and the other children at least the page width divided by --section-edge-mediaDivisor; both are 2 by default and a value below 2 is taken as 2. --section-edge-gap, one page padding by default, is the space between them, which makes the media of a left and of a right section meet at the middle of the screen. Below the page width the text is flush against the edge of the screen.
 - `mainRemoveGap`: inside mainChild's own bracket, pulls the child into the gap main leaves around it: half of the gap above and below, so a section with a background meets the one next to it. It reads --main-gap, and --gap-sections when the child is not inside a main.
 - `mainRemoveGapTop`: inside mainChild's own bracket, the same pull on the top edge only.
@@ -105,7 +105,7 @@ Section applying a specific structure to its child element using sctSpecificity.
 
 ### Query container
 
-container is what hide's containerDown* and containerUp* options and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
+container is what hide's hideContainerDown* and hideContainerUp* options and every container query measure themselves against. Without it the nearest marked ancestor is used instead, and the element reacts to the wrong width.
 
 ```html
 <section pgs="section flex['column' 'gapElements']">
@@ -122,7 +122,7 @@ container['cntNone'] cancels container on the same element, so the utilities ins
 ```html
 <section pgs="section flex['column' 'gapElements']">
     <div pgs="container['cntNone']">
-        <span pgs="box hide['hideContainerDownTablet']">Measures the surrounding page instead of this element.</span>
+        <span pgs="box hide['hideContainerDownTablet']">Measures the enclosing section instead of this element.</span>
     </div>
 </section>
 ```
@@ -219,7 +219,7 @@ Section with an extended maximum width using sctMax.
 
 ### No padding section
 
-Section without the standard padding using sctNoPadding, useful for edge-to-edge images.
+Section without the padding on the sides using sctNoPadding: its content reaches the edges of the page column (still capped at --page-width), for an image that lines up with the column instead of sitting inside the gutter. A row that runs to the edges of the screen is sctFull or sctEdge.
 
 ```html
 <section pgs="section['sctNoPadding'] flex['column' 'gapElements']">

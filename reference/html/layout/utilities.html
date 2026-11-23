@@ -13,9 +13,9 @@
  * - position: positions an element the way the option in its bracket says; written bare it does nothing.
  * - rotate: rotates an element 180 degrees when written bare; a degree option in its bracket picks a different amount instead.
  * - textAlign: aligns text the way the option in its bracket says; written bare it does nothing.
- * - truncate: limits text to one line and adds an ellipsis when it overflows.
+ * - truncate: limits text to one line and adds an ellipsis when it overflows. Write it on the element that holds the text, not on a flex or grid container: there the text becomes an anonymous item of its own and no ellipsis is drawn.
  * - userSelect: allows or prevents text selection depending on the option in its bracket; written bare it does nothing.
- * - zIndex: sets the element's stack order to its own --zIndex property, set inline for the actual number, or picked from the two common shortcuts in its bracket; written bare with none set, it does nothing.
+ * - zIndex: sets the element's stack order to its own --zIndex property, set inline for the actual number, or picked from the options in its bracket (two numbers, ziOne and ziTen, and ziAuto to reset it); written bare with none set, it does nothing.
  *
  * @pgs-options
  * - aspSquare: inside aspect's own bracket, gives it a 1:1 aspect ratio.
@@ -40,9 +40,9 @@
  * - rot270: inside rotate's own bracket, rotates 270 degrees clockwise (90 degrees counter-clockwise).
  * - selNone: inside userSelect's own bracket, prevents text selection.
  * - selText: inside userSelect's own bracket, enables text selection.
- * - taLeft: inside textAlign's own bracket, aligns text to the start of the line.
+ * - taLeft: inside textAlign's own bracket, aligns text to the left edge, whatever the writing direction.
  * - taCenter: inside textAlign's own bracket, centers text.
- * - taRight: inside textAlign's own bracket, aligns text to the end of the line.
+ * - taRight: inside textAlign's own bracket, aligns text to the right edge, whatever the writing direction.
  * - taJustify: inside textAlign's own bracket, stretches text to fill each full line.
  * - taStart: inside textAlign's own bracket, aligns text to the start of the line, which takes a left, center or right alignment off an element that has one of its own.
  * - ziOne: inside zIndex's own bracket, sets --zIndex to 1.
@@ -66,17 +66,17 @@
  * - flexOrderFirst: inside flexChild's own bracket, places a flex item before its siblings.
  * - flexOrderLast: inside flexChild's own bracket, places a flex item after its siblings.
  * - row: arranges demonstration items in a row.
- * - focusRing: shows the shared focus ring when keyboard focus is visible.
- * - motionReduce: removes non-essential animation and transitions when reduced motion is preferred.
- * - skipLink: creates a link that is revealed only when keyboard-focused.
- * - visuallyHidden: hides content visually while keeping it available to assistive technology.
- * - visuallyHiddenFocusable: hides content until it or one of its children receives focus.
+ * - focusRing: shows the shared focus ring when keyboard focus is visible; see General.
+ * - motionReduce: removes non-essential animation and transitions when reduced motion is preferred; see General.
+ * - skipLink: creates a link that is revealed only when keyboard-focused; see General.
+ * - visuallyHidden: hides content visually while keeping it available to assistive technology; see General.
+ * - visuallyHiddenFocusable: hides content until it or one of its children receives focus; see General.
  * - gapSections: separates the demonstration sections.
  * - gapParagraphs: separates items within each demonstration group.
  * - wrap: allows the layout examples to wrap onto multiple rows.
  * - flexCenter: centers items on both axes in a flex container.
  * - inlineFlex: displays a flex container inline.
- * - container: establishes an inline-size container; see Breakpoints for hide's containerDown* and containerUp* options measured against it.
+ * - container: establishes an inline-size container; see Breakpoints for hide's hideContainerDown* and hideContainerUp* options measured against it.
  * - icon: draws the glyph rotated by the example; see Icon for the whole set.
  * - icon-chevronDown: the glyph rotated in the example, standing in for any icon that needs to point another way.
  *
@@ -96,7 +96,7 @@
         </div>
         <div pgs="flex['row' 'gapParagraphs']">
             <span pgs="box flex['row'] flexChild['flexNone']">Fixed</span>
-            <span pgs="box flex['row'] minWidth0 truncate flexChild['flex1']">Flexible content that is safely truncated when needed.</span>
+            <span pgs="box minWidth0 truncate flexChild['flex1']">Flexible content that is safely truncated when needed.</span>
             <span pgs="box flex['column'] flexChild['flexOrderFirst']">First</span>
             <span pgs="box flex['column'] flexChild['flexOrderLast']">Last</span>
         </div>

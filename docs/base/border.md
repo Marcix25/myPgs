@@ -15,7 +15,7 @@ Border, outline and radius utilities, split out from the general-purpose set sin
 - `borderLeft`: draws the shared border on the left only.
 - `borderColor`: recolors the border, whichever of the roots above draws its width.
 - `outline`: draws the same line outside the box, taking no space in the layout; the otl* color utilities recolor it.
-- `borderRadius`: applies the standard radius token to any surface, or one of its own two other scales.
+- `borderRadius`: applies the standard radius (--borderRadius-elements) to any surface; its bracket picks any of the five radius scales instead (radDetails, radParagraphs, radElements, radGroups, radSections), or radUnset to square the corners off.
 
 ## PGS Options (component brackets)
 

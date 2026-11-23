@@ -10,12 +10,15 @@ Recolors external SVG and Lottie files when the theme changes, swapping each dec
 
 ## PGS States
 
-- `darkmode`: read on the document to decide which side of every color pair to apply.
+- `darkmode`: read on the html element to decide which side of every color pair to apply.
 - `objectLoaded`: written on the body once the first pass has run: until then an external SVG and a Lottie player are held back (transparent), so they do not show with their own colors before they are recolored.
 
 ## JavaScript API
 
-- `pgs.svg.init(root)`: initializes matching elements within the specified root.
+- `pgs.svg.init(root)`: keeps the preserveAspectRatio of every object type="image/svg+xml" within root (root included) in step with its object-fit, then runs the recoloring pass, which always covers the whole document.
+- `pgs.svg.eventChangeColor`: the name of the event that triggers the recoloring pass, "pgs:svg:changeColor"; darkmode dispatches it on the html element every time it applies the theme, and it bubbles to the document, where the pass listens.
+- `pgs.svg.applyColorsSVG(isDarkMode)`: recolors every object type="image/svg+xml" on the page now, to the dark side of each pair when isDarkMode is true and to the light side when false; without the argument it reads the darkmode state of the html element.
+- `pgs.svg.applyColorsLottie(isDarkMode)`: the same pass for every lottie-player on the page.
 
 ## Related elements
 
@@ -36,6 +39,22 @@ Recolors external SVG and Lottie files when the theme changes, swapping each dec
 ## Output
 
 An external SVG marked for recoloring, with the color pairs it reads from the document.
+
+## JavaScript Usage
+
+```js
+/* Re-run it after adding an object to the page. */
+pgs.svg.init(document);
+
+/* Dispatched by darkmode on the html element every time it applies the theme;
+   it bubbles, so a listener on the document hears it. detail: { element, isDarkMode } */
+document.addEventListener(pgs.svg.eventChangeColor, event => console.log(event.detail.isDarkMode));
+
+/* Recolor now to a given side, without changing the theme. */
+pgs.svg.applyColorsSVG(true);
+pgs.svg.applyColorsLottie(true);
+```
+
 ## Examples
 
 ### Theme-aware SVG

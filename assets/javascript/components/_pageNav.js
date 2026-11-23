@@ -203,7 +203,7 @@ function PGS_pageNav_build(pageNav) {
         panels: nav.panelsRoot,
         select: (panelId) => {
             if (!panelId || !nav.panelItems.some(panel => keyOf(panel) === panelId)) {
-                throw pgs.helper.invalid("pageNav.select", `no pageNav-panels-content has the id "${panelId}"`);
+                throw pgs.helper.invalid("pageNav.select", `no pageNav-panels-content has the name (pageNavHash) or id "${panelId}"`);
             }
             window.location.hash = panelId;
             nav.select(panelId);

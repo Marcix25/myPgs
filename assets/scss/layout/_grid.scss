@@ -30,7 +30,6 @@
     // breakpoint leaves (--_grid-cols, published by columnGrid): a span wider than the grid
     // would otherwise make the grid add implicit columns of its own
     &[pgs*="'column-"]> :is([pgs~="gridChild"], [pgs*="gridChild\5B"])[pgs*="'colSpan"] {
-        //
         grid-column: span min(var(--_gridChild-col), var(--_grid-cols, 1));
     }
 }

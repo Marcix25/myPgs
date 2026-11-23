@@ -82,8 +82,11 @@ function initializeAccordion(accordion) {
     const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accMultiOpen");
 
     // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
-    BUTTON.setAttribute("role", "button");
-    BUTTON.setAttribute("tabindex", "0");
+    // a native <button> is already a focusable button: only another element needs the role and the tab stop
+    if (BUTTON.localName !== "button") {
+        BUTTON.setAttribute("role", "button");
+        BUTTON.setAttribute("tabindex", "0");
+    }
     if (!BUTTON.id) BUTTON.id = pgs.helper.uniqueId("acc-btn");
     if (!CONTENT.id) CONTENT.id = pgs.helper.uniqueId("acc-panel");
 

@@ -752,7 +752,6 @@
         "pgs-generated": [],
         "pgs-options": [
             "headerBottom",
-            "headerCompactBottom",
             "headerCompactLaptop",
             "headerCompactMobile",
             "headerCompactNotebook",

@@ -22,14 +22,14 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 - `nowrap`: prevents flex items from wrapping.
 - `wrapReverse`: allows flex items to wrap, with the rows stacked in the opposite direction: the first row is at the bottom of a row layout and the first column at the end of a column layout.
 - `wrapBalance`: allows flex items to wrap and balances them: the lines hold about the same number of items, instead of the first ones being full and the last one short. A browser that does not know the value yet wraps as with wrap. Written together with wrapReverse it balances the reversed lines.
-- `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8 (column-1 puts every child on a row of its own), dropping to fewer columns at each breakpoint and to one column (two with m2e) at 615px and below, the same as grid. A flexChild flag written on an item (flexFull, flexNone, flex1, flexS…flexXxl, flexValue) wins over the size column-N gives it.
+- `column-`: inside flex's own bracket, lays the children out on a responsive row of N equal columns, column-1 through column-8 (column-1 puts every child on a row of its own), dropping to fewer columns at each breakpoint and to one column (two with m2e) at 600px and below, the same as grid. A flexChild flag written on an item (flexFull, flexNone, flex1, flexS…flexXxl, flexValue) wins over the size column-N gives it.
 - `column-4`: inside flex's own bracket, four columns per row; values from 1 through 8 are supported.
 - `m2e`: inside flex's own bracket, keeps two items per row at the mobile breakpoint instead of one (or the one there is, when a single column was declared), returning to one on watch-sized containers.
 - `flexInitial`: inside flexChild's own bracket, uses the flex initial sizing behavior on a flex child.
 - `flexNone`: inside flexChild's own bracket, prevents a flex child from growing or shrinking.
 - `flex1`: inside flexChild's own bracket, lets a flex child grow and shrink to fill available space.
 - `flexFull`: inside flexChild's own bracket, makes a flex child occupy a full row.
-- `flexValue`: inside flexChild's own bracket, sets a flex child's basis to --flex-flexValue, set inline for an arbitrary value.
+- `flexValue`: inside flexChild's own bracket, sets a flex child's basis to --flexChild-basis, set inline for an arbitrary value.
 - `flexS`: inside flexChild's own bracket, grows the item by a weight of 1 (--flexChild-size-s) on a zero basis, so sizes next to each other split the row in exact proportion.
 - `flexM`: inside flexChild's own bracket, grows the item by a weight of 2 (--flexChild-size-m).
 - `flexL`: inside flexChild's own bracket, grows the item by a weight of 3 (--flexChild-size-l).
@@ -81,10 +81,6 @@ Flex layouts: direction, wrapping, centering, a responsive column-N row that dro
 
 - `grid`: the two-dimensional layout, with gridChild for its items; see Grid.
 - `gridChild`: the grid counterpart of flexChild; see Grid.
-
-## CSS Variables
-
-- `--flex-flexValue`
 
 ## Output
 
@@ -145,9 +141,13 @@ The same row with m2e: at the mobile breakpoint it keeps two items per row inste
 
 ### Gap
 
-The four gap scales between flex items, from the paragraph gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
+The five gap scales between flex items, from the detail gap to the section gap, plus gapNone. A bare gap root takes the same options for an element that is a container by other means; see Spacing.
 
 ```html
+<div pgs="flex['row' 'gapDetails']">
+    <span pgs="box">gapDetails</span>
+    <span pgs="box">gapDetails</span>
+</div>
 <div pgs="flex['row' 'gapParagraphs']">
     <span pgs="box">gapParagraphs</span>
     <span pgs="box">gapParagraphs</span>
@@ -239,7 +239,7 @@ Sizing behavior of individual flex children: initial, none, grow, full width, an
     <span pgs="box flexChild['flexNone']">None</span>
     <span pgs="box flexChild['flex1']">Grow</span>
     <span pgs="box flexChild['flexFull']">Full width</span>
-    <span pgs="box flexChild['flexValue']" style="--flex-flexValue: 220px;">220px</span>
+    <span pgs="box flexChild['flexValue']" style="--flexChild-basis: 220px;">220px</span>
     <span pgs="box flexChild['flexOrderLast']">Last</span>
     <span pgs="box flexChild['flexOrderFirst']">First</span>
 </div>

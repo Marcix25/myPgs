@@ -2,7 +2,7 @@
 
 # Steps
 
-Ordered list of steps showing a number, content, and connecting line, with missing structural elements added at runtime. The circle reads as the current state, as a current button does: --steps-circle-background (--current-background by default) behind it and --steps-circle-color (--current-color) on its number and its icon, which takes the color of the circle; set them on the list or on one step to change it.
+Ordered list of steps showing a number, content, and connecting line, with missing structural elements added at runtime. The circle reads as the current state, as a current button does: --steps-step-circle-background (--current-background by default) behind it and --steps-step-circle-color (--current-color) on its number and its icon, which takes the color of the circle; set them on the list or on one step to change it.
 
 ## PGS
 
@@ -19,7 +19,7 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 
 ## PGS Options (component brackets)
 
-- `stepsLastHighlight`: the circle of the last step in the primary color, for the goal the steps lead to: --steps-circle-background is --color-primary and --steps-circle-color --color-primary-text, as btnPrimary does on a button.
+- `stepsLastHighlight`: the circle of the last step in the primary color, for the goal the steps lead to: --steps-step-circle-background is --color-primary and --steps-step-circle-color --color-primary-text, as btnPrimary does on a button.
 
 ## JavaScript API
 
@@ -33,11 +33,11 @@ Ordered list of steps showing a number, content, and connecting line, with missi
 
 ## CSS Variables
 
-- `--steps-circle-background`
-- `--steps-circle-color`
-- `--steps-circle-size`
-- `--steps-line-color`
-- `--steps-line-size`
+- `--steps-step-circle-background`
+- `--steps-step-circle-color`
+- `--steps-step-circle-size`
+- `--steps-step-line-color`
+- `--steps-step-line-size`
 
 ## Output
 

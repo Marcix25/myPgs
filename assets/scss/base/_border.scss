@@ -13,7 +13,7 @@
     // same default a bare border with no bracket already gets
     &[pgs*="'bd'"] { border: var(--border-width) solid var(--border-color); }
 
-    //+ BASE (all four sides) — unchanged, still general
+    //+ BASE (all four sides)
     &[pgs*="'bdThin'"] { border: 1px solid var(--border-color); }
     &[pgs*="'bdThick'"] { border: 3px solid var(--border-color); }
     &[pgs*="'bdThicker'"] { border: 4.5px solid var(--border-color); }

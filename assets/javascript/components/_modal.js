@@ -16,7 +16,9 @@ const ANIMATIONS = ["dialogAnimationZoom", "dialogAnimationLeft", "dialogAnimati
 function initializeModal(MODAL) {
     if (API.has(MODAL)) return API.get(MODAL);
 
-    const BUTTON_OPEN = pgs(MODAL).querySelector("modal-button");
+    // the button of this modal, never the one of a modal written inside its dialog: a modal with no button of
+    // its own (opened through the API) would otherwise take the inner one's and open on its click
+    const BUTTON_OPEN = [...pgs(MODAL).querySelectorAll("modal-button")].find(button => pgs(button).closest("modal") === MODAL) || null;
     const DIALOG = MODAL.querySelector("dialog") || DIALOGS.get(MODAL);
     if (!DIALOG) {
         pgs.helper.warn("modal.init", "a modal needs a <dialog> inside its wrapper", MODAL);

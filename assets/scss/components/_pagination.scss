@@ -4,7 +4,7 @@
 // between them. The page the reader is on is the button with aria-current="page" and btnCurrent
 [pgs~="pagination"] {
     --pagination-gap: var(--gap-details);
-    --pagination-justify: flex-start;
+    --pagination-justifyContent: flex-start;
     --pagination-ellipsis-color: var(--color-text);
     list-style: none;
     margin: 0;
@@ -12,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: var(--pagination-justify);
+    justify-content: var(--pagination-justifyContent);
     gap: var(--pagination-gap);
 
     //## ITEM

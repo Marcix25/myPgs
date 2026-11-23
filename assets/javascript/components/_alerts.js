@@ -165,7 +165,8 @@ const fn_alert = {
                 type: this._getType(raw.type),
                 raw,
                 options: {
-                    title,
+                    // left out, not empty: an empty title would replace the title of the type
+                    title: title || undefined,
                     description,
                     icon: raw.icon || undefined,
                     dismissIcon: raw.dismissIcon || undefined,
@@ -272,7 +273,7 @@ const fn_alert = {
 
         if (btnDismiss) {
             // the dismiss button draws a cross, so closeTitle is its accessible name and nothing else
-            btnDismiss.ariaLabel = config.closeTitle;
+            btnDismiss.setAttribute("aria-label", config.closeTitle);
             btnDismiss.addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();

@@ -2,14 +2,14 @@
 // the path itself is a plain list: what the component owns is the spacing between the levels,
 // the separator and the color of the step the reader is on
 [pgs~="breadcrumb"] {
-    --breadcrumb-size: 1.4rem;
+    --breadcrumb-fontSize: 1.4rem;
     --breadcrumb-color: var(--color-primary-strong);
     --breadcrumb-color-hover: var(--hover-color);
     --breadcrumb-color-current: var(--current-color);
     --breadcrumb-separator-type: "/";
     --breadcrumb-separator-color: var(--color-primary-soft);
     --breadcrumb-separator-gap: var(--gap-details);
-    font-size: var(--breadcrumb-size);
+    font-size: var(--breadcrumb-fontSize);
     line-height: 1;
     list-style: none;
     margin: 0;

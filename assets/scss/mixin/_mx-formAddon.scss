@@ -61,7 +61,7 @@
 //# TOGGLE
 @mixin toggle() {
     --toggle-size: 2.0rem;
-    --toggle-borderStyleWidth: var(--border-style) var(--border-width);
+    --toggle-border: var(--border-style) var(--border-width);
     // the rail
     --toggle-rail-background: var(--clickable-background);
     --toggle-rail-background-hover: var(--hover-background);
@@ -76,7 +76,7 @@
     $space: 2px;
     isolation: isolate;
     @include row(nowrap);
-    @include labelCheckboxAndRadio();
+    @include labelCheckboxAndRadio(toggle);
 
     // the text of the switch lines up with the rail, as checkbox() and radio() line it up with their box
     &:where(label),
@@ -118,7 +118,7 @@
             width: calc(var(--toggle-size) * 2);
             min-width: calc(var(--toggle-size) * 2);
             height: var(--toggle-size);
-            border: var(--toggle-borderStyleWidth);
+            border: var(--toggle-border);
             border-color: inherit;
         }
 
@@ -183,7 +183,7 @@
     --selectBox-chips-item-color: var(--current-color);
     --selectBox-chips-item-borderRadius: var(--borderRadius-paragraphs);
     --selectBox-chips-item-padding: calc(var(--padding-details) / 2) var(--padding-details);
-    --selectBox-chips-item-removeIcon: var(--icon-glyph-close);
+    --selectBox-chips-item-remove-icon: var(--icon-glyph-close);
     position: relative;
     display: block;
     width: 100%;
@@ -281,7 +281,8 @@
         border-bottom-right-radius: 0;
     }
 
-    //+ openUp: the list over the field, joined to its top
+    //### open up
+    // the openUp state, written by the JavaScript: the list over the field, joined to its top
     &[pgs-state~="openUp"]>:where([pgs~="_selectBox-panel"]) {
         inset: auto 0 calc(100% - var(--border-width) + var(--listbox-offset, 0px));
     }
@@ -300,7 +301,7 @@
 
     &[pgs-state~="openUp"]:has(> [pgs~="_selectBox-button"]:focus-visible)>:where([pgs~="_selectBox-panel"]) { clip-path: inset(-10px -10px 0); }
 
-    //## PANEL
+    //## PANEL SEARCH
     // selectBoxSearch: the search field, the list and the message for no match, in one box that is a listbox
     // too (the JavaScript gives it the token): listbox draws it, and the list inside it, as a listbox in a
     // listbox. Here only the search field, which belongs to the select box
@@ -356,7 +357,8 @@
     }
 
     //## CHIPS
-    //+ selectBoxChips: the box of the field holds the chosen options as chips, then the button, which drops its
+    //+ selectBoxChips
+    // the box of the field holds the chosen options as chips, then the button, which drops its
     // own box and keeps the chevron at the end
     &:where([pgs*="'selectBoxChips'"]):has(> [pgs~="_selectBox-chips"]) {
         @include input();
@@ -431,7 +433,7 @@
             cursor: pointer;
             opacity: .7;
             --icon-size: .8em;
-            @include icon(var(--selectBox-chips-item-removeIcon), "::before");
+            @include icon(var(--selectBox-chips-item-remove-icon), "::before");
 
             &:hover { opacity: 1; }
             &:focus-visible { @include focusRing(); }
@@ -492,7 +494,6 @@
                 padding-right: var(--button-size);
 
                 &::after {
-                    // order: -1;
                     color: inherit;
                     cursor: pointer;
                     @include icon(var(--icon-glyph-circleXmark), "");
@@ -545,7 +546,7 @@
         --label-paddingInline: var(--field-padding);
         --label-background: transparent;
         // the text size: --field-paddingTop and --field-label-paddingTop make room for one line of it
-        --label-size: 1em;
+        --label-fontSize: 1em;
         position: absolute;
         top: 0;
         left: 0;

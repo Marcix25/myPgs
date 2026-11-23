@@ -16,6 +16,7 @@ declare global {
     querySelector(value: PgsSelectorValue): Element | null;
     querySelectorAll(value: PgsSelectorValue): NodeListOf<Element>;
     closest(value: PgsSelectorValue): Element | null;
+    /** The raw pgs-state attribute; assigning null removes it. */
     value: string | null;
   }
 
@@ -46,6 +47,7 @@ declare global {
     remove(...values: string[]): PgsElementApi;
     toggle(value: string, force?: boolean): boolean;
     contains(value: string): boolean;
+    /** The raw pgs attribute; assigning null removes it. */
     value: string | null;
     state: PgsStateApi;
     option: PgsOptionApi;
@@ -533,8 +535,8 @@ declare global {
     /** Initializes every registered module inside root (the root itself included); returns root. */
     init(root?: Document | Element): Document | Element;
     formValidate: PgsFormValidateConstructor;
-    /** The elements under root, plus root itself, that carry one of the tokens. */
-    roots(root: Document | Element, token: string | string[]): Element[];
+    /** The elements under root, plus root itself, that carry one of the tokens; scope names the call in the error thrown for an invalid root (default "helper.roots"). */
+    roots(root: Document | Element, token: string | string[], scope?: string): Element[];
     directChildren(parent: Element, token: string | string[]): Element[];
     directChild(parent: Element, token: string | string[]): Element | null;
     /** "prefix-1", "prefix-2"... one counter per prefix. */
@@ -542,7 +544,7 @@ declare global {
     /** Dispatches a bubbling event whose detail always carries `element`. */
     dispatch(target: Element | Document, name: string, detail?: Record<string, unknown>, options?: { cancelable?: boolean }): CustomEvent;
     rafThrottle<Args extends unknown[]>(callback: (...args: Args) => void): ((...args: Args) => void) & { cancel(): void };
-    /** Calls back once per frame when nodes arrive later; null when there is no document. */
+    /** Calls back once per frame when nodes arrive later; disconnect() also drops a call still pending. null when there is no document. */
     watchDocument(callback: () => void, options?: MutationObserverInit): MutationObserver | null;
     onDocumentReady(callback: () => void): void;
     escapeHtml(value: unknown): string;
@@ -558,9 +560,10 @@ declare global {
     (root: Element): PgsElementApi;
     (root: Document | Element): PgsApi;
     registerModules(modules: Record<string, any>): PgsFunction;
-    helper?: PgsHelper;
-    darkmode?: PgsInitOnlyModule;
-    svg?: PgsSvgModule;
+    // always there: _pgs.js fills helper, and modules/core.js (darkmode, svg) cannot be left out
+    helper: PgsHelper;
+    darkmode: PgsInitOnlyModule;
+    svg: PgsSvgModule;
     accordion?: PgsModule<PgsAccordionInstance>;
     alert?: PgsAlertModule;
     dropdown?: PgsModule<PgsDropdownInstance>;

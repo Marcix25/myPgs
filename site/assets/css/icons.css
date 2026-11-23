@@ -37,7 +37,7 @@
     inset-block-start: -0.35rem;
     inset-inline-end: -0.35rem;
     /* --badge-size: 0.25rem;
-    --badge-textSize: 0.7rem; */
+    --badge-fontSize: 0.7rem; */
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }

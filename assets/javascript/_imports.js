@@ -2,10 +2,11 @@ import { pgs } from "./_pgs.js";
 
 import { PGS_init } from "./helper/_init.js";
 
-// each file imports one module, which starts itself on import, and publishes it on pgs. A project
-// lists the ones it uses in mypgs.config.json: its build (mypgs/build) resolves the others to an empty
-// module. The order is the order the modules are published in, which pgs.helper.init walks;
-// core (darkmode, svg) cannot be left out
+// each file imports its component, which starts itself on import, and publishes it: on pgs, except
+// core, which publishes two (darkmode, svg) and cannot be left out, and formValidate, which goes on
+// pgs.helper. A project lists the ones it uses in mypgs.config.json: its build (mypgs/build) resolves
+// the others to an empty module. The order is the order the modules are published in, which
+// pgs.helper.init walks
 import "./modules/core.js";
 import "./modules/accordion.js";
 import "./modules/alerts.js";

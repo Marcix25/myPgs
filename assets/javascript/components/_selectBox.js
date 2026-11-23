@@ -115,7 +115,9 @@ function PGS_selectBox_build(root) {
         chips.setAttribute("aria-live", "polite");
     }
 
-    // the select is still the one the form reads, but no longer the one the reader uses
+    // the select is still the one the form reads, but no longer the one the reader uses. The author's
+    // own tabindex is kept, so destroy() can give it back
+    const authorTabindex = select.getAttribute("tabindex");
     select.setAttribute("aria-hidden", "true");
     select.tabIndex = -1;
     select.after(...[chips, button, panel].filter(Boolean));
@@ -528,7 +530,8 @@ function PGS_selectBox_build(root) {
         panel.remove();
         chips?.remove();
         select.removeAttribute("aria-hidden");
-        select.removeAttribute("tabindex");
+        if (authorTabindex === null) select.removeAttribute("tabindex");
+        else select.setAttribute("tabindex", authorTabindex);
         API.delete(root);
     };
 

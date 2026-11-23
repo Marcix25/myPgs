@@ -93,7 +93,7 @@ function createBracketAttribute(element, attribute) {
 
 /**
  * @param {Element | Document} root
-*/
+ */
 export function pgs(root) {
     const ATTR = "pgs";
     if (!root) throw PGS_invalid("pgs", "root is required");
@@ -107,7 +107,7 @@ export function pgs(root) {
 
     function attrOnlyForElements(methodName) {
         throw PGS_invalid("pgs", `${methodName}() is available on an Element only, not on ${root.nodeName || "a Document"}`);
-    };
+    }
 
     function concatSelector(value, attribute = ATTR) {
         if (Array.isArray(value)) value = value.join(",");
@@ -195,9 +195,11 @@ export function pgs(root) {
                 if (!canAttr) return undefined;
                 return root.getAttribute(ATTR);
             },
+            // null removes the attribute, like data's value, instead of writing the string "null"
             set(v) {
                 if (!canAttr) return attrOnlyForElements("value");
-                root.setAttribute(ATTR, v);
+                if (v == null) root.removeAttribute(ATTR);
+                else root.setAttribute(ATTR, v);
             }
         });
 
@@ -287,7 +289,11 @@ export function pgs(root) {
 
         Object.defineProperty(api, "value", {
             get() { return root.getAttribute(attribute); },
-            set(v) { root.setAttribute(attribute, v); }
+            // null removes the attribute, like data's value, instead of writing the string "null"
+            set(v) {
+                if (v == null) root.removeAttribute(attribute);
+                else root.setAttribute(attribute, v);
+            }
         });
 
         return api;

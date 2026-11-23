@@ -16,9 +16,11 @@ const INSTANCES = new Map();
 // bars must not build them again behind the author's back. init() and refresh() lift it
 const STOPPED = new WeakSet();
 
-// a bar is only ready once it holds a navSmart-element, which is where the pills are
-function getReadyNavSmart() {
-    return Array.from(pgs(document).querySelectorAll("navSmart")).filter(bar => pgs(bar).querySelector("navSmart-element"));
+// the bars in the page that have a live instance, in document order. A bar is only built once it
+// holds a navSmart-element, which is where the pills are, and one whose destroy() was called no
+// longer counts even while it stays in the page, so the variables go to another bar or back to 0
+function getLiveNavSmart() {
+    return Array.from(pgs(document).querySelectorAll("navSmart")).filter(bar => API.has(bar));
 }
 
 // only one bar can own the variables. The bar that is pinned to the screen does: a navSmart written
@@ -27,7 +29,7 @@ function getReadyNavSmart() {
 // pinned one still owns them, and publishes 0. Ownership is checked at every measure, so a bar
 // added later takes over from a missing one
 function getPrimaryNavSmart() {
-    const pinned = getReadyNavSmart().filter(bar => window.getComputedStyle(bar).position === "fixed");
+    const pinned = getLiveNavSmart().filter(bar => window.getComputedStyle(bar).position === "fixed");
     return pinned.find(bar => bar.getClientRects().length) || pinned[0] || null;
 }
 
@@ -142,7 +144,7 @@ function initNavSmart(bar) {
 }
 
 function PGS_navSmart_init(root = document) {
-    pgs.helper.roots(root, "navSmart").forEach(bar => {
+    pgs.helper.roots(root, "navSmart", "navSmart.init").forEach(bar => {
         STOPPED.delete(bar);
         initNavSmart(bar);
     });
