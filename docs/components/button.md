@@ -12,6 +12,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 
 - `btnForHeader`: for a button in a header: no border style, and a long label breaks instead of overflowing.
 - `btnReverse`: reverses the visual order of the text and icon on the button.
+- `btnIconBoth`: for an icon on each side of the label, a glyph before it and a chevron after it for example: the short padding on both sides, instead of on the side of the one icon.
 - `btnStrong`: applies the variant with stronger visual emphasis.
 - `btnIconOnly`: identifies a compact button composed primarily of an icon.
 - `btnMini`: applies the smallest size variant.
@@ -42,6 +43,7 @@ Button and action-link variants with sizes, emphasis, and icon-text composition 
 - `wrap`: lets that row break instead of overflowing.
 - `gapParagraphs`: spaces the two buttons that share the text-only example, and the three two-state buttons.
 - `icon-arrowRight`: the glyph that points forward.
+- `icon-chevronDown`: the glyph after the label of the button with an icon on each side.
 - `icon-star`: the neutral stand-in glyph, used where the example needs an icon but not a particular one.
 
 ## CSS Variables
@@ -105,6 +107,18 @@ Places the icon after the text using btnReverse.
 <button pgs="button['btnReverse']" type="button">
     Next
     <i pgs="icon['icon-arrowRight']" aria-hidden="true"></i>
+</button>
+```
+
+### Icon on each side
+
+A glyph before the label and a chevron after it, with the short padding on both sides using btnIconBoth.
+
+```html
+<button pgs="button['btnIconBoth']" type="button">
+    <i pgs="icon['icon-star']" aria-hidden="true"></i>
+    Change customer
+    <i pgs="icon['icon-chevronDown']" aria-hidden="true"></i>
 </button>
 ```
 

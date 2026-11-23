@@ -113,6 +113,8 @@ Reading the tables: a flag is written inside the bracket of the component that o
 
 ## Buttons
 
+New (opt-in): `button['btnIconBoth']`, for an icon on each side of the label: the short padding (`--button-paddingInline-short`) on both sides. (next)
+
 | what | 5.0.0 | now | since |
 | --- | --- | --- | --- |
 | `btnIconOnly` | 50 x 50 (38 with `btnMini`) | 48 x 48 (36), a square in Safari too | 5.0.2 |

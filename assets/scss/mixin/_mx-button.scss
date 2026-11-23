@@ -129,6 +129,14 @@
     }
 }
 
+//## BUTTON ICON BOTH
+// an icon on each side of the label (a glyph before it, a chevron after it): the short padding on both sides.
+// Written as an option because CSS cannot tell where the icon sits: the label is a text node, and :first-child
+// and :last-child only see elements
+@mixin buttonIconBoth() {
+    &:where(:has([pgs~="icon"], [pgs*="icon\5B"], i)) { padding-inline: var(--button-paddingInline-short); }
+}
+
 //## BUTTON ICON ONLY
 @mixin buttonIconOnly() {
     padding: var(--button-paddingBlock);

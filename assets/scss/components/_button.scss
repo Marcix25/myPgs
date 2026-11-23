@@ -10,6 +10,7 @@
     &:where([pgs*="'btnTwoState'"]) { @include buttonTwoState(); }
     //## type
     &:where([pgs*="'btnReverse'"]) { @include buttonReverseIcon(); }
+    &:where([pgs*="'btnIconBoth'"]) { @include buttonIconBoth(); }
     &:where([pgs*="'btnIconOnly'"]) { @include buttonIconOnly(); }
     &:where([pgs*="'btnMini'"]) { @include buttonMini(); }
     &:where([pgs*="'btnVertical'"]) { @include buttonVertical(); }
