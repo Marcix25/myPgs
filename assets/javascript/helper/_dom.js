@@ -19,9 +19,10 @@ export function PGS_roots(root, token, scope = "helper.roots") {
     return roots;
 }
 
-// the children of `parent` (not the descendants) that carry the token, or any of them
+// the children of `parent` (not the descendants) that carry the token, or any of them; the token
+// takes the same forms as in PGS_roots
 export function PGS_directChildren(parent, token) {
-    const tokens = [].concat(token);
+    const tokens = [].concat(token).flatMap(item => String(item).split(",")).map(item => item.trim()).filter(Boolean);
     return Array.from(parent.children).filter(child => tokens.some(item => pgs(child).contains(item)));
 }
 

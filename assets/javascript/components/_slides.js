@@ -44,7 +44,7 @@ class PGS_Slides {
         //## DOTS
         // slidesNotDots: no row is built at all, nothing is hidden. One written by hand is the author's and is
         // wired as usual: writing both is a contradiction that stays visible instead of being resolved in silence
-        if (!pgs(EL).querySelector(['slides-dots', '_slides-dots']) && !pgs(EL).option.contains("slidesNotDots")) {
+        if (!pgs(EL).querySelector(['slides-dots', '_slides-dots']) && !pgs(EL).option("slides").contains("slidesNotDots")) {
             EL.insertAdjacentHTML("beforeend", `<div pgs="_slides-dots"></div>`);
         }
 
@@ -87,7 +87,7 @@ class PGS_Slides {
         // the middle of an even number of slides falls between two of them, so each arrow takes
         // the one on its own side: rounded down going forward, up going back, so the two
         // arrows do not start from the same slide
-        if (pgs(this.element).option.contains('slidesSingleScroll')) {
+        if (pgs(this.element).option("slides").contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
         }
@@ -128,7 +128,7 @@ class PGS_Slides {
 
     //## LOOP
     #isLoop() {
-        return pgs(this.element).option.contains('slidesLoop');
+        return pgs(this.element).option("slides").contains('slidesLoop');
     }
 
     //## PREV

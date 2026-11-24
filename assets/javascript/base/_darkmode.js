@@ -71,7 +71,7 @@ function setDarkmodeStatus(toggle = false) {
 //# THREE STATES
 // a darkmodeToggle['tglFollowSystem'] has three states and goes round them: light, dark, the system, light again
 function hasThreeStates(button) {
-    return pgs(button).option.contains("tglFollowSystem");
+    return pgs(button).option("darkmodeToggle").contains("tglFollowSystem");
 }
 
 function nextOfThree() {

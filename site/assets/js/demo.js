@@ -77,8 +77,12 @@ function setupCopyButtons() {
 // resolve modalContainerPGS[header] against the *real* page header and move their dialog in
 // there, hijacking the header's own hamburger: keep those dialogs local instead.
 function isolateDemoModals(root) {
+    // modalContainerPGS is a pgs-data value (key[payload]), and data has no remove: the entry is cut
+    // out of the attribute
     pgs(root).querySelectorAll("modal").forEach(modal => {
-        pgs(modal).option.remove("modalContainerPGS");
+        const data = pgs(modal).data;
+        if (data.getValueBrackets("modalContainerPGS") === undefined) return;
+        data.value = (data.value || "").replace(/(^|\s)modalContainerPGS\[[^\]]*\]/, "").trim() || null;
     });
 }
 

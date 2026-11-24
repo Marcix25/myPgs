@@ -37,6 +37,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | 13 | `header['headerCompactBottom']`: documented as moving `header-element` to the bottom of the screen while the header is compact, but it did nothing any more (its rules were gone) | removed, with `--header-compactBottom-active`. Delete the option; for a header at the bottom write `header['headerBottom']` |
 | 14 | custom properties whose names broke the naming rule (`--component-subElement-property-state`, one camelCase word per segment), such as `--label-size`, `--modal-content-padding`, `--steps-circle-*`, `--navSmart-itemMinWidth` | renamed, with no alias: an old name set by a project does nothing any more -> see [Renamed custom properties](#renamed-custom-properties) |
 | 15 | `@include focus()` | gone: every element that takes the focus already has the ring (`:focus-visible` in `base/_body.scss`); for an element that draws the ring for another one, `@include focusRing()` inside the rule that says when |
+| 16 | the JavaScript API mixed components and options: `pgs(el).add("button['btnMini']")` added an option, `pgs(el).option.add/remove/toggle/contains("btnMini")` guessed the component from the start of the name (so `btnMini`, `drpArrow`, `accOpenBox` landed outside their bracket), `pgs(el).state("open")` added a state, and an array or a string with spaces was read in a different way by each method | components and options apart -> see [The pgs() API](#the-pgs-api) |
 
 ## Renamed custom properties
 
@@ -93,6 +94,29 @@ property for the text of a checkbox, a radio and a toggle, is now one per compon
 | `--card-horizontal-img-minHeight` | `--card-img-minHeight-horizontal` |
 | `--label-left` | `--label-offsetInline` |
 | `--checkboxRadio-labelColor` | `--checkbox-label-color`, `--radio-label-color`, `--toggle-label-color` |
+
+## The pgs() API
+
+Breaking change 16. `pgs(el)` adds, removes and checks components; the options of a component go through
+`pgs(el).option("component")`, which always names the bracket. Every name is one word, passed as its own argument.
+
+| 5.0.8 | now |
+| --- | --- |
+| `pgs(el).add("button['btnMini' 'btnIconOnly']")` | `pgs(el).add("button").option("button").add("btnMini", "btnIconOnly")`; a component in brackets is a TypeError |
+| `pgs(el).add("_toast", "_toast['toastBottom']")` | `pgs(el).add("_toast").option("_toast").add("toastBottom")` |
+| `pgs(el).option.contains("dialogHistory")` | `pgs(el).option("modal").contains("dialogHistory")` |
+| `pgs(el).option.remove("accAutoOpen")` | `pgs(el).option("accordion").remove("accAutoOpen")` |
+| `pgs(el).option.add("cardMini")`, `pgs(el).option.toggle("btnMini")` | `pgs(el).option("card").add("cardMini")`, `pgs(el).option("button").toggle("btnMini")`: always right, `btnMini` included |
+| `pgs(el).option.querySelector/querySelectorAll/closest(flag)` | gone (nothing used them); `pgs(el).querySelector`, `querySelectorAll` and `closest` find components as before |
+| (none) | `pgs(el).option("button").list()`: the options written in the bracket, as an array |
+| `pgs(el).state("open")` | `pgs(el).state.add("open")`: `state` is no longer callable |
+| `add(["a", "b"])`, `add("a b")` | `add("a", "b")` (or `add(...list)`): an array, a name with a space, a bracket or a quote is a TypeError in `add`, `remove`, `toggle` and `contains` of `pgs(el)`, `state` and `option(component)` |
+
+Two rules to know. `option("button").add()` on an element without `button` is a TypeError: add the component
+first, so a misspelled name is an error instead of a component nobody styles; `remove` and `contains` on it change
+nothing and say `false`. The last option removed leaves the component bare (`button`): only
+`pgs(el).remove("button")` takes the component away. `pgs.helper.directChild/directChildren` take a comma-separated
+token string too, as `roots` does.
 
 ## Foundation
 
@@ -290,6 +314,7 @@ Silent changes and new features of `search`:
 
 | what | 5.0.8 | now |
 | --- | --- | --- |
+| a `pgs(el)`, `state` or `option(...)` call that changes nothing (adding what is there, removing what is not) | wrote the attribute again, so a `MutationObserver` saw a change | writes nothing |
 | `pgs(el).value = null`, `pgs(el).state.value = null` | wrote the string `"null"` | remove the attribute, as `pgs(el).data.value = null` does |
 | `header['headerScroll']` | a header hidden by the scroll stayed hidden once the window grew past 900px; `destroy()` left the transform | it comes back above 900px; `destroy()` removes the transform and `hiddenByScroll` |
 | `pgs.header.api(el).destroy()`, `pgs.navSmart.api(el).destroy()` | a destroyed header or bar still in the page kept `--_header-height*` / `--_navSmart-height*` | another one takes them over, or they go to 0px |
@@ -368,6 +393,11 @@ grep -rnE -- '(--dropdown-inline-size|--label-size|--badge-textSize|--breadcrumb
 
 # 15 focus() mixin. Hit: delete it (the ring is already there), or @include focusRing() inside a :focus-visible rule
 grep -rn '@include focus\b\|@include focus(' .
+
+# 16 the pgs() API. Hit: pgs(el).add("x['flag']") -> pgs(el).add("x").option("x").add("flag");
+# .option.contains/remove/add/toggle(flag) -> .option("component").contains/...; .state("s") -> .state.add("s");
+# an array or a "a b" string -> one argument each
+grep -rnE "pgs\([^)]*\)\.(add|remove|toggle|contains)\([^)]*\[|\.option\.(add|remove|toggle|contains|querySelector|closest)|\.state\(" --include=*.js --include=*.ts --include=*.php .
 
 # steps. Hit: add steps['stepsLastHighlight'] to keep the highlighted last circle
 grep -rnE 'pgs(=\\?["'"'"']|\()[^"'"'"']*\bsteps\b' .

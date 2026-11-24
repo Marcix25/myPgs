@@ -7,13 +7,11 @@
  * - instance.querySelector(token): returns the first descendant carrying the given pgs token; also accepts an array or a comma-separated list of tokens.
  * - instance.querySelectorAll(token): returns every matching descendant.
  * - instance.closest(token): returns the nearest ancestor carrying the given pgs token, the element itself included, or null; also accepts an array or a comma-separated list of tokens.
- * - instance.add(...tokens): adds one or more pgs tokens without duplicating existing ones and returns the instance.
- * - instance.remove(...tokens): removes the given pgs tokens and returns the instance.
- * - instance.toggle(token, force): flips the token, or forces it on/off when force is passed, and returns the resulting boolean state.
- * - instance.contains(token): checks whether the component token is present, including its bracket form; contains("button") also matches button['btnMini'].
- * - instance.value: the raw pgs attribute, or null when there is none; assigning a string replaces it and assigning null removes it.
- * - instance.state(...states): the same as instance.state.add(...states), and returns instance.state.
- * - instance.state.add(...states): adds one or more pgs-state values.
+ * - instance.add(...components): adds one or more components, each passed as its own argument and each a single word, and returns the instance, so the options of a new component follow in the same line: add("button").option("button").add("btnMini"). A component already there keeps its bracket as it is, and none is written twice. An array, a name with a space, a bracket or a quote, or an empty name throws a TypeError: the options of a component go through option(component).
+ * - instance.remove(...components): removes the given components, each with its bracket, and returns the instance.
+ * - instance.toggle(component, force): adds the component when it is missing and removes it otherwise, or forces it on/off when force is passed, and returns the resulting boolean state.
+ * - instance.contains(component): checks whether the component is present, bare or with its bracket: contains("button") matches button['btnMini']. Whether it has an option is option(component).contains().
+ * - instance.state.add(...states): adds one or more pgs-state values, each passed as its own argument and each a single word.
  * - instance.state.remove(...states): removes the given pgs-state values.
  * - instance.state.toggle(state, force): flips or forces a pgs-state value and returns the result.
  * - instance.state.contains(state): checks whether a pgs-state value is present.
@@ -21,27 +19,25 @@
  * - instance.state.querySelectorAll(state): returns every matching descendant.
  * - instance.state.closest(state): returns the nearest ancestor carrying the given pgs-state value, the element itself included, or null.
  * - instance.state.value: the raw pgs-state attribute, or null; assigning a string replaces it and assigning null removes it.
- * - instance.option.add(...flags): adds a CSS or JavaScript-only boolean flag. add() derives the owner from the flag's own prefix, the lowercase run before the first uppercase letter or a -, and merges into that component's bracket only when the prefix is the component's full name (the icon-* glyphs, and card*, box*, badge*, menu*, logo*, slides*, header* flags such as cardMini, badgeDot, menuVertical); otherwise the flag becomes its own bare pgs token. Every flag with an abbreviated prefix falls in that second group — btn*, mg*, pd*, bd*, sct*, acc*, drp*, shell*, tgl*, ... — since btn or acc is not the component's own name, so add() cannot derive button or accordion from it. To add a shortened flag into its bracket, call the base pgs(el).add("component['flag']") directly, naming the component. Never touches pgs-data.
- * - instance.option.remove(...keys): removes a flag by key, bare or nested in a bracket, preserving the rest. Never touches pgs-data.
- * - instance.option.toggle(key, force): flips or forces a flag and returns the resulting boolean state. Never touches pgs-data.
- * - instance.option.contains(key): checks whether a flag is present, bare or nested in a bracket. Never checks pgs-data.
- * - instance.option.querySelector(key): returns the first descendant carrying that flag; also accepts an array or a comma-separated list of keys.
- * - instance.option.querySelectorAll(key): returns every matching descendant, as an Array rather than a NodeList, since the keys are matched here and not by the selector engine.
- * - instance.option.closest(key): returns the nearest ancestor carrying that flag, the element itself included, or null.
+ * - instance.option(component): the options of one component of the element, the flags inside its bracket. The component is always named, so nothing guesses the owner of an option from its name: option("button").add("btnMini") puts btnMini where it is told. Each method takes options as single words, one per argument, like add(); an array, a space, a bracket or a quote throws a TypeError, and so does option() with no component. It never touches pgs-data.
+ * - instance.option(component).add(...options): adds the options to the bracket of the component, without doubles, and returns the same object, so calls chain. An element without the component throws a TypeError: add the component first with instance.add(component), so a misspelled name is an error and not a component nobody styles.
+ * - instance.option(component).remove(...options): removes the options from the bracket and returns the same object; the component stays, bare when its last option goes. On an element without the component it changes nothing.
+ * - instance.option(component).toggle(option, force): adds the option when it is missing and removes it otherwise, or forces it on/off when force is passed, and returns the resulting boolean state. Turning it on follows add(), so it throws on an element without the component; turning it off follows remove().
+ * - instance.option(component).contains(option): checks whether the option is in the bracket of the component; false on an element without the component.
+ * - instance.option(component).list(): the options written in the bracket of the component now, as a new array (changing it does not change the element); an empty array for a bare component or an element without it, which instance.contains(component) tells apart. It lists what the markup holds, not every option the component could take.
  * - instance.data.getValueBrackets(key): returns the payload inside a key[payload] pgs-data entry, or undefined. Never checks the pgs bracket.
  * - instance.data.setValueBrackets(key, value): sets or replaces a single parameterized pgs-data entry. Never touches the pgs bracket.
  * - instance.data.value: the raw pgs-data attribute, or null; assigning a string replaces it and assigning null removes it.
  * - pgs.registerModules(modules): exposes an object of named modules directly as properties of pgs, refusing to silently overwrite one already registered.
  *
  * @related
- * - button: borrowed purely to illustrate adding an abbreviated flag through the base add(); belongs to the button component.
- * - btnMini: a button flag whose btn prefix is an abbreviation, so option.add cannot derive button from it; belongs to the button component.
- * - icon: borrowed purely to illustrate option.add's owner derivation still working for a flag that kept its prefix; belongs to the icon component.
- * - icon-moon: one of the icon-* glyphs, which all keep their prefix so option.add can still derive "icon" from the name alone; belongs to the icon component.
- * - box: borrowed to show the same derivation working for boxMini, a flag renamed to keep its own prefix once button/card/box all needed a 'mini' of their own; belongs to the box component.
- * - boxMini: the box flag itself, derived by option.add the same way as icon-moon.
- * - flex: borrowed to show a flag whose prefix names no component, so it is added through the base add() with the component named; belongs to the flex layout.
- * - itemCenter: a layout flag of flex whose prefix names no component: option.add would leave it as a bare token that matches no rule, so it is written inside flex's bracket through the base add().
+ * - button: borrowed purely to illustrate a component added through add() and its options through option(); belongs to the button component.
+ * - btnMini: borrowed purely to illustrate option("button"); belongs to the button component.
+ * - btnIconOnly: borrowed purely to illustrate several options in one call; belongs to the button component.
+ * - icon: borrowed purely to illustrate option(component).list(); belongs to the icon component.
+ * - icon-moon: one of the icon-* glyphs, borrowed for the same example; belongs to the icon component.
+ * - flex: borrowed to show a layout option written through option("flex"); belongs to the flex layout.
+ * - itemCenter: a layout option of flex, borrowed for the same example.
  * - headerCompactFrom: borrowed purely to illustrate data.getValueBrackets/setValueBrackets; belongs to the header component.
  *
  * @return The instance returned by pgs(root), and the read/write methods it exposes for pgs, pgs-data and pgs-state.
@@ -63,17 +59,17 @@ instance.state.contains("open");
 instance.state.closest("errorField");
 instance.state.querySelectorAll("errorField");
 
-instance.add("button['btnMini']"); // btn is an abbreviation, not the component's name: name the component
-instance.option.contains("btnMini");
-instance.option.closest("btnMini");
-instance.add("icon");
-instance.option.add("icon-moon"); // icon-moon kept its prefix, so this still derives "icon" and merges
-instance.option.add("boxMini"); // boxMini kept its prefix too (a handful of flags do, to stay unique across components), so this derives "box" the same way
-instance.add("flex['itemCenter']"); // "item" is no component, so option.add("itemCenter") would leave a bare token that matches no rule: name the component
+// a component is added on its own, and its options are those of option(component)
+instance.add("button").option("button").add("btnMini", "btnIconOnly");
+instance.option("button").contains("btnMini");
+instance.option("button").toggle("btnMini");
+instance.option("button").remove("btnIconOnly");
+instance.add("icon").option("icon").add("icon-moon");
+instance.option("icon").list(); // ["icon-moon"]: what the markup holds now
+instance.add("flex").option("flex").add("itemCenter");
 instance.data.getValueBrackets("headerCompactFrom"); // pgs-data only, never the pgs bracket
 instance.data.setValueBrackets("headerCompactFrom", "600");
-// tabsHistory has no owner to derive and never belongs in the pgs bracket, so its bare form goes
-// through data.value directly — .data has no contains/add/remove/toggle of its own
+// tabsHistory never belongs in the pgs bracket, so its bare form goes through data.value directly — .data has no contains/add/remove/toggle of its own
 instance.data.value = "tabsHistory";
 const savedData = instance.data.value;
 instance.data.value = savedData;

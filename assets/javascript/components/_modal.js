@@ -63,28 +63,28 @@ function initializeModal(MODAL) {
     // dialogMedium or dialogFull) instead of dialogSmall, an animation instead of dialogAnimationBottom, and a
     // container (modalContainerID, modalContainerPGS) instead of dialogTopLevel, since a dialog in the top
     // layer stays where it is
-    if ([MODAL, DIALOG].some(element => pgs(element).option.contains("modalSheet"))) {
-        const authored = keys => [MODAL, DIALOG].some(element => keys.some(key => pgs(element).option.contains(key)));
+    // an option is the wrapper's (modal) or, after a first pass, already on the dialog (_dialog)
+    const hasOption = key => pgs(MODAL).option("modal").contains(key) || pgs(DIALOG).option("_dialog").contains(key);
+    if (hasOption("modalSheet")) {
+        const authored = keys => keys.some(hasOption);
         const container = [MODAL, DIALOG].some(element => ["modalContainerID", "modalContainerPGS"].some(key => pgs(element).data.getValueBrackets(key) !== undefined));
         const sheet = ["dialogBottom", "dialogDragClose"];
         if (!authored(["dialogSmall", "dialogMedium", "dialogFull"])) sheet.push("dialogSmall");
         if (!authored(ANIMATIONS)) sheet.push("dialogAnimationBottom");
         if (!container) sheet.push("dialogTopLevel");
-        for (const key of sheet) pgs(MODAL).add(`modal['${key}']`);
+        pgs(MODAL).option("modal").add(...sheet);
     }
     for (const key of [
         "modalSheet", "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
         ...ANIMATIONS, "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
-        const source = [MODAL, DIALOG].find(element => pgs(element).option.contains(key));
-        if (!source) continue;
-        pgs(MODAL).add(`modal['${key}']`);
-        pgs(DIALOG).option.remove(key);
-        pgs(DIALOG).add(`_dialog['${key}']`);
+        if (!hasOption(key)) continue;
+        pgs(MODAL).option("modal").add(key);
+        pgs(DIALOG).option("_dialog").add(key);
     }
 
-    // these two carry a value, so they still live in pgs-data — option never checks pgs-data,
-    // so presence is a getValueBrackets read instead of an option.contains() call
+    // these two carry a value, so they still live in pgs-data — option() never checks pgs-data,
+    // so presence is a getValueBrackets read instead of an option("modal").contains() call
     for (const key of ["modalContainerID", "modalContainerPGS"]) {
         const source = [MODAL, DIALOG].find(element => pgs(element).data.getValueBrackets(key) !== undefined);
         if (!source) continue;
@@ -93,16 +93,16 @@ function initializeModal(MODAL) {
     }
 
     //## OPTION ATTRIBUTES MODAL
-    const dialogDisableBackdropClose = pgs(MODAL).option.contains("dialogDisableBackdropClose");
-    const dialogHistory = pgs(MODAL).option.contains("dialogHistory");
+    const dialogDisableBackdropClose = pgs(MODAL).option("modal").contains("dialogDisableBackdropClose");
+    const dialogHistory = pgs(MODAL).option("modal").contains("dialogHistory");
     const modalContainerID = pgs(MODAL).data.getValueBrackets("modalContainerID");
     const modalContainerPGS = pgs(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //## OPTION ATTRIBUTES DIALOG
-    const dialogTopLevel = pgs(DIALOG).option.contains("dialogTopLevel");
-    const dialogAnimationZoom = pgs(DIALOG).option.contains("dialogAnimationZoom");
-    const dialogAnimation = ANIMATIONS.some(key => pgs(DIALOG).option.contains(key));
-    const dialogDragClose = pgs(DIALOG).option.contains("dialogDragClose");
+    const dialogTopLevel = pgs(DIALOG).option("_dialog").contains("dialogTopLevel");
+    const dialogAnimationZoom = pgs(DIALOG).option("_dialog").contains("dialogAnimationZoom");
+    const dialogAnimation = ANIMATIONS.some(key => pgs(DIALOG).option("_dialog").contains(key));
+    const dialogDragClose = pgs(DIALOG).option("_dialog").contains("dialogDragClose");
     const CONTENT = pgs(DIALOG).querySelector("modal-dialog-content");
     let closing = false;
 

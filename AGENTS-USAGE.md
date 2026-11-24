@@ -158,9 +158,10 @@ The package entrypoint initializes the registered base behaviors and components.
 ```js
 const modal = pgs(document).querySelector("modal");
 
-pgs(modal).add("custom-token");
+pgs(modal).add("custom-token"); // components only, one word per argument
 pgs(modal).state.add("open");
-pgs(modal).option.contains("dialogHistory"); // dialogHistory is a flag, so it lives in the pgs bracket
+pgs(modal).option("modal").contains("dialogHistory"); // an option of modal: always name its component
+pgs(button).add("button").option("button").add("btnMini"); // add the component, then its options
 pgs(modal).data.getValueBrackets("modalContainerID"); // a key[payload] value, so it lives in pgs-data
 ```
 

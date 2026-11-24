@@ -243,7 +243,7 @@ function initializeDropdown(DROPDOWN) {
         isOpen: () => pgs(DROPDOWN).state.contains("open")
     };
 
-    const HOVER = pgs(DROPDOWN).option.contains("drpHover");
+    const HOVER = pgs(DROPDOWN).option("dropdown").contains("drpHover");
 
     //## click behavior
     // with drpHover the pointer opens and closes it: a click of the pointer does nothing, or it would close what

@@ -33,37 +33,106 @@ function element(attributes = {}, tagName = 'DIV') {
     };
 }
 
-test('component mutations preserve brackets and merge without duplicating component roots', () => {
+test('the base api adds, removes, toggles and checks components only, keeping their brackets', () => {
     const el = element({ pgs: "button['btnMini' 'btnStrong'] flex['column']" });
     const api = pgs(el);
     assert.equal(api.contains('button'), true);
     assert.equal(api.contains('btnMini'), false);
-    api.add('itemCenter', 'button', "button['btnReverse']");
-    assert.equal(api.value, "button['btnMini' 'btnStrong' 'btnReverse'] flex['column'] itemCenter");
+    // a component already there keeps its bracket; a new one goes at the end, once
+    api.add('itemCenter', 'button', 'itemCenter');
+    assert.equal(api.value, "button['btnMini' 'btnStrong'] flex['column'] itemCenter");
     assert.equal(api.toggle('button', false), false);
     assert.equal(api.value, "flex['column'] itemCenter");
-    api.remove('flex');
+    assert.equal(api.toggle('button'), true);
+    assert.equal(api.value, "flex['column'] itemCenter button");
+    api.remove('flex', 'button');
     assert.equal(api.value, 'itemCenter');
+    // add() returns the api, so the options of a new component follow in the same line
+    api.add('button').option('button').add('btnMini', 'btnIconOnly');
+    assert.equal(api.value, "itemCenter button['btnMini' 'btnIconOnly']");
 });
 
-test('bracket flags stay in the matching bracket and do not collide with longer names', () => {
-    const el = element({ pgs: "button['btnMini'] icon['icon-moon'] flex['columnReverse']" });
-    const options = pgs(el).option;
-    assert.equal(options.contains('column'), false);
-    // turning a bracket flag off still goes through option.remove/toggle (a generic, non-owning
-    // operation); turning one on needs the base add(), naming the owning component directly
-    options.toggle('icon-moon', false);
-    pgs(el).add("icon['icon-sun']");
-    pgs(el).add("button['btnStrong']", "flex['gapParagraphs']");
-    assert.equal(el.getAttribute('pgs'), "button['btnMini' 'btnStrong'] icon['icon-sun'] flex['columnReverse' 'gapParagraphs']");
+test('a component name is a single word: an array, a space, a bracket or an empty name is a TypeError', () => {
+    const api = pgs(element({ pgs: 'button' }));
+    for (const call of [
+        () => api.add("button['btnMini']"),
+        () => api.add(['card', 'box']),
+        () => api.add('card box'),
+        () => api.add(''),
+        () => api.add(null),
+        () => api.remove("button['btnMini']"),
+        () => api.toggle('card box'),
+        () => api.contains("button['btnMini']"),
+    ]) assert.throws(call, { name: 'TypeError' });
+    assert.throws(() => api.add("button['btnMini']"), { message: /option\("button"\)\.add\("btnMini"\)/ });
+    // the edges are trimmed, and no argument is no change
+    api.add(' card ').add();
+    assert.equal(api.value, 'button card');
+});
+
+test('option(component) writes the bracket of that component and of no other', () => {
+    const el = element({ pgs: "button['btnPrimary'] modal['btnIconOnly'] flex['column']" });
+    const button = pgs(el).option('button');
+
+    assert.equal(button.contains('btnPrimary'), true);
+    assert.equal(button.contains('btnIconOnly'), false);
+    assert.deepEqual([...button.list()], ['btnPrimary']);
+
+    // add merges without doubles; toggle twice gives back what was there
+    button.add('btnMini', 'btnMini');
+    assert.equal(el.getAttribute('pgs'), "button['btnPrimary' 'btnMini'] modal['btnIconOnly'] flex['column']");
+    assert.equal(button.toggle('btnMini'), false);
+    assert.equal(button.toggle('btnMini'), true);
+    assert.equal(button.toggle('btnMini'), false);
+    assert.equal(button.toggle('btnPrimary', true), true);
+    assert.equal(el.getAttribute('pgs'), "button['btnPrimary'] modal['btnIconOnly'] flex['column']");
+
+    // the last option gone leaves the bare component; the same option of another bracket stays
+    button.add('btnIconOnly').remove('btnPrimary', 'btnIconOnly');
+    assert.equal(el.getAttribute('pgs'), "button modal['btnIconOnly'] flex['column']");
+    assert.deepEqual([...button.list()], []);
     assert.equal(el.getAttribute('pgs-data'), null);
-    assert.equal(el.getAttribute('pgs-option'), null);
 });
 
-test('JS-only flags and nested JSON survive updates and removal of adjacent keys', () => {
+test('option(component) on an element without the component: add is a TypeError, the rest change nothing', () => {
+    const el = element({ pgs: 'card' });
+    const button = pgs(el).option('button');
+    assert.throws(() => button.add('btnMini'), { name: 'TypeError', message: /no button: add it first with pgs\(el\)\.add\("button"\)/ });
+    assert.throws(() => button.toggle('btnMini'), { name: 'TypeError' });
+    assert.equal(button.toggle('btnMini', false), false);
+    assert.equal(button.contains('btnMini'), false);
+    assert.deepEqual([...button.list()], []);
+    button.remove('btnMini');
+    assert.equal(el.getAttribute('pgs'), 'card');
+});
+
+test('option names the component, and an option is a single word', () => {
+    const api = pgs(element({ pgs: 'button' }));
+    for (const call of [
+        () => api.option(),
+        () => api.option("button['btnMini']"),
+        () => api.option('button card'),
+        () => api.option('button').add(['btnMini']),
+        () => api.option('button').add('btnMini btnStrong'),
+        () => api.option('button').add("'btnMini'"),
+        () => api.option('button').contains(''),
+    ]) assert.throws(call, { name: 'TypeError' });
+    // there is no option without a component
+    assert.equal(api.option.add, undefined);
+    assert.equal(api.option.contains, undefined);
+});
+
+test('a list() is a copy: changing it leaves the element as it is', () => {
+    const el = element({ pgs: "icon['icon-close']" });
+    const list = pgs(el).option('icon').list();
+    list.push('icon-moon');
+    assert.equal(el.getAttribute('pgs'), "icon['icon-close']");
+});
+
+test('options and nested JSON in pgs-data survive updates of each other', () => {
     const payload = JSON.stringify({ nested: [[1, 2], { text: 'literal ] [ and "quotes"', path: 'a\\b' }] });
     const el = element({ pgs: "header['headerMain' 'headerScroll']", 'pgs-data': `config[${payload}] headerCompactFrom[600]` });
-    const options = pgs(el).option;
+    const options = pgs(el).option('header');
     const data = pgs(el).data;
     data.setValueBrackets('headerCompactFrom', '800');
     assert.equal(data.getValueBrackets('config'), payload);
@@ -73,14 +142,12 @@ test('JS-only flags and nested JSON survive updates and removal of adjacent keys
     options.remove('headerMain');
     assert.equal(data.getValueBrackets('config'), payload);
     assert.equal(el.getAttribute('pgs'), "header['headerScroll']");
-    assert.equal(el.getAttribute('pgs-option'), null);
 });
 
 test('valued getters/setters use only pgs-data; the retired attribute is ignored', () => {
     const el = element({ pgs: "button['btnMini']", 'pgs-option': 'scroll config[old]' });
-    const options = pgs(el).option;
     const data = pgs(el).data;
-    assert.equal(options.contains('scroll'), false);
+    assert.equal(pgs(el).option('button').contains('scroll'), false);
     assert.equal(data.getValueBrackets('config'), undefined);
     data.setValueBrackets('config', '["nested", "]"]');
     assert.equal(data.getValueBrackets('config'), '["nested", "]"]');
@@ -91,15 +158,13 @@ test('valued getters/setters use only pgs-data; the retired attribute is ignored
 });
 
 test('data.value is a plain passthrough on pgs-data, never the pgs bracket', () => {
-    const el = element({ pgs: "modal-dialog['dialogRight' 'dialogHistory']", 'pgs-data': 'modalContainerID[my dialog]' }, 'DIALOG');
-    const options = pgs(el).option;
+    const el = element({ pgs: "modal-dialog _dialog['dialogRight' 'dialogHistory']", 'pgs-data': 'modalContainerID[my dialog]' }, 'DIALOG');
     const data = pgs(el).data;
     assert.equal(data.value, 'modalContainerID[my dialog]');
     data.value = 'modalContainerID[other dialog] modalContainerPGS[header]';
-    assert.equal(el.getAttribute('pgs'), "modal-dialog['dialogRight' 'dialogHistory']");
+    assert.equal(el.getAttribute('pgs'), "modal-dialog _dialog['dialogRight' 'dialogHistory']");
     assert.equal(data.getValueBrackets('modalContainerID'), 'other dialog');
-    assert.equal(options.contains('dialogRight'), true);
-    assert.equal(options.contains('dialogHistory'), true);
+    assert.deepEqual([...pgs(el).option('_dialog').list()], ['dialogRight', 'dialogHistory']);
     data.value = null;
     assert.equal(el.getAttribute('pgs-data'), null);
     assert.equal(data.value, null);
@@ -110,56 +175,16 @@ test('unmatched payload brackets do not yield a partial value', () => {
     assert.equal(data.getValueBrackets('broken'), undefined);
 });
 
-test('option.add never writes to pgs-data; a flag with no owner present becomes its own bare pgs token', () => {
+test('every flag of the CSS goes into the bracket it is given, never into pgs-data', () => {
     const css = read('dist/css/index.css');
     const flags = new Set([...css.matchAll(/\[pgs\*="'([^']+)'"\]/g)].map(match => match[1]));
     assert(flags.size > 100);
     for (const flag of flags) {
-        const el = element();
-        pgs(el).option.add(flag);
+        const el = element({ pgs: 'owner' });
+        pgs(el).option('owner').add(flag);
         assert.equal(el.getAttribute('pgs-data'), null, `${flag} must not be written to pgs-data`);
-        assert.equal(el.getAttribute('pgs'), flag, `${flag} with no matching owner present must land as its own bare pgs token`);
+        assert.equal(el.getAttribute('pgs'), `owner['${flag}']`, `${flag} must land in the bracket named`);
     }
-});
-
-test("option.add derives the owning component from the flag's own name and merges into its bracket", () => {
-    // most flags carry an abbreviated prefix (btnMini, mgAuto), which derives btn/mg and not the
-    // component name — only a flag that starts with its component's own full name (cardMini,
-    // menuVertical, the icon-* glyphs) can be derived here, so a bare add() finds its way home
-    // without the caller naming the component. margin2 stands in for such a flag in this test;
-    // see the next test for what happens to a flag with an abbreviated prefix
-    const el = element({ pgs: 'margin' });
-    pgs(el).option.add('margin2');
-    assert.equal(el.getAttribute('pgs'), "margin['margin2']");
-    assert.equal(el.getAttribute('pgs-data'), null);
-});
-
-test("option.add cannot derive an owner from a shortened flag name; it lands bare like itemCenter", () => {
-    // this is the real cost of abbreviating: button['btnMini'] and margin['mgAuto'] must be written
-    // explicitly through the base pgs(el).add() — option.add('btnMini') / option.add('mgAuto') alone
-    // derive btn / mg, which is not the component name
-    const button = element({ pgs: 'button' });
-    pgs(button).option.add('btnMini');
-    assert.equal(button.getAttribute('pgs'), 'button btnMini');
-
-    const margin = element({ pgs: 'margin' });
-    pgs(margin).option.add('mgAuto');
-    assert.equal(margin.getAttribute('pgs'), 'margin mgAuto');
-});
-
-test('option.add falls back to a bare pgs token when no owner is present, like itemCenter on a plain button', () => {
-    const el = element({ pgs: 'button' });
-    pgs(el).option.add('itemCenter');
-    assert.equal(el.getAttribute('pgs'), 'button itemCenter');
-    assert.equal(pgs(el).option.contains('itemCenter'), true);
-    pgs(el).option.remove('itemCenter');
-    assert.equal(el.getAttribute('pgs'), 'button');
-});
-
-test('option.remove strips a flag whether it is bare or nested in a bracket', () => {
-    const el = element({ pgs: "header['headerScroll' 'headerMain'] itemCenter" });
-    pgs(el).option.remove('headerScroll', 'itemCenter');
-    assert.equal(el.getAttribute('pgs'), "header['headerMain']");
 });
 
 test('tabsHistory is genuine pgs-data: bare via data.value, or with its optional payload', () => {
@@ -172,37 +197,6 @@ test('tabsHistory is genuine pgs-data: bare via data.value, or with its optional
     assert.equal(el.getAttribute('pgs-data'), 'tabsHistory[docs]');
     data.value = null;
     assert.equal(el.getAttribute('pgs-data'), null);
-});
-
-test('boolean flags with no payload live in the component bracket, not pgs-data', () => {
-    for (const [component, flag] of [
-        ['header', 'headerScroll'], ['header', 'headerMain'],
-        ['accordion', 'accAutoOpen'], ['accordionContainer', 'accMultiOpen'],
-        ['slides', 'slidesSingleScroll'],
-        ['dropdown', 'drpHover'], ['modal', 'dialogHistory'],
-    ]) {
-        const el = element();
-        pgs(el).add(`${component}['${flag}']`);
-        assert.equal(el.getAttribute('pgs-data'), null, `${flag} must not be written to pgs-data`);
-        assert.equal(pgs(el).option.contains(flag), true, `${flag} must be found through option.contains()`);
-    }
-});
-
-test('option.add is idempotent, and a flag that is its own owner is not merged into itself', () => {
-    // column, wrap and card derive themselves as their owner: merging would write column['column']
-    for (const flag of ['column', 'wrap', 'card']) {
-        const el = element({ pgs: flag });
-        pgs(el).option.add(flag);
-        assert.equal(el.getAttribute('pgs'), flag, `${flag} already present must stay as it is`);
-    }
-
-    const el = element({ pgs: "card['cardMini'] flex['column']" });
-    pgs(el).option.add('card', 'cardMini', 'column');
-    assert.equal(el.getAttribute('pgs'), "card['cardMini'] flex['column']");
-
-    const bare = element({ pgs: 'button btnMini' });
-    pgs(bare).option.add('btnMini', 'btnMini');
-    assert.equal(bare.getAttribute('pgs'), 'button btnMini');
 });
 
 test('state.remove and state.toggle leave no empty pgs-state attribute', () => {
@@ -221,6 +215,16 @@ test('state.remove and state.toggle leave no empty pgs-state attribute', () => {
     state.add('open');
     state.toggle('open', false);
     assert.equal(el.getAttribute('pgs-state'), null);
+});
+
+test('a state is a single word, and state is no longer callable', () => {
+    const state = pgs(element()).state;
+    assert.equal(typeof state, 'object');
+    for (const call of [() => state.add(['open']), () => state.add('open active'), () => state.toggle(''), () => state.contains(null)]) {
+        assert.throws(call, { name: 'TypeError' });
+    }
+    state.add('open', 'active');
+    assert.equal(state.value, 'open active');
 });
 
 test('invalid input to the pgs core throws a TypeError in the library voice', () => {

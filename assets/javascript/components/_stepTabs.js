@@ -53,7 +53,7 @@ function PGS_stepTabs_build(tabsWizard) {
             const title = (tab.getAttribute("aria-label") || tab.querySelector("h1, h2, h3, h4, h5, h6")?.textContent || "").trim();
             dot.setAttribute("aria-label", title ? `Step ${index + 1}: ${title}` : `Step ${index + 1}`);
             pgs(dot).add("_stepTabs-dots-dot");
-            pgs(dot).add("button['btnIconOnly' 'btnNotHover']");
+            pgs(dot).add("button").option("button").add("btnIconOnly", "btnNotHover");
             // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
             // "<", is instantiated as written: that is what puts every icon set in reach,
             // including the ones a class list cannot describe because they want their name as
@@ -70,7 +70,7 @@ function PGS_stepTabs_build(tabsWizard) {
                 const dotIcon = document.createElement("i");
 
                 if (!authoredIcon || authoredIcon.startsWith("icon-")) {
-                    pgs(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
+                    pgs(dotIcon).add("icon").option("icon").add(authoredIcon || "icon-circle");
                 } else {
                     pgs(dotIcon).add("icon");
                     // the list goes through untouched, whatever set it belongs to

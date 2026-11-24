@@ -180,9 +180,13 @@ const BracketToken = {
 function createBracketAttribute(element, attribute) {
     return {
         read: () => BracketToken.split(element.getAttribute(attribute) || ""),
+        // nothing is written when the value stays the same, so a call that changes nothing (removing an
+        // option that is not there) fires no attribute mutation for an observer to react to
         write(values) {
-            if (values.length) element.setAttribute(attribute, values.join(" "));
-            else element.removeAttribute(attribute);
+            const value = values.length ? values.join(" ") : null;
+            if (value === element.getAttribute(attribute)) return;
+            if (value === null) element.removeAttribute(attribute);
+            else element.setAttribute(attribute, value);
         },
     };
 }
@@ -220,9 +224,26 @@ function pgs(root) {
             .join(",");
     }
 
+    // one name per argument: a component, a state or an option is a single word. An array, a list in
+    // one string or a bracket would be read as something else, so each one is refused with the form to
+    // write instead of landing in the attribute where the CSS never matches it
+    function word(scope, value, what, hint) {
+        if (Array.isArray(value)) throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)(scope, `pass each ${what} as its own argument, not an array`);
+        if (typeof value !== "string") throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)(scope, `${what} must be a string`);
+        const name = value.trim();
+        if (!name) throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)(scope, `${what} must not be empty`);
+        if (/\s/.test(name)) throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)(scope, `"${name}" holds a space: pass each ${what} as its own argument`);
+        if (/[[\]'"]/.test(name)) throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)(scope, `"${name}" holds a bracket or a quote: ${hint}`);
+        return name;
+    }
+
     //# PGS
+    // components only: a component is added, removed and checked by its name, and its options go
+    // through option("component")
     function createPgs() {
         const store = createBracketAttribute(root, ATTR);
+        const HINT = 'a component is added alone and its options through option(): pgs(el).add("button").option("button").add("btnMini")';
+        const component = (method, value) => word(method, value, "component", HINT);
 
         function api() {
             return api;
@@ -241,49 +262,40 @@ function pgs(root) {
             return root.closest(concatSelector(value));
         };
 
-        api.add = function (...values) {
+        // a component already there keeps its bracket as it is
+        api.add = function (...names) {
             if (!canAttr) return attrOnlyForElements("add");
+            const keys = names.map(name => component("add", name));
             const current = store.read();
-            for (const token of values.flatMap(value => BracketToken.split(String(value)))) {
-                const key = BracketToken.key(token);
-                const index = current.findIndex(item => BracketToken.key(item) === key);
-                if (index === -1) current.push(token);
-                else current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...BracketToken.flags(token)]);
-            }
+            keys.forEach(key => {
+                if (!current.some(token => BracketToken.key(token) === key)) current.push(key);
+            });
             store.write(current);
             return api;
         };
 
-        api.remove = function (...values) {
+        // the component goes with its bracket
+        api.remove = function (...names) {
             if (!canAttr) return attrOnlyForElements("remove");
-            const keys = values.flatMap(value => BracketToken.split(String(value))).map(BracketToken.key);
-            store.write(store.read().filter(v => !keys.includes(BracketToken.key(v))));
+            const keys = names.map(name => component("remove", name));
+            store.write(store.read().filter(token => !keys.includes(BracketToken.key(token))));
             return api;
         };
 
-        api.toggle = function (value, force) {
+        api.toggle = function (name, force) {
             if (!canAttr) return attrOnlyForElements("toggle");
-
-            const exists = api.contains(value);
-
-            if (force !== undefined) {
-                if (force && !exists) api.add(value);
-                if (!force && exists) api.remove(value);
-                return !!force;
-            }
-
-            if (exists) {
-                api.remove(value);
-                return false;
-            }
-
-            api.add(value);
-            return true;
+            const key = component("toggle", name);
+            const on = force === undefined ? !api.contains(key) : !!force;
+            if (on) api.add(key);
+            else api.remove(key);
+            return on;
         };
 
-        api.contains = function (value) {
+        // true for the component bare or with its bracket: contains("button") on button['btnMini']
+        api.contains = function (name) {
             if (!canAttr) return attrOnlyForElements("contains");
-            return store.read().some(token => BracketToken.key(token) === BracketToken.key(value));
+            const key = component("contains", name);
+            return store.read().some(token => BracketToken.key(token) === key);
         };
 
         Object.defineProperty(api, "value", {
@@ -306,23 +318,24 @@ function pgs(root) {
     function createState(attribute) {
         if (!canAttr) return undefined;
 
-        const read = (sep = " ") =>
-            (root.getAttribute(attribute) || "").split(sep).filter(Boolean);
+        const HINT = "a state is a single word";
+        const state = (method, value) => word(`state.${method}`, value, "state", HINT);
 
-        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""
-        const write = (vals, sep = " ") => {
-            if (vals.length) root.setAttribute(attribute, vals.join(sep));
-            else root.removeAttribute(attribute);
+        const read = () => (root.getAttribute(attribute) || "").split(" ").filter(Boolean);
+
+        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""; an unchanged
+        // value is not written again
+        const write = vals => {
+            const value = vals.length ? vals.join(" ") : null;
+            if (value === root.getAttribute(attribute)) return;
+            if (value === null) root.removeAttribute(attribute);
+            else root.setAttribute(attribute, value);
         };
 
-        // callable form: state("active") is the same as state.add("active")
-        function api(...values) {
-            api.add(...values);
-            return api;
-        }
+        const api = {};
 
         api.add = function (...values) {
-            const toAdd = values.flat().map(v => String(v).trim()).filter(Boolean);
+            const toAdd = values.map(value => state("add", value));
             const current = read();
             for (const v of toAdd) if (!current.includes(v)) current.push(v);
             write(current);
@@ -330,45 +343,21 @@ function pgs(root) {
         };
 
         api.remove = function (...values) {
-            const toRemove = values.flat().map(v => String(v).trim()).filter(Boolean);
-            const current = read().filter(v => !toRemove.includes(v));
-            write(current);
+            const toRemove = values.map(value => state("remove", value));
+            write(read().filter(v => !toRemove.includes(v)));
             return api;
         };
 
         api.toggle = function (value, force) {
-            const v = String(value).trim();
-            if (!v) return false;
-            const current = read();
-            const exists = current.includes(v);
-
-            if (force !== undefined) {
-                if (force && !exists) {
-                    current.push(v);
-                    write(current);
-                }
-
-                if (!force && exists) {
-                    write(current.filter(x => x !== v));
-                }
-
-                return !!force;
-            }
-
-            if (exists) {
-                write(current.filter(x => x !== v));
-                return false;
-            }
-            
-            current.push(v);
-            write(current);
-            return true;
+            const v = state("toggle", value);
+            const on = force === undefined ? !read().includes(v) : !!force;
+            if (on) api.add(v);
+            else api.remove(v);
+            return on;
         };
 
         api.contains = function (value) {
-            const v = String(value).trim();
-            if (!v) return false;
-            return read().includes(v);
+            return read().includes(state("contains", value));
         };
 
         api.querySelector = function (value) {
@@ -396,124 +385,74 @@ function pgs(root) {
     }
 
     //# OPTION
-    // flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
-    // flag's owning component from its own name (the lowercase run before the first uppercase
-    // letter or "-", the naming convention every component-owned flag already follows) and
-    // merge into that component's existing bracket; a flag with no matching owner on the
-    // element becomes its own bare pgs token instead.
+    // the options of one component, always named: option("button") reads and writes only the bracket of
+    // button, never pgs-data. Nothing guesses the owner of an option from its name, so btnMini goes where
+    // it is told, and an element without the component gets an error instead of a stray token
     function createOption() {
         if (!canAttr) return undefined;
 
         const store = createBracketAttribute(root, ATTR);
-        const getValues = values => values
-            .flat()
-            .flatMap(value => BracketToken.split(String(value)))
-            .filter(Boolean)
-            .map(BracketToken.key);
 
-        function ownerOf(key) {
-            return key.match(/^[a-z]+/)?.[0] || "";
-        }
+        return function option(name) {
+            const key = word("option", name, "component", 'name the component alone: option("button")');
+            const scope = method => `option("${key}").${method}`;
+            const flag = (method, value) => word(scope(method), value, "option", 'an option is a single word: option("button").add("btnMini")');
+            const find = tokens => tokens.findIndex(token => BracketToken.key(token) === key);
 
-        function api() {
-            return api;
-        }
+            const api = {};
 
-        api.add = function (...values) {
-            const current = store.read();
-            getValues(values).forEach(key => {
-                // already there, bare or inside a bracket: adding it again changes nothing. This
-                // also covers a flag that is its own owner (column, wrap, card), which a merge
-                // would turn into column['column']
-                if (current.some(item => BracketToken.key(item) === key || BracketToken.flags(item).includes(key))) return;
+            // an option goes into the bracket of a component the element has: the component itself is
+            // added by pgs(el).add(), so a misspelled name is an error and not a component nobody styles
+            api.add = function (...values) {
+                const flags = values.map(value => flag("add", value));
+                if (!flags.length) return api;
 
-                const owner = ownerOf(key);
-                const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
-                if (index === -1) current.push(key);
-                else {
-                    current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
+                const current = store.read();
+                const index = find(current);
+                if (index === -1) {
+                    throw (0,_helper_warn_js__WEBPACK_IMPORTED_MODULE_4__.PGS_invalid)(scope("add"), `the element has no ${key}: add it first with pgs(el).add("${key}")`);
                 }
-            });
-            store.write(current);
+
+                current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...flags]);
+                store.write(current);
+                return api;
+            };
+
+            // the component stays, bare when its last option goes; nothing to remove is not an error
+            api.remove = function (...values) {
+                const flags = values.map(value => flag("remove", value));
+                const current = store.read();
+                const index = find(current);
+                if (index === -1) return api;
+
+                current[index] = BracketToken.component(key, BracketToken.flags(current[index]).filter(item => !flags.includes(item)));
+                store.write(current);
+                return api;
+            };
+
+            api.toggle = function (value, force) {
+                const item = flag("toggle", value);
+                const on = force === undefined ? !api.contains(item) : !!force;
+                if (on) api.add(item);
+                else api.remove(item);
+                return on;
+            };
+
+            api.contains = function (value) {
+                const item = flag("contains", value);
+                const token = store.read().find(entry => BracketToken.key(entry) === key);
+                return Boolean(token) && BracketToken.flags(token).includes(item);
+            };
+
+            // the options written in the bracket now, as a copy: an empty array for a bare component or
+            // an element without it (pgs(el).contains() tells the two apart)
+            api.list = function () {
+                const token = store.read().find(entry => BracketToken.key(entry) === key);
+                return token ? BracketToken.flags(token) : [];
+            };
+
             return api;
         };
-
-        api.remove = function (...values) {
-            const keys = getValues(values);
-            if (!keys.length) return api;
-
-            store.write(store.read()
-                .filter(token => !keys.includes(BracketToken.key(token)))
-                .map(token => BracketToken.component(BracketToken.key(token),
-                    BracketToken.flags(token).filter(flag => !keys.includes(flag)))));
-            return api;
-        };
-
-        api.toggle = function (value, force) {
-            const key = BracketToken.key(value);
-            if (!key) return false;
-
-            const exists = api.contains(key);
-
-            if (force !== undefined) {
-                if (force && !exists) api.add(value);
-                if (!force && exists) api.remove(key);
-                return !!force;
-            }
-
-            if (exists) {
-                api.remove(key);
-                return false;
-            }
-
-            api.add(value);
-            return true;
-        };
-
-        api.contains = function (key) {
-            const safeKey = String(key).trim();
-            return store.read().some(token => BracketToken.key(token) === safeKey || BracketToken.flags(token).includes(safeKey));
-        };
-
-        const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
-            .split(",")
-            .map(v => BracketToken.key(v))
-            .filter(Boolean);
-
-        const hasKeys = (element, keys) => BracketToken.split(element.getAttribute(ATTR) || "")
-            .some(token => keys.includes(BracketToken.key(token)) || BracketToken.flags(token).some(flag => keys.includes(flag)));
-
-        api.querySelector = function (value) {
-            const keys = getKeys(value);
-            if (!keys.length) return null;
-
-            for (const element of root.querySelectorAll(`[${ATTR}]`)) {
-                if (hasKeys(element, keys)) return element;
-            }
-
-            return null;
-        };
-
-        // an Array, where every other querySelectorAll returns a NodeList: the match is computed
-        // here instead of by the engine, so there is no live list to hand back
-        api.querySelectorAll = function (value) {
-            const keys = getKeys(value);
-            if (!keys.length) return [];
-            return Array.from(root.querySelectorAll(`[${ATTR}]`)).filter(element => hasKeys(element, keys));
-        };
-
-        api.closest = function (value) {
-            const keys = getKeys(value);
-            if (!keys.length) return null;
-
-            for (let element = root; element; element = element.parentElement) {
-                if (hasKeys(element, keys)) return element;
-            }
-
-            return null;
-        };
-
-        return api;
     }
 
     //# DATA
@@ -702,7 +641,7 @@ function setDarkmodeStatus(toggle = false) {
 //# THREE STATES
 // a darkmodeToggle['tglFollowSystem'] has three states and goes round them: light, dark, the system, light again
 function hasThreeStates(button) {
-    return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).option.contains("tglFollowSystem");
+    return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).option("darkmodeToggle").contains("tglFollowSystem");
 }
 
 function nextOfThree() {
@@ -1056,13 +995,13 @@ function initializeAccordion(accordion) {
 
     // initial state: accAutoOpen is the authored form, because pgs-state belongs to
     // the runtime; a pgs-state="open" already written by hand is honored all the same
-    const isOpenInit = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open");
+    const isOpenInit = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option("accordion").contains("accAutoOpen") || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).state.contains("open");
 
     // an accordion closes the others only inside a group, and the group is the nearest
     // accordionContainer above it: on its own an accordion answers for itself alone, so a
     // single panel dropped anywhere on the page no longer collapses somebody else's
     const CONTAINER = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).closest("accordionContainer");
-    const isMultiOpen = !CONTAINER || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).option.contains("accMultiOpen");
+    const isMultiOpen = !CONTAINER || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).option("accordionContainer").contains("accMultiOpen");
 
     // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
     // a native <button> is already a focusable button: only another element needs the role and the tab stop
@@ -1087,7 +1026,7 @@ function initializeAccordion(accordion) {
         for (const otherLi of (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(CONTAINER).querySelectorAll("accordion")) {
             if (otherLi === accordion) continue;
             if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).closest("accordionContainer") !== CONTAINER) continue;
-            if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).option.contains("accAutoOpen")) continue;
+            if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(otherLi).option("accordion").contains("accAutoOpen")) continue;
 
             const otherBtn = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(otherLi, "accordion-button");
             const otherContent = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.directChild(otherLi, "accordion-content");
@@ -1113,9 +1052,8 @@ function initializeAccordion(accordion) {
 
         // the moment the reader works this panel, accAutoOpen stops being the authored
         // "this one stays open": from here on it is an ordinary panel of the group, so a
-        // sibling opening can close it. Guarded, because option.remove rewrites the pgs
-        // attribute (without the flag) even on an accordion that never had it
-        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.contains("accAutoOpen")) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option.remove("accAutoOpen");
+        // sibling opening can close it. On an accordion without it nothing is written
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(accordion).option("accordion").remove("accAutoOpen");
         if (!isMultiOpen) closeOtherAccordion();
 
         // once the layout has settled, only scroll if the button ended up out of view (an
@@ -1422,7 +1360,7 @@ const fn_alert = {
         const id = config.id ?? _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("alert");
         const alert = document.createElement("div");
         // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(alert).add(config.component, `${config.component}['${typeDefaults.flag}']`);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(alert).add(config.component).option(config.component).add(typeDefaults.flag);
         // error and warning are both urgent enough to interrupt a screen reader; the others only
         // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
@@ -1507,8 +1445,8 @@ const fn_alert = {
             if (link) buttonElement.href = link;
             else buttonElement.type = "button";
 
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).add("button['btnTransparent']");
-            if (optionButton) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).add(`button['${optionButton}']`);
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).add("button").option("button").add("btnTransparent");
+            if (optionButton) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(buttonElement).option("button").add(optionButton);
 
             buttonElement.addEventListener("click", (e) => {
                 const event = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.dispatch(buttonElement, "pgs:alert:buttonClick", {
@@ -1825,7 +1763,7 @@ function initializeDropdown(DROPDOWN) {
         isOpen: () => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DROPDOWN).state.contains("open")
     };
 
-    const HOVER = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DROPDOWN).option.contains("drpHover");
+    const HOVER = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DROPDOWN).option("dropdown").contains("drpHover");
 
     //## click behavior
     // with drpHover the pointer opens and closes it: a click of the pointer does nothing, or it would close what
@@ -2232,7 +2170,7 @@ function createToggle(link) {
     const text = link.textContent.trim();
     button.setAttribute("aria-label", text ? `Show the submenu of ${text}` : "Show the submenu");
 
-    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).add("_menu-submenuButton", "button['btnMini' 'btnIconOnly']");
+    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).add("_menu-submenuButton", "button").option("button").add("btnMini", "btnIconOnly");
     link.insertAdjacentElement("afterend", button);
 
     return button;
@@ -2262,7 +2200,7 @@ function setupAccordion(li, button, ul, signal) {
 
 // the floating submenu has the arrow of the dropdown, pointing back at its item
 function setupDropdown(li, button, ul) {
-    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("dropdown['drpArrow']");
+    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("dropdown").option("dropdown").add("drpArrow");
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).data.setValueBrackets("dropdownPosition", "bottom center");
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(button).add("dropdown-button");
     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(ul).add("dropdown-content");
@@ -2280,7 +2218,7 @@ function initializeMenu(MENU) {
 
     const controller = new AbortController();
     const { signal } = controller;
-    const isHorizontal = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MENU).option.contains("menuHorizontal");
+    const isHorizontal = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MENU).option("menu").contains("menuHorizontal");
     const floating = [];
 
     MENU.querySelectorAll("li").forEach(li => {
@@ -2429,28 +2367,28 @@ function initializeModal(MODAL) {
     // dialogMedium or dialogFull) instead of dialogSmall, an animation instead of dialogAnimationBottom, and a
     // container (modalContainerID, modalContainerPGS) instead of dialogTopLevel, since a dialog in the top
     // layer stays where it is
-    if ([MODAL, DIALOG].some(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains("modalSheet"))) {
-        const authored = keys => [MODAL, DIALOG].some(element => keys.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains(key)));
+    // an option is the wrapper's (modal) or, after a first pass, already on the dialog (_dialog)
+    const hasOption = key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option("modal").contains(key) || (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option("_dialog").contains(key);
+    if (hasOption("modalSheet")) {
+        const authored = keys => keys.some(hasOption);
         const container = [MODAL, DIALOG].some(element => ["modalContainerID", "modalContainerPGS"].some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined));
         const sheet = ["dialogBottom", "dialogDragClose"];
         if (!authored(["dialogSmall", "dialogMedium", "dialogFull"])) sheet.push("dialogSmall");
         if (!authored(ANIMATIONS)) sheet.push("dialogAnimationBottom");
         if (!container) sheet.push("dialogTopLevel");
-        for (const key of sheet) (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).add(`modal['${key}']`);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option("modal").add(...sheet);
     }
     for (const key of [
         "modalSheet", "dialogHistory", "dialogTopLevel", "dialogDisableBackdropClose", "dialogDragClose", "dialogSmall", "dialogMedium",
         ...ANIMATIONS, "dialogFull", "dialogCenter", "dialogLeft", "dialogRight", "dialogTop", "dialogBottom"
     ]) {
-        const source = [MODAL, DIALOG].find(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.contains(key));
-        if (!source) continue;
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).add(`modal['${key}']`);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.remove(key);
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).add(`_dialog['${key}']`);
+        if (!hasOption(key)) continue;
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option("modal").add(key);
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option("_dialog").add(key);
     }
 
-    // these two carry a value, so they still live in pgs-data — option never checks pgs-data,
-    // so presence is a getValueBrackets read instead of an option.contains() call
+    // these two carry a value, so they still live in pgs-data — option() never checks pgs-data,
+    // so presence is a getValueBrackets read instead of an option("modal").contains() call
     for (const key of ["modalContainerID", "modalContainerPGS"]) {
         const source = [MODAL, DIALOG].find(element => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).data.getValueBrackets(key) !== undefined);
         if (!source) continue;
@@ -2459,16 +2397,16 @@ function initializeModal(MODAL) {
     }
 
     //## OPTION ATTRIBUTES MODAL
-    const dialogDisableBackdropClose = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option.contains("dialogDisableBackdropClose");
-    const dialogHistory = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option.contains("dialogHistory");
+    const dialogDisableBackdropClose = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option("modal").contains("dialogDisableBackdropClose");
+    const dialogHistory = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).option("modal").contains("dialogHistory");
     const modalContainerID = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).data.getValueBrackets("modalContainerID");
     const modalContainerPGS = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(MODAL).data.getValueBrackets("modalContainerPGS");
 
     //## OPTION ATTRIBUTES DIALOG
-    const dialogTopLevel = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains("dialogTopLevel");
-    const dialogAnimationZoom = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains("dialogAnimationZoom");
-    const dialogAnimation = ANIMATIONS.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains(key));
-    const dialogDragClose = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option.contains("dialogDragClose");
+    const dialogTopLevel = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option("_dialog").contains("dialogTopLevel");
+    const dialogAnimationZoom = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option("_dialog").contains("dialogAnimationZoom");
+    const dialogAnimation = ANIMATIONS.some(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option("_dialog").contains(key));
+    const dialogDragClose = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).option("_dialog").contains("dialogDragClose");
     const CONTENT = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(DIALOG).querySelector("modal-dialog-content");
     let closing = false;
 
@@ -3027,7 +2965,7 @@ const fn_notification = {
         const { signal } = this._panelController;
 
         const modal = document.createElement("div");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(modal).add("modal['dialogRight' 'dialogTop' 'dialogSmall' 'dialogAnimationRight']");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(modal).add("modal").option("modal").add("dialogRight", "dialogTop", "dialogSmall", "dialogAnimationRight");
 
         const dialog = document.createElement("dialog");
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dialog).add("modal-dialog", "_notification-dialog");
@@ -3043,7 +2981,7 @@ const fn_notification = {
         const closeButton = document.createElement("button");
         closeButton.type = "button";
         closeButton.textContent = this._defaults.panelCloseTitle;
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(closeButton).add("button['btnMini']", "_modal-close", "_notification-close");
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(closeButton).add("button", "_modal-close", "_notification-close").option("button").add("btnMini");
         content.appendChild(closeButton);
 
         dialog.appendChild(content);
@@ -3071,7 +3009,7 @@ const fn_notification = {
     // puts the position this bell asks for on the one modal. Only ever called while the panel is
     // closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
     _applyPosition(bell) {
-        const wanted = this._positions.filter(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bell).option.contains(key));
+        const wanted = this._positions.filter(key => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(bell).option("notificationBell").contains(key));
         const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
         const height = wanted.find(key => key === "dialogTop" || key === "dialogBottom") ?? "dialogTop";
         const flags = wanted.includes("dialogCenter")
@@ -3081,8 +3019,7 @@ const fn_notification = {
         // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
         const dialog = _modal_js__WEBPACK_IMPORTED_MODULE_2__.PGS_modal.api(this._modal).dialog;
         [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option.remove(...this._positions, ...this._animations);
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).add(`${token}[${flags.map(flag => `'${flag}'`).join(" ")}]`);
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(element).option(token).remove(...this._positions, ...this._animations).add(...flags);
         });
     },
 
@@ -4121,16 +4058,16 @@ function PGS_selectBox_build(root) {
     const listId = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("selectBox-list");
 
     //## options
-    const searchable = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxSearch");
-    const collapsible = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxCollapse");
-    const withChips = multiple && (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxChips");
+    const searchable = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option("selectBox").contains("selectBoxSearch");
+    const collapsible = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option("selectBox").contains("selectBoxCollapse");
+    const withChips = multiple && (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option("selectBox").contains("selectBoxChips");
     const maxValue = Number.parseInt((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxMax"), 10);
     const max = multiple && maxValue > 0 ? maxValue : 0;
     const searchPlaceholder = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxSearchPlaceholder") || "Search";
     const noResultsText = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxNoResults") || "No results";
     const chipRemoveText = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).data.getValueBrackets("selectBoxChipRemove") || "Remove";
 
-    if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option.contains("selectBoxChips") && !multiple) {
+    if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(root).option("selectBox").contains("selectBoxChips") && !multiple) {
         _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.warn("selectBox.init", "selectBoxChips needs a <select multiple>, so it was left out", root);
     }
     if (maxValue > 0 && !multiple) {
@@ -4734,7 +4671,7 @@ class PGS_Slides {
         //## DOTS
         // slidesNotDots: no row is built at all, nothing is hidden. One written by hand is the author's and is
         // wired as usual: writing both is a contradiction that stays visible instead of being resolved in silence
-        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots']) && !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).option.contains("slidesNotDots")) {
+        if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).querySelector(['slides-dots', '_slides-dots']) && !(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(EL).option("slides").contains("slidesNotDots")) {
             EL.insertAdjacentHTML("beforeend", `<div pgs="_slides-dots"></div>`);
         }
 
@@ -4777,7 +4714,7 @@ class PGS_Slides {
         // the middle of an even number of slides falls between two of them, so each arrow takes
         // the one on its own side: rounded down going forward, up going back, so the two
         // arrows do not start from the same slide
-        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesSingleScroll')) {
+        if ((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option("slides").contains('slidesSingleScroll')) {
             const middle = (currents.length - 1) / 2;
             return currents[towardsEnd ? Math.floor(middle) : Math.ceil(middle)];
         }
@@ -4818,7 +4755,7 @@ class PGS_Slides {
 
     //## LOOP
     #isLoop() {
-        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option.contains('slidesLoop');
+        return (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(this.element).option("slides").contains('slidesLoop');
     }
 
     //## PREV
@@ -5069,7 +5006,7 @@ function PGS_stepTabs_build(tabsWizard) {
             const title = (tab.getAttribute("aria-label") || tab.querySelector("h1, h2, h3, h4, h5, h6")?.textContent || "").trim();
             dot.setAttribute("aria-label", title ? `Step ${index + 1}: ${title}` : `Step ${index + 1}`);
             (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("_stepTabs-dots-dot");
-            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("button['btnIconOnly' 'btnNotHover']");
+            (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dot).add("button").option("button").add("btnIconOnly", "btnNotHover");
             // stepTabsIcon takes three shapes, told apart by how the value opens. Markup, from a
             // "<", is instantiated as written: that is what puts every icon set in reach,
             // including the ones a class list cannot describe because they want their name as
@@ -5086,7 +5023,7 @@ function PGS_stepTabs_build(tabsWizard) {
                 const dotIcon = document.createElement("i");
 
                 if (!authoredIcon || authoredIcon.startsWith("icon-")) {
-                    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add(`icon['${authoredIcon || "icon-circle"}']`);
+                    (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add("icon").option("icon").add(authoredIcon || "icon-circle");
                 } else {
                     (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(dotIcon).add("icon");
                     // the list goes through untouched, whatever set it belongs to
@@ -5817,7 +5754,7 @@ const fn_toast = {
         const keys = this._options.filter(key => wanted.includes(key));
 
         (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).remove("_toast");
-        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
+        (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(container).add("_toast").option("_toast").add(...keys);
     },
 
     _add(type, options) {
@@ -5932,9 +5869,10 @@ function PGS_roots(root, token, scope = "helper.roots") {
     return roots;
 }
 
-// the children of `parent` (not the descendants) that carry the token, or any of them
+// the children of `parent` (not the descendants) that carry the token, or any of them; the token
+// takes the same forms as in PGS_roots
 function PGS_directChildren(parent, token) {
-    const tokens = [].concat(token);
+    const tokens = [].concat(token).flatMap(item => String(item).split(",")).map(item => item.trim()).filter(Boolean);
     return Array.from(parent.children).filter(child => tokens.some(item => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(child).contains(item)));
 }
 
@@ -6765,7 +6703,7 @@ function initHeight(header, signal) {
     // one, or else the first live header in the page
     function getPrimaryHeader() {
         const headers = getLiveHeaders();
-        return headers.find(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerMain")) || headers[0] || null;
+        return headers.find(header => (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option("header").contains("headerMain")) || headers[0] || null;
     }
 
     //## HEIGHT
@@ -6812,7 +6750,7 @@ function initHeight(header, signal) {
 const SCROLL_MAX_HEIGHT = 900;
 
 function initScroll(header, signal) {
-    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option.contains("headerScroll")) return;
+    if (!(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).option("header").contains("headerScroll")) return;
 
     let lastScrollY = window.scrollY;
     const headerElements = (0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).querySelectorAll("header-element");

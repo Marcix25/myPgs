@@ -50,7 +50,7 @@ const fn_toast = {
         const keys = this._options.filter(key => wanted.includes(key));
 
         pgs(container).remove("_toast");
-        pgs(container).add("_toast", ...keys.map(key => `_toast['${key}']`));
+        pgs(container).add("_toast").option("_toast").add(...keys);
     },
 
     _add(type, options) {

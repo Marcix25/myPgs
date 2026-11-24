@@ -50,7 +50,7 @@ const fn_notification = {
         const { signal } = this._panelController;
 
         const modal = document.createElement("div");
-        pgs(modal).add("modal['dialogRight' 'dialogTop' 'dialogSmall' 'dialogAnimationRight']");
+        pgs(modal).add("modal").option("modal").add("dialogRight", "dialogTop", "dialogSmall", "dialogAnimationRight");
 
         const dialog = document.createElement("dialog");
         pgs(dialog).add("modal-dialog", "_notification-dialog");
@@ -66,7 +66,7 @@ const fn_notification = {
         const closeButton = document.createElement("button");
         closeButton.type = "button";
         closeButton.textContent = this._defaults.panelCloseTitle;
-        pgs(closeButton).add("button['btnMini']", "_modal-close", "_notification-close");
+        pgs(closeButton).add("button", "_modal-close", "_notification-close").option("button").add("btnMini");
         content.appendChild(closeButton);
 
         dialog.appendChild(content);
@@ -94,7 +94,7 @@ const fn_notification = {
     // puts the position this bell asks for on the one modal. Only ever called while the panel is
     // closed: moving an open panel would make it jump. The slide comes in from the side it ends up on
     _applyPosition(bell) {
-        const wanted = this._positions.filter(key => pgs(bell).option.contains(key));
+        const wanted = this._positions.filter(key => pgs(bell).option("notificationBell").contains(key));
         const side = wanted.find(key => key === "dialogLeft" || key === "dialogRight") ?? "dialogRight";
         const height = wanted.find(key => key === "dialogTop" || key === "dialogBottom") ?? "dialogTop";
         const flags = wanted.includes("dialogCenter")
@@ -104,8 +104,7 @@ const fn_notification = {
         // pgs.modal moves the dialog out of its wrapper, so it is asked for rather than searched for
         const dialog = PGS_modal.api(this._modal).dialog;
         [[this._modal, "modal"], [dialog, "_dialog"]].forEach(([element, token]) => {
-            pgs(element).option.remove(...this._positions, ...this._animations);
-            pgs(element).add(`${token}[${flags.map(flag => `'${flag}'`).join(" ")}]`);
+            pgs(element).option(token).remove(...this._positions, ...this._animations).add(...flags);
         });
     },
 

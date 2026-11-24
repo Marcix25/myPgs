@@ -347,8 +347,8 @@ function associateSources(template, documentation, sources) {
     return sources.filter(source => primaryTokens.some(token => containsPgsReference(source.content, token)));
 }
 
-// a token the JavaScript writes onto an element it builds: pgs().add(), markup assembled as a
-// string, or a direct setAttribute. Reading a token (querySelector) is deliberately not counted,
+// a token the JavaScript writes onto an element it builds: pgs().add() and option("component").add(),
+// markup assembled as a string, or a direct setAttribute. Reading a token (querySelector) is deliberately not counted,
 // because that is how the library finds markup the author wrote.
 function extractEmittedPgs(source) {
     if (!source.file.endsWith(".js")) return [];
@@ -356,6 +356,7 @@ function extractEmittedPgs(source) {
     const emitted = new Set();
     const patterns = [
         /pgs\([^)]*\)\s*\.\s*add\(([^)]*)\)/g,
+        /\.option\(\s*["'][^"']+["']\s*\)\s*\.\s*add\(([^)]*)\)/g,
         /setAttribute\(\s*["']pgs["']\s*,\s*(["'][^"']+["'])/g,
     ];
 
@@ -381,7 +382,9 @@ function extractSourceFacts(sources) {
     sources.forEach(source => {
         const content = source.content;
         const optionPatterns = [
-            /\.option\.(?:contains|getValueBrackets|setValueBrackets)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
+            // what the module reads; an option it adds is markup it writes, counted by extractEmittedPgs
+            /\.option\(\s*["'][^"']+["']\s*\)\s*\.\s*(?:contains|remove|toggle)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
+            /\.data\.(?:getValueBrackets|setValueBrackets)\(\s*["']([^"']+)["']\s*(?=[,)])/g,
             /pgs-data\s*[~*^$|]?=\s*["']([^"'\[\]\s]+)(?:\[[^\]]*\])?["']/g,
             /\[pgs\*="'([A-Za-z_][\w-]*)'"\]/g,
         ];
@@ -558,14 +561,15 @@ function validateTemplate(template, parsed, sources, allSourceContent) {
     });
 
     documentation.api.forEach(item => {
-        // a method with its arguments, or a property the instance or the module carries (instance.value)
-        const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*)+)(?:\([^)]*\))?$/);
+        // a method with its arguments, or a property the instance or the module carries (instance.value);
+        // a step of the chain may be a call too (instance.option(component).add(...flags))
+        const signature = item.key.match(/^(?:new\s+)?((?:pgs|instance)(?:\.[A-Za-z_$][\w$]*(?:\([^)]*\))?)*?\.[A-Za-z_$][\w$]*)(?:\([^)]*\))?$/);
         if (!signature) {
             errors.push(createError(file, `Invalid API signature: "${item.key}".`, "Use a callable signature, for example pgs.modal.api(element) or instance.open(), or a property, for example instance.element.", "@api", item.key));
             return;
         }
 
-        const identifiers = signature[1].split(".");
+        const identifiers = signature[1].replace(/\([^)]*\)/g, "").split(".");
         const implementationName = identifiers.at(-1);
         if (!containsExactToken(allSourceContent, implementationName)) {
             errors.push(createError(file, `Documented API not found in the sources: "${item.key}".`, "Fix the signature or remove the method that is not exposed.", "@api", item.key));

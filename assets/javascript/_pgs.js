@@ -84,9 +84,13 @@ const BracketToken = {
 function createBracketAttribute(element, attribute) {
     return {
         read: () => BracketToken.split(element.getAttribute(attribute) || ""),
+        // nothing is written when the value stays the same, so a call that changes nothing (removing an
+        // option that is not there) fires no attribute mutation for an observer to react to
         write(values) {
-            if (values.length) element.setAttribute(attribute, values.join(" "));
-            else element.removeAttribute(attribute);
+            const value = values.length ? values.join(" ") : null;
+            if (value === element.getAttribute(attribute)) return;
+            if (value === null) element.removeAttribute(attribute);
+            else element.setAttribute(attribute, value);
         },
     };
 }
@@ -124,9 +128,26 @@ export function pgs(root) {
             .join(",");
     }
 
+    // one name per argument: a component, a state or an option is a single word. An array, a list in
+    // one string or a bracket would be read as something else, so each one is refused with the form to
+    // write instead of landing in the attribute where the CSS never matches it
+    function word(scope, value, what, hint) {
+        if (Array.isArray(value)) throw PGS_invalid(scope, `pass each ${what} as its own argument, not an array`);
+        if (typeof value !== "string") throw PGS_invalid(scope, `${what} must be a string`);
+        const name = value.trim();
+        if (!name) throw PGS_invalid(scope, `${what} must not be empty`);
+        if (/\s/.test(name)) throw PGS_invalid(scope, `"${name}" holds a space: pass each ${what} as its own argument`);
+        if (/[[\]'"]/.test(name)) throw PGS_invalid(scope, `"${name}" holds a bracket or a quote: ${hint}`);
+        return name;
+    }
+
     //# PGS
+    // components only: a component is added, removed and checked by its name, and its options go
+    // through option("component")
     function createPgs() {
         const store = createBracketAttribute(root, ATTR);
+        const HINT = 'a component is added alone and its options through option(): pgs(el).add("button").option("button").add("btnMini")';
+        const component = (method, value) => word(method, value, "component", HINT);
 
         function api() {
             return api;
@@ -145,49 +166,40 @@ export function pgs(root) {
             return root.closest(concatSelector(value));
         };
 
-        api.add = function (...values) {
+        // a component already there keeps its bracket as it is
+        api.add = function (...names) {
             if (!canAttr) return attrOnlyForElements("add");
+            const keys = names.map(name => component("add", name));
             const current = store.read();
-            for (const token of values.flatMap(value => BracketToken.split(String(value)))) {
-                const key = BracketToken.key(token);
-                const index = current.findIndex(item => BracketToken.key(item) === key);
-                if (index === -1) current.push(token);
-                else current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...BracketToken.flags(token)]);
-            }
+            keys.forEach(key => {
+                if (!current.some(token => BracketToken.key(token) === key)) current.push(key);
+            });
             store.write(current);
             return api;
         };
 
-        api.remove = function (...values) {
+        // the component goes with its bracket
+        api.remove = function (...names) {
             if (!canAttr) return attrOnlyForElements("remove");
-            const keys = values.flatMap(value => BracketToken.split(String(value))).map(BracketToken.key);
-            store.write(store.read().filter(v => !keys.includes(BracketToken.key(v))));
+            const keys = names.map(name => component("remove", name));
+            store.write(store.read().filter(token => !keys.includes(BracketToken.key(token))));
             return api;
         };
 
-        api.toggle = function (value, force) {
+        api.toggle = function (name, force) {
             if (!canAttr) return attrOnlyForElements("toggle");
-
-            const exists = api.contains(value);
-
-            if (force !== undefined) {
-                if (force && !exists) api.add(value);
-                if (!force && exists) api.remove(value);
-                return !!force;
-            }
-
-            if (exists) {
-                api.remove(value);
-                return false;
-            }
-
-            api.add(value);
-            return true;
+            const key = component("toggle", name);
+            const on = force === undefined ? !api.contains(key) : !!force;
+            if (on) api.add(key);
+            else api.remove(key);
+            return on;
         };
 
-        api.contains = function (value) {
+        // true for the component bare or with its bracket: contains("button") on button['btnMini']
+        api.contains = function (name) {
             if (!canAttr) return attrOnlyForElements("contains");
-            return store.read().some(token => BracketToken.key(token) === BracketToken.key(value));
+            const key = component("contains", name);
+            return store.read().some(token => BracketToken.key(token) === key);
         };
 
         Object.defineProperty(api, "value", {
@@ -210,23 +222,24 @@ export function pgs(root) {
     function createState(attribute) {
         if (!canAttr) return undefined;
 
-        const read = (sep = " ") =>
-            (root.getAttribute(attribute) || "").split(sep).filter(Boolean);
+        const HINT = "a state is a single word";
+        const state = (method, value) => word(`state.${method}`, value, "state", HINT);
 
-        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""
-        const write = (vals, sep = " ") => {
-            if (vals.length) root.setAttribute(attribute, vals.join(sep));
-            else root.removeAttribute(attribute);
+        const read = () => (root.getAttribute(attribute) || "").split(" ").filter(Boolean);
+
+        // an empty list removes the attribute, so a state taken off leaves no pgs-state=""; an unchanged
+        // value is not written again
+        const write = vals => {
+            const value = vals.length ? vals.join(" ") : null;
+            if (value === root.getAttribute(attribute)) return;
+            if (value === null) root.removeAttribute(attribute);
+            else root.setAttribute(attribute, value);
         };
 
-        // callable form: state("active") is the same as state.add("active")
-        function api(...values) {
-            api.add(...values);
-            return api;
-        }
+        const api = {};
 
         api.add = function (...values) {
-            const toAdd = values.flat().map(v => String(v).trim()).filter(Boolean);
+            const toAdd = values.map(value => state("add", value));
             const current = read();
             for (const v of toAdd) if (!current.includes(v)) current.push(v);
             write(current);
@@ -234,45 +247,21 @@ export function pgs(root) {
         };
 
         api.remove = function (...values) {
-            const toRemove = values.flat().map(v => String(v).trim()).filter(Boolean);
-            const current = read().filter(v => !toRemove.includes(v));
-            write(current);
+            const toRemove = values.map(value => state("remove", value));
+            write(read().filter(v => !toRemove.includes(v)));
             return api;
         };
 
         api.toggle = function (value, force) {
-            const v = String(value).trim();
-            if (!v) return false;
-            const current = read();
-            const exists = current.includes(v);
-
-            if (force !== undefined) {
-                if (force && !exists) {
-                    current.push(v);
-                    write(current);
-                }
-
-                if (!force && exists) {
-                    write(current.filter(x => x !== v));
-                }
-
-                return !!force;
-            }
-
-            if (exists) {
-                write(current.filter(x => x !== v));
-                return false;
-            }
-            
-            current.push(v);
-            write(current);
-            return true;
+            const v = state("toggle", value);
+            const on = force === undefined ? !read().includes(v) : !!force;
+            if (on) api.add(v);
+            else api.remove(v);
+            return on;
         };
 
         api.contains = function (value) {
-            const v = String(value).trim();
-            if (!v) return false;
-            return read().includes(v);
+            return read().includes(state("contains", value));
         };
 
         api.querySelector = function (value) {
@@ -300,124 +289,74 @@ export function pgs(root) {
     }
 
     //# OPTION
-    // flags only, and only inside the pgs attribute — never pgs-data. add/toggle derive a
-    // flag's owning component from its own name (the lowercase run before the first uppercase
-    // letter or "-", the naming convention every component-owned flag already follows) and
-    // merge into that component's existing bracket; a flag with no matching owner on the
-    // element becomes its own bare pgs token instead.
+    // the options of one component, always named: option("button") reads and writes only the bracket of
+    // button, never pgs-data. Nothing guesses the owner of an option from its name, so btnMini goes where
+    // it is told, and an element without the component gets an error instead of a stray token
     function createOption() {
         if (!canAttr) return undefined;
 
         const store = createBracketAttribute(root, ATTR);
-        const getValues = values => values
-            .flat()
-            .flatMap(value => BracketToken.split(String(value)))
-            .filter(Boolean)
-            .map(BracketToken.key);
 
-        function ownerOf(key) {
-            return key.match(/^[a-z]+/)?.[0] || "";
-        }
+        return function option(name) {
+            const key = word("option", name, "component", 'name the component alone: option("button")');
+            const scope = method => `option("${key}").${method}`;
+            const flag = (method, value) => word(scope(method), value, "option", 'an option is a single word: option("button").add("btnMini")');
+            const find = tokens => tokens.findIndex(token => BracketToken.key(token) === key);
 
-        function api() {
-            return api;
-        }
+            const api = {};
 
-        api.add = function (...values) {
-            const current = store.read();
-            getValues(values).forEach(key => {
-                // already there, bare or inside a bracket: adding it again changes nothing. This
-                // also covers a flag that is its own owner (column, wrap, card), which a merge
-                // would turn into column['column']
-                if (current.some(item => BracketToken.key(item) === key || BracketToken.flags(item).includes(key))) return;
+            // an option goes into the bracket of a component the element has: the component itself is
+            // added by pgs(el).add(), so a misspelled name is an error and not a component nobody styles
+            api.add = function (...values) {
+                const flags = values.map(value => flag("add", value));
+                if (!flags.length) return api;
 
-                const owner = ownerOf(key);
-                const index = owner ? current.findIndex(item => BracketToken.key(item) === owner) : -1;
-                if (index === -1) current.push(key);
-                else {
-                    current[index] = BracketToken.component(owner, [...BracketToken.flags(current[index]), key]);
+                const current = store.read();
+                const index = find(current);
+                if (index === -1) {
+                    throw PGS_invalid(scope("add"), `the element has no ${key}: add it first with pgs(el).add("${key}")`);
                 }
-            });
-            store.write(current);
+
+                current[index] = BracketToken.component(key, [...BracketToken.flags(current[index]), ...flags]);
+                store.write(current);
+                return api;
+            };
+
+            // the component stays, bare when its last option goes; nothing to remove is not an error
+            api.remove = function (...values) {
+                const flags = values.map(value => flag("remove", value));
+                const current = store.read();
+                const index = find(current);
+                if (index === -1) return api;
+
+                current[index] = BracketToken.component(key, BracketToken.flags(current[index]).filter(item => !flags.includes(item)));
+                store.write(current);
+                return api;
+            };
+
+            api.toggle = function (value, force) {
+                const item = flag("toggle", value);
+                const on = force === undefined ? !api.contains(item) : !!force;
+                if (on) api.add(item);
+                else api.remove(item);
+                return on;
+            };
+
+            api.contains = function (value) {
+                const item = flag("contains", value);
+                const token = store.read().find(entry => BracketToken.key(entry) === key);
+                return Boolean(token) && BracketToken.flags(token).includes(item);
+            };
+
+            // the options written in the bracket now, as a copy: an empty array for a bare component or
+            // an element without it (pgs(el).contains() tells the two apart)
+            api.list = function () {
+                const token = store.read().find(entry => BracketToken.key(entry) === key);
+                return token ? BracketToken.flags(token) : [];
+            };
+
             return api;
         };
-
-        api.remove = function (...values) {
-            const keys = getValues(values);
-            if (!keys.length) return api;
-
-            store.write(store.read()
-                .filter(token => !keys.includes(BracketToken.key(token)))
-                .map(token => BracketToken.component(BracketToken.key(token),
-                    BracketToken.flags(token).filter(flag => !keys.includes(flag)))));
-            return api;
-        };
-
-        api.toggle = function (value, force) {
-            const key = BracketToken.key(value);
-            if (!key) return false;
-
-            const exists = api.contains(key);
-
-            if (force !== undefined) {
-                if (force && !exists) api.add(value);
-                if (!force && exists) api.remove(key);
-                return !!force;
-            }
-
-            if (exists) {
-                api.remove(key);
-                return false;
-            }
-
-            api.add(value);
-            return true;
-        };
-
-        api.contains = function (key) {
-            const safeKey = String(key).trim();
-            return store.read().some(token => BracketToken.key(token) === safeKey || BracketToken.flags(token).includes(safeKey));
-        };
-
-        const getKeys = value => (Array.isArray(value) ? value.join(",") : String(value))
-            .split(",")
-            .map(v => BracketToken.key(v))
-            .filter(Boolean);
-
-        const hasKeys = (element, keys) => BracketToken.split(element.getAttribute(ATTR) || "")
-            .some(token => keys.includes(BracketToken.key(token)) || BracketToken.flags(token).some(flag => keys.includes(flag)));
-
-        api.querySelector = function (value) {
-            const keys = getKeys(value);
-            if (!keys.length) return null;
-
-            for (const element of root.querySelectorAll(`[${ATTR}]`)) {
-                if (hasKeys(element, keys)) return element;
-            }
-
-            return null;
-        };
-
-        // an Array, where every other querySelectorAll returns a NodeList: the match is computed
-        // here instead of by the engine, so there is no live list to hand back
-        api.querySelectorAll = function (value) {
-            const keys = getKeys(value);
-            if (!keys.length) return [];
-            return Array.from(root.querySelectorAll(`[${ATTR}]`)).filter(element => hasKeys(element, keys));
-        };
-
-        api.closest = function (value) {
-            const keys = getKeys(value);
-            if (!keys.length) return null;
-
-            for (let element = root; element; element = element.parentElement) {
-                if (hasKeys(element, keys)) return element;
-            }
-
-            return null;
-        };
-
-        return api;
     }
 
     //# DATA

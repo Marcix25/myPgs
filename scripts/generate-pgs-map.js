@@ -49,10 +49,14 @@ function pgsTokensInJs(text) {
     return found;
 }
 
+// every option the JavaScript names through option("component").add/remove/toggle/contains(...), with
+// the component it names: [component, option] pairs, so the owner is read and not guessed
 function optionTokensInJs(text) {
-    const found = new Set();
-    const pattern = /\.option\s*\.\s*(?:contains|add|remove|toggle|getValueBrackets|setValueBrackets)\(\s*["']([A-Za-z_][\w-]*)["']/g;
-    for (const match of text.matchAll(pattern)) found.add(match[1]);
+    const found = [];
+    const pattern = /\.option\(\s*["']([A-Za-z_][\w-]*)["']\s*\)\s*\.\s*(?:contains|add|remove|toggle)\(([^)]*)\)/g;
+    for (const match of text.matchAll(pattern)) {
+        for (const option of match[2].matchAll(/["']([A-Za-z_][\w-]*)["']/g)) found.push([match[1], option[1]]);
+    }
     return found;
 }
 
@@ -275,18 +279,13 @@ const cssOptions = new Set(cssPairs.map(([, option]) => option));
 const scssPairs = optionsFromScss(scssFiles).filter(notDeprecated);
 const knownOptions = new Set([...cssPairs, ...scssPairs].map(([, option]) => option));
 
-// a last resort, for a flag only the JavaScript reads: the file name is a guess at the owner
-// (_accordion.js also reads accordionContainer's accMultiOpen), so it never overrides a
-// pairing the stylesheet already made. .option only ever touches the pgs attribute, so what it
-// reads is a bracket flag, not a pgs-data key
+// a last resort, for a flag only the JavaScript reads: option("component") names its owner, and it
+// never overrides a pairing the stylesheet already made. option() only ever touches the pgs
+// attribute, so what it reads is a bracket flag, not a pgs-data key
 function optionsFromJs(files) {
-    return files.flatMap(file => {
-        const owner = path.basename(file, ".js").replace(/^_/, "");
-        const text = fs.readFileSync(file, "utf8");
-        return [...optionTokensInJs(text)]
-            .filter(option => !knownOptions.has(option))
-            .map(option => [owner, option, "pgs-options"]);
-    });
+    return files.flatMap(file => optionTokensInJs(fs.readFileSync(file, "utf8"))
+        .filter(([, option]) => !knownOptions.has(option))
+        .map(([owner, option]) => [owner, option, "pgs-options"]));
 }
 
 for (const [owner, option, kind] of [...cssPairs, ...scssPairs, ...optionsFromJs(jsFiles)]) {

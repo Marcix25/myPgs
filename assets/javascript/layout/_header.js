@@ -113,7 +113,7 @@ function initHeight(header, signal) {
     // one, or else the first live header in the page
     function getPrimaryHeader() {
         const headers = getLiveHeaders();
-        return headers.find(header => pgs(header).option.contains("headerMain")) || headers[0] || null;
+        return headers.find(header => pgs(header).option("header").contains("headerMain")) || headers[0] || null;
     }
 
     //## HEIGHT
@@ -160,7 +160,7 @@ function initHeight(header, signal) {
 const SCROLL_MAX_HEIGHT = 900;
 
 function initScroll(header, signal) {
-    if (!pgs(header).option.contains("headerScroll")) return;
+    if (!pgs(header).option("header").contains("headerScroll")) return;
 
     let lastScrollY = window.scrollY;
     const headerElements = pgs(header).querySelectorAll("header-element");

@@ -207,7 +207,7 @@ const fn_alert = {
         const id = config.id ?? pgs.helper.uniqueId("alert");
         const alert = document.createElement("div");
         // the severity is a flag in the component's own bracket, like any other option, not a pgs-state
-        pgs(alert).add(config.component, `${config.component}['${typeDefaults.flag}']`);
+        pgs(alert).add(config.component).option(config.component).add(typeDefaults.flag);
         // error and warning are both urgent enough to interrupt a screen reader; the others only
         // announce once idle
         alert.setAttribute("role", type === "error" || type === "warning" ? "alert" : "status");
@@ -292,8 +292,8 @@ const fn_alert = {
             if (link) buttonElement.href = link;
             else buttonElement.type = "button";
 
-            pgs(buttonElement).add("button['btnTransparent']");
-            if (optionButton) pgs(buttonElement).add(`button['${optionButton}']`);
+            pgs(buttonElement).add("button").option("button").add("btnTransparent");
+            if (optionButton) pgs(buttonElement).option("button").add(optionButton);
 
             buttonElement.addEventListener("click", (e) => {
                 const event = pgs.helper.dispatch(buttonElement, "pgs:alert:buttonClick", {

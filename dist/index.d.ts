@@ -1,6 +1,5 @@
 declare global {
   type PgsSelectorValue = string | string[];
-  type PgsStateValue = string | string[];
 
   interface PgsQueryableApi {
     querySelector(value: PgsSelectorValue): Element | null;
@@ -8,9 +7,9 @@ declare global {
   }
 
   interface PgsStateApi {
-    (...values: PgsStateValue[]): PgsStateApi;
-    add(...values: PgsStateValue[]): PgsStateApi;
-    remove(...values: PgsStateValue[]): PgsStateApi;
+    /** One state per argument, each a single word: an array or a space throws a TypeError. */
+    add(...values: string[]): PgsStateApi;
+    remove(...values: string[]): PgsStateApi;
     toggle(value: string, force?: boolean): boolean;
     contains(value: string): boolean;
     querySelector(value: PgsSelectorValue): Element | null;
@@ -20,15 +19,16 @@ declare global {
     value: string | null;
   }
 
+  /** The options of one component: the flags inside its bracket in the pgs attribute. Never touches pgs-data. */
   interface PgsOptionApi {
-    /** Boolean flags only: CSS flags and JavaScript-only flags, always inside the pgs attribute. Never touches pgs-data. */
-    add(...values: PgsStateValue[]): PgsOptionApi;
-    remove(...values: PgsStateValue[]): PgsOptionApi;
-    toggle(value: string, force?: boolean): boolean;
-    contains(key: string): boolean;
-    querySelector(value: PgsSelectorValue): Element | null;
-    querySelectorAll(value: PgsSelectorValue): Element[];
-    closest(value: PgsSelectorValue): Element | null;
+    /** Adds the options to the component's bracket; throws a TypeError when the element has no such component. */
+    add(...options: string[]): PgsOptionApi;
+    /** Removes the options; the component stays, bare when its last option goes. */
+    remove(...options: string[]): PgsOptionApi;
+    toggle(option: string, force?: boolean): boolean;
+    contains(option: string): boolean;
+    /** The options written in the bracket now, as a new array. */
+    list(): string[];
   }
 
   interface PgsDataApi {
@@ -43,14 +43,17 @@ declare global {
   interface PgsElementApi extends PgsQueryableApi {
     (): PgsElementApi;
     closest(value: PgsSelectorValue): Element | null;
-    add(...values: string[]): PgsElementApi;
-    remove(...values: string[]): PgsElementApi;
-    toggle(value: string, force?: boolean): boolean;
-    contains(value: string): boolean;
+    /** Components only, one name per argument, each a single word: an array, a space or a bracket throws a TypeError. */
+    add(...components: string[]): PgsElementApi;
+    remove(...components: string[]): PgsElementApi;
+    toggle(component: string, force?: boolean): boolean;
+    /** True for the component bare or with its bracket. */
+    contains(component: string): boolean;
     /** The raw pgs attribute; assigning null removes it. */
     value: string | null;
     state: PgsStateApi;
-    option: PgsOptionApi;
+    /** The options of the named component: option("button").add("btnMini"). */
+    option(component: string): PgsOptionApi;
     data: PgsDataApi;
   }
 

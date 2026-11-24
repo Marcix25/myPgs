@@ -13,7 +13,7 @@ function createToggle(link) {
     const text = link.textContent.trim();
     button.setAttribute("aria-label", text ? `Show the submenu of ${text}` : "Show the submenu");
 
-    pgs(button).add("_menu-submenuButton", "button['btnMini' 'btnIconOnly']");
+    pgs(button).add("_menu-submenuButton", "button").option("button").add("btnMini", "btnIconOnly");
     link.insertAdjacentElement("afterend", button);
 
     return button;
@@ -43,7 +43,7 @@ function setupAccordion(li, button, ul, signal) {
 
 // the floating submenu has the arrow of the dropdown, pointing back at its item
 function setupDropdown(li, button, ul) {
-    pgs(li).add("dropdown['drpArrow']");
+    pgs(li).add("dropdown").option("dropdown").add("drpArrow");
     pgs(li).data.setValueBrackets("dropdownPosition", "bottom center");
     pgs(button).add("dropdown-button");
     pgs(ul).add("dropdown-content");
@@ -61,7 +61,7 @@ function initializeMenu(MENU) {
 
     const controller = new AbortController();
     const { signal } = controller;
-    const isHorizontal = pgs(MENU).option.contains("menuHorizontal");
+    const isHorizontal = pgs(MENU).option("menu").contains("menuHorizontal");
     const floating = [];
 
     MENU.querySelectorAll("li").forEach(li => {

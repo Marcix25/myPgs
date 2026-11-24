@@ -32,16 +32,16 @@ function PGS_selectBox_build(root) {
     const listId = pgs.helper.uniqueId("selectBox-list");
 
     //## options
-    const searchable = pgs(root).option.contains("selectBoxSearch");
-    const collapsible = pgs(root).option.contains("selectBoxCollapse");
-    const withChips = multiple && pgs(root).option.contains("selectBoxChips");
+    const searchable = pgs(root).option("selectBox").contains("selectBoxSearch");
+    const collapsible = pgs(root).option("selectBox").contains("selectBoxCollapse");
+    const withChips = multiple && pgs(root).option("selectBox").contains("selectBoxChips");
     const maxValue = Number.parseInt(pgs(root).data.getValueBrackets("selectBoxMax"), 10);
     const max = multiple && maxValue > 0 ? maxValue : 0;
     const searchPlaceholder = pgs(root).data.getValueBrackets("selectBoxSearchPlaceholder") || "Search";
     const noResultsText = pgs(root).data.getValueBrackets("selectBoxNoResults") || "No results";
     const chipRemoveText = pgs(root).data.getValueBrackets("selectBoxChipRemove") || "Remove";
 
-    if (pgs(root).option.contains("selectBoxChips") && !multiple) {
+    if (pgs(root).option("selectBox").contains("selectBoxChips") && !multiple) {
         pgs.helper.warn("selectBox.init", "selectBoxChips needs a <select multiple>, so it was left out", root);
     }
     if (maxValue > 0 && !multiple) {

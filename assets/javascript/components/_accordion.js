@@ -73,13 +73,13 @@ function initializeAccordion(accordion) {
 
     // initial state: accAutoOpen is the authored form, because pgs-state belongs to
     // the runtime; a pgs-state="open" already written by hand is honored all the same
-    const isOpenInit = pgs(accordion).option.contains("accAutoOpen") || pgs(accordion).state.contains("open");
+    const isOpenInit = pgs(accordion).option("accordion").contains("accAutoOpen") || pgs(accordion).state.contains("open");
 
     // an accordion closes the others only inside a group, and the group is the nearest
     // accordionContainer above it: on its own an accordion answers for itself alone, so a
     // single panel dropped anywhere on the page no longer collapses somebody else's
     const CONTAINER = pgs(accordion).closest("accordionContainer");
-    const isMultiOpen = !CONTAINER || pgs(CONTAINER).option.contains("accMultiOpen");
+    const isMultiOpen = !CONTAINER || pgs(CONTAINER).option("accordionContainer").contains("accMultiOpen");
 
     // accessibility, written once, with ids of its own for aria-controls / aria-labelledby
     // a native <button> is already a focusable button: only another element needs the role and the tab stop
@@ -104,7 +104,7 @@ function initializeAccordion(accordion) {
         for (const otherLi of pgs(CONTAINER).querySelectorAll("accordion")) {
             if (otherLi === accordion) continue;
             if (pgs(otherLi).closest("accordionContainer") !== CONTAINER) continue;
-            if (pgs(otherLi).option.contains("accAutoOpen")) continue;
+            if (pgs(otherLi).option("accordion").contains("accAutoOpen")) continue;
 
             const otherBtn = pgs.helper.directChild(otherLi, "accordion-button");
             const otherContent = pgs.helper.directChild(otherLi, "accordion-content");
@@ -130,9 +130,8 @@ function initializeAccordion(accordion) {
 
         // the moment the reader works this panel, accAutoOpen stops being the authored
         // "this one stays open": from here on it is an ordinary panel of the group, so a
-        // sibling opening can close it. Guarded, because option.remove rewrites the pgs
-        // attribute (without the flag) even on an accordion that never had it
-        if (pgs(accordion).option.contains("accAutoOpen")) pgs(accordion).option.remove("accAutoOpen");
+        // sibling opening can close it. On an accordion without it nothing is written
+        pgs(accordion).option("accordion").remove("accAutoOpen");
         if (!isMultiOpen) closeOtherAccordion();
 
         // once the layout has settled, only scroll if the button ended up out of view (an
