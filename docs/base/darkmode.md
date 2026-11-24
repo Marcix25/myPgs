@@ -13,7 +13,7 @@ Global light and dark theme switch. The choice is persisted in localStorage unde
 - `darkmodeButtons`: a group of three separate buttons, one per state, as an alternative to one switch. It draws no layout of its own: place it with flex, or give it buttonGroup. Give it role="group" and an aria-label.
 - `darkmodeButtons-light`: inside a darkmodeButtons, the button that fixes the light theme.
 - `darkmodeButtons-dark`: the button that fixes the dark theme.
-- `darkmodeButtons-system`: the button that follows the theme of the operating system again. The button of the current state carries aria-pressed="true" and the active state, and takes the checked colors of a two-state button (--button-*-twoState); the other two carry aria-pressed="false". Write only the buttons you need: a group without the system one is a plain light and dark choice.
+- `darkmodeButtons-system`: the button that follows the theme of the operating system again. The button of the current state carries the active state, which draws it, and aria-pressed="true" for assistive technology, and takes the checked colors of a two-state button (--button-*-twoState); the other two carry aria-pressed="false". Write only the buttons you need: a group without the system one is a plain light and dark choice.
 - `htmlDarkmodeFollowSystem`: on the html element, opt-in: with no choice stored, the page takes the theme of the operating system (prefers-color-scheme) and changes with it while open. Without it the page starts light. A click on a darkmodeToggle fixes a theme; a switch with tglFollowSystem can go back to the system.
 
 ## PGS Options (component brackets)

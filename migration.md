@@ -284,6 +284,7 @@ Silent changes and new features of `search`:
 | `--steps-*` | declared on every `steps-step`, so a value set on the list did nothing | declared on the `ol`: a value on the list reaches every step, one on a step changes that step |
 | `table['tableBordered']` | `border-collapse: collapse`, the radius never showed | `border-collapse: separate; border-spacing: 0`, each cell draws its right and bottom line, the corners round; CSS of a project that drew borders per cell needs a look |
 | `modal-dialog-content-header` followed by `modal-dialog-content-scroll` | a `margin-bottom` under the header | the room is the `padding-top` of the scroll, so the text scrolls up to the border of the header; the same spacing at rest |
+| `search` squared corners while open | read from `aria-hidden="false"` on the suggestions | read from the state `open` of the search, written at the same moment |
 | `--search-border` | declared, never read | gone: `--search-borderWidth` and `--search-borderColor` |
 | `stepTabs` steps | focused only when the markup gave them `tabindex="-1"` | the module adds `tabindex="-1"` where there is none (and removes it on `destroy()`); the current dot carries `aria-current="step"` |
 | `pgs.modal.api(el).button` of a modal with no button of its own | could be the `modal-button` of a modal written inside its dialog | `null` |

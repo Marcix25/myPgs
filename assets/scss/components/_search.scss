@@ -21,13 +21,14 @@
     background-color: var(--search-background);
     color: var(--search-color);
 
-    &:has([pgs~="search-suggestions"][aria-hidden="false"]) {
+    // open (a state, written by the listbox while the suggestions show): the form squares its bottom corners
+    &[pgs-state~="open"] {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
     }
 
     // openUp (a state): the list opens above the form, which squares its top corners instead
-    &[pgs-state~="openUp"]:has([pgs~="search-suggestions"][aria-hidden="false"]) {
+    &[pgs-state~="open"][pgs-state~="openUp"] {
         border-radius: 0 0 var(--search-borderRadius) var(--search-borderRadius);
     }
 

@@ -482,7 +482,7 @@
   content: var(--darkmode-label-toLight);
 }
 
-:is([pgs~=darkmodeButtons-light], [pgs~=darkmodeButtons-dark], [pgs~=darkmodeButtons-system])[aria-pressed=true] {
+:is([pgs~=darkmodeButtons-light], [pgs~=darkmodeButtons-dark], [pgs~=darkmodeButtons-system])[pgs-state~=active] {
   --button-color: var(--button-color-twoState);
   --button-background: var(--button-background-twoState);
   --button-borderColor: var(--button-borderColor-twoState);
@@ -4868,12 +4868,12 @@ ol:is([pgs~=steps], [pgs*="steps["]):where([pgs*="'stepsLastHighlight'"]) :where
   color: var(--search-color);
 }
 
-:is([pgs~=search], [pgs*="search["]):has([pgs~=search-suggestions][aria-hidden=false]) {
+:is([pgs~=search], [pgs*="search["])[pgs-state~=open] {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-:is([pgs~=search], [pgs*="search["])[pgs-state~=openUp]:has([pgs~=search-suggestions][aria-hidden=false]) {
+:is([pgs~=search], [pgs*="search["])[pgs-state~=open][pgs-state~=openUp] {
   border-radius: 0 0 var(--search-borderRadius) var(--search-borderRadius);
 }
 

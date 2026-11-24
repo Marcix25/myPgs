@@ -51,9 +51,10 @@
 
 //= SEPARATE BUTTONS
 // a darkmodeButtons holds one button per state, light, dark and the system: the one of the current state is
-// pressed (the script writes aria-pressed="true" and the active state on it) and takes the checked colors of
-// a two-state button, so it reads like a checked btnTwoState. The group draws no layout: place it with flex
-:is([pgs~="darkmodeButtons-light"], [pgs~="darkmodeButtons-dark"], [pgs~="darkmodeButtons-system"])[aria-pressed="true"] {
+// pressed: the script gives it the active state, which the look reads, and aria-pressed="true" for assistive
+// technology. It takes the checked colors of a two-state button, so it reads like a checked btnTwoState. The
+// group draws no layout: place it with flex
+:is([pgs~="darkmodeButtons-light"], [pgs~="darkmodeButtons-dark"], [pgs~="darkmodeButtons-system"])[pgs-state~="active"] {
     --button-color: var(--button-color-twoState);
     --button-background: var(--button-background-twoState);
     --button-borderColor: var(--button-borderColor-twoState);
