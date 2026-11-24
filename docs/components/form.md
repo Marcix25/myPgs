@@ -20,7 +20,6 @@ Form structure with labels, inputs, a textarea, a checkbox, and a radio group co
 
 - `labelBox`: inside label's (or legend's) own bracket, `label['labelBox']`: the label in a white box with a border and rounded corners on every side, on one line, a text too long for it ending with an ellipsis (--label-borderRadius, --label-paddingInline, --label-paddingBlock, --label-background, --label-border, --label-borderWidth). In a failing form the box turns to the error colors.
 - `labelTab`: inside label's own bracket, `label['labelTab']`: the box of labelBox as a tab, which it does not need next to it, rounded on the top corners only and with no border at the bottom. Its --label-gap is 0, so it touches the control and opens into it wherever the two are written: in a `<label>` wrapper, in a div, or next to each other in the column of a form.
-- `labelTabNoGap`: inside label's own bracket, `label['labelTabNoGap']`: deprecated, the old name of labelTab, kept so the markup that uses it still works. labelTab now touches the control in every context, so the two are the same tab.
 
 ## PGS Data
 

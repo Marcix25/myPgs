@@ -29,7 +29,6 @@ A set of buttons on a background of its own, with padding, rounded corners and a
 
 - `btnTransparent`: lets the background of the group show through the buttons that are not chosen; see Button.
 - `btnIconOnly`: shapes a button as an icon-only square; see Button.
-- `btnCurrent`: gives a menu link the current look while it carries aria-current="page"; see Button.
 - `icon-alignLeft`: a toolbar glyph, from the myIcons pack the demo loads.
 - `icon-alignCenter`: a toolbar glyph, from the myIcons pack the demo loads.
 - `icon-alignRight`: a toolbar glyph, from the myIcons pack the demo loads.
@@ -106,9 +105,9 @@ buttonGroup on the ul of a menu: the items are the li, each with its link. The m
 ```html
 <nav pgs="menu" aria-label="Account">
     <ul pgs="buttonGroup['btgVertical' 'btgFill']">
-        <li><a pgs="button['btnTransparent' 'btnCurrent']" href="#" aria-current="page"><i pgs="icon['icon-list']" aria-hidden="true"></i><span>Orders</span></a></li>
-        <li><a pgs="button['btnTransparent' 'btnCurrent']" href="#"><i pgs="icon['icon-grid']" aria-hidden="true"></i><span>Downloads</span></a></li>
-        <li><a pgs="button['btnTransparent' 'btnCurrent']" href="#"><i pgs="icon['icon-monitor']" aria-hidden="true"></i><span>Account details</span></a></li>
+        <li><a pgs="button['btnTransparent']" href="#" aria-current="page"><i pgs="icon['icon-list']" aria-hidden="true"></i><span>Orders</span></a></li>
+        <li><a pgs="button['btnTransparent']" href="#"><i pgs="icon['icon-grid']" aria-hidden="true"></i><span>Downloads</span></a></li>
+        <li><a pgs="button['btnTransparent']" href="#"><i pgs="icon['icon-monitor']" aria-hidden="true"></i><span>Account details</span></a></li>
     </ul>
 </nav>
 ```

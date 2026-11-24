@@ -94,6 +94,7 @@
 }
 
 //## BUTTON CURRENT
+// part of every button: aria-current="page" or aria-selected="true" is what marks it, with no option
 @mixin buttonCurrent() {
 
     &:where([aria-current=page]),
@@ -219,9 +220,9 @@
 // pill inside the bigger one
 @mixin buttonForNavSmart() {
     @include buttonTransparent();
-    @include buttonCurrent();
 
-    // only here and not in buttonCurrent(): an open dropdown or accordion button is not "current"
+    // aria-current and aria-selected already draw every button as current; aria-expanded only here, not in
+    // buttonCurrent(): an open dropdown or accordion button is not "current"
     &:where([aria-expanded=true]) { @include _buttonColor("-current"); }
 
     --button-size: .35rem;

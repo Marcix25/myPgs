@@ -1303,16 +1303,15 @@ const fn_alert = {
         return items;
     },
 
-    // the same data, already in the shape create() takes: the fields every host shares, with
-    // their old aliases (message, title-close, duration). An entry with neither title nor
-    // description is skipped: there would be nothing to show
+    // the same data, already in the shape create() takes: the fields every host shares. An entry
+    // with neither title nor description is skipped: there would be nothing to show
     fromData(root, name) {
         return this._getData(root, name).flatMap(raw => {
             const title = String(raw.title || "").trim();
-            const description = String(raw.description ?? raw.message ?? "").trim();
+            const description = String(raw.description ?? "").trim();
             if (!title && !description) return [];
 
-            const duration = Number.parseInt(raw.timeout ?? raw.duration, 10);
+            const duration = Number.parseInt(raw.timeout, 10);
 
             return [{
                 type: this._getType(raw.type),
@@ -1324,7 +1323,7 @@ const fn_alert = {
                     icon: raw.icon || undefined,
                     dismissIcon: raw.dismissIcon || undefined,
                     id: raw.id || undefined,
-                    closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
+                    closeTitle: String(raw.closeTitle || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
                     timeout: Number.isNaN(duration) ? undefined : duration,
                     // read by the hosts that place their alert (Toast); the others never look at it
@@ -2179,8 +2178,6 @@ function createToggle(link) {
 // opens the submenu in place instead of floating it: used everywhere a dropdown would either
 // overflow the viewport or hide the branch the reader is already inside
 function setupAccordion(li, button, ul, signal) {
-    ;(0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(li).add("_menu-accordion");
-
     if (!ul.id) ul.id = _pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs.helper.uniqueId("menu-submenu");
     button.setAttribute("aria-controls", ul.id);
 
@@ -6596,13 +6593,14 @@ __webpack_require__.r(__webpack_exports__);
 // still fits, so a wide header can be compact on purpose.
 // headerCompactFrom[600] wins with its own pixel value, otherwise the named options
 // (headerCompactTablet, headerCompactLaptop, ...) set --header-compact-breakpoint in the
-// SCSS, so the breakpoint values stay defined in one place.
+// SCSS, so the breakpoint values stay defined in one place: the default (100px) too. Without the
+// stylesheet there is no breakpoint, and only an overflowing content makes the header compact.
 function getCompactBreakpoint(header) {
     const custom = parseFloat((0,_pgs_js__WEBPACK_IMPORTED_MODULE_0__.pgs)(header).data.getValueBrackets("headerCompactFrom"));
     if (Number.isFinite(custom)) return custom;
 
     const declared = parseFloat(window.getComputedStyle(header).getPropertyValue("--header-compact-breakpoint"));
-    return Number.isFinite(declared) ? declared : 600;
+    return Number.isFinite(declared) ? declared : 0;
 }
 
 //# OVERFLOW TOLERANCE

@@ -117,9 +117,8 @@
     &[pgs*="'heightMaxUnderHeader'"] { --heightMax-size: calc(100dvh - var(--_header-height)); }
     &[pgs*="'heightMaxUnderMain'"] { --heightMax-size: calc(100dvh - var(--main-paddingTop)); }
     // drops the constraint on one element without dropping the utility. max-height has no auto: none is
-    // its initial value, and heightMaxAuto is kept as an alias of heightMaxNone
+    // its initial value
     &[pgs*="'heightMaxNone'"] { --heightMax-size: none; }
-    &[pgs*="'heightMaxAuto'"] { --heightMax-size: none; }
 }
 
 :is([pgs~="heightMin"], [pgs*="heightMin\5B"]) {

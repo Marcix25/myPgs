@@ -23,7 +23,7 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | # | 5.0.8 | now |
 | --- | --- | --- |
 | 1 | `toggleDarkmode`, `toggleDarkmode-light`, `toggleDarkmode-dark` | `darkmodeToggle`, `darkmodeToggle-light`, `darkmodeToggle-dark`; the options keep their names (`darkmodeToggle['tglLabeled']`). The old name does nothing any more |
-| 2 | the `texts` step: `gapTexts`, `mgTexts`, `mgTpTexts`, `pdTexts`, `radTexts`, ..., `--gap-texts`, `--padding-texts`, `--margin-texts`, `--borderRadius-texts`, `--SIZE-texts` | the `paragraphs` step: `gapParagraphs`, `mgParagraphs`, `--gap-paragraphs`, ..., same value (1.5rem). The old names still work as deprecated aliases (`base/_deprecated.scss`) until version 7, but overriding an old `--*-texts` property no longer changes the library: override `--*-paragraphs` |
+| 2 | the `texts` step: `gapTexts`, `mgTexts`, `mgTpTexts`, `pdTexts`, `radTexts`, ..., `--gap-texts`, `--padding-texts`, `--margin-texts`, `--borderRadius-texts`, `--SIZE-texts` | the `paragraphs` step: `gapParagraphs`, `mgParagraphs`, `--gap-paragraphs`, ..., same value (1.5rem). No alias: an old name does nothing any more |
 | 3 | `label` and `pgs="legend"`: a white box with a border | plain text above the control. The box is `label['labelBox']` / `legend['labelBox']` -> see [Forms](#forms) |
 | 4 | every dropdown drew an arrow; `dropdown['drpNotArrow']` removed it | no arrow by default; `dropdown['drpArrow']` draws it. `drpNotArrow` is gone (just delete it) |
 | 5 | `table`: zebra rows and row hover by default | header background and a line under each row only; `table['tableStriped']`, `['tableHover']`, `['tableBordered']` add the rest |
@@ -38,6 +38,8 @@ Reading the tables: a flag is written inside the bracket of the component that o
 | 14 | custom properties whose names broke the naming rule (`--component-subElement-property-state`, one camelCase word per segment), such as `--label-size`, `--modal-content-padding`, `--steps-circle-*`, `--navSmart-itemMinWidth` | renamed, with no alias: an old name set by a project does nothing any more -> see [Renamed custom properties](#renamed-custom-properties) |
 | 15 | `@include focus()` | gone: every element that takes the focus already has the ring (`:focus-visible` in `base/_body.scss`); for an element that draws the ring for another one, `@include focusRing()` inside the rule that says when |
 | 16 | the JavaScript API mixed components and options: `pgs(el).add("button['btnMini']")` added an option, `pgs(el).option.add/remove/toggle/contains("btnMini")` guessed the component from the start of the name (so `btnMini`, `drpArrow`, `accOpenBox` landed outside their bracket), `pgs(el).state("open")` added a state, and an array or a string with spaces was read in a different way by each method | components and options apart -> see [The pgs() API](#the-pgs-api) |
+| 17 | the old names kept alive: `label['labelTabNoGap']` (old name of `labelTab`), `heightMax['heightMaxAuto']` (same as `heightMaxNone`), and in the JSON of `toastLoad` / `notificationLoad` the keys `message`, `duration` and `title-close` | gone: write `labelTab`, `heightMaxNone`, and `description`, `timeout`, `closeTitle`. `base/_deprecated.scss` is gone too (the `texts` step, breaking change 2) |
+| 18 | `button['btnCurrent']`: the current look (`--button-*-current`) only on a button that had the option, and only while it carried `aria-current="page"` or `aria-selected="true"` | gone: every button with `aria-current="page"` or `aria-selected="true"` takes the current look by itself. Delete the option; a button that carries one of those attributes without the option before now looks current too |
 
 ## Renamed custom properties
 
@@ -202,7 +204,7 @@ token string too, as `roots` does.
 | --- | --- | --- |
 | `label` | white box with a border, rounded on every corner | plain text in `--label-color`, `--label-fontSize` 1.1em, `--label-weight` bold. The box is `label['labelBox']` (on one line with an ellipsis) |
 | `pgs="legend"` | the same box as `label` | the same as `label` under its own token, options included: `legend['labelBox']`, `legend['labelTab']` |
-| label to control | `margin-bottom` plus the form gap when the two were siblings | always `--label-gap` (`--gap-details`), in a wrapper, a div, or next to it in a `form` / `fieldset` / `flex['column']`; `labelTab` sets it to 0 in every context, and `labelTabNoGap` is only its deprecated alias |
+| label to control | `margin-bottom` plus the form gap when the two were siblings | always `--label-gap` (`--gap-details`), in a wrapper, a div, or next to it in a `form` / `fieldset` / `flex['column']`; `labelTab` sets it to 0 in every context (breaking change 17 for `labelTabNoGap`) |
 | `--label-background` | read by every label | read only by `labelBox` and `labelTab*` |
 | required asterisk | a label was marked by any required control after it | only by its own control (the one right after it, or inside the element right after it); a `legend` still reads the whole group |
 | label hidden with its control | hidden when anything inside it was `hidden` (an icon, a span) | hidden only when the control inside it or right after it is |
@@ -315,6 +317,8 @@ Silent changes and new features of `search`:
 
 | what | 5.0.8 | now |
 | --- | --- | --- |
+| `_menu-accordion` on an item of the menu whose submenu opens in place | written by the JavaScript, read by nothing | not written; select the item by its open state (`pgs-state~="open"`) |
+| header compact breakpoint with no stylesheet loaded | 600px | none (only an overflowing content makes the header compact): the default (100px) and the named options live in the SCSS alone |
 | a `pgs(el)`, `state` or `option(...)` call that changes nothing (adding what is there, removing what is not) | wrote the attribute again, so a `MutationObserver` saw a change | writes nothing |
 | `pgs(el).value = null`, `pgs(el).state.value = null` | wrote the string `"null"` | remove the attribute, as `pgs(el).data.value = null` does |
 | `header['headerScroll']` | a header hidden by the scroll stayed hidden once the window grew past 900px; `destroy()` left the transform | it comes back above 900px; `destroy()` removes the transform and `hiddenByScroll` |
@@ -348,7 +352,7 @@ Run each over the consuming project (markup, PHP, SCSS, JS).
 # 1 dark mode switch renamed. Hit: toggleDarkmode -> darkmodeToggle (also the -light / -dark children)
 grep -rn 'toggleDarkmode' .
 
-# 2 the texts step (deprecated until 7). Hit: Texts -> Paragraphs, --*-texts -> --*-paragraphs
+# 2 the texts step, no alias. Hit: Texts -> Paragraphs, --*-texts -> --*-paragraphs
 grep -rnE "(gap|mg|pd|rad|mg(Tp|Rt|Bt|Lt|Bl|In)|pd(Tp|Rt|Bt|Lt|Bl|In))Texts|--(gap|padding|margin|borderRadius|SIZE)-texts" .
 
 # 3 labels and legends that should stay boxes. Hit: add label['labelBox'] / legend['labelBox'] where the box is wanted
@@ -399,6 +403,14 @@ grep -rn '@include focus\b\|@include focus(' .
 # .option.contains/remove/add/toggle(flag) -> .option("component").contains/...; .state("s") -> .state.add("s");
 # an array or a "a b" string -> one argument each
 grep -rnE "pgs\([^)]*\)\.(add|remove|toggle|contains)\([^)]*\[|\.option\.(add|remove|toggle|contains|querySelector|closest)|\.state\(" --include=*.js --include=*.ts --include=*.php .
+
+# 17 old names removed. Hit: labelTabNoGap -> labelTab, heightMaxAuto -> heightMaxNone; in the toast / notification
+# JSON message -> description, duration -> timeout, title-close -> closeTitle
+grep -rnE "labelTabNoGap|heightMaxAuto|title-close|[\"']message[\"']|[\"']duration[\"']" .
+
+# 18 btnCurrent removed. Hit: delete it (aria-current="page" / aria-selected="true" draw the look). Also look for a
+# button with one of those attributes that should not look current
+grep -rn "btnCurrent" .
 
 # steps. Hit: add steps['stepsLastHighlight'] to keep the highlighted last circle
 grep -rnE 'pgs(=\\?["'"'"']|\()[^"'"'"']*\bsteps\b' .

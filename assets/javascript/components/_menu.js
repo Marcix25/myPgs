@@ -22,8 +22,6 @@ function createToggle(link) {
 // opens the submenu in place instead of floating it: used everywhere a dropdown would either
 // overflow the viewport or hide the branch the reader is already inside
 function setupAccordion(li, button, ul, signal) {
-    pgs(li).add("_menu-accordion");
-
     if (!ul.id) ul.id = pgs.helper.uniqueId("menu-submenu");
     button.setAttribute("aria-controls", ul.id);
 

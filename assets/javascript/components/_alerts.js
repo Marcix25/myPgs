@@ -150,16 +150,15 @@ const fn_alert = {
         return items;
     },
 
-    // the same data, already in the shape create() takes: the fields every host shares, with
-    // their old aliases (message, title-close, duration). An entry with neither title nor
-    // description is skipped: there would be nothing to show
+    // the same data, already in the shape create() takes: the fields every host shares. An entry
+    // with neither title nor description is skipped: there would be nothing to show
     fromData(root, name) {
         return this._getData(root, name).flatMap(raw => {
             const title = String(raw.title || "").trim();
-            const description = String(raw.description ?? raw.message ?? "").trim();
+            const description = String(raw.description ?? "").trim();
             if (!title && !description) return [];
 
-            const duration = Number.parseInt(raw.timeout ?? raw.duration, 10);
+            const duration = Number.parseInt(raw.timeout, 10);
 
             return [{
                 type: this._getType(raw.type),
@@ -171,7 +170,7 @@ const fn_alert = {
                     icon: raw.icon || undefined,
                     dismissIcon: raw.dismissIcon || undefined,
                     id: raw.id || undefined,
-                    closeTitle: String(raw.closeTitle || raw["title-close"] || "").trim() || undefined,
+                    closeTitle: String(raw.closeTitle || "").trim() || undefined,
                     buttons: Array.isArray(raw.buttons) ? raw.buttons : undefined,
                     timeout: Number.isNaN(duration) ? undefined : duration,
                     // read by the hosts that place their alert (Toast); the others never look at it

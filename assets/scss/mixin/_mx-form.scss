@@ -101,8 +101,8 @@
 
     //+ labelBox
     // the label in a box of its own, on one line: a text too long for it ends with an ellipsis. labelTab
-    // and labelTabNoGap are the same box
-    &:where([pgs*="'labelBox'"], [pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+    // is the same box
+    &:where([pgs*="'labelBox'"], [pgs*="'labelTab'"]) {
         @include _labelBox();
         isolation: isolate;
         overflow: hidden;
@@ -113,8 +113,8 @@
 
     //+ labelTab
     // the top corners only, and no bottom border: the label opens into the control it sits on, wherever the two
-    // are written. labelTabNoGap is the old name of the same tab
-    &:where([pgs*="'labelTab'"], [pgs*="'labelTabNoGap'"]) {
+    // are written
+    &:where([pgs*="'labelTab'"]) {
         --label-gap: 0px;
         max-width: calc(100% - (var(--label-offsetInline)*2));
         transform: translateX(var(--label-offsetInline)) translateY(calc(var(--label-borderWidth) + 0.2px));

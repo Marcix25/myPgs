@@ -296,10 +296,7 @@
             "radSections",
             "radUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "radTexts": "radParagraphs"
-        }
+        "pgs-data": []
     },
     "borderRight": {
         "pgs": [],
@@ -354,7 +351,6 @@
         "pgs": [],
         "pgs-generated": [],
         "pgs-options": [
-            "btnCurrent",
             "btnForHeader",
             "btnForNavSmart",
             "btnIconBoth",
@@ -556,10 +552,7 @@
             "wrapBalance",
             "wrapReverse"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "gapTexts": "gapParagraphs"
-        }
+        "pgs-data": []
     },
     "flexChild": {
         "pgs": [],
@@ -639,10 +632,7 @@
             "gapParagraphs",
             "gapSections"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "gapTexts": "gapParagraphs"
-        }
+        "pgs-data": []
     },
     "grid": {
         "pgs": [],
@@ -684,10 +674,7 @@
             "justifyStart",
             "m2e"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "gapTexts": "gapParagraphs"
-        }
+        "pgs-data": []
     },
     "gridChild": {
         "pgs": [],
@@ -788,7 +775,6 @@
             "heightMax100lvh",
             "heightMax100svh",
             "heightMax50svh",
-            "heightMaxAuto",
             "heightMaxFull",
             "heightMaxNone",
             "heightMaxUnderHeader",
@@ -912,8 +898,7 @@
         "pgs-generated": [],
         "pgs-options": [
             "labelBox",
-            "labelTab",
-            "labelTabNoGap"
+            "labelTab"
         ],
         "pgs-data": []
     },
@@ -922,8 +907,7 @@
         "pgs-generated": [],
         "pgs-options": [
             "labelBox",
-            "labelTab",
-            "labelTabNoGap"
+            "labelTab"
         ],
         "pgs-data": []
     },
@@ -994,10 +978,7 @@
             "mgSections",
             "mgUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgTexts": "mgParagraphs"
-        }
+        "pgs-data": []
     },
     "marginBlock": {
         "pgs": [],
@@ -1014,10 +995,7 @@
             "mgBlSections",
             "mgBlUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgBlTexts": "mgBlParagraphs"
-        }
+        "pgs-data": []
     },
     "marginBottom": {
         "pgs": [],
@@ -1034,10 +1012,7 @@
             "mgBtSections",
             "mgBtUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgBtTexts": "mgBtParagraphs"
-        }
+        "pgs-data": []
     },
     "marginInline": {
         "pgs": [],
@@ -1054,10 +1029,7 @@
             "mgInSections",
             "mgInUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgInTexts": "mgInParagraphs"
-        }
+        "pgs-data": []
     },
     "marginLeft": {
         "pgs": [],
@@ -1074,10 +1046,7 @@
             "mgLtSections",
             "mgLtUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgLtTexts": "mgLtParagraphs"
-        }
+        "pgs-data": []
     },
     "marginRight": {
         "pgs": [],
@@ -1094,10 +1063,7 @@
             "mgRtSections",
             "mgRtUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgRtTexts": "mgRtParagraphs"
-        }
+        "pgs-data": []
     },
     "marginTop": {
         "pgs": [],
@@ -1114,17 +1080,13 @@
             "mgTpSections",
             "mgTpUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "mgTpTexts": "mgTpParagraphs"
-        }
+        "pgs-data": []
     },
     "menu": {
         "pgs": [
             "menu-submenuButton"
         ],
         "pgs-generated": [
-            "_menu-accordion",
             "_menu-submenuButton"
         ],
         "pgs-options": [
@@ -1274,10 +1236,7 @@
             "pdSections",
             "pdUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdTexts": "pdParagraphs"
-        }
+        "pgs-data": []
     },
     "paddingBlock": {
         "pgs": [],
@@ -1292,10 +1251,7 @@
             "pdBlSections",
             "pdBlUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdBlTexts": "pdBlParagraphs"
-        }
+        "pgs-data": []
     },
     "paddingBottom": {
         "pgs": [],
@@ -1310,10 +1266,7 @@
             "pdBtSections",
             "pdBtUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdBtTexts": "pdBtParagraphs"
-        }
+        "pgs-data": []
     },
     "paddingInline": {
         "pgs": [],
@@ -1328,10 +1281,7 @@
             "pdInSections",
             "pdInUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdInTexts": "pdInParagraphs"
-        }
+        "pgs-data": []
     },
     "paddingLeft": {
         "pgs": [],
@@ -1346,10 +1296,7 @@
             "pdLtSections",
             "pdLtUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdLtTexts": "pdLtParagraphs"
-        }
+        "pgs-data": []
     },
     "paddingRight": {
         "pgs": [],
@@ -1364,10 +1311,7 @@
             "pdRtSections",
             "pdRtUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdRtTexts": "pdRtParagraphs"
-        }
+        "pgs-data": []
     },
     "paddingTop": {
         "pgs": [],
@@ -1382,10 +1326,7 @@
             "pdTpSections",
             "pdTpUnset"
         ],
-        "pgs-data": [],
-        "pgs-deprecated": {
-            "pdTpTexts": "pdTpParagraphs"
-        }
+        "pgs-data": []
     },
     "pageNav": {
         "pgs": [

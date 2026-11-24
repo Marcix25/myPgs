@@ -63,6 +63,3 @@ $pgs-exclude: () !default;
 @include meta.load-css("base/border");
 @include meta.load-css("base/typography");
 @include meta.load-css("base/general");
-
-//# DEPRECATED (REMOVED IN VERSION 6)
-@include meta.load-css("base/deprecated");

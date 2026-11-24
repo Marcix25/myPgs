@@ -30,6 +30,9 @@
     // the generated arrows are 36px at the usual root size, and the track keeps that much room above it (plus the paragraph gap)
     --slides-arrows-size: 3.6rem;
     --slides-arrows-space: calc(var(--slides-arrows-size) + var(--gap-paragraphs));
+    // a dot holds no text, so the current state shows through its ink color (--current-color), the strong one:
+    // --current-background, the pale one, would hardly stand out from a resting dot
+    --slides-dots-dot-background-active: var(--current-color);
 
     //## CONTAINER SLIDES
     :where([pgs~="slides-container"]) {
@@ -145,7 +148,7 @@
             transition: var(--clickable-transition);
             margin-block: auto;
 
-            &[pgs-state~="active"] { background-color: var(--current-color); }
+            &[pgs-state~="active"] { background-color: var(--slides-dots-dot-background-active); }
 
             // unguarded, a tap on iOS/mobile Safari simulates a persistent :hover after release —
             // same specificity as the active rule above it, so the sticky hover would win by

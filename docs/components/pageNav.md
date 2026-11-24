@@ -57,7 +57,6 @@ Full-page panels switched by the URL hash instead of an index, so the current on
 - `btgVertical`: the horizontal hairlines of a list stacked in a column; see Button group.
 - `btgFill`: makes the list as wide as the sidebar; see Button group.
 - `btnTransparent`: keeps the links and the back button flat.
-- `btnCurrent`: gives the link of the panel on screen the current look.
 - `hideMediaUpNotebook`: inside hide's own bracket, hides the element above 900px.
 - `column`: sets the vertical direction inside the flex bracket.
 - `gapElements`: applies element spacing inside the flex bracket.
@@ -119,14 +118,14 @@ In a pageShell: while the shell stacks its sidebar above the content, the list i
                 <nav pgs="menu pageNav-list" aria-label="Settings">
                     <ul pgs="buttonGroup['btgVertical' 'btgFill']">
                         <li>
-                            <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-general">
+                            <a pgs="pageNav-list-item button['btnTransparent']" href="#drill-general">
                                 <i pgs="icon['icon-star']" aria-hidden="true"></i>
                                 <span>General</span>
                                 <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li>
-                            <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-privacy">
+                            <a pgs="pageNav-list-item button['btnTransparent']" href="#drill-privacy">
                                 <i pgs="icon['icon-star']" aria-hidden="true"></i>
                                 <span>Privacy</span>
                                 <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>

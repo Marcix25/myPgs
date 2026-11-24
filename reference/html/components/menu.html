@@ -9,7 +9,6 @@
  *
  * @pgs-generated
  * - _menu-submenuButton: the toggle inserted after the link of every item that has a submenu and no menu-submenuButton of its own, drawing icon-chevronDown; it looks and sits the same whichever behavior it drives, and whichever of the two it is.
- * - _menu-accordion: marks an item whose submenu opens in place rather than floating, which is every item of a vertical menu and every level below the first of a horizontal one.
  *
  * @pgs-options
  * - menuHorizontal: lays the first level out as a row, each link as wide as its text, and floats the submenus of that level as dropdowns, with the arrow of the dropdown pointing back at the toggle; every deeper level opens in place, stacked in a column.
@@ -28,7 +27,6 @@
  *
  * @related
  * - drpArrow: the arrow the module gives the dropdown of a floating submenu; see Dropdown.
- * - btnCurrent: gives the link the current look while it carries aria-current="page"; belongs to the button component.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
  * - button: styles a menu link, now that the menu no longer does it itself.
  * - btnMini: the compact size of the toggle button; see Button.
@@ -59,7 +57,7 @@
     <nav pgs="menu" aria-label="Vertical menu">
         <ul>
             <li>
-                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -99,7 +97,7 @@
     <nav pgs="menu['menuHorizontal']" aria-label="Horizontal menu">
         <ul pgs="flex['row' 'wrap']">
             <li>
-                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -140,7 +138,7 @@
     <nav pgs="menu['menuIconOnlyCurrent']" aria-label="Menu with the current icon only">
         <ul>
             <li>
-                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -166,7 +164,7 @@
     <nav pgs="menu['menuHorizontal' 'menuShort']" aria-label="Horizontal menu">
         <ul pgs="flex['row' 'wrap']">
             <li>
-                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -192,7 +190,7 @@
     <nav pgs="menu" aria-label="Grouped vertical menu">
         <ul pgs="buttonGroup['btgVertical' 'btgFill']">
             <li>
-                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
@@ -218,7 +216,7 @@
     <nav pgs="menu['menuHorizontal']" aria-label="Grouped horizontal menu">
         <ul pgs="buttonGroup">
             <li>
-                <a pgs="button['btnTransparent' 'btnCurrent']" href="/" aria-current="page">
+                <a pgs="button['btnTransparent']" href="/" aria-current="page">
                     <i pgs="icon['icon-circle']" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>

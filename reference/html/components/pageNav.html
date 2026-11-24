@@ -42,7 +42,6 @@
  * - btgFill: makes the list as wide as the sidebar; see Button group.
  * - button: draws each link and the back button.
  * - btnTransparent: keeps the links and the back button flat.
- * - btnCurrent: gives the link of the panel on screen the current look.
  * - hide: hides the chevron at the end of each link from the notebook breakpoint up.
  * - hideMediaUpNotebook: inside hide's own bracket, hides the element above 900px.
  * - flex: provides the flex layout; direction and spacing are flags in its bracket.
@@ -101,14 +100,14 @@
                     <nav pgs="menu pageNav-list" aria-label="Settings">
                         <ul pgs="buttonGroup['btgVertical' 'btgFill']">
                             <li>
-                                <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-general">
+                                <a pgs="pageNav-list-item button['btnTransparent']" href="#drill-general">
                                     <i pgs="icon['icon-star']" aria-hidden="true"></i>
                                     <span>General</span>
                                     <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li>
-                                <a pgs="pageNav-list-item button['btnTransparent' 'btnCurrent']" href="#drill-privacy">
+                                <a pgs="pageNav-list-item button['btnTransparent']" href="#drill-privacy">
                                     <i pgs="icon['icon-star']" aria-hidden="true"></i>
                                     <span>Privacy</span>
                                     <i pgs="icon['icon-chevronRight'] hide['hideMediaUpNotebook']" aria-hidden="true"></i>

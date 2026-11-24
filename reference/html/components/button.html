@@ -4,7 +4,7 @@
  * @description Button and action-link variants with sizes, emphasis, and icon-text composition defined by the design system.
  *
  * @pgs
- * - button: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control.
+ * - button: identifies the standard button, which can also be used on anchor elements, and on a `<label>` wrapping its own checkbox or radio to make a two-state control. A button with aria-current="page" or aria-selected="true" takes the current look (--button-*-current) with no option: the attribute that marks it for assistive technology draws it too.
  *
  * @pgs-options
  * - btnForHeader: for a button in a header: a long label breaks instead of overflowing. It keeps the border of the button: add btnTransparent or btnText for a button with none.
@@ -15,10 +15,9 @@
  * - btnMini: applies the smallest size variant.
  * - btnVertical: stacks the content vertically, the icon above the label, with the same padding on every side.
  * - btnTwoState: for a label marked as a button that wraps its own checkbox or radio: hides the input, which still carries the semantics and the keyboard, and draws the checked state with --button-background-twoState, --button-color-twoState, --button-borderColor-twoState and --button-shadow-twoState. Without it the input stays visible and nothing changes when it is checked.
- * - btnCurrent: gives the button the current look — the color, background, border and shadow of --button-*-current — while it carries aria-current="page" or aria-selected="true". Without it those attributes change nothing, so a button that is never marked current does not pay for the rule.
  * - btnForNavSmart: sizes the button as an item of the floating navSmart bar: icon above the label, no background, pill-shaped, and the current look for the page you are on (aria-current) or the panel that is open (aria-expanded). Next to btnIconOnly it drops the label's minimum width and becomes a square as wide as the bar is tall.
  * - btnTransparent: drops the background and the border at rest, so only the label shows; on hover it fills like any other button. Unlike btnText it leaves the other states alone, so the same button still fills in when it carries btnStrong or aria-current.
- * - btnText: text only: no border, no radius, no shadow and a transparent background in every state, so it never fills in on hover, aria-current or checked. Only the label color changes: --clickable-onlyText-color at rest, --hover-onlyText-color on hover, --current-onlyText-color when it is current (with btnCurrent) and --twoState-onlyText-color when checked (with btnTwoState). It has no padding on the sides (--button-paddingInline: 0px), so the button is exactly as wide as the label.
+ * - btnText: text only: no border, no radius, no shadow and a transparent background in every state, so it never fills in on hover, aria-current or checked. Only the label color changes: --clickable-onlyText-color at rest, --hover-onlyText-color on hover, --current-onlyText-color when it is current (aria-current="page" or aria-selected="true") and --twoState-onlyText-color when checked (with btnTwoState). It has no padding on the sides (--button-paddingInline: 0px), so the button is exactly as wide as the label.
  * - btnNotHover: the button does not answer the pointer, so it keeps its look on hover; a button that is a container for something else, such as a search form or a step dot, takes it.
  * - btnPrimary: applies the primary color palette.
  * - btnSecondary: replaces the primary button accent with the secondary color palette.
@@ -110,10 +109,10 @@
     </button>
 </section>
 
-<demo demo-h3="Current" demo-description="btnCurrent turns on the look of the button the page is on: aria-current=&quot;page&quot; (a link) or aria-selected=&quot;true&quot; (a tab). It is the flag that reads those attributes, so write it on every button that can be marked current."></demo>
+<demo demo-h3="Current" demo-description="A button takes the look of the current one, the --button-*-current color, background, border and shadow, as soon as it carries aria-current=&quot;page&quot; (a link) or aria-selected=&quot;true&quot; (a tab). No option: the attribute that tells assistive technology it is the current one draws it too."></demo>
 <section demo="component">
-    <a pgs="button['btnCurrent']" href="/" aria-current="page">Current page</a>
-    <a pgs="button['btnCurrent']" href="/other">Another page</a>
+    <a pgs="button" href="/" aria-current="page">Current page</a>
+    <a pgs="button" href="/other">Another page</a>
 </section>
 
 <demo demo-h3="Text only" demo-description="Only the label, with no background, border or side padding in any state: its color follows --clickable-onlyText-color at rest and --hover-onlyText-color on hover."></demo>

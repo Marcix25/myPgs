@@ -6,7 +6,9 @@
 
     //## state
     &:where(:not([pgs*="'btnNotHover'"])) { @include buttonHover(); }
-    &:where([pgs*="'btnCurrent'"]) { @include buttonCurrent(); }
+    // the current look follows the markup: a button that is the page you are on or the selected one says so
+    // with aria-current="page" or aria-selected="true", and that alone draws it
+    @include buttonCurrent();
     &:where([pgs*="'btnTwoState'"]) { @include buttonTwoState(); }
     //## type
     &:where([pgs*="'btnReverse'"]) { @include buttonReverseIcon(); }

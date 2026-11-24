@@ -1,7 +1,7 @@
 //= PAGINATION
 // the pages of a list split in several pages (an archive, a shop, search results): each page is a
 // button the author writes, so the component owns only the row they sit in and the ellipsis
-// between them. The page the reader is on is the button with aria-current="page" and btnCurrent
+// between them. The page the reader is on is the button with aria-current="page", drawn as current by the button itself
 [pgs~="pagination"] {
     --pagination-gap: var(--gap-details);
     --pagination-justifyContent: flex-start;

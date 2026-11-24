@@ -19,7 +19,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 - `_slides-arrows-prev`: put first in _slides-arrows when no slides-prev was written by hand.
 - `_slides-arrows-next`: put last in _slides-arrows when no slides-next was written by hand.
 - `_slides-dots`: appended at the end of the component when no slides-dots was written by hand.
-- `_slides-dots-dot`: one dot inside the dots row, built and kept in step with the number of slides. It is written on every child of the row, so a row placed by hand holds the same dots.
+- `_slides-dots-dot`: one dot inside the dots row, built and kept in step with the number of slides. It is written on every child of the row, so a row placed by hand holds the same dots. The dot of the slide in view takes --slides-dots-dot-background-active, the current color (--current-color) by default: a dot holds no text, so the strong color of the state is what makes it stand out.
 
 ## PGS Options (component brackets)
 
@@ -78,6 +78,7 @@ A horizontal, scroll-snapped track of slides with its own arrows and position do
 
 - `--slides-arrows-size`
 - `--slides-arrows-space`
+- `--slides-dots-dot-background-active`
 - `--slides-maskEnd`
 - `--slides-maskSize`
 - `--slides-maskStart`

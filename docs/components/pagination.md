@@ -2,7 +2,7 @@
 
 # Pagination
 
-Links to the pages of a list split in several pages, such as an archive, a shop or search results. Each page is a button you write, the one the reader is on carries aria-current="page" and btnCurrent; the component lays them in a row that wraps and draws the ellipsis between distant pages. --pagination-justifyContent aligns the row (flex-start by default, center or flex-end), --pagination-gap spaces it.
+Links to the pages of a list split in several pages, such as an archive, a shop or search results. Each page is a button you write, the one the reader is on carries aria-current="page", which gives it the current look of the button; the component lays them in a row that wraps and draws the ellipsis between distant pages. --pagination-justifyContent aligns the row (flex-start by default, center or flex-end), --pagination-gap spaces it.
 
 ## PGS
 
@@ -22,7 +22,6 @@ Links to the pages of a list split in several pages, such as an archive, a shop 
 ### PGS Options (component brackets)
 
 - `btnMini`: inside button's own bracket, keeps the pages compact.
-- `btnCurrent`: inside button's own bracket, gives the current page its look while it carries aria-current="page".
 - `btnIconOnly`: inside button's own bracket, makes the previous and next links square.
 - `icon-chevronDown`: the chevron the arrows are made of.
 - `rot90`: inside rotate's own bracket, points the chevron to the left.
@@ -54,15 +53,15 @@ Previous and next links around the numbers, the current page marked with aria-cu
         </li>
 
         <li pgs="pagination-item">
-            <a pgs="button['btnMini' 'btnCurrent']" href="?page=1">1</a>
+            <a pgs="button['btnMini']" href="?page=1">1</a>
         </li>
 
         <li pgs="pagination-item">
-            <span pgs="button['btnMini' 'btnCurrent']" aria-current="page">2</span>
+            <span pgs="button['btnMini']" aria-current="page">2</span>
         </li>
 
         <li pgs="pagination-item">
-            <a pgs="button['btnMini' 'btnCurrent']" href="?page=3">3</a>
+            <a pgs="button['btnMini']" href="?page=3">3</a>
         </li>
 
         <li pgs="pagination-item">
@@ -70,7 +69,7 @@ Previous and next links around the numbers, the current page marked with aria-cu
         </li>
 
         <li pgs="pagination-item">
-            <a pgs="button['btnMini' 'btnCurrent']" href="?page=12">12</a>
+            <a pgs="button['btnMini']" href="?page=12">12</a>
         </li>
 
         <li pgs="pagination-item">
