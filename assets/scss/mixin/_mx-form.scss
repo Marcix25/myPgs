@@ -383,6 +383,7 @@
         position: relative;
         width: var(--radio-size);
         min-width: var(--radio-size);
+        flex-shrink: 0;
         height: var(--radio-size);
         cursor: pointer;
         @include center();

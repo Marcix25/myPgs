@@ -871,6 +871,7 @@
   position: relative;
   width: var(--radio-size);
   min-width: var(--radio-size);
+  flex-shrink: 0;
   height: var(--radio-size);
   cursor: pointer;
   display: flex;
@@ -2170,6 +2171,7 @@
   margin-left: auto;
   cursor: pointer;
   min-width: calc(var(--toggle-size) * 2);
+  flex-shrink: 0;
   order: 1;
   background: var(--toggle-rail-background);
   color: var(--toggle-thumb-background);

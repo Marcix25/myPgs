@@ -93,6 +93,9 @@
         margin-left: auto;
         cursor: pointer;
         min-width: calc(var(--toggle-size) * 2);
+        // never narrower than its rail (which also has the border): a text that wraps beside it
+        // would otherwise squeeze it and the rail would stick out on the right
+        flex-shrink: 0;
         order: 1;
         // the states are written on the input and the rail and the thumb take them: the rail is the
         // background and the border color, the thumb is the color

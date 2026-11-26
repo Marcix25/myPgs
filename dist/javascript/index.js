@@ -945,14 +945,31 @@ function accordionTiming(accordion) {
 // an animation of its own. Returns the function that stops the loop: the accordion keeps the
 // latest one, so a second click cancels the first loop instead of running beside it, and
 // destroy() stops it too
+//## SCROLLER
+// what to scroll to hold the element: the nearest ancestor that scrolls on its own (the scrolling body
+// of a modal, a panel with overflow), else the window. Inside something fixed (a modal, a drawer, a
+// banner pinned to the screen) with nothing scrolling in between there is nothing to scroll: the page
+// underneath does not carry it, and moving it would only shift the page behind the dialog
+function scrollerOf(element) {
+    for (let node = element.parentElement; node && node !== document.body && node !== document.documentElement; node = node.parentElement) {
+        const style = window.getComputedStyle(node);
+        if (/(auto|scroll|overlay)/.test(style.overflowY)) return node;
+        if (style.position === "fixed") return null;
+    }
+    return window;
+}
+
 function keepInPlace(element, duration) {
+    const scroller = scrollerOf(element);
+    if (!scroller) return () => {};
+
     const startTop = element.getBoundingClientRect().top;
     const end = performance.now() + duration + 50;
     let frame = 0;
 
     function step(now) {
         const delta = element.getBoundingClientRect().top - startTop;
-        if (Math.abs(delta) >= 1) window.scrollBy({ top: delta, behavior: "instant" });
+        if (Math.abs(delta) >= 1) scroller.scrollBy({ top: delta, behavior: "instant" });
         frame = now < end ? requestAnimationFrame(step) : 0;
     }
 
@@ -1057,9 +1074,10 @@ function initializeAccordion(accordion) {
         if (!isMultiOpen) closeOtherAccordion();
 
         // once the layout has settled, only scroll if the button ended up out of view (an
-        // open() called from code, say): the reader's own click is already held in place
+        // open() called from code, say): the reader's own click is already held in place. Not inside
+        // something fixed, where it would only move the page behind it (see scrollerOf)
         window.clearTimeout(scrollTimer);
-        if (nowOpen) scrollTimer = window.setTimeout(() => {
+        if (nowOpen && scrollerOf(BUTTON)) scrollTimer = window.setTimeout(() => {
             const rect = BUTTON.getBoundingClientRect();
             if (rect.top < 0 || rect.bottom > window.innerHeight) BUTTON.scrollIntoView({ block: "nearest", inline: "nearest" });
         }, timing + 60);
